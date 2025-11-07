@@ -24,17 +24,37 @@ function Packages() {
   return <></>;
 }
 
+function Facilitators() {
+  return <></>;
+}
+
+function Testimonials() {
+  return <></>;
+}
+
+function FrequentlyAskedQuestions() {
+  return <></>;
+}
+
+function Footer() {
+  return <></>;
+}
+
 export default function Home() {
   return (
     <>
+      <Navigation />
       <div>
-        <Navigation />
         <Hero />
         <AboutUs />
         <Offerings />
         <Schedule />
         <Packages />
+        <Facilitators />
+        <Testimonials />
+        <FrequentlyAskedQuestions />
       </div>
+      <Footer />
     </>
   );
 }
