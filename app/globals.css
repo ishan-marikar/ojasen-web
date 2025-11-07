@@ -53,13 +53,13 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #68887d;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: #d6ddcb;
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: #d6ddcb;
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: #d6ddcb;
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -87,13 +87,13 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: #68887d;
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: #d6ddcb;
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: #d6ddcb;
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: #d6ddcb;
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -128,5 +128,132 @@
   
   button, [role="button"] {
     @apply text-button font-semibold text-xs uppercase tracking-wide;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .animate-float-slow {
+    animation: float 10s ease-in-out infinite;
+  }
+  
+  .animate-float-fast {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-float-scale {
+    animation: float-scale 9s ease-in-out infinite;
+  }
+  
+  .animation-delay-0 {
+    animation-delay: 0s;
+  }
+  
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-3000 {
+    animation-delay: 3s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  
+  .animation-delay-5000 {
+    animation-delay: 5s;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    33% {
+      transform: translate(10px, -20px) rotate(5deg);
+    }
+    66% {
+      transform: translate(-5px, -10px) rotate(2deg);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+  }
+  
+  @keyframes float-reverse {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    33% {
+      transform: translate(-10px, -15px) rotate(-4deg);
+    }
+    66% {
+      transform: translate(5px, -12px) rotate(-2deg);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+  }
+  
+  @keyframes float-diagonal {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    33% {
+      transform: translate(15px, -15px) rotate(6deg);
+    }
+    66% {
+      transform: translate(8px, -20px) rotate(3deg);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+  }
+  
+  @keyframes float-scale {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg) scale(1);
+    }
+    33% {
+      transform: translate(8px, -18px) rotate(4deg) scale(1.05);
+    }
+    66% {
+      transform: translate(-3px, -12px) rotate(2deg) scale(0.98);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg) scale(1);
+    }
+  }
+  
+  .animate-float-diagonal {
+    animation: float-diagonal 9s ease-in-out infinite;
+  }
+  
+  /* Depth layers for parallax effect */
+  .depth-layer-1 {
+    z-index: 1;
+  }
+  
+  .depth-layer-2 {
+    z-index: 2;
+  }
+  
+  .depth-layer-3 {
+    z-index: 3;
+  }
+  
+  .depth-layer-4 {
+    z-index: 4;
+  }
+  
+  .depth-layer-5 {
+    z-index: 5;
   }
 }
