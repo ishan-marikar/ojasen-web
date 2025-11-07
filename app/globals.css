@@ -236,6 +236,28 @@
     animation: float-diagonal 9s ease-in-out infinite;
   }
   
+  @keyframes float-meditate {
+    0% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-15px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    75% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-float-meditate {
+    animation: float-meditate 6s ease-in-out infinite;
+  }
+  
   /* Depth layers for parallax effect */
   .depth-layer-1 {
     z-index: 1;
