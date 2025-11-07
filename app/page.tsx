@@ -211,13 +211,13 @@ function Event({
   image: string;
 }) {
   return (
-    <div className="bg-white backdrop-blur-sm rounded-lg overflow-hidden shadow-lg border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40">
+    <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40">
       <div className="relative aspect-[4/3] w-full">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover"
+          className="object-cover rounded-l-4xl rounded-r-1xl"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
