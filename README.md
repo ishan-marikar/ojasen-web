@@ -20,6 +20,34 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Authentication
+
+This project uses [better-auth](https://www.better-auth.com/) for authentication with Prisma as the database adapter. The following environment variables are required:
+
+- `BETTER_AUTH_SECRET` - A random string used to sign cookies and JWTs
+- `BETTER_AUTH_URL` - The base URL of your application (e.g., http://localhost:3000)
+- `NEXT_PUBLIC_APP_URL` - The public URL of your application (e.g., http://localhost:3000)
+- `DATABASE_URL` - The URL to your database (e.g., file:./dev.db for SQLite)
+
+For development, you can use a `.env.local` file with the following content:
+
+```
+BETTER_AUTH_SECRET=your-secret-key-here
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+DATABASE_URL=file:./dev.db
+```
+
+## Prisma Setup
+
+This project uses Prisma as the database ORM. To set up the database:
+
+1. Make sure you have the required environment variables set up
+2. Run `npx prisma generate` to generate the Prisma client
+3. Run `npx prisma db push` to create the database and tables
+
+For production, you should use proper migrations instead of `db push`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
