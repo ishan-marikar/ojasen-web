@@ -117,12 +117,12 @@ function AboutUs() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary pt-10 pb-4">
             About Us
           </span>
-          <h3 className="text-3xl">Discover our deep anal "Bugra" treatment</h3>
+          <h3 className="text-3xl">Discover our holistic treatments</h3>
           <div className="pb-10 mt-6 text-lg">
-            Our journey in the world of yoga and wellness started with a profound
-            belief in the transformative power of self-care. Our mission is to
-            guide individuals on a path to holistic health, happiness, and inner
-            peace.
+            Our journey in the world of yoga and wellness started with a
+            profound belief in the transformative power of self-care. Our
+            mission is to guide individuals on a path to holistic health,
+            happiness, and inner peace.
           </div>
           <div className="flex justify-center pb-4">
             <Image
@@ -134,9 +134,9 @@ function AboutUs() {
             />
           </div>
           <div className="pb-1 mt-4 text-lg">
-            Our vision is to be a haven for those seeking balance in their lives.
-            We aspire to be a guiding light on your wellness journey, providing a
-            sanctuary for self-discovery and healing.
+            Our vision is to be a haven for those seeking balance in their
+            lives. We aspire to be a guiding light on your wellness journey,
+            providing a sanctuary for self-discovery and healing.
           </div>
           <div className="my-3 mb-8">
             <LearnMoreButton />
@@ -1018,10 +1018,10 @@ function Offerings() {
             Find our diverse offerings to හීලින්ග් yourself
           </h3>
           <div className="pb-10 mt-6 text-lg">
-            Our journey in the world of yoga and wellness started with a profound
-            belief in the transformative power of self-care. Our mission is to
-            guide individuals on a path to holistic health, happiness, and inner
-            peace.
+            Our journey in the world of yoga and wellness started with a
+            profound belief in the transformative power of self-care. Our
+            mission is to guide individuals on a path to holistic health,
+            happiness, and inner peace.
           </div>
           <div className="space-y-8">
             {offerings.map((offering, index) => (
