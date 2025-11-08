@@ -259,7 +259,7 @@ function Packages() {
 function Facilitators() {
   return (
     <>
-      <div className="bg-[#f7faf6] pt-20 pb-24 relative overflow-hidden">
+      <div className="bg-[#f7faf6] pt-20 pb-24 relative overflow-hidden" id="healers">
         {/* Floating decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
@@ -344,6 +344,13 @@ function Facilitators() {
             />
           </div>
         </div>
+        <div className="text-center mt-12">
+          <Link href="/healers" className="inline-block">
+            <button className="rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-6 py-3 text-primary text-sm font-medium transition-colors duration-300">
+              View All Healers
+            </button>
+          </Link>
+        </div>
         <p className="text-[#525A52] max-w-2xl mx-auto text-lg px-6 text-center mt-12">
           We are committed to providing a tranquil space where you can nurture
           your body, mind, and spirit.
@@ -362,8 +369,17 @@ function Healer({
   role: string;
   image: string;
 }) {
+  // Map healer names to their profile links
+  const healerLinks: Record<string, string> = {
+    "Oshadi": "/healers/oshadi",
+    "Alice": "/healers/alice",
+    "Deborah": "/healers/deborah"
+  };
+  
+  const link = healerLinks[name] || "/healers";
+  
   return (
-    <div className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative">
+    <Link href={link} className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative">
       <div className="absolute inset-0 bg-gradient-to-br from-[#f7faf6] to-white opacity-70 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#68887d]/30 transition-all duration-500 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl shadow-[inset_0_1px_0px_0px_rgba(255,255,255,0.1)] pointer-events-none"></div>
@@ -389,7 +405,7 @@ function Healer({
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -761,7 +777,7 @@ function Footer() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="#"
+                    href="/"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Home
@@ -769,7 +785,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/about"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     About Us
@@ -777,7 +793,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/services"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Services
@@ -785,7 +801,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/events"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Events
@@ -793,7 +809,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/contact"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Contact
@@ -808,7 +824,7 @@ function Footer() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="#"
+                    href="/services/yoga-meditation"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Yoga & Meditation
@@ -816,7 +832,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/services/sound-healing"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Sound Healing
@@ -824,7 +840,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/services/energy-healing"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Energy Healing
@@ -832,7 +848,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/services/breathwork"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Breathwork
@@ -840,10 +856,42 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/services/wellness-retreats"
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Wellness Retreats
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/ice-bath-breathwork"
+                    className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  >
+                    Ice Bath & Breathwork
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/ecstatic-dancing"
+                    className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  >
+                    Ecstatic Dancing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/singing-circle"
+                    className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  >
+                    Singing Circle
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services/kakou-healing-ceremony"
+                    className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  >
+                    Kakou Healing Ceremony
                   </a>
                 </li>
               </ul>
@@ -892,7 +940,7 @@ function Footer() {
                     />
                   </svg>
                   <span className="text-[#c4c9c4] text-lg">
-                    <a href="+tel:+94762777482">+94 076 277 7482</a>
+                    <a href="tel:+94762777482">+94 076 277 7482</a>
                   </span>
                 </li>
                 <li className="flex items-center">
@@ -974,36 +1022,63 @@ function Offerings() {
       description:
         "Experience the harmony of body and mind through our guided yoga and meditation sessions.",
       icon: "/images/offerings/icon08-RNKGNCE.png",
+      link: "/services/yoga-meditation"
     },
     {
       title: "Sound Healing",
       description:
         "Experience the power of sound healing in our serene sanctuary.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
+      link: "/services/sound-healing"
     },
     {
-      title: "Ice Bath and Breathwork",
+      title: "Ice Bath",
       description:
-        "Revitalize your body and mind with our invigorating ice bath and breathwork sessions.",
+        "Rejuvenate your body and mind with our invigorating ice bath sessions.",
       icon: "/images/offerings/icon14-RNKGNCE.png",
+      link: "/services/ice-bath-breathwork"
+    },
+    {
+      title: "Breathwork",
+      description:
+        "Revitalize your body and mind with our conscious breathing sessions.",
+      icon: "/images/offerings/icon14-RNKGNCE.png",
+      link: "/services/breathwork"
+    },
+    {
+      title: "Ecstatic Dancing",
+      description:
+        "Dance your way to freedom and authentic self-expression.",
+      icon: "/images/offerings/icon17-RNKGNCE.png",
+      link: "/services/ecstatic-dancing"
     },
     {
       title: "Singing Circle",
       description:
         "Join our community in harmonious singing to uplift your spirit and connect with others.",
       icon: "/images/offerings/icon17-RNKGNCE.png",
+      link: "/services/singing-circle"
     },
     {
-      title: "Cacou Healing Ceremony",
+      title: "Kakou Healing Ceremony",
       description:
         "Participate in our sacred Kakou healing ceremonies for deep spiritual transformation.",
       icon: "/images/offerings/icon24-RNKGNCE.png",
+      link: "/services/kakou-healing-ceremony"
     },
     {
       title: "Energy Healing",
       description:
         "Balance your energy centers with our specialized healing sessions.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
+      link: "/services/energy-healing"
+    },
+    {
+      title: "Wellness Retreats",
+      description:
+        "Immerse yourself in transformative wellness experiences in our natural sanctuary.",
+      icon: "/images/offerings/icon24-RNKGNCE.png",
+      link: "/services/wellness-retreats"
     },
   ];
 
@@ -1015,7 +1090,7 @@ function Offerings() {
             Healing Facilities
           </span>
           <h3 className="text-3xl">
-            Find our diverse offerings to හීලින්ග් yourself
+            Find our diverse offerings to heal yourself
           </h3>
           <div className="pb-10 mt-6 text-lg">
             Our journey in the world of yoga and wellness started with a
@@ -1030,6 +1105,7 @@ function Offerings() {
                 title={offering.title}
                 description={offering.description}
                 icon={offering.icon}
+                link={offering.link}
               />
             ))}
           </div>
@@ -1043,14 +1119,16 @@ function Facility({
   title,
   description,
   icon,
+  link
 }: {
   title: string;
   description: string;
   icon: string;
+  link: string;
 }) {
   return (
     <>
-      <div className="flex items-center">
+      <Link href={link} className="flex items-center group">
         <img
           src={icon}
           alt={title}
@@ -1059,7 +1137,7 @@ function Facility({
           className="rounded-l-4xl rounded-tr-4xl mr-3"
         />
         <div>
-          <h5 className="text-2xl">{title}</h5>
+          <h5 className="text-2xl group-hover:text-[#68887d] transition-colors duration-300">{title}</h5>
           <div className="py-2">{description}</div>
           <div className="text-primary font-medium cursor-pointer hover:text-[#2b332d] transition-all duration-300 inline-flex items-center group">
             Learn More
@@ -1079,7 +1157,7 @@ function Facility({
             </svg>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   );
 }

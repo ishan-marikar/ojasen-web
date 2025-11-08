@@ -19,10 +19,11 @@ export function Navigation() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/#about" },
-    { name: "Services", href: "/#services" },
-    { name: "Events", href: "/#events" },
-    { name: "Contact", href: "/#contact" },
+    { name: "About Us", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Events", href: "/events" },
+    { name: "Healers", href: "/healers" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
