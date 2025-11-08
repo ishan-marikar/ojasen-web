@@ -22,6 +22,7 @@ export function Navigation() {
     { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Events", href: "/events" },
+    { name: "Booking", href: "/booking" },
     { name: "Healers", href: "/healers" },
     { name: "Contact", href: "/contact" },
   ];

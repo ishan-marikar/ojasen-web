@@ -311,6 +311,13 @@ function Event({
             <span>{time}</span>
           </div>
         </div>
+        <div className="mt-6">
+          <Link href="/booking" className="block">
+            <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
+              Book Now
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -876,6 +883,14 @@ function Footer() {
                     className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
                   >
                     Events
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/booking"
+                    className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  >
+                    Booking
                   </a>
                 </li>
                 <li>
