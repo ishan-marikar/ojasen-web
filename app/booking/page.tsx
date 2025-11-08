@@ -16,7 +16,11 @@ export default function BookingPage() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -26,7 +30,7 @@ export default function BookingPage() {
     // In a real application, you would send this data to your backend
     console.log("Booking data:", formData);
     setIsSubmitted(true);
-    
+
     // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false);
@@ -49,7 +53,8 @@ export default function BookingPage() {
     location: "The Island - Ahangama",
     price: "LKR 15,000",
     image: "/images/events/event-01.jpg",
-    description: "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices."
+    description:
+      "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices.",
   };
 
   return (
@@ -69,19 +74,23 @@ export default function BookingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Event Details */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
-              <h2 className="text-2xl font-light text-[#191d18] mb-6">Event Details</h2>
-              
+              <h2 className="text-2xl font-light text-[#191d18] mb-6">
+                Event Details
+              </h2>
+
               <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden">
-                <img 
-                  src={event.image} 
-                  alt={event.title} 
+                <img
+                  src={event.image}
+                  alt={event.title}
                   className="w-full h-full object-cover"
                 />
               </div>
-              
-              <h3 className="text-xl font-light text-[#191d18] mb-4">{event.title}</h3>
+
+              <h3 className="text-xl font-light text-[#191d18] mb-4">
+                {event.title}
+              </h3>
               <p className="text-[#525A52] mb-6">{event.description}</p>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center text-[#191d18]">
                   <Calendar className="h-5 w-5 mr-3 text-[#68887d]" />
@@ -96,20 +105,27 @@ export default function BookingPage() {
                   <span>{event.location}</span>
                 </div>
                 <div className="flex items-center text-[#191d18]">
-                  <span className="font-medium text-lg">Price: {event.price}</span>
+                  <span className="font-medium text-lg">
+                    Price: {event.price}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Booking Form */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
-              <h2 className="text-2xl font-light text-[#191d18] mb-6">Booking Information</h2>
-              
+              <h2 className="text-2xl font-light text-[#191d18] mb-6">
+                Booking Information
+              </h2>
+
               {isSubmitted ? (
                 <div className="bg-[#CDEDD4] rounded-2xl p-8 text-center">
-                  <h3 className="text-2xl font-light text-[#191d18] mb-4">Booking Confirmed!</h3>
+                  <h3 className="text-2xl font-light text-[#191d18] mb-4">
+                    Booking Confirmed!
+                  </h3>
                   <p className="text-[#525A52] mb-6">
-                    Thank you for your booking. We've sent a confirmation to your email.
+                    Thank you for your booking. We've sent a confirmation to
+                    your email.
                   </p>
                   <p className="text-[#525A52]">
                     Our team will contact you shortly to finalize the details.
@@ -137,7 +153,10 @@ export default function BookingPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-[#191d18] mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-[#191d18] mb-2"
+                    >
                       Email Address
                     </label>
                     <div className="relative">
@@ -156,7 +175,10 @@ export default function BookingPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-[#191d18] mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="block text-[#191d18] mb-2"
+                    >
                       Phone Number
                     </label>
                     <div className="relative">
@@ -190,7 +212,10 @@ export default function BookingPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="participants" className="block text-[#191d18] mb-2">
+                    <label
+                      htmlFor="participants"
+                      className="block text-[#191d18] mb-2"
+                    >
                       Number of Participants
                     </label>
                     <select
@@ -209,7 +234,10 @@ export default function BookingPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-[#191d18] mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-[#191d18] mb-2"
+                    >
                       Special Requests
                     </label>
                     <textarea
