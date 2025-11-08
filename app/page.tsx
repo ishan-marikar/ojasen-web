@@ -16,7 +16,7 @@ function Hero() {
         <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
           Your wellness sanctuary
         </div>
-        <h1 className="mx-3 text-4xl text-[#191d18] pt-4 text-center">
+        <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
           Awaken the life within
         </h1>
         {/* Floating flowers */}
@@ -24,7 +24,7 @@ function Hero() {
           {/* Background layer - subtle, more blurred */}
           <div className="absolute top-1/3 left-1/6 animate-float-slow animation-delay-0 depth-layer-1">
             <Image
-              src="/hero/flower02.png"
+              src="/images/hero/flower02.png"
               alt="Floating Flower"
               width={48}
               height={48}
@@ -33,7 +33,7 @@ function Hero() {
           </div>
           <div className="absolute top-1/4 right-1/5 animate-float-reverse animation-delay-2000 depth-layer-1">
             <Image
-              src="/hero/flower03.png"
+              src="/images/hero/flower03.png"
               alt="Floating Flower"
               width={36}
               height={36}
@@ -44,7 +44,7 @@ function Hero() {
           {/* Middle layer - medium visibility, medium blur */}
           <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
             <Image
-              src="/hero/flower03.png"
+              src="/images/hero/flower03.png"
               alt="Floating Flower"
               width={52}
               height={52}
@@ -55,7 +55,7 @@ function Hero() {
           {/* Foreground layer - clearer, less blurred */}
           <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
             <Image
-              src="/hero/flower02.png"
+              src="/images/hero/flower02.png"
               alt="Floating Flower"
               width={60}
               height={60}
@@ -64,7 +64,7 @@ function Hero() {
           </div>
           <div className="absolute top-1/6 right-1/4 animate-float-scale animation-delay-4000 depth-layer-3">
             <Image
-              src="/hero/flower03.png"
+              src="/images/hero/flower03.png"
               alt="Floating Flower"
               width={44}
               height={44}
@@ -74,7 +74,7 @@ function Hero() {
         </div>
         <div className="mt-3 relative z-10">
           <Image
-            src="/hero/hero.png"
+            src="/images/hero/hero.png"
             alt="Facilitator"
             width={400}
             height={400}
