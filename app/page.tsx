@@ -112,34 +112,36 @@ function LearnMoreButton() {
 function AboutUs() {
   return (
     <>
-      <div className="bg-[#2b332d] px-6 text-[#dbeade] pt-20 pb-10">
-        <span className="text-sm uppercase  font-medium tracking-wider text-primary pt-10 pb-4">
-          About Us
-        </span>
-        <h3 className="text-3xl">Discover our deep anal "Bugra" treatment</h3>
-        <div className="pb-10 mt-6 text-lg">
-          Our journey in the world of yoga and wellness started with a profound
-          belief in the transformative power of self-care. Our mission is to
-          guide individuals on a path to holistic health, happiness, and inner
-          peace.
+      <div className="bg-[#2b332d] px-6 text-[#dbeade] pt-20 pb-16">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-sm uppercase font-medium tracking-wider text-primary pt-10 pb-4">
+            About Us
+          </span>
+          <h3 className="text-3xl">Discover our deep anal "Bugra" treatment</h3>
+          <div className="pb-10 mt-6 text-lg">
+            Our journey in the world of yoga and wellness started with a profound
+            belief in the transformative power of self-care. Our mission is to
+            guide individuals on a path to holistic health, happiness, and inner
+            peace.
+          </div>
+          <div className="flex justify-center pb-4">
+            <Image
+              src="/images/sound-healing.jpg"
+              alt="Sound Healing"
+              width={500}
+              height={300}
+              className="rounded-l-4xl rounded-tr-4xl"
+            />
+          </div>
+          <div className="pb-1 mt-4 text-lg">
+            Our vision is to be a haven for those seeking balance in their lives.
+            We aspire to be a guiding light on your wellness journey, providing a
+            sanctuary for self-discovery and healing.
+          </div>
+          <div className="my-3 mb-8">
+            <LearnMoreButton />
+          </div>
         </div>
-        <div className="flex justify-center pb-4">
-          <Image
-            src="/images/sound-healing.jpg"
-            alt="Sound Healing"
-            width={500}
-            height={300}
-            className="rounded-l-4xl rounded-tr-4xl"
-          />
-        </div>
-        <div className="pb-1 mt-4 text-lg">
-          Our vision is to be a haven for those seeking balance in their lives.
-          We aspire to be a guiding light on your wellness journey, providing a
-          sanctuary for self-discovery and healing.
-        </div>
-        <div className="my-3 mb-8">
-          <LearnMoreButton />
-        </div>{" "}
       </div>
     </>
   );
@@ -148,9 +150,9 @@ function AboutUs() {
 function Schedule() {
   return (
     <>
-      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16 rounded-t-4xl">
+      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-20 rounded-t-4xl">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <span className="text-sm uppercase font-medium tracking-wider text-primary">
               Schedule
             </span>
@@ -257,7 +259,7 @@ function Packages() {
 function Facilitators() {
   return (
     <>
-      <div className="bg-[#f7faf6] pt-20 pb-20 relative overflow-hidden">
+      <div className="bg-[#f7faf6] pt-20 pb-24 relative overflow-hidden">
         {/* Floating decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
@@ -342,7 +344,7 @@ function Facilitators() {
             />
           </div>
         </div>
-        <p className="text-[#525A52] max-w-2xl mx-auto text-lg px-6 text-center mt-8">
+        <p className="text-[#525A52] max-w-2xl mx-auto text-lg px-6 text-center mt-12">
           We are committed to providing a tranquil space where you can nurture
           your body, mind, and spirit.
         </p>
@@ -418,7 +420,7 @@ function Testimonials() {
 
   return (
     <>
-      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16 relative overflow-hidden">
+      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-24 relative overflow-hidden">
         {/* Floating decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
@@ -587,7 +589,7 @@ function FrequentlyAskedQuestions() {
 
   return (
     <>
-      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16 relative overflow-hidden">
+      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-24 relative overflow-hidden">
         {/* Floating decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
@@ -1007,28 +1009,30 @@ function Offerings() {
 
   return (
     <>
-      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-10">
-        <span className="text-sm uppercase  font-medium tracking-wider text-primary pt-10 pb-4">
-          Healing Facilities
-        </span>
-        <h3 className="text-3xl">
-          Find our diverse offerings to හීලින්ග් yourself
-        </h3>
-        <div className="pb-10 mt-6 text-lg">
-          Our journey in the world of yoga and wellness started with a profound
-          belief in the transformative power of self-care. Our mission is to
-          guide individuals on a path to holistic health, happiness, and inner
-          peace.
-        </div>
-        <div className="space-y-8">
-          {offerings.map((offering, index) => (
-            <Facility
-              key={index}
-              title={offering.title}
-              description={offering.description}
-              icon={offering.icon}
-            />
-          ))}
+      <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16">
+        <div className="max-w-6xl mx-auto">
+          <span className="text-sm uppercase font-medium tracking-wider text-primary pt-10 pb-4">
+            Healing Facilities
+          </span>
+          <h3 className="text-3xl">
+            Find our diverse offerings to හීලින්ග් yourself
+          </h3>
+          <div className="pb-10 mt-6 text-lg">
+            Our journey in the world of yoga and wellness started with a profound
+            belief in the transformative power of self-care. Our mission is to
+            guide individuals on a path to holistic health, happiness, and inner
+            peace.
+          </div>
+          <div className="space-y-8">
+            {offerings.map((offering, index) => (
+              <Facility
+                key={index}
+                title={offering.title}
+                description={offering.description}
+                icon={offering.icon}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
