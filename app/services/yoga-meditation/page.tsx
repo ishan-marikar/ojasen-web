@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Yoga and Meditation
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,9 +66,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Experience the harmony of body and mind through our guided yoga and meditation sessions
+        Experience the harmony of body and mind through our guided yoga and
+        meditation sessions
       </div>
     </div>
   );
@@ -83,13 +84,23 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Harmonize Your Mind and Body</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Our yoga and meditation sessions are designed to create a perfect balance between physical movement and mental stillness. Through carefully curated sequences and guided meditation practices, we help you connect with your inner self and find peace in the present moment.
+                Our yoga and meditation sessions are designed to create a
+                perfect balance between physical movement and mental stillness.
+                Through carefully curated sequences and guided meditation
+                practices, we help you connect with your inner self and find
+                peace in the present moment.
               </p>
               <p className="mb-4">
-                Whether you're a beginner or an experienced practitioner, our sessions are tailored to meet you where you are on your wellness journey. We offer various styles of yoga including Hatha, Vinyasa, and Restorative yoga, each designed to address different aspects of your well-being.
+                Whether you're a beginner or an experienced practitioner, our
+                sessions are tailored to meet you where you are on your wellness
+                journey. We offer various styles of yoga including Hatha,
+                Vinyasa, and Restorative yoga, each designed to address
+                different aspects of your well-being.
               </p>
               <p>
-                Our meditation practices range from mindfulness and breath awareness to loving-kindness meditation, providing you with tools to cultivate inner peace and emotional resilience.
+                Our meditation practices range from mindfulness and breath
+                awareness to loving-kindness meditation, providing you with
+                tools to cultivate inner peace and emotional resilience.
               </p>
             </div>
           </div>
@@ -103,62 +114,106 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Yoga and Meditation</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Physical Wellness</h4>
                 <p className="text-[#525A52]">
-                  Improved flexibility, strength, balance, and posture through mindful movement and alignment.
+                  Improved flexibility, strength, balance, and posture through
+                  mindful movement and alignment.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Mental Clarity</h4>
                 <p className="text-[#525A52]">
-                  Enhanced focus, concentration, and cognitive function through regular meditation practice.
+                  Enhanced focus, concentration, and cognitive function through
+                  regular meditation practice.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Stress Reduction</h4>
                 <p className="text-[#525A52]">
-                  Lower cortisol levels and improved stress management through breathing techniques and mindfulness.
+                  Lower cortisol levels and improved stress management through
+                  breathing techniques and mindfulness.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Balance</h4>
                 <p className="text-[#525A52]">
-                  Greater emotional regulation and resilience through self-awareness and inner reflection.
+                  Greater emotional regulation and resilience through
+                  self-awareness and inner reflection.
                 </p>
               </div>
             </div>
@@ -174,23 +229,27 @@ function SessionTypes() {
     {
       title: "Hatha Yoga",
       duration: "60 minutes",
-      description: "A gentle introduction to the most basic yoga postures focusing on alignment and breath awareness."
+      description:
+        "A gentle introduction to the most basic yoga postures focusing on alignment and breath awareness.",
     },
     {
       title: "Vinyasa Flow",
       duration: "75 minutes",
-      description: "A dynamic practice that links breath with movement in a flowing sequence of postures."
+      description:
+        "A dynamic practice that links breath with movement in a flowing sequence of postures.",
     },
     {
       title: "Restorative Yoga",
       duration: "90 minutes",
-      description: "A deeply relaxing practice using props to support the body in passive poses for extended periods."
+      description:
+        "A deeply relaxing practice using props to support the body in passive poses for extended periods.",
     },
     {
       title: "Mindfulness Meditation",
       duration: "45 minutes",
-      description: "Guided meditation focusing on present-moment awareness and breath observation."
-    }
+      description:
+        "Guided meditation focusing on present-moment awareness and breath observation.",
+    },
   ];
 
   return (
@@ -200,30 +259,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Choose Your Practice
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Choose Your Practice</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer a variety of session types to suit your needs and experience level.
+            We offer a variety of session types to suit your needs and
+            experience level.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +302,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +558,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

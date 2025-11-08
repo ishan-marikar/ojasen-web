@@ -13,7 +13,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Discover our healing services
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,9 +67,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Our comprehensive range of holistic wellness services designed to promote balance and well-being for mind, body, and spirit
+        Our comprehensive range of holistic wellness services designed to
+        promote balance and well-being for mind, body, and spirit
       </div>
     </div>
   );
@@ -79,52 +80,59 @@ function ServicesOverview() {
   const services = [
     {
       title: "Yoga and Meditation",
-      description: "Experience the harmony of body and mind through our guided yoga and meditation sessions.",
+      description:
+        "Experience the harmony of body and mind through our guided yoga and meditation sessions.",
       icon: "/images/offerings/icon08-RNKGNCE.png",
-      link: "/services/yoga-meditation"
+      link: "/services/yoga-meditation",
     },
     {
       title: "Sound Healing",
-      description: "Experience the power of sound healing in our serene sanctuary.",
+      description:
+        "Experience the power of sound healing in our serene sanctuary.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
-      link: "/services/sound-healing"
+      link: "/services/sound-healing",
     },
     {
       title: "Ice Bath and Breathwork",
-      description: "Revitalize your body and mind with our invigorating ice bath and breathwork sessions.",
+      description:
+        "Revitalize your body and mind with our invigorating ice bath and breathwork sessions.",
       icon: "/images/offerings/icon14-RNKGNCE.png",
-      link: "/services/ice-bath-breathwork"
+      link: "/services/ice-bath-breathwork",
     },
     {
       title: "Ecstatic Dancing",
       description: "Dance your way to freedom and authentic self-expression.",
       icon: "/images/offerings/icon17-RNKGNCE.png",
-      link: "/services/ecstatic-dancing"
+      link: "/services/ecstatic-dancing",
     },
     {
       title: "Singing Circle",
-      description: "Join our community in harmonious singing to uplift your spirit and connect with others.",
+      description:
+        "Join our community in harmonious singing to uplift your spirit and connect with others.",
       icon: "/images/offerings/icon17-RNKGNCE.png",
-      link: "/services/singing-circle"
+      link: "/services/singing-circle",
     },
     {
       title: "Kakou Healing Ceremony",
-      description: "Participate in our sacred Kakou healing ceremonies for deep spiritual transformation.",
+      description:
+        "Participate in our sacred Kakou healing ceremonies for deep spiritual transformation.",
       icon: "/images/offerings/icon24-RNKGNCE.png",
-      link: "/services/kakou-healing-ceremony"
+      link: "/services/kakou-healing-ceremony",
     },
     {
       title: "Energy Healing",
-      description: "Balance your energy centers with our specialized healing sessions.",
+      description:
+        "Balance your energy centers with our specialized healing sessions.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
-      link: "/services/energy-healing"
+      link: "/services/energy-healing",
     },
     {
       title: "Wellness Retreats",
-      description: "Immerse yourself in transformative wellness experiences in our natural sanctuary.",
+      description:
+        "Immerse yourself in transformative wellness experiences in our natural sanctuary.",
       icon: "/images/offerings/icon24-RNKGNCE.png",
-      link: "/services/wellness-retreats"
-    }
+      link: "/services/wellness-retreats",
+    },
   ];
 
   return (
@@ -138,13 +146,14 @@ function ServicesOverview() {
             Holistic healing experiences
           </h2>
           <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
-            Each service is designed to promote balance and well-being for mind, body, and spirit through ancient wisdom and modern techniques.
+            Each service is designed to promote balance and well-being for mind,
+            body, and spirit through ancient wisdom and modern techniques.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <ServiceCard 
+            <ServiceCard
               key={index}
               title={service.title}
               description={service.description}
@@ -158,14 +167,19 @@ function ServicesOverview() {
   );
 }
 
-function ServiceCard({ title, description, icon, link }: { 
-  title: string; 
-  description: string; 
+function ServiceCard({
+  title,
+  description,
+  icon,
+  link,
+}: {
+  title: string;
+  description: string;
   icon: string;
   link: string;
 }) {
   return (
-    <Link 
+    <Link
       href={link}
       className="group bg-white rounded-4xl border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40 overflow-hidden"
     >
@@ -182,9 +196,7 @@ function ServiceCard({ title, description, icon, link }: {
             {title}
           </h3>
         </div>
-        <p className="text-[#525A52] mb-4">
-          {description}
-        </p>
+        <p className="text-[#525A52] mb-4">{description}</p>
         <div className="text-primary font-medium cursor-pointer hover:text-[#2b332d] transition-all duration-300 inline-flex items-center group">
           Learn More
           <svg
@@ -219,13 +231,21 @@ function WellnessApproach() {
             <h2 className="text-3xl mb-6">Holistic Wellness Philosophy</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Our holistic approach recognizes that true wellness encompasses the mind, body, and spirit. We believe in addressing the root causes of imbalance rather than just treating symptoms.
+                Our holistic approach recognizes that true wellness encompasses
+                the mind, body, and spirit. We believe in addressing the root
+                causes of imbalance rather than just treating symptoms.
               </p>
               <p className="mb-4">
-                Each service is carefully designed to work in harmony with your natural energy systems, promoting deep healing and sustainable well-being. Our experienced facilitators guide you through transformative experiences that empower you to take charge of your health journey.
+                Each service is carefully designed to work in harmony with your
+                natural energy systems, promoting deep healing and sustainable
+                well-being. Our experienced facilitators guide you through
+                transformative experiences that empower you to take charge of
+                your health journey.
               </p>
               <p>
-                We combine ancient wisdom traditions with modern therapeutic techniques to create personalized healing experiences that resonate with your unique needs and goals.
+                We combine ancient wisdom traditions with modern therapeutic
+                techniques to create personalized healing experiences that
+                resonate with your unique needs and goals.
               </p>
             </div>
           </div>
@@ -253,7 +273,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -500,7 +521,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

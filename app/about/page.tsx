@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Discover our holistic journey
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="mt-8 relative z-10">
         <Image
           src="/images/about-hero.jpg"
@@ -76,9 +76,10 @@ function Hero() {
           className="rounded-4xl shadow-lg"
         />
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Our journey in the world of yoga and wellness started with a profound belief in the transformative power of self-care
+        Our journey in the world of yoga and wellness started with a profound
+        belief in the transformative power of self-care
       </div>
     </div>
   );
@@ -96,13 +97,22 @@ function OurStory() {
             <h2 className="text-3xl mb-6">The Beginning of Ojasen</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Founded in the heart of Sri Lanka, Ojasen Healing Arts emerged from a deep desire to share the ancient wisdom of holistic wellness with the modern world. Our founder, Oshadi, began her journey with a vision to create a sanctuary where individuals could reconnect with their inner selves.
+                Founded in the heart of Sri Lanka, Ojasen Healing Arts emerged
+                from a deep desire to share the ancient wisdom of holistic
+                wellness with the modern world. Our founder, Oshadi, began her
+                journey with a vision to create a sanctuary where individuals
+                could reconnect with their inner selves.
               </p>
               <p className="mb-4">
-                What started as a small yoga studio has blossomed into a comprehensive wellness center, offering a diverse range of healing modalities. Our approach is rooted in the belief that true wellness encompasses the mind, body, and spirit.
+                What started as a small yoga studio has blossomed into a
+                comprehensive wellness center, offering a diverse range of
+                healing modalities. Our approach is rooted in the belief that
+                true wellness encompasses the mind, body, and spirit.
               </p>
               <p>
-                Today, we continue to honor our roots while embracing innovation, ensuring that each visitor experiences the perfect blend of tradition and contemporary healing practices.
+                Today, we continue to honor our roots while embracing
+                innovation, ensuring that each visitor experiences the perfect
+                blend of tradition and contemporary healing practices.
               </p>
             </div>
           </div>
@@ -129,13 +139,17 @@ function MissionVision() {
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
             <h3 className="text-2xl mb-4">Our Mission</h3>
             <p className="text-[#525A52] text-lg">
-              To guide individuals on a path to holistic health, happiness, and inner peace through personalized wellness programs and transformative healing experiences.
+              To guide individuals on a path to holistic health, happiness, and
+              inner peace through personalized wellness programs and
+              transformative healing experiences.
             </p>
           </div>
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
             <h3 className="text-2xl mb-4">Our Vision</h3>
             <p className="text-[#525A52] text-lg">
-              To be a global haven for those seeking balance in their lives, serving as a guiding light on the wellness journey and providing a sanctuary for self-discovery and healing.
+              To be a global haven for those seeking balance in their lives,
+              serving as a guiding light on the wellness journey and providing a
+              sanctuary for self-discovery and healing.
             </p>
           </div>
         </div>
@@ -152,11 +166,9 @@ function Values() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Core Principles
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Our Guiding Values
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Our Guiding Values</h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -164,27 +176,30 @@ function Values() {
             </div>
             <h3 className="text-xl mb-4">Compassion</h3>
             <p className="text-[#525A52]">
-              We approach each individual with empathy and understanding, recognizing that every wellness journey is unique.
+              We approach each individual with empathy and understanding,
+              recognizing that every wellness journey is unique.
             </p>
           </div>
-          
+
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🌱</span>
             </div>
             <h3 className="text-xl mb-4">Growth</h3>
             <p className="text-[#525A52]">
-              We believe in continuous learning and evolution, both for ourselves and our community.
+              We believe in continuous learning and evolution, both for
+              ourselves and our community.
             </p>
           </div>
-          
+
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🧘</span>
             </div>
             <h3 className="text-xl mb-4">Balance</h3>
             <p className="text-[#525A52]">
-              We strive to create harmony between traditional wisdom and modern practices for optimal wellness.
+              We strive to create harmony between traditional wisdom and modern
+              practices for optimal wellness.
             </p>
           </div>
         </div>
@@ -202,7 +217,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -425,7 +441,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

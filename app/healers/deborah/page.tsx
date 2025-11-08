@@ -13,7 +13,7 @@ function Hero() {
         Deborah
       </h1>
       <div className="text-xl text-[#68887d] mt-2">Energy Healer</div>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,7 +67,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/deborah.png"
@@ -90,13 +90,26 @@ function HealerDetails() {
             <h2 className="text-3xl mb-6">About Deborah</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Deborah is a gifted energy healer with over 12 years of experience in various energy modalities. Her intuitive approach combines Reiki, Pranic Healing, and chakra balancing to create deeply personalized healing experiences that address the root causes of physical, emotional, and spiritual imbalances.
+                Deborah is a gifted energy healer with over 12 years of
+                experience in various energy modalities. Her intuitive approach
+                combines Reiki, Pranic Healing, and chakra balancing to create
+                deeply personalized healing experiences that address the root
+                causes of physical, emotional, and spiritual imbalances.
               </p>
               <p className="mb-4">
-                Deborah's healing journey began after a profound personal experience with energy healing that transformed her perspective on wellness and human potential. She has since dedicated her life to helping others access their own innate healing abilities through gentle guidance and powerful energy work.
+                Deborah's healing journey began after a profound personal
+                experience with energy healing that transformed her perspective
+                on wellness and human potential. She has since dedicated her
+                life to helping others access their own innate healing abilities
+                through gentle guidance and powerful energy work.
               </p>
               <p>
-                Known for her compassionate presence and remarkable ability to sense energetic imbalances, Deborah creates a safe and nurturing environment for deep healing to occur. Her sessions often facilitate profound emotional releases, spiritual insights, and lasting shifts in well-being that extend far beyond the treatment table.
+                Known for her compassionate presence and remarkable ability to
+                sense energetic imbalances, Deborah creates a safe and nurturing
+                environment for deep healing to occur. Her sessions often
+                facilitate profound emotional releases, spiritual insights, and
+                lasting shifts in well-being that extend far beyond the
+                treatment table.
               </p>
             </div>
           </div>
@@ -110,62 +123,106 @@ function HealerDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Deborah's Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Reiki Master</h4>
                 <p className="text-[#525A52]">
-                  Advanced Reiki practitioner with expertise in Usui and Karuna Reiki systems.
+                  Advanced Reiki practitioner with expertise in Usui and Karuna
+                  Reiki systems.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Chakra Balancing</h4>
                 <p className="text-[#525A52]">
-                  Specialized work with the body's energy centers for optimal flow and vitality.
+                  Specialized work with the body's energy centers for optimal
+                  flow and vitality.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Pranic Healing</h4>
                 <p className="text-[#525A52]">
-                  Advanced techniques working with the body's energy field for accelerated healing.
+                  Advanced techniques working with the body's energy field for
+                  accelerated healing.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Release</h4>
                 <p className="text-[#525A52]">
-                  Gentle techniques for processing and releasing stored emotions and trauma.
+                  Gentle techniques for processing and releasing stored emotions
+                  and trauma.
                 </p>
               </div>
             </div>
@@ -181,23 +238,27 @@ function SessionTypes() {
     {
       title: "Private Energy Healing",
       duration: "60 minutes",
-      description: "One-on-one session tailored to your specific energetic needs and healing goals."
+      description:
+        "One-on-one session tailored to your specific energetic needs and healing goals.",
     },
     {
       title: "Chakra Alignment",
       duration: "75 minutes",
-      description: "Focused work on clearing and balancing your energy centers for optimal well-being."
+      description:
+        "Focused work on clearing and balancing your energy centers for optimal well-being.",
     },
     {
       title: "Distance Healing",
       duration: "60 minutes",
-      description: "Remote energy healing session that can be experienced from anywhere in the world."
+      description:
+        "Remote energy healing session that can be experienced from anywhere in the world.",
     },
     {
       title: "Healing Circle",
       duration: "90 minutes",
-      description: "Group energy healing experience for shared transformation and community connection."
-    }
+      description:
+        "Group energy healing experience for shared transformation and community connection.",
+    },
   ];
 
   return (
@@ -207,30 +268,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Work with Deborah
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Work with Deborah</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            Deborah offers a variety of energy healing sessions to suit your individual needs.
+            Deborah offers a variety of energy healing sessions to suit your
+            individual needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -250,7 +311,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -473,7 +535,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

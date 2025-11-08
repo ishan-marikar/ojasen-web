@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Ice Bath and Breathwork
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,9 +66,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Revitalize your body and mind with our invigorating ice bath and breathwork sessions
+        Revitalize your body and mind with our invigorating ice bath and
+        breathwork sessions
       </div>
     </div>
   );
@@ -83,13 +84,24 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Awaken Your Senses</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Our ice bath and breathwork sessions combine the ancient practice of cold exposure with modern breathing techniques to create a powerful experience of physical and mental renewal. This dynamic duo stimulates the nervous system, boosts circulation, and enhances mental clarity.
+                Our ice bath and breathwork sessions combine the ancient
+                practice of cold exposure with modern breathing techniques to
+                create a powerful experience of physical and mental renewal.
+                This dynamic duo stimulates the nervous system, boosts
+                circulation, and enhances mental clarity.
               </p>
               <p className="mb-4">
-                The ice bath activates your body's natural healing responses, reducing inflammation and promoting cellular repair. When combined with specific breathwork patterns, this practice can lead to profound states of relaxation, increased energy, and enhanced resilience to stress.
+                The ice bath activates your body's natural healing responses,
+                reducing inflammation and promoting cellular repair. When
+                combined with specific breathwork patterns, this practice can
+                lead to profound states of relaxation, increased energy, and
+                enhanced resilience to stress.
               </p>
               <p>
-                Under the guidance of our experienced facilitators, you'll safely explore the transformative potential of controlled cold exposure and conscious breathing, emerging with a renewed sense of vitality and well-being.
+                Under the guidance of our experienced facilitators, you'll
+                safely explore the transformative potential of controlled cold
+                exposure and conscious breathing, emerging with a renewed sense
+                of vitality and well-being.
               </p>
             </div>
           </div>
@@ -103,62 +115,106 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Ice Bath and Breathwork</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Enhanced Immunity</h4>
                 <p className="text-[#525A52]">
-                  Cold exposure stimulates the immune system and increases production of white blood cells.
+                  Cold exposure stimulates the immune system and increases
+                  production of white blood cells.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Mental Clarity</h4>
                 <p className="text-[#525A52]">
-                  Breathwork techniques enhance focus, concentration, and cognitive function.
+                  Breathwork techniques enhance focus, concentration, and
+                  cognitive function.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Stress Resilience</h4>
                 <p className="text-[#525A52]">
-                  Regular practice builds mental toughness and improves stress management.
+                  Regular practice builds mental toughness and improves stress
+                  management.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Increased Energy</h4>
                 <p className="text-[#525A52]">
-                  Boost in vitality and life force energy through optimized circulation.
+                  Boost in vitality and life force energy through optimized
+                  circulation.
                 </p>
               </div>
             </div>
@@ -174,23 +230,27 @@ function SessionTypes() {
     {
       title: "Introductory Session",
       duration: "60 minutes",
-      description: "Gentle introduction to ice bath and breathwork with moderate cold exposure."
+      description:
+        "Gentle introduction to ice bath and breathwork with moderate cold exposure.",
     },
     {
       title: "Advanced Practice",
       duration: "75 minutes",
-      description: "Extended cold exposure combined with advanced breathing techniques for experienced practitioners."
+      description:
+        "Extended cold exposure combined with advanced breathing techniques for experienced practitioners.",
     },
     {
       title: "Group Challenge",
       duration: "90 minutes",
-      description: "Shared experience with community support and guided practice for all levels."
+      description:
+        "Shared experience with community support and guided practice for all levels.",
     },
     {
       title: "Private Session",
       duration: "60 minutes",
-      description: "One-on-one guidance tailored to your specific needs and comfort level."
-    }
+      description:
+        "One-on-one guidance tailored to your specific needs and comfort level.",
+    },
   ];
 
   return (
@@ -200,30 +260,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Choose Your Experience
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Choose Your Experience</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer various session types to suit your experience level and wellness goals.
+            We offer various session types to suit your experience level and
+            wellness goals.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +303,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +559,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

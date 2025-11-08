@@ -259,7 +259,10 @@ function Packages() {
 function Facilitators() {
   return (
     <>
-      <div className="bg-[#f7faf6] pt-20 pb-24 relative overflow-hidden" id="healers">
+      <div
+        className="bg-[#f7faf6] pt-20 pb-24 relative overflow-hidden"
+        id="healers"
+      >
         {/* Floating decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
@@ -371,15 +374,18 @@ function Healer({
 }) {
   // Map healer names to their profile links
   const healerLinks: Record<string, string> = {
-    "Oshadi": "/healers/oshadi",
-    "Alice": "/healers/alice",
-    "Deborah": "/healers/deborah"
+    Oshadi: "/healers/oshadi",
+    Alice: "/healers/alice",
+    Deborah: "/healers/deborah",
   };
-  
+
   const link = healerLinks[name] || "/healers";
-  
+
   return (
-    <Link href={link} className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative">
+    <Link
+      href={link}
+      className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative"
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-[#f7faf6] to-white opacity-70 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#68887d]/30 transition-all duration-500 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl shadow-[inset_0_1px_0px_0px_rgba(255,255,255,0.1)] pointer-events-none"></div>
@@ -1022,63 +1028,62 @@ function Offerings() {
       description:
         "Experience the harmony of body and mind through our guided yoga and meditation sessions.",
       icon: "/images/offerings/icon08-RNKGNCE.png",
-      link: "/services/yoga-meditation"
+      link: "/services/yoga-meditation",
     },
     {
       title: "Sound Healing",
       description:
         "Experience the power of sound healing in our serene sanctuary.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
-      link: "/services/sound-healing"
+      link: "/services/sound-healing",
     },
     {
       title: "Ice Bath",
       description:
         "Rejuvenate your body and mind with our invigorating ice bath sessions.",
       icon: "/images/offerings/icon14-RNKGNCE.png",
-      link: "/services/ice-bath-breathwork"
+      link: "/services/ice-bath-breathwork",
     },
     {
       title: "Breathwork",
       description:
         "Revitalize your body and mind with our conscious breathing sessions.",
       icon: "/images/offerings/icon14-RNKGNCE.png",
-      link: "/services/breathwork"
+      link: "/services/breathwork",
     },
     {
       title: "Ecstatic Dancing",
-      description:
-        "Dance your way to freedom and authentic self-expression.",
+      description: "Dance your way to freedom and authentic self-expression.",
       icon: "/images/offerings/icon17-RNKGNCE.png",
-      link: "/services/ecstatic-dancing"
+      link: "/services/ecstatic-dancing",
     },
     {
       title: "Singing Circle",
       description:
         "Join our community in harmonious singing to uplift your spirit and connect with others.",
       icon: "/images/offerings/icon17-RNKGNCE.png",
-      link: "/services/singing-circle"
+      link: "/services/singing-circle",
     },
     {
       title: "Kakou Healing Ceremony",
       description:
         "Participate in our sacred Kakou healing ceremonies for deep spiritual transformation.",
       icon: "/images/offerings/icon24-RNKGNCE.png",
-      link: "/services/kakou-healing-ceremony"
+      link: "/services/kakou-healing-ceremony",
     },
     {
       title: "Energy Healing",
       description:
         "Balance your energy centers with our specialized healing sessions.",
       icon: "/images/offerings/icon-2-22-RNKGNCE.png",
-      link: "/services/energy-healing"
+      link: "/services/energy-healing",
     },
     {
       title: "Wellness Retreats",
       description:
         "Immerse yourself in transformative wellness experiences in our natural sanctuary.",
       icon: "/images/offerings/icon24-RNKGNCE.png",
-      link: "/services/wellness-retreats"
+      link: "/services/wellness-retreats",
     },
   ];
 
@@ -1119,7 +1124,7 @@ function Facility({
   title,
   description,
   icon,
-  link
+  link,
 }: {
   title: string;
   description: string;
@@ -1137,7 +1142,9 @@ function Facility({
           className="rounded-l-4xl rounded-tr-4xl mr-3"
         />
         <div>
-          <h5 className="text-2xl group-hover:text-[#68887d] transition-colors duration-300">{title}</h5>
+          <h5 className="text-2xl group-hover:text-[#68887d] transition-colors duration-300">
+            {title}
+          </h5>
           <div className="py-2">{description}</div>
           <div className="text-primary font-medium cursor-pointer hover:text-[#2b332d] transition-all duration-300 inline-flex items-center group">
             Learn More

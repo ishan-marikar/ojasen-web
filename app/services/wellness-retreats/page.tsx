@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Wellness Retreats
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,9 +66,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Immerse yourself in transformative wellness experiences in our natural sanctuary
+        Immerse yourself in transformative wellness experiences in our natural
+        sanctuary
       </div>
     </div>
   );
@@ -83,13 +84,25 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Deepen Your Wellness Journey</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Our wellness retreats offer immersive experiences that allow you to fully disconnect from the stresses of daily life and reconnect with your authentic self. Set in the beautiful natural surroundings of Sri Lanka, our retreats combine various healing modalities with time for reflection and integration.
+                Our wellness retreats offer immersive experiences that allow you
+                to fully disconnect from the stresses of daily life and
+                reconnect with your authentic self. Set in the beautiful natural
+                surroundings of Sri Lanka, our retreats combine various healing
+                modalities with time for reflection and integration.
               </p>
               <p className="mb-4">
-                Whether you're seeking a weekend getaway or an extended wellness journey, our retreats are designed to provide the perfect balance of structured healing sessions and free time for personal exploration. You'll be guided by experienced facilitators who will support you in creating lasting positive changes in your life.
+                Whether you're seeking a weekend getaway or an extended wellness
+                journey, our retreats are designed to provide the perfect
+                balance of structured healing sessions and free time for
+                personal exploration. You'll be guided by experienced
+                facilitators who will support you in creating lasting positive
+                changes in your life.
               </p>
               <p>
-                Our retreats include accommodation in comfortable eco-friendly lodgings, nourishing meals prepared with local organic ingredients, and a carefully curated program of wellness activities designed to promote deep healing and transformation.
+                Our retreats include accommodation in comfortable eco-friendly
+                lodgings, nourishing meals prepared with local organic
+                ingredients, and a carefully curated program of wellness
+                activities designed to promote deep healing and transformation.
               </p>
             </div>
           </div>
@@ -103,62 +116,108 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Retreat Benefits</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Deep Immersion</h4>
                 <p className="text-[#525A52]">
-                  Extended time to fully engage with healing practices and experience profound transformation.
+                  Extended time to fully engage with healing practices and
+                  experience profound transformation.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Natural Setting</h4>
                 <p className="text-[#525A52]">
-                  Healing in the beautiful natural environment of Sri Lanka's southern coast.
+                  Healing in the beautiful natural environment of Sri Lanka's
+                  southern coast.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Community Connection</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Community Connection
+                </h4>
                 <p className="text-[#525A52]">
-                  Shared experiences with like-minded individuals on their wellness journeys.
+                  Shared experiences with like-minded individuals on their
+                  wellness journeys.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Holistic Approach</h4>
                 <p className="text-[#525A52]">
-                  Integration of multiple healing modalities for comprehensive wellness.
+                  Integration of multiple healing modalities for comprehensive
+                  wellness.
                 </p>
               </div>
             </div>
@@ -174,27 +233,31 @@ function RetreatOptions() {
     {
       title: "Weekend Wellness Escape",
       duration: "3 days / 2 nights",
-      description: "Perfect introduction to our healing practices with a balance of structured sessions and free time.",
-      price: "From $450"
+      description:
+        "Perfect introduction to our healing practices with a balance of structured sessions and free time.",
+      price: "From $450",
     },
     {
       title: "7-Day Transformational Journey",
       duration: "7 days / 6 nights",
-      description: "Deep immersion experience with daily healing sessions, workshops, and integration practices.",
-      price: "From $1,200"
+      description:
+        "Deep immersion experience with daily healing sessions, workshops, and integration practices.",
+      price: "From $1,200",
     },
     {
       title: "14-Day Intensive Retreat",
       duration: "14 days / 13 nights",
-      description: "Comprehensive healing journey for profound personal transformation and lasting change.",
-      price: "From $2,400"
+      description:
+        "Comprehensive healing journey for profound personal transformation and lasting change.",
+      price: "From $2,400",
     },
     {
       title: "Ayurvedic Wellness Retreat",
       duration: "7 days / 6 nights",
-      description: "Traditional Ayurvedic healing combined with our holistic wellness practices.",
-      price: "From $1,500"
-    }
+      description:
+        "Traditional Ayurvedic healing combined with our holistic wellness practices.",
+      price: "From $1,500",
+    },
   ];
 
   return (
@@ -208,13 +271,17 @@ function RetreatOptions() {
             Choose Your Healing Journey
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer retreats of varying lengths to suit your schedule and wellness goals.
+            We offer retreats of varying lengths to suit your schedule and
+            wellness goals.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {retreats.map((retreat, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{retreat.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
@@ -222,18 +289,18 @@ function RetreatOptions() {
                 </span>
               </div>
               <div className="mb-3">
-                <span className="text-[#68887d] text-sm">{retreat.duration}</span>
+                <span className="text-[#68887d] text-sm">
+                  {retreat.duration}
+                </span>
               </div>
-              <p className="text-[#c4c9c4] mb-4">
-                {retreat.description}
-              </p>
+              <p className="text-[#c4c9c4] mb-4">{retreat.description}</p>
               <button className="text-sm uppercase tracking-wider text-[#68887d] border border-[#68887d]/40 rounded-full px-4 py-2 hover:bg-[#68887d] hover:text-white transition-colors duration-300">
                 Learn More
               </button>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Retreat
@@ -253,7 +320,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -508,7 +576,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

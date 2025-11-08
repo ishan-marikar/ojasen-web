@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Ecstatic Dancing
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Dance your way to freedom and authentic self-expression
       </div>
@@ -83,13 +83,25 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Dance as a Path to Freedom</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Ecstatic dance is a free-form, improvisational dance practice that allows you to move beyond the constraints of structured dance forms. It's a journey into authentic self-expression, where you can let go of inhibitions and connect with your body's natural rhythms.
+                Ecstatic dance is a free-form, improvisational dance practice
+                that allows you to move beyond the constraints of structured
+                dance forms. It's a journey into authentic self-expression,
+                where you can let go of inhibitions and connect with your body's
+                natural rhythms.
               </p>
               <p className="mb-4">
-                In our ecstatic dance sessions, there are no steps to learn or rules to follow. The only guidance is to move in whatever way feels natural and authentic to you. This practice can lead to profound emotional release, spiritual connection, and a deep sense of embodied presence.
+                In our ecstatic dance sessions, there are no steps to learn or
+                rules to follow. The only guidance is to move in whatever way
+                feels natural and authentic to you. This practice can lead to
+                profound emotional release, spiritual connection, and a deep
+                sense of embodied presence.
               </p>
               <p>
-                Our experienced facilitators create a safe and sacred space where you can explore movement as a form of meditation and self-discovery. Through conscious dance, you can access altered states of consciousness, release stored emotions, and reconnect with your inner wisdom.
+                Our experienced facilitators create a safe and sacred space
+                where you can explore movement as a form of meditation and
+                self-discovery. Through conscious dance, you can access altered
+                states of consciousness, release stored emotions, and reconnect
+                with your inner wisdom.
               </p>
             </div>
           </div>
@@ -103,62 +115,108 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Ecstatic Dancing</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Release</h4>
                 <p className="text-[#525A52]">
-                  Safe space for processing and releasing stored emotions and trauma through movement.
+                  Safe space for processing and releasing stored emotions and
+                  trauma through movement.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Body Awareness</h4>
                 <p className="text-[#525A52]">
-                  Develop a deeper connection with your body and its natural movement patterns.
+                  Develop a deeper connection with your body and its natural
+                  movement patterns.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Stress Relief</h4>
                 <p className="text-[#525A52]">
-                  Physical release of tension and stress through uninhibited movement and expression.
+                  Physical release of tension and stress through uninhibited
+                  movement and expression.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Community Connection</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Community Connection
+                </h4>
                 <p className="text-[#525A52]">
-                  Experience deep connection and unity with others in a judgment-free environment.
+                  Experience deep connection and unity with others in a
+                  judgment-free environment.
                 </p>
               </div>
             </div>
@@ -174,23 +232,27 @@ function SessionTypes() {
     {
       title: "Weekly Ecstatic Dance",
       duration: "90 minutes",
-      description: "Regular group sessions to explore free-form movement and authentic expression."
+      description:
+        "Regular group sessions to explore free-form movement and authentic expression.",
     },
     {
       title: "Full Moon Dance",
       duration: "2 hours",
-      description: "Special ceremonies held during full moons to harness lunar energy for transformation."
+      description:
+        "Special ceremonies held during full moons to harness lunar energy for transformation.",
     },
     {
       title: "Private Dance Journey",
       duration: "60 minutes",
-      description: "One-on-one session for deep personal exploration through movement."
+      description:
+        "One-on-one session for deep personal exploration through movement.",
     },
     {
       title: "Dance & Drum Circle",
       duration: "2 hours",
-      description: "Combination of ecstatic dance with live drumming for enhanced rhythmic connection."
-    }
+      description:
+        "Combination of ecstatic dance with live drumming for enhanced rhythmic connection.",
+    },
   ];
 
   return (
@@ -204,26 +266,28 @@ function SessionTypes() {
             Choose Your Dance Experience
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer a variety of ecstatic dance experiences to suit your individual needs.
+            We offer a variety of ecstatic dance experiences to suit your
+            individual needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +307,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +563,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

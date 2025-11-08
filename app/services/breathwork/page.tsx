@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Breathwork
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Revitalize your body and mind with our invigorating breathwork sessions
       </div>
@@ -83,13 +83,24 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">The Power of Conscious Breathing</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Breathwork is a powerful therapeutic practice that uses specific breathing techniques to release tension, process emotions, and access expanded states of consciousness. Our breathwork sessions combine ancient wisdom with modern therapeutic approaches to facilitate deep healing and transformation.
+                Breathwork is a powerful therapeutic practice that uses specific
+                breathing techniques to release tension, process emotions, and
+                access expanded states of consciousness. Our breathwork sessions
+                combine ancient wisdom with modern therapeutic approaches to
+                facilitate deep healing and transformation.
               </p>
               <p className="mb-4">
-                Through conscious breathing patterns, we can activate the body's natural healing mechanisms, release stored trauma, and access deeper levels of awareness. Our experienced breathwork facilitators guide you through safe and effective breathing techniques that can help you connect with your inner wisdom and unlock your full potential.
+                Through conscious breathing patterns, we can activate the body's
+                natural healing mechanisms, release stored trauma, and access
+                deeper levels of awareness. Our experienced breathwork
+                facilitators guide you through safe and effective breathing
+                techniques that can help you connect with your inner wisdom and
+                unlock your full potential.
               </p>
               <p>
-                Whether you're seeking stress relief, emotional healing, or spiritual exploration, breathwork offers a direct pathway to profound personal transformation and enhanced well-being.
+                Whether you're seeking stress relief, emotional healing, or
+                spiritual exploration, breathwork offers a direct pathway to
+                profound personal transformation and enhanced well-being.
               </p>
             </div>
           </div>
@@ -103,62 +114,106 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Breathwork</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Stress Relief</h4>
                 <p className="text-[#525A52]">
-                  Immediate reduction of stress and anxiety through activation of the parasympathetic nervous system.
+                  Immediate reduction of stress and anxiety through activation
+                  of the parasympathetic nervous system.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Release</h4>
                 <p className="text-[#525A52]">
-                  Safe space for processing and releasing stored emotions and trauma through breath.
+                  Safe space for processing and releasing stored emotions and
+                  trauma through breath.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Enhanced Clarity</h4>
                 <p className="text-[#525A52]">
-                  Improved mental clarity and focus through increased oxygen flow to the brain.
+                  Improved mental clarity and focus through increased oxygen
+                  flow to the brain.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Increased Energy</h4>
                 <p className="text-[#525A52]">
-                  Boost in vitality and life force energy through optimized breathing patterns.
+                  Boost in vitality and life force energy through optimized
+                  breathing patterns.
                 </p>
               </div>
             </div>
@@ -174,23 +229,27 @@ function SessionTypes() {
     {
       title: "Holotropic Breathwork",
       duration: "90 minutes",
-      description: "Intensive breathing technique that facilitates deep psychological and spiritual healing."
+      description:
+        "Intensive breathing technique that facilitates deep psychological and spiritual healing.",
     },
     {
       title: "Wim Hof Method",
       duration: "75 minutes",
-      description: "Combination of controlled breathing and cold exposure to enhance resilience and vitality."
+      description:
+        "Combination of controlled breathing and cold exposure to enhance resilience and vitality.",
     },
     {
       title: "Transformational Breath",
       duration: "90 minutes",
-      description: "Conscious breathing technique designed to release emotional and physical blockages."
+      description:
+        "Conscious breathing technique designed to release emotional and physical blockages.",
     },
     {
       title: "Pranayama Workshop",
       duration: "60 minutes",
-      description: "Traditional yogic breathing techniques for balancing energy and calming the mind."
-    }
+      description:
+        "Traditional yogic breathing techniques for balancing energy and calming the mind.",
+    },
   ];
 
   return (
@@ -204,26 +263,28 @@ function SessionTypes() {
             Choose Your Breathing Practice
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer a variety of breathwork modalities to suit your individual needs and experience level.
+            We offer a variety of breathwork modalities to suit your individual
+            needs and experience level.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +304,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +560,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Energy Healing
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Balance your energy centers with our specialized healing sessions
       </div>
@@ -83,13 +83,25 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Restoring Energetic Balance</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Energy healing works with the subtle energy systems of the body to remove blockages, restore balance, and promote natural healing. Our skilled energy healers use various modalities including Reiki, Pranic Healing, and chakra balancing to support your body's innate ability to heal itself.
+                Energy healing works with the subtle energy systems of the body
+                to remove blockages, restore balance, and promote natural
+                healing. Our skilled energy healers use various modalities
+                including Reiki, Pranic Healing, and chakra balancing to support
+                your body's innate ability to heal itself.
               </p>
               <p className="mb-4">
-                During an energy healing session, the practitioner channels healing energy through their hands to areas of the body that need healing. This gentle, non-invasive approach can help release stored tension, emotional trauma, and energetic imbalances that may be contributing to physical or emotional discomfort.
+                During an energy healing session, the practitioner channels
+                healing energy through their hands to areas of the body that
+                need healing. This gentle, non-invasive approach can help
+                release stored tension, emotional trauma, and energetic
+                imbalances that may be contributing to physical or emotional
+                discomfort.
               </p>
               <p>
-                Many clients report feeling deeply relaxed, emotionally balanced, and more connected to their inner wisdom after energy healing sessions. Regular energy healing can support overall well-being and enhance your body's natural healing processes.
+                Many clients report feeling deeply relaxed, emotionally
+                balanced, and more connected to their inner wisdom after energy
+                healing sessions. Regular energy healing can support overall
+                well-being and enhance your body's natural healing processes.
               </p>
             </div>
           </div>
@@ -103,62 +115,106 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Energy Healing</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Stress Reduction</h4>
                 <p className="text-[#525A52]">
-                  Deep relaxation and release of chronic stress patterns held in the body.
+                  Deep relaxation and release of chronic stress patterns held in
+                  the body.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Pain Relief</h4>
                 <p className="text-[#525A52]">
-                  Alleviation of physical discomfort and tension through energetic balancing.
+                  Alleviation of physical discomfort and tension through
+                  energetic balancing.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Healing</h4>
                 <p className="text-[#525A52]">
-                  Safe space for processing and releasing stored emotions and trauma.
+                  Safe space for processing and releasing stored emotions and
+                  trauma.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Enhanced Vitality</h4>
                 <p className="text-[#525A52]">
-                  Increased energy flow and improved overall sense of well-being.
+                  Increased energy flow and improved overall sense of
+                  well-being.
                 </p>
               </div>
             </div>
@@ -174,23 +230,27 @@ function SessionTypes() {
     {
       title: "Reiki Healing",
       duration: "60 minutes",
-      description: "Traditional Japanese energy healing technique for stress reduction and relaxation."
+      description:
+        "Traditional Japanese energy healing technique for stress reduction and relaxation.",
     },
     {
       title: "Chakra Balancing",
       duration: "75 minutes",
-      description: "Targeted session focusing on clearing and balancing the body's seven main energy centers."
+      description:
+        "Targeted session focusing on clearing and balancing the body's seven main energy centers.",
     },
     {
       title: "Pranic Healing",
       duration: "90 minutes",
-      description: "Advanced energy healing modality that works with the body's energy field to accelerate healing."
+      description:
+        "Advanced energy healing modality that works with the body's energy field to accelerate healing.",
     },
     {
       title: "Distance Healing",
       duration: "60 minutes",
-      description: "Energetic healing session conducted remotely, allowing you to receive healing from anywhere."
-    }
+      description:
+        "Energetic healing session conducted remotely, allowing you to receive healing from anywhere.",
+    },
   ];
 
   return (
@@ -200,30 +260,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Choose Your Healing Path
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Choose Your Healing Path</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer a variety of energy healing modalities to suit your individual needs.
+            We offer a variety of energy healing modalities to suit your
+            individual needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +303,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +559,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

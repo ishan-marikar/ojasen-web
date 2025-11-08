@@ -13,7 +13,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Join our transformative events
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,9 +67,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Experience the power of community and transformation through our curated wellness events
+        Experience the power of community and transformation through our curated
+        wellness events
       </div>
     </div>
   );
@@ -81,56 +82,62 @@ function UpcomingEvents() {
       date: "29",
       month: "Nov",
       title: "Zen & Balance Retreat",
-      description: "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance.",
+      description:
+        "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance.",
       location: "The Island - Ahangama",
       time: "7am - 9am",
-      image: "/images/events/event-01.jpg"
+      image: "/images/events/event-01.jpg",
     },
     {
       date: "05",
       month: "Dec",
       title: "Sound Healing Journey",
-      description: "Experience deep relaxation through the power of sound vibrations and crystal bowls.",
+      description:
+        "Experience deep relaxation through the power of sound vibrations and crystal bowls.",
       location: "The Island - Ahangama",
       time: "5pm - 7pm",
-      image: "/images/events/event-02.jpg"
+      image: "/images/events/event-02.jpg",
     },
     {
       date: "12",
       month: "Dec",
       title: "Ecstatic Dance Workshop",
-      description: "Free your body and soul through movement in our safe and judgment-free space.",
+      description:
+        "Free your body and soul through movement in our safe and judgment-free space.",
       location: "The Island - Ahangama",
       time: "6pm - 8pm",
-      image: "/images/events/event-03.jpg"
+      image: "/images/events/event-03.jpg",
     },
     {
       date: "20",
       month: "Dec",
       title: "Winter Solstice Ceremony",
-      description: "Celebrate the longest night of the year with our sacred solstice ceremony.",
+      description:
+        "Celebrate the longest night of the year with our sacred solstice ceremony.",
       location: "The Island - Ahangama",
       time: "7pm - 9pm",
-      image: "/images/events/event-04.jpg"
+      image: "/images/events/event-04.jpg",
     },
     {
       date: "28",
       month: "Dec",
       title: "New Year Wellness Workshop",
-      description: "Set intentions for the new year with our guided wellness workshop.",
+      description:
+        "Set intentions for the new year with our guided wellness workshop.",
       location: "The Island - Ahangama",
       time: "10am - 12pm",
-      image: "/images/events/event-05.jpg"
+      image: "/images/events/event-05.jpg",
     },
     {
       date: "05",
       month: "Jan",
       title: "Mindfulness Meditation Series",
-      description: "A 5-day intensive mindfulness meditation program for deep inner transformation.",
+      description:
+        "A 5-day intensive mindfulness meditation program for deep inner transformation.",
       location: "The Island - Ahangama",
       time: "8am - 10am",
-      image: "/images/events/event-06.jpg"
-    }
+      image: "/images/events/event-06.jpg",
+    },
   ];
 
   return (
@@ -144,13 +151,14 @@ function UpcomingEvents() {
             Upcoming transformative experiences
           </h2>
           <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
-            Join our community for immersive wellness experiences designed to nourish your mind, body, and spirit.
+            Join our community for immersive wellness experiences designed to
+            nourish your mind, body, and spirit.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event, index) => (
-            <EventCard 
+            <EventCard
               key={index}
               date={event.date}
               month={event.month}
@@ -232,24 +240,28 @@ function EventTypes() {
   const eventTypes = [
     {
       title: "Retreats",
-      description: "Immersive multi-day experiences for deep transformation and connection with nature.",
-      icon: "🏕️"
+      description:
+        "Immersive multi-day experiences for deep transformation and connection with nature.",
+      icon: "🏕️",
     },
     {
       title: "Workshops",
-      description: "Interactive sessions focused on specific wellness practices and skill development.",
-      icon: "🧠"
+      description:
+        "Interactive sessions focused on specific wellness practices and skill development.",
+      icon: "🧠",
     },
     {
       title: "Ceremonies",
-      description: "Sacred gatherings aligned with natural cycles and spiritual traditions.",
-      icon: "🕯️"
+      description:
+        "Sacred gatherings aligned with natural cycles and spiritual traditions.",
+      icon: "🕯️",
     },
     {
       title: "Community Circles",
-      description: "Regular gatherings for sharing, support, and collective healing.",
-      icon: "👥"
-    }
+      description:
+        "Regular gatherings for sharing, support, and collective healing.",
+      icon: "👥",
+    },
   ];
 
   return (
@@ -263,18 +275,20 @@ function EventTypes() {
             Diverse experiences for your wellness journey
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            Our events are carefully curated to offer a range of experiences that support your holistic well-being.
+            Our events are carefully curated to offer a range of experiences
+            that support your holistic well-being.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {eventTypes.map((eventType, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30 text-center">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30 text-center"
+            >
               <div className="text-4xl mb-4">{eventType.icon}</div>
               <h3 className="text-xl mb-3">{eventType.title}</h3>
-              <p className="text-[#c4c9c4]">
-                {eventType.description}
-              </p>
+              <p className="text-[#c4c9c4]">{eventType.description}</p>
             </div>
           ))}
         </div>
@@ -292,7 +306,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -515,7 +530,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

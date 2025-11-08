@@ -13,7 +13,7 @@ function Hero() {
         Alice
       </h1>
       <div className="text-xl text-[#68887d] mt-2">Yoga Instructor</div>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,7 +67,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/alice.png"
@@ -90,13 +90,27 @@ function HealerDetails() {
             <h2 className="text-3xl mb-6">About Alice</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Alice is a dedicated yoga instructor with over 10 years of experience in various yoga traditions. Her teaching style combines the precision of Iyengar yoga with the fluidity of Vinyasa, creating classes that are both accessible and transformative for students of all levels.
+                Alice is a dedicated yoga instructor with over 10 years of
+                experience in various yoga traditions. Her teaching style
+                combines the precision of Iyengar yoga with the fluidity of
+                Vinyasa, creating classes that are both accessible and
+                transformative for students of all levels.
               </p>
               <p className="mb-4">
-                Alice's journey with yoga began during a challenging period in her life when she discovered the profound healing power of mindful movement and breath. This personal transformation inspired her to share the gifts of yoga with others, leading her to complete multiple teacher trainings and continue her education in anatomy, philosophy, and therapeutic applications of yoga.
+                Alice's journey with yoga began during a challenging period in
+                her life when she discovered the profound healing power of
+                mindful movement and breath. This personal transformation
+                inspired her to share the gifts of yoga with others, leading her
+                to complete multiple teacher trainings and continue her
+                education in anatomy, philosophy, and therapeutic applications
+                of yoga.
               </p>
               <p>
-                Known for her compassionate guidance and attention to individual needs, Alice creates a safe and welcoming space for students to explore their practice. Her classes are designed to build strength, flexibility, and inner awareness while fostering a deep connection between mind, body, and spirit.
+                Known for her compassionate guidance and attention to individual
+                needs, Alice creates a safe and welcoming space for students to
+                explore their practice. Her classes are designed to build
+                strength, flexibility, and inner awareness while fostering a
+                deep connection between mind, body, and spirit.
               </p>
             </div>
           </div>
@@ -110,42 +124,74 @@ function HealerDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Alice's Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Hatha Yoga</h4>
                 <p className="text-[#525A52]">
-                  Foundation of physical postures and breathing techniques for beginners and intermediate practitioners.
+                  Foundation of physical postures and breathing techniques for
+                  beginners and intermediate practitioners.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Vinyasa Flow</h4>
                 <p className="text-[#525A52]">
-                  Dynamic sequences linking breath with movement for strength and flexibility.
+                  Dynamic sequences linking breath with movement for strength
+                  and flexibility.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
@@ -155,17 +201,28 @@ function HealerDetails() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Yoga Therapy</h4>
                 <p className="text-[#525A52]">
-                  Adaptation of yoga practices for specific health conditions and injuries.
+                  Adaptation of yoga practices for specific health conditions
+                  and injuries.
                 </p>
               </div>
             </div>
@@ -181,23 +238,27 @@ function SessionTypes() {
     {
       title: "Private Yoga Session",
       duration: "60 minutes",
-      description: "One-on-one instruction tailored to your specific needs and goals."
+      description:
+        "One-on-one instruction tailored to your specific needs and goals.",
     },
     {
       title: "Group Yoga Class",
       duration: "75 minutes",
-      description: "Dynamic group practice suitable for all levels in a supportive environment."
+      description:
+        "Dynamic group practice suitable for all levels in a supportive environment.",
     },
     {
       title: "Restorative Yoga",
       duration: "90 minutes",
-      description: "Deep relaxation practice using props to support the body in passive poses."
+      description:
+        "Deep relaxation practice using props to support the body in passive poses.",
     },
     {
       title: "Yoga for Stress Relief",
       duration: "60 minutes",
-      description: "Specialized sequence focusing on nervous system regulation and stress reduction."
-    }
+      description:
+        "Specialized sequence focusing on nervous system regulation and stress reduction.",
+    },
   ];
 
   return (
@@ -207,30 +268,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Practice with Alice
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Practice with Alice</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            Alice offers a variety of yoga sessions to suit your individual needs and experience level.
+            Alice offers a variety of yoga sessions to suit your individual
+            needs and experience level.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -250,7 +311,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -505,7 +567,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

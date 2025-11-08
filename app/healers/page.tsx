@@ -13,7 +13,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Meet our experienced healers
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,9 +67,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Our skilled practitioners bring years of expertise and a deep understanding of holistic wellness to guide your journey.
+        Our skilled practitioners bring years of expertise and a deep
+        understanding of holistic wellness to guide your journey.
       </div>
     </div>
   );
@@ -81,20 +82,20 @@ function Healers() {
       name: "Oshadi",
       role: "Sound Healer",
       image: "/images/healers/oshadi.png",
-      link: "/healers/oshadi"
+      link: "/healers/oshadi",
     },
     {
       name: "Alice",
       role: "Yoga Instructor",
       image: "/images/healers/alice.png",
-      link: "/healers/alice"
+      link: "/healers/alice",
     },
     {
       name: "Deborah",
       role: "Energy Healer",
       image: "/images/healers/deborah.png",
-      link: "/healers/deborah"
-    }
+      link: "/healers/deborah",
+    },
   ];
 
   return (
@@ -161,7 +162,8 @@ function Healers() {
             Experienced wellness practitioners
           </h2>
           <p className="text-[#525A52] max-w-2xl mx-auto text-lg">
-            Each of our healers brings unique expertise and a deep commitment to your wellness journey.
+            Each of our healers brings unique expertise and a deep commitment to
+            your wellness journey.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -184,7 +186,7 @@ function HealerCard({
   name,
   role,
   image,
-  link
+  link,
 }: {
   name: string;
   role: string;
@@ -192,7 +194,10 @@ function HealerCard({
   link: string;
 }) {
   return (
-    <Link href={link} className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative">
+    <Link
+      href={link}
+      className="group overflow-hidden rounded-3xl bg-white border border-[#68887d]/20 transition-all duration-500 hover:shadow-xl hover:border-[#68887d]/40 hover:-translate-y-2 relative"
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-[#f7faf6] to-white opacity-70 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#68887d]/30 transition-all duration-500 pointer-events-none"></div>
       <div className="absolute inset-0 rounded-3xl shadow-[inset_0_1px_0px_0px_rgba(255,255,255,0.1)] pointer-events-none"></div>
@@ -231,7 +236,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -486,7 +492,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

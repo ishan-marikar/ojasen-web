@@ -13,7 +13,7 @@ function Hero() {
         Oshadi
       </h1>
       <div className="text-xl text-[#68887d] mt-2">Sound Healer</div>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -67,7 +67,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/oshadi.png"
@@ -90,13 +90,26 @@ function HealerDetails() {
             <h2 className="text-3xl mb-6">About Oshadi</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Oshadi is the founder and head facilitator at Ojasen Healing Arts. With over 15 years of experience in sound healing and vibrational medicine, she has dedicated her life to helping others discover their inner harmony and connection to the natural world.
+                Oshadi is the founder and head facilitator at Ojasen Healing
+                Arts. With over 15 years of experience in sound healing and
+                vibrational medicine, she has dedicated her life to helping
+                others discover their inner harmony and connection to the
+                natural world.
               </p>
               <p className="mb-4">
-                Her journey into healing began during her own personal transformation through sound therapy. After experiencing profound healing herself, she felt called to share these powerful modalities with others. Oshadi has studied with master healers across the globe and continues to deepen her practice through ongoing learning and personal exploration.
+                Her journey into healing began during her own personal
+                transformation through sound therapy. After experiencing
+                profound healing herself, she felt called to share these
+                powerful modalities with others. Oshadi has studied with master
+                healers across the globe and continues to deepen her practice
+                through ongoing learning and personal exploration.
               </p>
               <p>
-                Oshadi's approach combines traditional wisdom with contemporary healing techniques. She believes in the power of sound to activate our body's natural healing abilities and create profound shifts in consciousness. Her sessions are known for their deep compassion and intuitive guidance.
+                Oshadi's approach combines traditional wisdom with contemporary
+                healing techniques. She believes in the power of sound to
+                activate our body's natural healing abilities and create
+                profound shifts in consciousness. Her sessions are known for
+                their deep compassion and intuitive guidance.
               </p>
             </div>
           </div>
@@ -110,62 +123,110 @@ function HealerDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Oshadi's Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Crystal Bowl Healing</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Crystal Bowl Healing
+                </h4>
                 <p className="text-[#525A52]">
-                  Mastery of crystal singing bowls tuned to specific chakra frequencies for deep healing.
+                  Mastery of crystal singing bowls tuned to specific chakra
+                  frequencies for deep healing.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Gong Therapy</h4>
                 <p className="text-[#525A52]">
-                  Expertise in therapeutic gong work for cellular healing and transformation.
+                  Expertise in therapeutic gong work for cellular healing and
+                  transformation.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Shamanic Journeying</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Shamanic Journeying
+                </h4>
                 <p className="text-[#525A52]">
-                  Guided shamanic practices for spiritual exploration and soul retrieval.
+                  Guided shamanic practices for spiritual exploration and soul
+                  retrieval.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Energy Medicine</h4>
                 <p className="text-[#525A52]">
-                  Integration of various energy healing modalities for comprehensive wellness.
+                  Integration of various energy healing modalities for
+                  comprehensive wellness.
                 </p>
               </div>
             </div>
@@ -181,23 +242,27 @@ function SessionTypes() {
     {
       title: "Private Sound Healing",
       duration: "60 minutes",
-      description: "One-on-one session with crystal bowls and intuitive healing guidance."
+      description:
+        "One-on-one session with crystal bowls and intuitive healing guidance.",
     },
     {
       title: "Group Sound Journey",
       duration: "90 minutes",
-      description: "Shared healing experience in a group setting with various sound healing instruments."
+      description:
+        "Shared healing experience in a group setting with various sound healing instruments.",
     },
     {
       title: "Shamanic Sound Bath",
       duration: "120 minutes",
-      description: "Extended session combining sound healing with shamanic journeying techniques."
+      description:
+        "Extended session combining sound healing with shamanic journeying techniques.",
     },
     {
       title: "Chakra Alignment",
       duration: "75 minutes",
-      description: "Targeted session focusing on clearing and balancing specific energy centers."
-    }
+      description:
+        "Targeted session focusing on clearing and balancing specific energy centers.",
+    },
   ];
 
   return (
@@ -207,30 +272,30 @@ function SessionTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Session Options
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Work with Oshadi
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Work with Oshadi</h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            Oshadi offers a variety of healing sessions to suit your individual needs.
+            Oshadi offers a variety of healing sessions to suit your individual
+            needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -250,7 +315,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -505,7 +571,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

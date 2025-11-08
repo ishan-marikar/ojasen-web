@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         We'd love to hear from you
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,9 +66,10 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Reach out to us for inquiries, bookings, or to learn more about our wellness services
+        Reach out to us for inquiries, bookings, or to learn more about our
+        wellness services
       </div>
     </div>
   );
@@ -82,14 +83,13 @@ function ContactInfo() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Contact Information
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Get in touch with us
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Get in touch with us</h2>
           <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
-            We're here to answer any questions you may have about our services and wellness programs.
+            We're here to answer any questions you may have about our services
+            and wellness programs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -115,12 +115,14 @@ function ContactInfo() {
             </div>
             <h3 className="text-xl mb-4">Location</h3>
             <p className="text-[#525A52]">
-              The Island<br />
-              Palliyagoda, Ahangama<br />
+              The Island
+              <br />
+              Palliyagoda, Ahangama
+              <br />
               80650, Sri Lanka
             </p>
           </div>
-          
+
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
@@ -139,12 +141,15 @@ function ContactInfo() {
             </div>
             <h3 className="text-xl mb-4">Phone</h3>
             <p className="text-[#525A52]">
-              <a href="tel:+94762777482" className="hover:text-[#68887d] transition-colors duration-300">
+              <a
+                href="tel:+94762777482"
+                className="hover:text-[#68887d] transition-colors duration-300"
+              >
                 +94 076 277 7482
               </a>
             </p>
           </div>
-          
+
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
@@ -163,7 +168,10 @@ function ContactInfo() {
             </div>
             <h3 className="text-xl mb-4">Email</h3>
             <p className="text-[#525A52]">
-              <a href="mailto:info@ojasenhealingarts.com" className="hover:text-[#68887d] transition-colors duration-300">
+              <a
+                href="mailto:info@ojasenhealingarts.com"
+                className="hover:text-[#68887d] transition-colors duration-300"
+              >
                 info@ojasenhealingarts.com
               </a>
             </p>
@@ -186,12 +194,15 @@ function ContactForm() {
             We'll get back to you soon
           </h2>
         </div>
-        
+
         <div className="bg-[#3a423b] rounded-4xl p-8 border border-[#68887d]/30">
           <form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2"
+                >
                   Full Name
                 </label>
                 <input
@@ -202,7 +213,10 @@ function ContactForm() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2"
+                >
                   Email Address
                 </label>
                 <input
@@ -213,9 +227,12 @@ function ContactForm() {
                 />
               </div>
             </div>
-            
+
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium mb-2"
+              >
                 Subject
               </label>
               <input
@@ -225,9 +242,12 @@ function ContactForm() {
                 placeholder="How can we help you?"
               />
             </div>
-            
+
             <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium mb-2"
+              >
                 Message
               </label>
               <textarea
@@ -237,7 +257,7 @@ function ContactForm() {
                 placeholder="Tell us more about your inquiry..."
               ></textarea>
             </div>
-            
+
             <div>
               <button
                 type="submit"
@@ -261,14 +281,13 @@ function LocationMap() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Find Us
           </span>
-          <h2 className="text-3xl font-light mt-2">
-            Our Sanctuary Location
-          </h2>
+          <h2 className="text-3xl font-light mt-2">Our Sanctuary Location</h2>
           <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
-            Nestled in the beautiful coastal town of Ahangama, our healing sanctuary offers a tranquil escape from the everyday.
+            Nestled in the beautiful coastal town of Ahangama, our healing
+            sanctuary offers a tranquil escape from the everyday.
           </p>
         </div>
-        
+
         <div className="bg-white rounded-4xl overflow-hidden border border-[#68887d]/20">
           <div className="h-96 relative">
             <Image
@@ -278,20 +297,24 @@ function LocationMap() {
               className="object-cover"
             />
           </div>
-          
+
           <div className="p-8">
             <h3 className="text-2xl mb-4">Getting Here</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h4 className="text-lg font-medium mb-3">By Air</h4>
                 <p className="text-[#525A52]">
-                  The nearest international airport is Bandaranaike International Airport (CMB) in Colombo. From there, it's approximately a 2-hour drive to Ahangama.
+                  The nearest international airport is Bandaranaike
+                  International Airport (CMB) in Colombo. From there, it's
+                  approximately a 2-hour drive to Ahangama.
                 </p>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-3">By Road</h4>
                 <p className="text-[#525A52]">
-                  Ahangama is easily accessible by road from major cities. Regular buses and taxis operate to the area from Colombo and other nearby towns.
+                  Ahangama is easily accessible by road from major cities.
+                  Regular buses and taxis operate to the area from Colombo and
+                  other nearby towns.
                 </p>
               </div>
             </div>
@@ -311,7 +334,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -534,7 +558,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

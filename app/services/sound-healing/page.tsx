@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Sound Healing
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Experience the power of sound healing in our serene sanctuary
       </div>
@@ -83,13 +83,24 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">The Healing Power of Sound</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                Sound healing is an ancient practice that uses vibrational frequencies to promote deep relaxation, reduce stress, and facilitate healing on physical, emotional, and spiritual levels. Our sound healing sessions harness the therapeutic properties of crystal bowls, gongs, and other sacred instruments.
+                Sound healing is an ancient practice that uses vibrational
+                frequencies to promote deep relaxation, reduce stress, and
+                facilitate healing on physical, emotional, and spiritual levels.
+                Our sound healing sessions harness the therapeutic properties of
+                crystal bowls, gongs, and other sacred instruments.
               </p>
               <p className="mb-4">
-                During a sound healing session, the vibrations created by our instruments interact with your body's own energy field, helping to release blockages, restore balance, and activate your body's natural healing mechanisms. Many participants report profound experiences of deep relaxation, emotional release, and spiritual connection.
+                During a sound healing session, the vibrations created by our
+                instruments interact with your body's own energy field, helping
+                to release blockages, restore balance, and activate your body's
+                natural healing mechanisms. Many participants report profound
+                experiences of deep relaxation, emotional release, and spiritual
+                connection.
               </p>
               <p>
-                Our experienced sound healers create a sacred space where you can surrender to the healing vibrations and embark on a journey of inner transformation.
+                Our experienced sound healers create a sacred space where you
+                can surrender to the healing vibrations and embark on a journey
+                of inner transformation.
               </p>
             </div>
           </div>
@@ -103,62 +114,106 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Sound Healing</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Deep Relaxation</h4>
                 <p className="text-[#525A52]">
-                  Profound states of relaxation that help release physical and mental tension.
+                  Profound states of relaxation that help release physical and
+                  mental tension.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Emotional Release</h4>
                 <p className="text-[#525A52]">
-                  Safe space for processing and releasing stored emotions and trauma.
+                  Safe space for processing and releasing stored emotions and
+                  trauma.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Energy Balancing</h4>
                 <p className="text-[#525A52]">
-                  Harmonizing the body's energy centers (chakras) for optimal flow and vitality.
+                  Harmonizing the body's energy centers (chakras) for optimal
+                  flow and vitality.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Enhanced Intuition</h4>
                 <p className="text-[#525A52]">
-                  Heightened awareness and connection to inner wisdom and spiritual guidance.
+                  Heightened awareness and connection to inner wisdom and
+                  spiritual guidance.
                 </p>
               </div>
             </div>
@@ -174,23 +229,27 @@ function SessionTypes() {
     {
       title: "Crystal Bowl Healing",
       duration: "60 minutes",
-      description: "Individual session with crystal singing bowls tuned to specific chakra frequencies."
+      description:
+        "Individual session with crystal singing bowls tuned to specific chakra frequencies.",
     },
     {
       title: "Gong Bath",
       duration: "75 minutes",
-      description: "Immersive experience with therapeutic gongs for deep cellular healing and transformation."
+      description:
+        "Immersive experience with therapeutic gongs for deep cellular healing and transformation.",
     },
     {
       title: "Group Sound Journey",
       duration: "90 minutes",
-      description: "Shared healing experience in a group setting with various sound healing instruments."
+      description:
+        "Shared healing experience in a group setting with various sound healing instruments.",
     },
     {
       title: "Chakra Balancing",
       duration: "60 minutes",
-      description: "Targeted session focusing on clearing and balancing specific energy centers."
-    }
+      description:
+        "Targeted session focusing on clearing and balancing specific energy centers.",
+    },
   ];
 
   return (
@@ -204,26 +263,28 @@ function SessionTypes() {
             Choose Your Healing Experience
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer a variety of sound healing experiences to suit your individual needs.
+            We offer a variety of sound healing experiences to suit your
+            individual needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
@@ -243,7 +304,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +560,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

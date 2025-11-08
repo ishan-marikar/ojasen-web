@@ -12,7 +12,7 @@ function Hero() {
       <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
         Kakou Healing Ceremony
       </h1>
-      
+
       {/* Floating flowers */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -66,7 +66,7 @@ function Hero() {
           />
         </div>
       </div>
-      
+
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Experience the transformative power of ancient healing traditions
       </div>
@@ -83,13 +83,26 @@ function ServiceDetails() {
             <h2 className="text-3xl mb-6">Ancient Wisdom for Modern Healing</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
-                The Kakou Healing Ceremony is a sacred ritual rooted in ancient traditions that facilitates deep spiritual healing and transformation. This powerful ceremony combines elements of energy work, sacred chanting, and ceremonial practices to create a profound healing experience.
+                The Kakou Healing Ceremony is a sacred ritual rooted in ancient
+                traditions that facilitates deep spiritual healing and
+                transformation. This powerful ceremony combines elements of
+                energy work, sacred chanting, and ceremonial practices to create
+                a profound healing experience.
               </p>
               <p className="mb-4">
-                During a Kakou ceremony, participants are guided through a journey of purification, release, and renewal. The ritual work helps to clear energetic blockages, release ancestral patterns, and restore balance to the mind, body, and spirit. Our experienced facilitators create a sacred container where deep healing can occur.
+                During a Kakou ceremony, participants are guided through a
+                journey of purification, release, and renewal. The ritual work
+                helps to clear energetic blockages, release ancestral patterns,
+                and restore balance to the mind, body, and spirit. Our
+                experienced facilitators create a sacred container where deep
+                healing can occur.
               </p>
               <p>
-                The ceremony typically involves the use of sacred tools, aromatic herbs, and intentional movement to shift energy and consciousness. Participants often report profound insights, emotional release, and a renewed sense of purpose and connection to their authentic selves after experiencing a Kakou ceremony.
+                The ceremony typically involves the use of sacred tools,
+                aromatic herbs, and intentional movement to shift energy and
+                consciousness. Participants often report profound insights,
+                emotional release, and a renewed sense of purpose and connection
+                to their authentic selves after experiencing a Kakou ceremony.
               </p>
             </div>
           </div>
@@ -103,62 +116,110 @@ function ServiceDetails() {
             />
           </div>
         </div>
-        
+
         <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Kakou Healing</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Spiritual Awakening</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Spiritual Awakening
+                </h4>
                 <p className="text-[#525A52]">
-                  Activate higher states of consciousness and connect with your spiritual essence.
+                  Activate higher states of consciousness and connect with your
+                  spiritual essence.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Ancestral Healing</h4>
                 <p className="text-[#525A52]">
-                  Release inherited patterns and reconnect with your ancestral wisdom.
+                  Release inherited patterns and reconnect with your ancestral
+                  wisdom.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
                 <h4 className="text-lg font-medium mb-2">Energetic Clearing</h4>
                 <p className="text-[#525A52]">
-                  Remove energetic blockages and restore the free flow of life force energy.
+                  Remove energetic blockages and restore the free flow of life
+                  force energy.
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
               <div>
-                <h4 className="text-lg font-medium mb-2">Emotional Integration</h4>
+                <h4 className="text-lg font-medium mb-2">
+                  Emotional Integration
+                </h4>
                 <p className="text-[#525A52]">
-                  Process and integrate difficult emotions in a supportive sacred space.
+                  Process and integrate difficult emotions in a supportive
+                  sacred space.
                 </p>
               </div>
             </div>
@@ -174,23 +235,27 @@ function SessionTypes() {
     {
       title: "Individual Kakou Ceremony",
       duration: "2 hours",
-      description: "One-on-one sacred ritual tailored to your specific healing needs and intentions."
+      description:
+        "One-on-one sacred ritual tailored to your specific healing needs and intentions.",
     },
     {
       title: "Group Kakou Ceremony",
       duration: "3 hours",
-      description: "Shared ceremonial experience with a small group for collective healing and transformation."
+      description:
+        "Shared ceremonial experience with a small group for collective healing and transformation.",
     },
     {
       title: "Kakou Initiation",
       duration: "Full day",
-      description: "Intensive ceremony for those called to deepen their connection with Kakou healing practices."
+      description:
+        "Intensive ceremony for those called to deepen their connection with Kakou healing practices.",
     },
     {
       title: "Follow-up Integration Session",
       duration: "90 minutes",
-      description: "Support session to process and integrate insights from your Kakou ceremony experience."
-    }
+      description:
+        "Support session to process and integrate insights from your Kakou ceremony experience.",
+    },
   ];
 
   return (
@@ -204,26 +269,28 @@ function SessionTypes() {
             Choose Your Healing Journey
           </h2>
           <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
-            We offer various Kakou healing experiences to suit your individual needs.
+            We offer various Kakou healing experiences to suit your individual
+            needs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session, index) => (
-            <div key={index} className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30">
+            <div
+              key={index}
+              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+            >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
                 <span className="text-[#c4c9c4] bg-[#2b332d] px-3 py-1 rounded-full text-sm">
                   {session.duration}
                 </span>
               </div>
-              <p className="text-[#c4c9c4]">
-                {session.description}
-              </p>
+              <p className="text-[#c4c9c4]">{session.description}</p>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Ceremony
@@ -243,7 +310,8 @@ function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
             <p className="text-[#c4c9c4] text-lg leading-relaxed">
-              Your sanctuary for holistic wellness and transformative healing experiences.
+              Your sanctuary for holistic wellness and transformative healing
+              experiences.
             </p>
             <div className="flex space-x-4 pt-2">
               <a
@@ -498,7 +566,8 @@ function Footer() {
         <div className="border-t border-[#68887d]/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
-              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights reserved.
+              &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
+              reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a
