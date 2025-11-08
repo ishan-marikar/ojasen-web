@@ -172,6 +172,14 @@
     animation-delay: 5s;
   }
   
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+  
+  .animation-delay-1500 {
+    animation-delay: 1.5s;
+  }
+  
   @keyframes float {
     0% {
       transform: translate(0px, 0px) rotate(0deg);
@@ -254,8 +262,78 @@
     }
   }
   
+  @keyframes float-particle {
+    0% {
+      transform: translate(0px, 0px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translate(20px, -100px);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse-slow {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0.3;
+      transform: scale(0.95);
+    }
+  }
+  
   .animate-float-meditate {
     animation: float-meditate 6s ease-in-out infinite;
+  }
+  
+  .animate-float-particle {
+    animation: float-particle 8s linear infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s ease-out forwards;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
   }
   
   /* Depth layers for parallax effect */

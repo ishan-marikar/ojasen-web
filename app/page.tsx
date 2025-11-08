@@ -13,13 +13,17 @@ function Hero() {
   return (
     <>
       <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-        <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
+        {/* Subtle gradient background for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f0f5ee]/30 to-[#e8f0e6]/50 pointer-events-none"></div>
+
+        <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider relative z-10 animate-fade-in">
           Your wellness sanctuary
         </div>
-        <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
+        <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center relative z-10 animate-fade-in-up">
           Awaken the life within
         </h1>
-        {/* Floating flowers */}
+
+        {/* Enhanced floating flowers with more layers and variety */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Background layer - subtle, more blurred */}
           <div className="absolute top-1/3 left-1/6 animate-float-slow animation-delay-0 depth-layer-1">
@@ -52,6 +56,17 @@ function Hero() {
             />
           </div>
 
+          {/* Additional floating elements for more dynamic effect */}
+          <div className="absolute top-1/5 left-1/3 animate-float-fast animation-delay-1500 depth-layer-2">
+            <Image
+              src="/images/hero/flower02.png"
+              alt="Floating Flower"
+              width={32}
+              height={32}
+              className="opacity-40 blur-[0.3px]"
+            />
+          </div>
+
           {/* Foreground layer - clearer, less blurred */}
           <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
             <Image
@@ -71,32 +86,82 @@ function Hero() {
               className="opacity-60 blur-[0.25px]"
             />
           </div>
+
+          {/* New floating elements for enhanced depth */}
+          <div className="absolute top-2/3 right-1/5 animate-float animation-delay-500 depth-layer-3">
+            <Image
+              src="/images/hero/flower02.png"
+              alt="Floating Flower"
+              width={38}
+              height={38}
+              className="opacity-55"
+            />
+          </div>
+
+          <div className="absolute top-1/4 left-1/5 animate-float-reverse animation-delay-3500 depth-layer-2">
+            <Image
+              src="/images/hero/flower03.png"
+              alt="Floating Flower"
+              width={28}
+              height={28}
+              className="opacity-45 blur-[0.4px]"
+            />
+          </div>
         </div>
+
+        {/* Enhanced main image with glow effect */}
         <div className="mt-3 relative z-10">
+          <div className="absolute inset-0 bg-[#68887d]/20 rounded-full blur-xl animate-pulse-slow"></div>
           <Image
             src="/images/hero/hero.png"
             alt="Facilitator"
             width={400}
             height={400}
-            className="animate-float-meditate"
+            className="animate-float-meditate relative z-10"
           />
         </div>
-        <div className="text-[#525A52] text-center mt-4 text-lg tracking-wide">
+
+        <div className="text-[#525A52] text-center mt-4 text-lg tracking-wide relative z-10 animate-fade-in-up animation-delay-1000">
           We aim to empower individuals to take charge of their well-being
           through education, resources, and personalized wellness programs
         </div>
-        <div className="my-3 mb-8">
+        <div className="my-3 mb-8 relative z-10 animate-fade-in-up animation-delay-1500">
           <CallToActionButton />
         </div>
+
+        {/* Subtle floating particles for ambient effect */}
+        <FloatingParticles />
       </div>
     </>
   );
 }
 
+function FloatingParticles() {
+  return (
+    <div className="absolute inset-0 pointer-events-none">
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className={`absolute rounded-full bg-[#68887d]/10 animate-float-particle animation-delay-${
+            i * 500
+          }`}
+          style={{
+            width: `${Math.random() * 10 + 5}px`,
+            height: `${Math.random() * 10 + 5}px`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function CallToActionButton() {
   return (
-    <button className="mt-6 rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-10 py-5 text-primary text-sm">
-      Get Started
+    <button className="mt-6 rounded-lg bg-[#CDEDD4] hover:bg-[#a8c9b3] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg uppercase px-10 py-5 text-primary text-sm relative overflow-hidden group">
+      <span className="relative z-10">Get Started</span>
+      <div className="absolute inset-0 bg-[#68887d] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
     </button>
   );
 }
