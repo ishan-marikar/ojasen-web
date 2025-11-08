@@ -159,18 +159,24 @@ function FloatingParticles() {
 
 function CallToActionButton() {
   return (
-    <button className="mt-6 rounded-lg bg-[#CDEDD4] hover:bg-[#a8c9b3] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg uppercase px-10 py-5 text-primary text-sm relative overflow-hidden group">
+    <Link
+      href="/services"
+      className="mt-6 inline-block rounded-lg bg-[#CDEDD4] hover:bg-[#a8c9b3] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg uppercase px-10 py-5 text-primary text-sm font-semibold relative overflow-hidden group"
+    >
       <span className="relative z-10">Get Started</span>
       <div className="absolute inset-0 bg-[#68887d] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-    </button>
+    </Link>
   );
 }
 
 function LearnMoreButton() {
   return (
-    <button className="mt-6 rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-10 py-5 text-primary text-sm">
-      Learn More{" "}
-    </button>
+    <Link
+      href="/about"
+      className="mt-6 inline-block rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-10 py-5 text-primary text-sm font-semibold"
+    >
+      Learn More
+    </Link>
   );
 }
 
