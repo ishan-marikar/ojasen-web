@@ -395,7 +395,8 @@ function AnahataFlow() {
   return (
     <>
       <motion.div
-        className="py-20 px-6 bg-white"
+        style={{ backgroundImage: "url('/images/hero-night.jpg')" }}
+        className="bg-[#f7faf6] py-20 px-6 bg-cover  bg-no-repeat bg-top"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -403,7 +404,7 @@ function AnahataFlow() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
-            className="text-3xl md:text-4xl font-sans text-[#191d18] mb-6"
+            className="text-3xl md:text-4xl font-sans text-[#fff] mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -411,7 +412,7 @@ function AnahataFlow() {
           >
             Anahata Flow
           </motion.h2>
-          <div className="text-lg md:text-xl text-[#525A52] leading-relaxed space-y-4">
+          <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
