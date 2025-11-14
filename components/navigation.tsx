@@ -39,7 +39,11 @@ export function Navigation() {
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="transition-all duration-300">
-          <div className={`transition-all duration-300 ${scrolled ? 'w-10 h-10' : 'w-16 h-16'}`}>
+          <div
+            className={`transition-all duration-300 ${
+              scrolled ? "w-10 h-10" : "w-16 h-16"
+            }`}
+          >
             <Image
               src="/images/logo.png"
               alt="Ojasen Healing Arts"
@@ -57,15 +61,17 @@ export function Navigation() {
               key={link.name}
               href={link.href}
               className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
-                scrolled 
-                  ? "text-[#191d18] hover:text-[#68887d]" 
+                scrolled
+                  ? "text-[#191d18] hover:text-[#68887d]"
                   : "text-white hover:text-[#d6ddcb]"
               }`}
             >
               {link.name}
-              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                scrolled ? "bg-[#68887d]" : "bg-[#d6ddcb]"
-              }`}></span>
+              <span
+                className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                  scrolled ? "bg-[#68887d]" : "bg-[#d6ddcb]"
+                }`}
+              ></span>
             </Link>
           ))}
         </nav>
