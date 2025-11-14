@@ -6,10 +6,7 @@ import { Navigation } from "@/components/navigation";
 
 function Hero() {
   return (
-    <div
-      className="w-full flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/hero-background.JPG')" }}
-    >
+    <div className="w-full flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-cover bg-center bg-no-repeat">
       <div className="bg-black/30 backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4">
         <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
           Our Healers
