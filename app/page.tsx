@@ -671,18 +671,27 @@ function PanchaliSaadhan() {
               viewport={{ once: true }}
               className="transition-all duration-700 delay-200"
             >
-              Panchali Sadhana is a sacred WOMEN”S gathering inspired by the
+              Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
               strength and grace of Panchali. This evening is crafted to help
               you release emotional weight, reconnect with your heart, and step
               into a new cycle with clarity and intention. The journey weaves
               together a trauma-safe release ritual, an intention and manifest
               circle, sound healing with Oshi, lunar yoga and breathwork, energy
               clearing, and a symbolic fire offering to let go of what no longer
-              serves you. You’ll be guided through gentle New-Moon journaling,
-              followed by a sisterhood sharing circle and a grounding tea ritual
-              to close the night with softness. Panchali Sadhana is a space to
-              be held, seen, and supported — a return to your inner flame, your
-              truth, and your feminine wisdom. Come as you are. Leave renewed.
+              serves you.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="transition-all duration-700 delay-200"
+            >
+              You’ll be guided through gentle New-Moon journaling, followed by a
+              sisterhood sharing circle and a grounding tea ritual to close the
+              night with softness. Panchali Sadhana is a space to be held, seen,
+              and supported — a return to your inner flame, your truth, and your
+              feminine wisdom. Come as you are. Leave renewed.
             </motion.p>
           </div>
 
