@@ -12,7 +12,7 @@ function YogaMeditationHero() {
     <Hero
       title="Yoga and Meditation"
       subtitle="Mind & Body Harmony"
-      className="bg-[#f7faf6]"
+      className="bg-[#f7faf6] min-h-screen justify-center"
     >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Experience the harmony of body and mind through our guided yoga and

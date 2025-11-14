@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function () {
   return (
@@ -22,11 +23,32 @@ export default function () {
 function Hero() {
   return (
     <>
-      <div
-        className="w-full flex flex-col items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero-background.jpg')" }}
-      >
-        <div className="bg-black/30 backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4">
+      <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
+        <div className="absolute inset-0 w-full h-full">
+          {/* Hide the default image on mobile and show optimized version */}
+          <div className="hidden md:block">
+            <Image
+              src="/images/hero-background.jpg"
+              alt="Ojasen Healing Arts Sanctuary"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+          <div className="md:hidden">
+            <Image
+              src="/images/hero-background-mobile.jpg"
+              alt="Ojasen Healing Arts Sanctuary"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </div>
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-20 px-4">
           <div className="max-w-4xl text-center space-y-6">
             <motion.img
               className="mx-auto"
@@ -82,10 +104,31 @@ function Hero() {
 
 function Ceremonies() {
   return (
-    <div
-      style={{ backgroundImage: "url('/images/hero-night.JPG')" }}
-      className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden"
-    >
+    <div className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden">
+      {/* Replace CSS background with Next.js Image component */}
+      <div className="absolute inset-0 w-full h-full">
+        <div className="hidden md:block">
+          <Image
+            src="/images/hero-night.jpg"
+            alt="Ceremonies Background"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="md:hidden">
+          <Image
+            src="/images/hero-night-mobile.jpg"
+            alt="Ceremonies Background"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -174,14 +217,37 @@ function About() {
   return (
     <>
       <motion.div
-        style={{ backgroundImage: "url('/images/hero-drone.jpg')" }}
-        className="bg-[#f7faf6] py-20 px-6 bg-cover bg-center bg-no-repeat"
+        className="bg-[#f7faf6] py-20 px-6 bg-cover bg-center bg-no-repeat relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className="max-w-4xl mx-auto text-center">
+        {/* Replace CSS background with Next.js Image component */}
+        <div className="absolute inset-0 w-full h-full">
+          <div className="hidden md:block">
+            <Image
+              src="/images/hero-drone.jpg"
+              alt="About Background"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+          <div className="md:hidden">
+            <Image
+              src="/images/hero-drone-mobile.jpg"
+              alt="About Background"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </div>
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.h2
             className="text-3xl md:text-4xl font-sans text-[white] mb-6"
             initial={{ opacity: 0, y: 20 }}
@@ -511,10 +577,31 @@ function EventsSection() {
 
 function AnahataFlowEvent() {
   return (
-    <div
-      style={{ backgroundImage: "url('/images/hero-night.jpg')" }}
-      className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden rounded-3xl"
-    >
+    <div className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden rounded-3xl">
+      {/* Replace CSS background with Next.js Image component */}
+      <div className="absolute inset-0 w-full h-full">
+        <div className="hidden md:block">
+          <Image
+            src="/images/hero-night.jpg"
+            alt="Anahata Flow Background"
+            fill
+            className="object-cover rounded-3xl"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="md:hidden">
+          <Image
+            src="/images/hero-night-mobile.jpg"
+            alt="Anahata Flow Background"
+            fill
+            className="object-cover rounded-3xl"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm rounded-3xl"></div>
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -629,10 +716,31 @@ function AnahataFlowEvent() {
 
 function PanchaliSaadhanEvent() {
   return (
-    <div
-      style={{ backgroundImage: "url('/images/hero-fantasy.png')" }}
-      className="py-20 px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
-    >
+    <div className="py-20 px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl">
+      {/* Replace CSS background with Next.js Image component */}
+      <div className="absolute inset-0 w-full h-full">
+        <div className="hidden md:block">
+          <Image
+            src="/images/hero-fantasy.png"
+            alt="Panchali Saadhan Background"
+            fill
+            className="object-cover rounded-3xl"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="md:hidden">
+          <Image
+            src="/images/hero-fantasy-mobile.png"
+            alt="Panchali Saadhan Background"
+            fill
+            className="object-cover rounded-3xl"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm rounded-3xl"></div>
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}

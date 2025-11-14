@@ -11,8 +11,7 @@ function ServicesHero() {
     <Hero
       title="Discover our healing services"
       subtitle="Holistic Wellness"
-      backgroundImage="/images/hero-drone.jpg"
-      className="min-h-screen justify-center"
+      className="min-h-screen justify-center bg-[#f7faf6]"
     >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Our comprehensive range of holistic wellness services designed to

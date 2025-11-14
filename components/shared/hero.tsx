@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import { FloatingFlower } from "@/components/shared/floating-flower";
+import Image from "next/image";
 
 interface HeroProps {
   title?: string;
@@ -18,16 +19,36 @@ export function Hero({
   backgroundImage,
   className = "",
 }: HeroProps) {
-  const heroStyle = backgroundImage
-    ? { backgroundImage: `url('${backgroundImage}')` }
-    : {};
-
   return (
     <div
       className={`w-full flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-cover bg-center bg-no-repeat ${className}`}
-      style={heroStyle}
     >
-      <div className="bg-black/30 backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4">
+      {/* Replace CSS background with Next.js Image component */}
+      {backgroundImage && (
+        <div className="absolute inset-0 w-full h-full">
+          <div className="hidden md:block">
+            <Image
+              src={backgroundImage.replace(".JPG", ".jpg")}
+              alt="Hero Background"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+          <div className="md:hidden">
+            <Image
+              src={backgroundImage.replace(".JPG", "-mobile.jpg") || backgroundImage.replace(".jpg", "-mobile.jpg")}
+              alt="Hero Background"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      )}
+      <div className="bg-black/30 backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4 relative z-10">
         {subtitle && (
           <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
             {subtitle}
