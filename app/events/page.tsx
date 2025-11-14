@@ -91,7 +91,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "7am - 9am",
       image: "/images/events/event-01.jpg",
-      id: "zen-balance-retreat"
+      id: "zen-balance-retreat",
     },
     {
       date: "05",
@@ -102,7 +102,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "5pm - 7pm",
       image: "/images/events/event-02.jpg",
-      id: "sound-healing-journey"
+      id: "sound-healing-journey",
     },
     {
       date: "12",
@@ -113,7 +113,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "6pm - 8pm",
       image: "/images/events/event-03.jpg",
-      id: "ecstatic-dance-workshop"
+      id: "ecstatic-dance-workshop",
     },
     {
       date: "20",
@@ -124,7 +124,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "7pm - 9pm",
       image: "/images/events/event-04.jpg",
-      id: "winter-solstice-ceremony"
+      id: "winter-solstice-ceremony",
     },
     {
       date: "28",
@@ -135,7 +135,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "10am - 12pm",
       image: "/images/events/event-05.jpg",
-      id: "new-year-wellness-workshop"
+      id: "new-year-wellness-workshop",
     },
     {
       date: "05",
@@ -146,7 +146,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "8am - 10am",
       image: "/images/events/event-06.jpg",
-      id: "mindfulness-meditation-series"
+      id: "mindfulness-meditation-series",
     },
   ];
 
@@ -194,7 +194,7 @@ function EventCard({
   location,
   time,
   image,
-  id
+  id,
 }: {
   date: string;
   month: string;
@@ -222,7 +222,9 @@ function EventCard({
         <div className="flex items-start justify-between">
           <div>
             <Link href={`/events/${id}`}>
-              <h3 className="text-2xl font-light text-[#191d18] cursor-pointer hover:underline">{title}</h3>
+              <h3 className="text-2xl font-light text-[#191d18] cursor-pointer hover:underline">
+                {title}
+              </h3>
             </Link>
             <p className="text-[#525A52] mt-2 text-sm leading-relaxed">
               {description}

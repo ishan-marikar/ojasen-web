@@ -49,8 +49,8 @@ function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              YOGA | BREATHWORK | SOUND HEALING CEREMONIES | ICE BATH | RETREATS
-              ENERGY HEALING | COLLECTIVE CIRCLES
+              YOGA | BREATHWORK | SOUND HEALING | ICE BATH | RETREATS ENERGY
+              HEALING | CACAU HEALING CEREMONY
             </motion.div>
             <motion.p
               className="text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed"
