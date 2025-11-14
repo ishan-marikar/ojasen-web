@@ -10,7 +10,7 @@ export default function () {
       <Navigation />
       <Hero />
       <About />
-      <Schedule />
+      {/* <Schedule /> */}
       <AnahataFlow />
       <LocationMap />
       <Footer />
