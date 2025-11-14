@@ -91,6 +91,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "7am - 9am",
       image: "/images/events/event-01.jpg",
+      id: "zen-balance-retreat"
     },
     {
       date: "05",
@@ -101,6 +102,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "5pm - 7pm",
       image: "/images/events/event-02.jpg",
+      id: "sound-healing-journey"
     },
     {
       date: "12",
@@ -111,6 +113,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "6pm - 8pm",
       image: "/images/events/event-03.jpg",
+      id: "ecstatic-dance-workshop"
     },
     {
       date: "20",
@@ -121,6 +124,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "7pm - 9pm",
       image: "/images/events/event-04.jpg",
+      id: "winter-solstice-ceremony"
     },
     {
       date: "28",
@@ -131,6 +135,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "10am - 12pm",
       image: "/images/events/event-05.jpg",
+      id: "new-year-wellness-workshop"
     },
     {
       date: "05",
@@ -141,6 +146,7 @@ function UpcomingEvents() {
       location: "The Island - Ahangama",
       time: "8am - 10am",
       image: "/images/events/event-06.jpg",
+      id: "mindfulness-meditation-series"
     },
   ];
 
@@ -171,6 +177,7 @@ function UpcomingEvents() {
               location={event.location}
               time={event.time}
               image={event.image}
+              id={event.id}
             />
           ))}
         </div>
@@ -187,6 +194,7 @@ function EventCard({
   location,
   time,
   image,
+  id
 }: {
   date: string;
   month: string;
@@ -195,22 +203,27 @@ function EventCard({
   location: string;
   time: string;
   image: string;
+  id: string;
 }) {
   return (
     <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40">
-      <div className="relative aspect-[4/3] w-full">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover rounded-l-4xl rounded-r-1xl"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </div>
+      <Link href={`/events/${id}`}>
+        <div className="relative aspect-[4/3] w-full cursor-pointer">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover rounded-l-4xl rounded-r-1xl"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      </Link>
       <div className="p-6">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-2xl font-light text-[#191d18]">{title}</h3>
+            <Link href={`/events/${id}`}>
+              <h3 className="text-2xl font-light text-[#191d18] cursor-pointer hover:underline">{title}</h3>
+            </Link>
             <p className="text-[#525A52] mt-2 text-sm leading-relaxed">
               {description}
             </p>
@@ -237,6 +250,11 @@ function EventCard({
           <Link href="/booking" className="flex-1">
             <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
               Book Now
+            </button>
+          </Link>
+          <Link href={`/events/${id}`} className="flex-1">
+            <button className="w-full rounded-lg bg-transparent border border-[#68887d] text-[#68887d] hover:bg-[#68887d] hover:text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
+              Learn More
             </button>
           </Link>
         </div>

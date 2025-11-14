@@ -61,16 +61,18 @@ function Hero() {
               A sanctuary for communities, where freedom, mindfulness, and
               holistic healing come together.
             </motion.p>
-            <motion.button
-              className="mt-8 px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#556b62] transition-colors duration-300"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Weekly Schedule & Bookings
-            </motion.button>
+            <Link href="/booking">
+              <motion.button
+                className="mt-8 px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#556b62] transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Weekly Schedule & Bookings
+              </motion.button>
+            </Link>
           </div>
         </div>
       </div>
@@ -82,7 +84,7 @@ function Ceremonies() {
   return (
     <div
       style={{ backgroundImage: "url('/images/hero-night.JPG')" }}
-      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden"
+      className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden"
     >
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -261,17 +263,6 @@ function Schedule() {
         { day: "Monday", time: "9:00 AM - 11:00 AM" },
         { day: "Wednesday", time: "2:00 PM - 4:00 PM" },
         { day: "Friday", time: "10:00 AM - 12:00 PM" },
-      ],
-    },
-    {
-      name: "Alice",
-      role: "Yoga Instructor",
-      image: "/images/healers/alice.png",
-      link: "/healers/alice",
-      availability: [
-        { day: "Tuesday", time: "7:00 AM - 9:00 AM" },
-        { day: "Thursday", time: "5:00 PM - 7:00 PM" },
-        { day: "Saturday", time: "8:00 AM - 10:00 AM" },
       ],
     },
     {
@@ -506,9 +497,11 @@ function EventsSection() {
           </div>
 
           <div className="text-center mt-12">
-            <button className="px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
-              View All Events
-            </button>
+            <Link href="/events">
+              <button className="px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
+                View All Events
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -520,7 +513,7 @@ function AnahataFlowEvent() {
   return (
     <div
       style={{ backgroundImage: "url('/images/hero-night.jpg')" }}
-      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
+      className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden rounded-3xl"
     >
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -567,9 +560,11 @@ function AnahataFlowEvent() {
       </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
-          Anahata Flow
-        </h2>
+        <Link href="/events/anahata-flow">
+          <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
+            Anahata Flow
+          </h2>
+        </Link>
 
         {/* Event details card */}
         <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
@@ -616,9 +611,16 @@ function AnahataFlowEvent() {
 
         {/* CTA Button */}
         <div className="mt-10">
-          <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
-            Reserve Your Spot
-          </button>
+          <Link href="/events/anahata-flow">
+            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+              Learn More
+            </button>
+          </Link>
+          <Link href="/booking">
+            <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+              Reserve Your Spot
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -629,7 +631,7 @@ function PanchaliSaadhanEvent() {
   return (
     <div
       style={{ backgroundImage: "url('/images/hero-fantasy.png')" }}
-      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
+      className="py-20 px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
     >
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -676,9 +678,11 @@ function PanchaliSaadhanEvent() {
       </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
-          Panchali Sādhanā{" "}
-        </h2>
+        <Link href="/events/panchali-saadhan">
+          <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
+            Panchali Sādhanā{" "}
+          </h2>
+        </Link>
 
         {/* Event details card */}
         <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
@@ -734,9 +738,16 @@ function PanchaliSaadhanEvent() {
 
         {/* CTA Button */}
         <div className="mt-10">
-          <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
-            Reserve Your Spot
-          </button>
+          <Link href="/events/panchali-saadhan">
+            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+              Learn More
+            </button>
+          </Link>
+          <Link href="/booking">
+            <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+              Reserve Your Spot
+            </button>
+          </Link>
         </div>
       </div>
     </div>
