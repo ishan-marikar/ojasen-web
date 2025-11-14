@@ -8,71 +8,76 @@ import { CalendarPlus } from "lucide-react";
 
 function Hero() {
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Upcoming Experiences
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Join our transformative events
-      </h1>
+    <div
+      className="w-full flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/hero-drone.jpg')" }}
+    >
+      <div className="bg-black/30 backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4">
+        <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
+          Upcoming Experiences
+        </div>
+        <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
+          Join our transformative events
+        </h1>
 
-      {/* Floating flowers */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Background layer - subtle, more blurred */}
-        <div className="absolute top-1/3 left-1/6 animate-float-slow animation-delay-0 depth-layer-1">
-          <Image
-            src="/images/hero/flower02.png"
-            alt="Floating Flower"
-            width={48}
-            height={48}
-            className="opacity-30 blur-[1px]"
-          />
-        </div>
-        <div className="absolute top-1/4 right-1/5 animate-float-reverse animation-delay-2000 depth-layer-1">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={36}
-            height={36}
-            className="opacity-25 blur-[1.5px]"
-          />
+        {/* Floating flowers */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Background layer - subtle, more blurred */}
+          <div className="absolute top-1/3 left-1/6 animate-float-slow animation-delay-0 depth-layer-1">
+            <Image
+              src="/images/hero/flower02.png"
+              alt="Floating Flower"
+              width={48}
+              height={48}
+              className="opacity-30 blur-[1px]"
+            />
+          </div>
+          <div className="absolute top-1/4 right-1/5 animate-float-reverse animation-delay-2000 depth-layer-1">
+            <Image
+              src="/images/hero/flower03.png"
+              alt="Floating Flower"
+              width={36}
+              height={36}
+              className="opacity-25 blur-[1.5px]"
+            />
+          </div>
+
+          {/* Middle layer - medium visibility, medium blur */}
+          <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
+            <Image
+              src="/images/hero/flower03.png"
+              alt="Floating Flower"
+              width={52}
+              height={52}
+              className="opacity-50 blur-[0.5px]"
+            />
+          </div>
+
+          {/* Foreground layer - clearer, less blurred */}
+          <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
+            <Image
+              src="/images/hero/flower02.png"
+              alt="Floating Flower"
+              width={60}
+              height={60}
+              className="opacity-70"
+            />
+          </div>
+          <div className="absolute top-1/6 right-1/4 animate-float-scale animation-delay-4000 depth-layer-3">
+            <Image
+              src="/images/hero/flower03.png"
+              alt="Floating Flower"
+              width={44}
+              height={44}
+              className="opacity-60 blur-[0.25px]"
+            />
+          </div>
         </div>
 
-        {/* Middle layer - medium visibility, medium blur */}
-        <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={52}
-            height={52}
-            className="opacity-50 blur-[0.5px]"
-          />
+        <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
+          Experience the power of community and transformation through our
+          curated wellness events
         </div>
-
-        {/* Foreground layer - clearer, less blurred */}
-        <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
-          <Image
-            src="/images/hero/flower02.png"
-            alt="Floating Flower"
-            width={60}
-            height={60}
-            className="opacity-70"
-          />
-        </div>
-        <div className="absolute top-1/6 right-1/4 animate-float-scale animation-delay-4000 depth-layer-3">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={44}
-            height={44}
-            className="opacity-60 blur-[0.25px]"
-          />
-        </div>
-      </div>
-
-      <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
-        Experience the power of community and transformation through our curated
-        wellness events
       </div>
     </div>
   );

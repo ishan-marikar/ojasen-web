@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +38,16 @@ export function Navigation() {
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <img
-            src="/images/logo.png"
-            alt="Ojasen Logo"
-            className={scrolled ? "h-8 md:h-10 w-auto" : "h-16 md:h-25 w-auto"}
-          />
+        <Link href="/" className="transition-all duration-300">
+          <div className={`transition-all duration-300 ${scrolled ? 'w-10 h-10' : 'w-16 h-16'}`}>
+            <Image
+              src="/images/logo.png"
+              alt="Ojasen Healing Arts"
+              width={scrolled ? 40 : 64}
+              height={scrolled ? 40 : 64}
+              className="object-contain"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
@@ -51,17 +56,25 @@ export function Navigation() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-[#191d18] hover:text-[#68887d] transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group"
+              className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
+                scrolled 
+                  ? "text-[#191d18] hover:text-[#68887d]" 
+                  : "text-white hover:text-[#d6ddcb]"
+              }`}
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#68887d] transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                scrolled ? "bg-[#68887d]" : "bg-[#d6ddcb]"
+              }`}></span>
             </Link>
           ))}
         </nav>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-[#191d18] focus:outline-none"
+          className={`md:hidden focus:outline-none transition-colors duration-300 ${
+            scrolled ? "text-[#191d18]" : "text-white"
+          }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
