@@ -11,8 +11,8 @@ export default function () {
       <Hero />
       <About />
       <Schedule />
-      <AnahataFlow />
-      <PanchaliSaadhan />
+      <Ceremonies />
+      <EventsSection />
       <LocationMap />
       <Footer />
     </>
@@ -75,6 +75,96 @@ function Hero() {
         </div>
       </div>
     </>
+  );
+}
+
+function Ceremonies() {
+  return (
+    <div
+      style={{ backgroundImage: "url('/images/hero-night.JPG')" }}
+      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden"
+    >
+      {/* Floating decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Background layer - subtle, more blurred */}
+        <div className="absolute top-1/4 left-1/5 animate-float-slow animation-delay-0 depth-layer-1">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-20 blur-[1px] w-12 h-12 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/3 right-1/4 animate-float-reverse animation-delay-2000 depth-layer-1">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-15 blur-[1.5px] w-10 h-10 object-contain"
+          />
+        </div>
+
+        {/* Middle layer - medium visibility, medium blur */}
+        <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-30 blur-[0.5px] w-14 h-14 object-contain"
+          />
+        </div>
+
+        {/* Foreground layer - clearer, less blurred */}
+        <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-40 w-16 h-16 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/6 right-1/3 animate-float-scale animation-delay-4000 depth-layer-3">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-35 blur-[0.25px] w-11 h-11 object-contain"
+          />
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="text-sm uppercase font-medium tracking-wider text-[#CDEDD4] mb-4">
+          Sacred Gatherings
+        </div>
+        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
+          Sessions & Ceremonies
+        </h2>
+
+        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4 mb-10">
+          <p>
+            Moments crafted with intention, devotion, and soul. Our Sacred
+            Events are intimate ceremonial gatherings that guide you deeper into
+            presence through yoga, sound, breath, energy work, and ritual. Each
+            event is a shared journey — a space to release, realign, and
+            reconnect with the parts of yourself that deserve to be felt.
+          </p>
+          <p>
+            Rooted in island energy and held with gentle care, these experiences
+            invite you to awaken your spirit, honour your inner truth, and step
+            into a more grounded, luminous you.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link href="/events">
+            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+              Explore Ceremonies
+            </button>
+          </Link>
+          <Link href="/booking">
+            <button className="px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+              Book a Session
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -351,7 +441,7 @@ function Footer() {
                 A sanctuary for communities, where freedom, mindfulness, and
                 holistic healing come together.
               </p>
-              <p className="text-[#c4c9c4]">The Island Ahangama, Sri Lanka</p>
+              <p className="text-[#c4c9c4">The Island Ahangama, Sri Lanka</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -392,326 +482,264 @@ function Footer() {
   );
 }
 
-function AnahataFlow() {
+function EventsSection() {
   return (
     <>
-      <motion.div
-        style={{ backgroundImage: "url('/images/hero-night.jpg')" }}
-        className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        {/* Floating decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Background layer - subtle, more blurred */}
-          <div className="absolute top-1/4 left-1/5 animate-float-slow animation-delay-0 depth-layer-1">
-            <img
-              src="/images/hero/flower02.png"
-              alt="Floating Flower"
-              className="opacity-20 blur-[1px] w-12 h-12"
-            />
-          </div>
-          <div className="absolute top-1/3 right-1/4 animate-float-reverse animation-delay-2000 depth-layer-1">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-15 blur-[1.5px] w-10 h-10"
-            />
+      <div className="py-20 px-6 bg-[#f7faf6]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm uppercase font-medium tracking-wider text-primary">
+              Upcoming Events
+            </span>
+            <h2 className="text-3xl font-light mt-2 mb-4">
+              Transformative Experiences
+            </h2>
+            <p className="text-[#525A52] max-w-2xl mx-auto text-lg">
+              Join our community for immersive wellness experiences designed to
+              nourish your mind, body, and spirit.
+            </p>
           </div>
 
-          {/* Middle layer - medium visibility, medium blur */}
-          <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-30 blur-[0.5px] w-14 h-14"
-            />
+          <div className="space-y-12">
+            <AnahataFlowEvent />
+            <PanchaliSaadhanEvent />
           </div>
 
-          {/* Foreground layer - clearer, less blurred */}
-          <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
-            <img
-              src="/images/hero/flower02.png"
-              alt="Floating Flower"
-              className="opacity-40 w-16 h-16"
-            />
-          </div>
-          <div className="absolute top-1/6 right-1/3 animate-float-scale animation-delay-4000 depth-layer-3">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-35 blur-[0.25px] w-11 h-11"
-            />
+          <div className="text-center mt-12">
+            <button className="px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
+              View All Events
+            </button>
           </div>
         </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.h2
-            className="text-3xl md:text-4xl font-sans text-[#fff] mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Anahata Flow
-          </motion.h2>
-
-          {/* Event details card */}
-          <motion.div
-            className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex justify-center space-x-6">
-              <div className="text-center">
-                <div className="text-white text-sm uppercase tracking-wider mb-1">
-                  Date
-                </div>
-                <div className="text-white text-xl font-light">NOV 22</div>
-              </div>
-              <div className="border-l border-white/30"></div>
-              <div className="text-center">
-                <div className="text-white text-sm uppercase tracking-wider mb-1">
-                  Time
-                </div>
-                <div className="text-white text-xl font-light">6 P.M.</div>
-              </div>
-            </div>
-          </motion.div>
-
-          <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700"
-            >
-              A heart-centered sound healing journey crafted to soften your
-              emotional body and bring you back into harmony with yourself.
-              Guided by Oshi's intuitive blend of crystal bowls, vocal toning,
-              and frequency work, this session awakens the energy of the heart —
-              the space where compassion, release, and renewal unfold.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700 delay-100"
-            >
-              You'll be invited to slow down, breathe deeply, and allow
-              vibrational medicine to move through your system. As sound ripples
-              through your body, it helps dissolve heaviness, calm the nervous
-              system, and create gentle openings where clarity and lightness can
-              return.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700 delay-200"
-            >
-              This is not just a sound bath — it is a space to feel, to let go,
-              and to reconnect with the softness you often forget you carry.
-              Anahata Flow is ideal for anyone seeking emotional balance,
-              energetic reset, or a moment of pure presence within the stillness
-              of Ojasen's natural surroundings.
-            </motion.p>
-          </div>
-
-          {/* CTA Button */}
-          <motion.div
-            className="mt-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <Link href="/booking">
-              <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
-                Reserve Your Spot
-              </button>
-            </Link>
-          </motion.div>
-        </div>
-      </motion.div>
+      </div>
     </>
   );
 }
 
-function PanchaliSaadhan() {
+function AnahataFlowEvent() {
   return (
-    <>
-      <motion.div
-        style={{ backgroundImage: "url('/images/hero-fantasy.png')" }}
-        className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        {/* Floating decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Background layer - subtle, more blurred */}
-          <div className="absolute top-1/4 left-1/5 animate-float-slow animation-delay-0 depth-layer-1">
-            <img
-              src="/images/hero/flower02.png"
-              alt="Floating Flower"
-              className="opacity-20 blur-[1px] w-12 h-12"
-            />
-          </div>
-          <div className="absolute top-1/3 right-1/4 animate-float-reverse animation-delay-2000 depth-layer-1">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-15 blur-[1.5px] w-10 h-10"
-            />
-          </div>
-
-          {/* Middle layer - medium visibility, medium blur */}
-          <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-30 blur-[0.5px] w-14 h-14"
-            />
-          </div>
-
-          {/* Foreground layer - clearer, less blurred */}
-          <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
-            <img
-              src="/images/hero/flower02.png"
-              alt="Floating Flower"
-              className="opacity-40 w-16 h-16"
-            />
-          </div>
-          <div className="absolute top-1/6 right-1/3 animate-float-scale animation-delay-4000 depth-layer-3">
-            <img
-              src="/images/hero/flower03.png"
-              alt="Floating Flower"
-              className="opacity-35 blur-[0.25px] w-11 h-11"
-            />
-          </div>
+    <div
+      style={{ backgroundImage: "url('/images/hero-night.jpg')" }}
+      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
+    >
+      {/* Floating decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Background layer - subtle, more blurred */}
+        <div className="absolute top-1/4 left-1/5 animate-float-slow animation-delay-0 depth-layer-1">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-20 blur-[1px] w-12 h-12 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/3 right-1/4 animate-float-reverse animation-delay-2000 depth-layer-1">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-15 blur-[1.5px] w-10 h-10 object-contain"
+          />
         </div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.h2
-            className="text-3xl md:text-4xl font-sans text-[#fff] mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Panchali Sādhanā{" "}
-          </motion.h2>
+        {/* Middle layer - medium visibility, medium blur */}
+        <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-30 blur-[0.5px] w-14 h-14 object-contain"
+          />
+        </div>
 
-          {/* Event details card */}
-          <motion.div
-            className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex justify-center space-x-6">
-              <div className="text-center">
-                <div className="text-white text-sm uppercase tracking-wider mb-1">
-                  Date
-                </div>
-                <div className="text-white text-xl font-light">NOV 29</div>
+        {/* Foreground layer - clearer, less blurred */}
+        <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-40 w-16 h-16 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/6 right-1/3 animate-float-scale animation-delay-4000 depth-layer-3">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-35 blur-[0.25px] w-11 h-11 object-contain"
+          />
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
+          Anahata Flow
+        </h2>
+
+        {/* Event details card */}
+        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
+          <div className="flex justify-center space-x-6">
+            <div className="text-center">
+              <div className="text-white text-sm uppercase tracking-wider mb-1">
+                Date
               </div>
-              <div className="border-l border-white/30"></div>
-              <div className="text-center">
-                <div className="text-white text-sm uppercase tracking-wider mb-1">
-                  Time
-                </div>
-                <div className="text-white text-xl font-light">6 P.M.</div>
-              </div>
+              <div className="text-white text-xl font-light">NOV 22</div>
             </div>
-          </motion.div>
-
-          <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700"
-            >
-              Panchali Sadhana is a sacred WOMEN”S gathering inspired by the
-              strength and grace of Panchali. This evening is crafted to help
-              you release emotional weight, reconnect with your heart, and step
-              into a new cycle with clarity and intention.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700 delay-100"
-            >
-              The journey weaves together a trauma-safe release ritual, an
-              intention and manifest circle, sound healing with Oshi, lunar yoga
-              and breathwork, energy clearing, and a symbolic fire offering to
-              let go of what no longer serves you. You’ll be guided through
-              gentle New-Moon journaling, followed by a sisterhood sharing
-              circle and a grounding tea ritual to close the night with
-              softness.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700 delay-200"
-            >
-              Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
-              strength and grace of Panchali. This evening is crafted to help
-              you release emotional weight, reconnect with your heart, and step
-              into a new cycle with clarity and intention. The journey weaves
-              together a trauma-safe release ritual, an intention and manifest
-              circle, sound healing with Oshi, lunar yoga and breathwork, energy
-              clearing, and a symbolic fire offering to let go of what no longer
-              serves you.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="transition-all duration-700 delay-200"
-            >
-              You’ll be guided through gentle New-Moon journaling, followed by a
-              sisterhood sharing circle and a grounding tea ritual to close the
-              night with softness. Panchali Sadhana is a space to be held, seen,
-              and supported — a return to your inner flame, your truth, and your
-              feminine wisdom. Come as you are. Leave renewed.
-            </motion.p>
+            <div className="border-l border-white/30"></div>
+            <div className="text-center">
+              <div className="text-white text-sm uppercase tracking-wider mb-1">
+                Time
+              </div>
+              <div className="text-white text-xl font-light">6 P.M.</div>
+            </div>
           </div>
-
-          {/* CTA Button */}
-          <motion.div
-            className="mt-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <Link href="/booking">
-              <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
-                Reserve Your Spot
-              </button>
-            </Link>
-          </motion.div>
         </div>
-      </motion.div>
-    </>
+
+        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
+          <p>
+            A heart-centered sound healing journey crafted to soften your
+            emotional body and bring you back into harmony with yourself. Guided
+            by Oshi's intuitive blend of crystal bowls, vocal toning, and
+            frequency work, this session awakens the energy of the heart — the
+            space where compassion, release, and renewal unfold.
+          </p>
+          <p>
+            You'll be invited to slow down, breathe deeply, and allow
+            vibrational medicine to move through your system. As sound ripples
+            through your body, it helps dissolve heaviness, calm the nervous
+            system, and create gentle openings where clarity and lightness can
+            return.
+          </p>
+          <p>
+            This is not just a sound bath — it is a space to feel, to let go,
+            and to reconnect with the softness you often forget you carry.
+            Anahata Flow is ideal for anyone seeking emotional balance,
+            energetic reset, or a moment of pure presence within the stillness
+            of Ojasen's natural surroundings.
+          </p>
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-10">
+          <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+            Reserve Your Spot
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PanchaliSaadhanEvent() {
+  return (
+    <div
+      style={{ backgroundImage: "url('/images/hero-fantasy.png')" }}
+      className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden rounded-3xl"
+    >
+      {/* Floating decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Background layer - subtle, more blurred */}
+        <div className="absolute top-1/4 left-1/5 animate-float-slow animation-delay-0 depth-layer-1">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-20 blur-[1px] w-12 h-12 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/3 right-1/4 animate-float-reverse animation-delay-2000 depth-layer-1">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-15 blur-[1.5px] w-10 h-10 object-contain"
+          />
+        </div>
+
+        {/* Middle layer - medium visibility, medium blur */}
+        <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-30 blur-[0.5px] w-14 h-14 object-contain"
+          />
+        </div>
+
+        {/* Foreground layer - clearer, less blurred */}
+        <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
+          <img
+            src="/images/hero/flower02.png"
+            alt="Floating Flower"
+            className="opacity-40 w-16 h-16 object-contain"
+          />
+        </div>
+        <div className="absolute top-1/6 right-1/3 animate-float-scale animation-delay-4000 depth-layer-3">
+          <img
+            src="/images/hero/flower03.png"
+            alt="Floating Flower"
+            className="opacity-35 blur-[0.25px] w-11 h-11 object-contain"
+          />
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
+          Panchali Sādhanā{" "}
+        </h2>
+
+        {/* Event details card */}
+        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
+          <div className="flex justify-center space-x-6">
+            <div className="text-center">
+              <div className="text-white text-sm uppercase tracking-wider mb-1">
+                Date
+              </div>
+              <div className="text-white text-xl font-light">NOV 29</div>
+            </div>
+            <div className="border-l border-white/30"></div>
+            <div className="text-center">
+              <div className="text-white text-sm uppercase tracking-wider mb-1">
+                Time
+              </div>
+              <div className="text-white text-xl font-light">6 P.M.</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
+          <p>
+            Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
+            strength and grace of Panchali. This evening is crafted to help you
+            release emotional weight, reconnect with your heart, and step into a
+            new cycle with clarity and intention.
+          </p>
+          <p>
+            The journey weaves together a trauma-safe release ritual, an
+            intention and manifest circle, sound healing with Oshi, lunar yoga
+            and breathwork, energy clearing, and a symbolic fire offering to let
+            go of what no longer serves you. You'll be guided through gentle
+            New-Moon journaling, followed by a sisterhood sharing circle and a
+            grounding tea ritual to close the night with softness.
+          </p>
+          <p>
+            Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
+            strength and grace of Panchali. This evening is crafted to help you
+            release emotional weight, reconnect with your heart, and step into a
+            new cycle with clarity and intention. The journey weaves together a
+            trauma-safe release ritual, an intention and manifest circle, sound
+            healing with Oshi, lunar yoga and breathwork, energy clearing, and a
+            symbolic fire offering to let go of what no longer serves you.
+          </p>
+          <p>
+            You'll be guided through gentle New-Moon journaling, followed by a
+            sisterhood sharing circle and a grounding tea ritual to close the
+            night with softness. Panchali Sadhana is a space to be held, seen,
+            and supported — a return to your inner flame, your truth, and your
+            feminine wisdom. Come as you are. Leave renewed.
+          </p>
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-10">
+          <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+            Reserve Your Spot
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
