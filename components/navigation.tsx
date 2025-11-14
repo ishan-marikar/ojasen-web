@@ -37,11 +37,12 @@ export function Navigation() {
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-2xl font-sans text-[#191d18] font-light tracking-wide"
-        >
-          Ojasen
+        <Link href="/" className="flex items-center">
+          <img
+            src="/images/logo.png"
+            alt="Ojasen Logo"
+            className={scrolled ? "h-8 md:h-10 w-auto" : "h-16 md:h-25 w-auto"}
+          />
         </Link>
 
         {/* Desktop Navigation */}

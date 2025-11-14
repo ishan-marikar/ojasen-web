@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MapPin, Clock } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
+import { CalendarPlus } from "lucide-react";
 
 function Hero() {
   return (
@@ -228,8 +229,8 @@ function EventCard({
           </div>
         </div>
         <div className="mt-6 flex space-x-3">
-          <button className="flex-1 rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-4 py-3 text-primary text-sm transition-colors duration-300">
-            Add to Calendar
+          <button className=" rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-4 py-3 text-primary text-sm transition-colors duration-300">
+            <CalendarPlus />
           </button>
           <Link href="/booking" className="flex-1">
             <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
