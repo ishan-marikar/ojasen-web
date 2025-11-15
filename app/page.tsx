@@ -41,7 +41,7 @@ function Hero() {
               src="/images/hero-background-mobile.jpg"
               alt="Ojasen Healing Arts Sanctuary"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               sizes="100vw"
             />
@@ -49,9 +49,9 @@ function Hero() {
         </div>
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
-          <div className="max-w-4xl text-center space-y-8">
+          <div className="max-w-4xl text-center space-y-6 sm:space-y-8">
             <motion.div
-              className="mx-auto mb-6"
+              className="mx-auto mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -59,13 +59,13 @@ function Hero() {
               <Image
                 src="/images/logo.png"
                 alt="Ojasen Healing Arts"
-                width={300}
-                height={100}
+                width={250}
+                height={83}
                 className="mx-auto drop-shadow-lg"
               />
             </motion.div>
             <motion.div
-              className="text-lg sm:text-xl md:text-xl text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -87,7 +87,7 @@ function Hero() {
               </div>
             </motion.div>
             <motion.p
-              className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
+              className="text-sm md:text-base text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -97,7 +97,7 @@ function Hero() {
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-8 px-8 py-4 bg-[#68887d]/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
+                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#68887d]/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -110,9 +110,9 @@ function Hero() {
           </div>
         </div>
         {/* Decorative elements for visual enhancement */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-12 rounded-full border-2 border-white/50 flex justify-center p-1">
-            <div className="w-2 h-2 bg-white rounded-full mt-1 animate-pulse"></div>
+        <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 sm:w-8 sm:h-12 rounded-full border-2 border-white/50 flex justify-center p-1">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full mt-1 animate-pulse"></div>
           </div>
         </div>
       </div>
