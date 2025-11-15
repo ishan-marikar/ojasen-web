@@ -8,11 +8,9 @@ import { ImageWithFallback as Image } from "@/components/shared/image-with-fallb
 export default function () {
   return (
     <>
-      <Navigation />
+      <Navigation />å
       <Hero />
       <About />
-      {/* <Schedule /> */}
-
       <EventsSection />
       <Ceremonies />
       <LocationMap />

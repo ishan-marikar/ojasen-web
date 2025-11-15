@@ -13,9 +13,7 @@ import {
   generateOutlookCalendarLink,
   generateYahooCalendarLink,
 } from "@/lib/calendar-utils";
-
-const DISCORD_WEBHOOK =
-  "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
+import { submitBookingForm } from "@/lib/form-actions";
 
 // Event data structure
 interface Event {
@@ -55,6 +53,7 @@ export default function BookingPage() {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Check if an event is selected via URL parameters
   useEffect(() => {
@@ -90,83 +89,40 @@ export default function BookingPage() {
     // If no event selected, don't submit
     if (!selectedEvent) return;
 
-    // In a real application, you would send this data to your backend
-    console.log("Booking data:", { ...formData, event: selectedEvent });
+    setIsSubmitting(true);
 
-    // Send Discord webhook
     try {
-      const webhookData = {
-        embeds: [
-          {
-            title: "New Booking Confirmation",
-            color: 0x68887d, // Using the brand color
-            fields: [
-              {
-                name: "Event",
-                value: selectedEvent.title,
-                inline: true,
-              },
-              {
-                name: "Name",
-                value: formData.name,
-                inline: true,
-              },
-              {
-                name: "Email",
-                value: formData.email,
-                inline: true,
-              },
-              {
-                name: "Phone",
-                value: formData.phone,
-                inline: true,
-              },
-              {
-                name: "Date",
-                value: formData.date || "Not specified",
-                inline: true,
-              },
-              {
-                name: "Participants",
-                value: formData.participants,
-                inline: true,
-              },
-              {
-                name: "Special Requests",
-                value: formData.message || "None",
-                inline: false,
-              },
-            ],
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      };
-
-      await fetch(DISCORD_WEBHOOK, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(webhookData),
+      // Submit form data using server action
+      const result = await submitBookingForm({
+        ...formData,
+        event: selectedEvent,
       });
+
+      if (result.success) {
+        setIsSubmitted(true);
+
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            date: "",
+            participants: "1",
+            message: "",
+          });
+        }, 3000);
+      } else {
+        console.error("Form submission failed:", result.error);
+        // Handle error - maybe show a message to the user
+      }
     } catch (error) {
-      console.error("Failed to send Discord webhook:", error);
+      console.error("Form submission error:", error);
+      // Handle error - maybe show a message to the user
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitted(true);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        date: "",
-        participants: "1",
-        message: "",
-      });
-    }, 3000);
   };
 
   return (
@@ -500,14 +456,18 @@ export default function BookingPage() {
 
                   <button
                     type="submit"
-                    disabled={!selectedEvent}
+                    disabled={!selectedEvent || isSubmitting}
                     className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px] ${
                       selectedEvent
                         ? "bg-[#68887d] hover:bg-[#5a786d] text-white"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                   >
-                    {selectedEvent ? "Confirm Booking" : "Send Inquiry"}
+                    {isSubmitting
+                      ? "Submitting..."
+                      : selectedEvent
+                      ? "Confirm Booking"
+                      : "Send Inquiry"}
                   </button>
                 </form>
               )}
