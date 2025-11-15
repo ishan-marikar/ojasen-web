@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { PageLayout } from "@/components/shared/page-layout";
 import { Hero } from "@/components/shared/hero";
 import { BenefitItem } from "@/components/shared/benefit-item";
@@ -61,7 +61,7 @@ function HealerDetails() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/images/healers/oshadi-full.jpg"
+              src="/images/healers/oshadi.png"
               alt="Oshadi"
               width={500}
               height={400}

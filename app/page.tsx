@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 
 export default function () {
   return (
@@ -50,13 +50,15 @@ function Hero() {
         <div className="absolute inset-0 bg-black/30 "></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-20 px-4">
           <div className="max-w-4xl text-center space-y-6">
-            <motion.img
-              className="mx-auto"
-              src="/images/logo-text.png"
-              alt="Ojasen Healing Arts"
-              width={300}
-              height={100}
-            />
+            <motion.div className="mx-auto">
+              <Image
+                src="/images/logo-text.png"
+                alt="Ojasen Healing Arts"
+                width={300}
+                height={100}
+                className="mx-auto"
+              />
+            </motion.div>
             {/* <motion.h1
               className="text-4xl md:text-6xl font-sans text-white"
               initial={{ opacity: 0, y: 20 }}
@@ -372,10 +374,11 @@ function Schedule() {
                 >
                   <div className="flex items-center">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden mr-3">
-                      <img
+                      <Image
                         src={healer.image}
                         alt={healer.name}
-                        className="object-cover w-full h-full"
+                        fill
+                        className="object-cover"
                       />
                     </div>
                     <div>
@@ -542,7 +545,7 @@ function AnahataFlowEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-night.jpg"
+            src="/images/hero-background.jpg"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"
@@ -552,7 +555,7 @@ function AnahataFlowEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-night-mobile.jpg"
+            src="/images/hero-background-mobile.jpg"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"
@@ -638,7 +641,7 @@ function PanchaliSaadhanEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-fantasy.png"
+            src="/images/hero-background.jpg"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover rounded-3xl"
@@ -648,7 +651,7 @@ function PanchaliSaadhanEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-fantasy-mobile.png"
+            src="/images/hero-background-mobile.jpg"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover rounded-3xl"

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { Navigation } from "@/components/navigation";
 import { Hero } from "@/components/shared/hero";
 
@@ -55,7 +55,7 @@ function HealerDetails() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/images/healers/deborah-full.jpg"
+              src="/images/healers/deborah.png"
               alt="Deborah"
               width={500}
               height={400}

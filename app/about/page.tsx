@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { Navigation } from "@/components/navigation";
 import { Hero } from "@/components/shared/hero";
 
@@ -52,7 +52,7 @@ function OurStory() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/images/our-story.jpg"
+              src="/images/hero-drone.jpg"
               alt="Our Story"
               width={500}
               height={400}

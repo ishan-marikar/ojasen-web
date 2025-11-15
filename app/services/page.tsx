@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { PageLayout } from "@/components/shared/page-layout";
 import { Hero } from "@/components/shared/hero";
 import { ServiceCard } from "@/components/shared/service-card";
@@ -89,7 +89,7 @@ function WellnessApproach() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/images/wellness-approach.jpg"
+              src="/images/hero-drone.jpg"
               alt="Wellness Approach"
               width={500}
               height={400}

@@ -51,7 +51,7 @@ function ServiceDetails() {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/images/services/ice-bath-breathwork.jpg"
+              src="/images/hero-drone.jpg"
               alt="Ice Bath and Breathwork"
               width={500}
               height={400}

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { Navigation } from "@/components/navigation";
 import { Hero } from "@/components/shared/hero";
 
@@ -235,7 +235,7 @@ function LocationMap() {
         <div className="bg-white rounded-4xl overflow-hidden border border-[#68887d]/20">
           <div className="h-96 relative">
             <Image
-              src="/images/location-map.jpg"
+              src="/images/hero-drone.jpg"
               alt="Ojasen Healing Arts Location"
               fill
               className="object-cover"
