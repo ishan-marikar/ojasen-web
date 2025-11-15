@@ -5,6 +5,9 @@ import { Navigation } from "@/components/navigation";
 import { MapPin, Clock, Calendar, User, Mail, Phone } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
+const DISCORD_WEBHOOK =
+  "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
+
 export default function BookingPage() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
@@ -38,10 +41,71 @@ export default function BookingPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // In a real application, you would send this data to your backend
     console.log("Booking data:", formData);
+
+    // Send Discord webhook
+    try {
+      const webhookData = {
+        embeds: [
+          {
+            title: "New Booking Confirmation",
+            color: 0x68887d, // Using the brand color
+            fields: [
+              {
+                name: "Event",
+                value: eventTitle,
+                inline: true,
+              },
+              {
+                name: "Name",
+                value: formData.name,
+                inline: true,
+              },
+              {
+                name: "Email",
+                value: formData.email,
+                inline: true,
+              },
+              {
+                name: "Phone",
+                value: formData.phone,
+                inline: true,
+              },
+              {
+                name: "Date",
+                value: formData.date || "Not specified",
+                inline: true,
+              },
+              {
+                name: "Participants",
+                value: formData.participants,
+                inline: true,
+              },
+              {
+                name: "Special Requests",
+                value: formData.message || "None",
+                inline: false,
+              },
+            ],
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+
+      await fetch(DISCORD_WEBHOOK, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(webhookData),
+      });
+    } catch (error) {
+      console.error("Failed to send Discord webhook:", error);
+    }
+
     setIsSubmitted(true);
 
     // Reset form after 3 seconds
