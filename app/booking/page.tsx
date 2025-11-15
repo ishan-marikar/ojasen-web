@@ -7,6 +7,12 @@ import Link from "next/link";
 import { EVENTS_DATA } from "@/lib/event-data";
 import { PageLayout } from "@/components/shared/page-layout";
 import { Hero } from "@/components/shared/hero";
+import {
+  generateGoogleCalendarLink,
+  generateICalLink,
+  generateOutlookCalendarLink,
+  generateYahooCalendarLink,
+} from "@/lib/calendar-utils";
 
 const DISCORD_WEBHOOK =
   "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
@@ -304,6 +310,73 @@ export default function BookingPage() {
                   <p className="text-[#525A52]">
                     Our team will contact you shortly to finalize the details.
                   </p>
+                  {selectedEvent && (
+                    <div className="mt-6">
+                      <h4 className="text-lg font-medium text-[#191d18] mb-3">
+                        Add to Calendar
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        <a
+                          href={generateGoogleCalendarLink(
+                            selectedEvent.title,
+                            selectedEvent.date,
+                            selectedEvent.time,
+                            selectedEvent.location,
+                            selectedEvent.description
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 bg-[#4285F4] text-white rounded-lg text-sm hover:bg-[#3367D6] transition-colors"
+                        >
+                          Google Calendar
+                        </a>
+                        <a
+                          href={generateOutlookCalendarLink(
+                            selectedEvent.title,
+                            selectedEvent.date,
+                            selectedEvent.time,
+                            selectedEvent.location,
+                            selectedEvent.description
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 bg-[#0078D4] text-white rounded-lg text-sm hover:bg-[#005A9E] transition-colors"
+                        >
+                          Outlook
+                        </a>
+                        <a
+                          href={generateYahooCalendarLink(
+                            selectedEvent.title,
+                            selectedEvent.date,
+                            selectedEvent.time,
+                            selectedEvent.location,
+                            selectedEvent.description
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 bg-[#720E9E] text-white rounded-lg text-sm hover:bg-[#50096E] transition-colors"
+                        >
+                          Yahoo Calendar
+                        </a>
+                        <a
+                          href={generateICalLink(
+                            selectedEvent.title,
+                            selectedEvent.date,
+                            selectedEvent.time,
+                            selectedEvent.location,
+                            selectedEvent.description
+                          )}
+                          download={`${selectedEvent.title.replace(
+                            /\s+/g,
+                            "_"
+                          )}.ics`}
+                          className="px-4 py-2 bg-[#68887d] text-white rounded-lg text-sm hover:bg-[#5a786d] transition-colors"
+                        >
+                          Download iCal
+                        </a>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <form
@@ -379,24 +452,6 @@ export default function BookingPage() {
 
                   {selectedEvent && (
                     <>
-                      <div>
-                        <label
-                          htmlFor="date"
-                          className="block text-[#191d18] mb-2"
-                        >
-                          Preferred Date
-                        </label>
-                        <input
-                          type="date"
-                          id="date"
-                          name="date"
-                          value={formData.date}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
-                        />
-                      </div>
-
                       <div>
                         <label
                           htmlFor="participants"

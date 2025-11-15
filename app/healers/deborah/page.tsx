@@ -24,7 +24,7 @@ function DeborahHero() {
 function HealerDetails() {
   return (
     <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <h2 className="text-3xl mb-6">About Deborah</h2>
@@ -232,11 +232,11 @@ function SessionTypes() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        {/* <div className="mt-12 text-center">
           <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -503,7 +503,7 @@ export default function Page() {
   return (
     <>
       <Navigation />
-      <DeborahHero />
+      {/* <DeborahHero /> */}
       <HealerDetails />
       <SessionTypes />
       <Footer />

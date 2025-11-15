@@ -6,10 +6,13 @@ import { MapPin, Clock, Calendar } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
 import { getEventById } from "@/lib/event-data";
+import { generateGoogleCalendarLink, generateICalLink, generateOutlookCalendarLink, generateYahooCalendarLink } from "@/lib/calendar-utils";
+import { useState } from "react";
 
 export default function EventDetailPage() {
   const params = useParams();
   const eventId = params.eventId as string;
+  const [showCalendarDropdown, setShowCalendarDropdown] = useState(false);
 
   // Find the event based on the ID from the URL
   const event = getEventById(eventId);
@@ -37,6 +40,13 @@ export default function EventDetailPage() {
       </>
     );
   }
+
+  // Function to handle adding to calendar
+  const handleAddToCalendar = () => {
+    // In a real implementation, you might show a modal with calendar options
+    // For now, we'll just alert the user that the feature is being implemented
+    alert("Calendar integration is available after booking confirmation!");
+  };
 
   return (
     <>
@@ -153,9 +163,74 @@ export default function EventDetailPage() {
                         Book Now
                       </button>
                     </Link>
-                    <button className="px-8 py-4 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 whitespace-nowrap">
-                      Add to Calendar
-                    </button>
+                    <div className="relative">
+                      <button 
+                        onClick={() => setShowCalendarDropdown(!showCalendarDropdown)}
+                        className="px-8 py-4 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 whitespace-nowrap flex items-center"
+                      >
+                        Add to Calendar
+                      </button>
+                      {/* Dropdown menu for calendar options */}
+                      {showCalendarDropdown && (
+                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10">
+                          <a 
+                            href={generateGoogleCalendarLink(
+                              event.title,
+                              event.date,
+                              event.time,
+                              event.location,
+                              event.description
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-[#191d18] hover:bg-[#f7faf6] text-sm"
+                          >
+                            Google Calendar
+                          </a>
+                          <a 
+                            href={generateOutlookCalendarLink(
+                              event.title,
+                              event.date,
+                              event.time,
+                              event.location,
+                              event.description
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-[#191d18] hover:bg-[#f7faf6] text-sm"
+                          >
+                            Outlook
+                          </a>
+                          <a 
+                            href={generateYahooCalendarLink(
+                              event.title,
+                              event.date,
+                              event.time,
+                              event.location,
+                              event.description
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-[#191d18] hover:bg-[#f7faf6] text-sm"
+                          >
+                            Yahoo Calendar
+                          </a>
+                          <a 
+                            href={generateICalLink(
+                              event.title,
+                              event.date,
+                              event.time,
+                              event.location,
+                              event.description
+                            )}
+                            download={`${event.title.replace(/\s+/g, '_')}.ics`}
+                            className="block px-4 py-2 text-[#191d18] hover:bg-[#f7faf6] text-sm"
+                          >
+                            Download iCal
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
