@@ -67,23 +67,23 @@ export function Navigation() {
       className={`fixed w-full z-50 transition-all duration-300 ${
         isHomePage
           ? scrolled
-            ? "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
+            ? "bg-[#5f726b]/90 backdrop-blur-sm py-3 shadow-sm"
             : "bg-transparent py-6"
-          : "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
+          : "bg-[#5f726b]/90 backdrop-blur-sm py-3 shadow-sm"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="transition-all duration-300">
           <div
-            className={`transition-all duration-300 ${
-              scrolled ? "w-10 h-10" : "w-16 h-16"
+            className={`transition-all duration-300 flex items-center ${
+              scrolled ? "h-10" : "h-16"
             }`}
           >
             <Image
-              src="/images/logo.png"
+              src="/images/logo-text.png"
               alt="Ojasen Healing Arts"
-              width={scrolled ? 40 : 64}
+              width={scrolled ? 120 : 200}
               height={scrolled ? 40 : 64}
               className="object-contain"
             />
@@ -98,14 +98,14 @@ export function Navigation() {
               href={link.href}
               className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
                 scrolled || !isHomePage
-                  ? "text-[#191d18] hover:text-[#68887d]"
+                  ? "text-white hover:text-[#d6ddcb]"
                   : "text-white hover:text-[#d6ddcb]"
               }`}
             >
               {link.name}
               <span
                 className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                  scrolled || !isHomePage ? "bg-[#68887d]" : "bg-[#d6ddcb]"
+                  scrolled || !isHomePage ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
                 }`}
               ></span>
             </Link>
@@ -116,7 +116,7 @@ export function Navigation() {
         <button
           id="menu-button"
           className={`md:hidden focus:outline-none transition-colors duration-300 p-2 ${
-            scrolled || !isHomePage ? "text-[#191d18]" : "text-white"
+            scrolled || !isHomePage ? "text-white" : "text-white"
           }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
@@ -138,7 +138,7 @@ export function Navigation() {
           aria-hidden={!isOpen}
         >
           <button
-            className="absolute top-6 right-6 text-[#191d18] p-2"
+            className="absolute top-6 right-6 text-white p-2"
             onClick={() => setIsOpen(false)}
             aria-label="Close menu"
           >
@@ -150,7 +150,7 @@ export function Navigation() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-2xl text-[#191d18] hover:text-[#68887d] transition-colors duration-300 uppercase tracking-wider font-medium py-2 px-4"
+                className="text-2xl text-white hover:text-[#d6ddcb] transition-colors duration-300 uppercase tracking-wider font-medium py-2 px-4"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

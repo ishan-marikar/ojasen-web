@@ -8,11 +8,12 @@ import { ImageWithFallback as Image } from "@/components/shared/image-with-fallb
 export default function () {
   return (
     <>
-      <Navigation />å
+      <Navigation />
       <Hero />
       <About />
-      <EventsSection />
       <Ceremonies />
+      <EventsSection />
+
       <LocationMap />
       <Footer />
     </>
@@ -46,37 +47,47 @@ function Hero() {
             />
           </div>
         </div>
-        <div className="absolute inset-0 bg-black/30 "></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
-          <div className="max-w-4xl text-center space-y-6">
-            <motion.div className="mx-auto">
-              <Image
-                src="/images/logo-text.png"
-                alt="Ojasen Healing Arts"
-                width={300}
-                height={100}
-                className="mx-auto"
-              />
-            </motion.div>
-            {/* <motion.h1
-              className="text-4xl md:text-6xl font-sans text-white"
+          <div className="max-w-4xl text-center space-y-8">
+            <motion.div
+              className="mx-auto mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Awaken the Life Within
-            </motion.h1> */}
+              <Image
+                src="/images/logo.png"
+                alt="Ojasen Healing Arts"
+                width={300}
+                height={100}
+                className="mx-auto drop-shadow-lg"
+              />
+            </motion.div>
             <motion.div
-              className="text-base sm:text-lg md:text-xl text-white font-light tracking-wider"
+              className="text-lg sm:text-xl md:text-xl text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              YOGA | BREATHWORK | SOUND HEALING | ICE BATH | RETREATS ENERGY
-              HEALING | CACAU HEALING CEREMONY
+              <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-2">
+                <span>YOGA</span>
+                <span className="opacity-60">•</span>
+                <span>BREATHWORK</span>
+                <span className="opacity-60">•</span>
+                <span>SOUND HEALING</span>
+                <span className="opacity-60">•</span>
+                <span>ICE BATH</span>
+                <span className="opacity-60">•</span>
+                <span>RETREATS</span>
+                <span className="opacity-60">•</span>
+                <span>ENERGY HEALING</span>
+                <span className="opacity-60">•</span>
+                <span>CACAO HEALING CEREMONY</span>
+              </div>
             </motion.div>
             <motion.p
-              className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -86,16 +97,22 @@ function Hero() {
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-8 px-6 sm:px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#556b62] transition-colors duration-300 min-h-[44px]"
+                className="mt-8 px-8 py-4 bg-[#68887d]/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Weekly Schedule & Bookings
               </motion.button>
             </Link>
+          </div>
+        </div>
+        {/* Decorative elements for visual enhancement */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-12 rounded-full border-2 border-white/50 flex justify-center p-1">
+            <div className="w-2 h-2 bg-white rounded-full mt-1 animate-pulse"></div>
           </div>
         </div>
       </div>
@@ -506,7 +523,7 @@ function EventsSection() {
     <>
       <div className="py-20 px-6 bg-[#f7faf6]">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          {/* <div className="text-center mb-16">
             <span className="text-sm uppercase font-medium tracking-wider text-primary">
               Upcoming Events
             </span>
@@ -517,7 +534,7 @@ function EventsSection() {
               Join our community for immersive wellness experiences designed to
               nourish your mind, body, and spirit.
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-12">
             <AnahataFlowEvent />

@@ -210,7 +210,7 @@ export default function BookingPage() {
                     Change Event
                   </button>
                 </div>
-                <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden">
+                <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden bg-top">
                   <img
                     src={selectedEvent.image}
                     alt={selectedEvent.title}
