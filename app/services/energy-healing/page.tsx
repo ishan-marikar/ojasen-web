@@ -2,21 +2,19 @@
 
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/shared/hero";
 
-function Hero() {
+function EnergyHealingHero() {
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Energetic Wellness
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Energy Healing
-      </h1>
-
+    <Hero
+      title="Energy Healing"
+      subtitle="Energetic Wellness"
+      className="bg-[#f7faf6]"
+    >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Balance your energy centers with our specialized healing sessions
       </div>
-    </div>
+    </Hero>
   );
 }
 
@@ -529,15 +527,13 @@ function Footer() {
   );
 }
 
-export default function EnergyHealingPage() {
+export default function Page() {
   return (
     <>
       <Navigation />
-      <div className="">
-        <Hero />
-        <ServiceDetails />
-        <SessionTypes />
-      </div>
+      <EnergyHealingHero />
+      <ServiceDetails />
+      <SessionTypes />
       <Footer />
     </>
   );

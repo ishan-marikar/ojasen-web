@@ -9,9 +9,9 @@ import { getDataService } from "@/lib/data-service";
 function ServicesHero() {
   return (
     <Hero
-      title="Discover our healing services"
-      subtitle="Holistic Wellness"
-      className="min-h-screen justify-center bg-[#f7faf6]"
+      title="Holistic healing experiences"
+      subtitle="Our Offerings"
+      className="bg-[#f7faf6]"
     >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Our comprehensive range of holistic wellness services designed to

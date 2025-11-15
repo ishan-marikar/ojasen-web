@@ -4,10 +4,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Check if we're on the home page
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,9 +36,11 @@ export function Navigation() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
-          : "bg-transparent py-6"
+        isHomePage
+          ? scrolled
+            ? "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
+            : "bg-transparent py-6"
+          : "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
@@ -61,7 +68,7 @@ export function Navigation() {
               key={link.name}
               href={link.href}
               className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
-                scrolled
+                scrolled || !isHomePage
                   ? "text-[#191d18] hover:text-[#68887d]"
                   : "text-white hover:text-[#d6ddcb]"
               }`}
@@ -69,7 +76,7 @@ export function Navigation() {
               {link.name}
               <span
                 className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                  scrolled ? "bg-[#68887d]" : "bg-[#d6ddcb]"
+                  scrolled || !isHomePage ? "bg-[#68887d]" : "bg-[#d6ddcb]"
                 }`}
               ></span>
             </Link>
@@ -79,7 +86,7 @@ export function Navigation() {
         {/* Mobile Menu Button */}
         <button
           className={`md:hidden focus:outline-none transition-colors duration-300 ${
-            scrolled ? "text-[#191d18]" : "text-white"
+            scrolled || !isHomePage ? "text-[#191d18]" : "text-white"
           }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"

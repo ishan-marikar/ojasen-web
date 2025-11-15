@@ -109,7 +109,7 @@ function Ceremonies() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-night.jpg"
+            src="/images/hero-landscape.jpg"
             alt="Ceremonies Background"
             fill
             className="object-cover"
@@ -119,7 +119,7 @@ function Ceremonies() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-night-mobile.jpg"
+            src="/images/hero-landscape.jpg"
             alt="Ceremonies Background"
             fill
             className="object-cover"
@@ -154,11 +154,11 @@ function Ceremonies() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link href="/events">
+          {/* <Link href="/events">
             <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
               Explore Ceremonies
             </button>
-          </Link>
+          </Link> */}
           <Link href="/booking">
             <button className="px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Book a Session
@@ -537,7 +537,7 @@ function EventsSection() {
 
 function AnahataFlowEvent() {
   return (
-    <div className="py-20 px-6 bg-cover bg-no-repeat bg-center relative overflow-hidden rounded-3xl">
+    <div className="py-20 px-6 bg-auto bg-no-repeat relative overflow-hidden rounded-3xl">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">

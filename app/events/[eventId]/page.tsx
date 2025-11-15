@@ -5,62 +5,14 @@ import Image from "next/image";
 import { MapPin, Clock, Calendar } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
-
-// Event data structure based on existing events
-interface Event {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  fullDescription: string;
-  image: string;
-  price?: string;
-  category: string;
-  priceRaw: number;
-}
-
-// Event data - extending the existing events with more detailed information
-const eventsData: Event[] = [
-  {
-    id: "anahata-flow",
-    title: "Anahata Flow",
-    date: "November 22, 2025",
-    time: "6:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself.",
-    fullDescription:
-      "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself. Guided by Oshi's intuitive blend of crystal bowls, vocal toning, and frequency work, this session awakens the energy of the heart — the space where compassion, release, and renewal unfold.\n\nYou'll be invited to slow down, breathe deeply, and allow vibrational medicine to move through your system. As sound ripples through your body, it helps dissolve heaviness, calm the nervous system, and create gentle openings where clarity and lightness can return.\n\nThis is not just a sound bath — it is a space to feel, to let go, and to reconnect with the softness you often forget you carry. Anahata Flow is ideal for anyone seeking emotional balance, energetic reset, or a moment of pure presence within the stillness of Ojasen's natural surroundings.",
-    image: "/images/hero-night.jpg",
-    category: "Sound Healing",
-    price: "LKR 3,500",
-    priceRaw: 3500,
-  },
-  {
-    id: "panchali-saadhan",
-    title: "Panchali Sādhanā",
-    date: "November 29, 2025",
-    time: "6:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "A sacred WOMEN'S gathering inspired by the strength and grace of Panchali.",
-    fullDescription:
-      "Panchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention.\n\nThe journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you. You'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness.\n\nPanchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention. The journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you.\n\nYou'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness. Panchali Sadhana is a space to be held, seen, and supported — a return to your inner flame, your truth, and your feminine wisdom. Come as you are. Leave renewed.",
-    image: "/images/hero-fantasy.png",
-    category: "Ceremonies",
-    price: "LKR 4,000",
-    priceRaw: 4000,
-  },
-];
+import { getEventById } from "@/lib/event-data";
 
 export default function EventDetailPage() {
   const params = useParams();
   const eventId = params.eventId as string;
 
   // Find the event based on the ID from the URL
-  const event = eventsData.find((e) => e.id === eventId);
+  const event = getEventById(eventId);
 
   // If event not found, show a 404-like message
   if (!event) {
@@ -90,29 +42,7 @@ export default function EventDetailPage() {
     <>
       <Navigation />
       <div className="min-h-screen bg-[#f7faf6] pt-24 pb-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-8">
-            <Link
-              href="/events"
-              className="inline-flex items-center text-[#68887d] hover:text-[#5a786d] transition-colors duration-300"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
-              Back to Events
-            </Link>
-          </div>
-
+        <div className="max-w-6xl mx-auto px-6 mt-8">
           <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-[#68887d]/20">
             {/* Event Hero Image */}
             <div className="relative h-96 w-full">
@@ -125,9 +55,11 @@ export default function EventDetailPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 text-white">
-                <span className="inline-block px-3 py-1 bg-[#68887d] text-xs uppercase tracking-wider rounded-full mb-3">
-                  {event.category}
-                </span>
+                {event.category && (
+                  <span className="inline-block px-3 py-1 bg-[#68887d] text-xs uppercase tracking-wider rounded-full mb-3">
+                    {event.category}
+                  </span>
+                )}
                 <h1 className="text-4xl font-light mb-2">{event.title}</h1>
                 <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center">
@@ -155,16 +87,20 @@ export default function EventDetailPage() {
               </div>
 
               {/* Full Description */}
-              <div className="prose max-w-none mb-10">
-                {event.fullDescription.split("\n\n").map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="text-[#191d18] mb-4 leading-relaxed"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
+              {event.fullDescription && (
+                <div className="prose max-w-none mb-10">
+                  {event.fullDescription
+                    .split("\n\n")
+                    .map((paragraph, index) => (
+                      <p
+                        key={index}
+                        className="text-[#191d18] mb-4 leading-relaxed"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                </div>
+              )}
 
               {/* Event Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -212,7 +148,7 @@ export default function EventDetailPage() {
                     </p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Link href="/booking">
+                    <Link href={`/booking?event=${event.id}`}>
                       <button className="px-8 py-4 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg whitespace-nowrap">
                         Book Now
                       </button>

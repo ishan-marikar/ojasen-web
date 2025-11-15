@@ -11,7 +11,7 @@ function HealersHero() {
     <Hero
       title="Meet our experienced healers"
       subtitle="Our Healers"
-      className="min-h-screen justify-center bg-[#f7faf6]"
+      className="bg-[#f7faf6]"
     >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Our skilled practitioners bring years of expertise and a deep

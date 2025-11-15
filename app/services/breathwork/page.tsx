@@ -2,21 +2,19 @@
 
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/shared/hero";
 
-function Hero() {
+function BreathworkHero() {
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Conscious Breathing
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Breathwork
-      </h1>
-
+    <Hero
+      title="Breathwork"
+      subtitle="Conscious Breathing"
+      className="bg-[#f7faf6]"
+    >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Revitalize your body and mind with our invigorating breathwork sessions
       </div>
-    </div>
+    </Hero>
   );
 }
 
@@ -530,15 +528,13 @@ function Footer() {
   );
 }
 
-export default function BreathworkPage() {
+export default function Page() {
   return (
     <>
       <Navigation />
-      <div className="">
-        <Hero />
-        <ServiceDetails />
-        <SessionTypes />
-      </div>
+      <BreathworkHero />
+      <ServiceDetails />
+      <SessionTypes />
       <Footer />
     </>
   );

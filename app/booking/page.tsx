@@ -1,15 +1,45 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Navigation } from "@/components/navigation";
 import { MapPin, Clock, Calendar, User, Mail, Phone } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { EVENTS_DATA } from "@/lib/event-data";
+import { PageLayout } from "@/components/shared/page-layout";
+import { Hero } from "@/components/shared/hero";
 
 const DISCORD_WEBHOOK =
   "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
 
+// Event data structure
+interface Event {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  image: string;
+  price?: string;
+}
+
+function BookingHero() {
+  return (
+    <Hero
+      title="Book Your Experience"
+      subtitle="Reservations"
+      className="bg-[#f7faf6]"
+    >
+      <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
+        Reserve your spot for our transformative wellness events
+      </div>
+    </Hero>
+  );
+}
+
 export default function BookingPage() {
   const searchParams = useSearchParams();
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,19 +48,26 @@ export default function BookingPage() {
     participants: "1",
     message: "",
   });
-
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Get event data from query parameters or use default
-  const eventTitle = searchParams.get("event") || "Zen & Balance Retreat";
-  const eventDate = searchParams.get("date") || "November 29, 2025";
-  const eventTime = searchParams.get("time") || "7:00 AM - 9:00 AM";
-  const eventLocation = searchParams.get("location") || "The Island - Ahangama";
-  const eventPrice = searchParams.get("price") || "LKR 15,000";
-  const eventImage = searchParams.get("image") || "/images/events/event-01.jpg";
-  const eventDescription =
-    searchParams.get("description") ||
-    "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices.";
+  // Check if an event is selected via URL parameters
+  useEffect(() => {
+    const eventId = searchParams.get("event");
+    if (eventId) {
+      const event = EVENTS_DATA.find((e) => e.id === eventId);
+      if (event) {
+        setSelectedEvent(event);
+      }
+    }
+  }, [searchParams]);
+
+  const handleEventSelect = (event: Event) => {
+    setSelectedEvent(event);
+    // Scroll to booking form
+    document
+      .getElementById("booking-form")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -43,8 +80,12 @@ export default function BookingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // If no event selected, don't submit
+    if (!selectedEvent) return;
+
     // In a real application, you would send this data to your backend
-    console.log("Booking data:", formData);
+    console.log("Booking data:", { ...formData, event: selectedEvent });
 
     // Send Discord webhook
     try {
@@ -56,7 +97,7 @@ export default function BookingPage() {
             fields: [
               {
                 name: "Event",
-                value: eventTitle,
+                value: selectedEvent.title,
                 inline: true,
               },
               {
@@ -123,81 +164,153 @@ export default function BookingPage() {
   };
 
   return (
-    <>
-      <Navigation />
-      <div className="min-h-screen bg-[#f7faf6] pt-24 pb-16">
+    <PageLayout>
+      <BookingHero />
+      <div className="min-h-screen bg-[#f7faf6] py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-light text-[#191d18] mb-4">
-              Book Your Experience
-            </h1>
-            <p className="text-[#525A52] max-w-2xl mx-auto text-lg">
-              Reserve your spot for our transformative wellness events
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Event Details */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
-              <h2 className="text-2xl font-light text-[#191d18] mb-6">
-                Event Details
+          {/* Event Selection Section */}
+          {!selectedEvent && (
+            <div className="mb-12">
+              <h2 className="text-2xl font-light text-[#191d18] mb-6 text-center">
+                Select an Event
               </h2>
-
-              <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden">
-                <img
-                  src={eventImage}
-                  alt={eventTitle}
-                  className="w-full h-full object-cover"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {EVENTS_DATA.map((event) => (
+                  <div
+                    key={event.id}
+                    className="bg-white rounded-3xl overflow-hidden shadow-lg border border-[#68887d]/20 cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                    onClick={() => handleEventSelect(event)}
+                  >
+                    <div className="aspect-video bg-gray-200 relative">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover"
+                      />
+                      {event.price && (
+                        <div className="absolute top-4 right-4 bg-[#68887d] text-white px-3 py-1 rounded-lg text-sm font-medium">
+                          {event.price}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-light text-[#191d18] mb-2">
+                        {event.title}
+                      </h3>
+                      <p className="text-[#525A52] text-sm mb-4 line-clamp-2">
+                        {event.description}
+                      </p>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center text-[#191d18] text-sm">
+                          <Calendar className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <span>{event.date}</span>
+                        </div>
+                        <div className="flex items-center text-[#191d18] text-sm">
+                          <Clock className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <span>{event.time}</span>
+                        </div>
+                        <div className="flex items-center text-[#191d18] text-sm">
+                          <MapPin className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <span>{event.location}</span>
+                        </div>
+                      </div>
+                      <button
+                        className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm font-medium transition-colors duration-300"
+                        onClick={() => handleEventSelect(event)}
+                      >
+                        Select Event
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-
-              <h3 className="text-xl font-light text-[#191d18] mb-4">
-                {eventTitle}
-              </h3>
-              <p className="text-[#525A52] mb-6">{eventDescription}</p>
-
-              <div className="space-y-4">
-                <div className="flex items-center text-[#191d18]">
-                  <Calendar className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{eventDate}</span>
-                </div>
-                <div className="flex items-center text-[#191d18]">
-                  <Clock className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{eventTime}</span>
-                </div>
-                <div className="flex items-center text-[#191d18]">
-                  <MapPin className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{eventLocation}</span>
-                </div>
-                <div className="flex items-center text-[#191d18]">
-                  <span className="font-medium text-lg">
-                    Price: {eventPrice}
-                  </span>
-                </div>
+              <div className="text-center mt-8">
+                <Link href="/events" className="text-[#68887d] hover:underline">
+                  View all events →
+                </Link>
               </div>
             </div>
+          )}
+
+          {/* Booking Form Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Event Details */}
+            {selectedEvent && (
+              <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="text-2xl font-light text-[#191d18]">
+                    Event Details
+                  </h2>
+                  <button
+                    onClick={() => setSelectedEvent(null)}
+                    className="text-sm text-[#68887d] hover:underline"
+                  >
+                    Change Event
+                  </button>
+                </div>
+                <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden">
+                  <img
+                    src={selectedEvent.image}
+                    alt={selectedEvent.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-light text-[#191d18] mb-4">
+                  {selectedEvent.title}
+                </h3>
+                <p className="text-[#525A52] mb-6">
+                  {selectedEvent.description}
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center text-[#191d18]">
+                    <Calendar className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <span>{selectedEvent.date}</span>
+                  </div>
+                  <div className="flex items-center text-[#191d18]">
+                    <Clock className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <span>{selectedEvent.time}</span>
+                  </div>
+                  <div className="flex items-center text-[#191d18]">
+                    <MapPin className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <span>{selectedEvent.location}</span>
+                  </div>
+                  {selectedEvent.price && (
+                    <div className="flex items-center text-[#191d18]">
+                      <span className="font-medium text-lg">
+                        Price: {selectedEvent.price}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Booking Form */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
               <h2 className="text-2xl font-light text-[#191d18] mb-6">
-                Booking Information
+                {selectedEvent ? "Booking Information" : "General Inquiry"}
               </h2>
 
               {isSubmitted ? (
                 <div className="bg-[#CDEDD4] rounded-2xl p-8 text-center">
                   <h3 className="text-2xl font-light text-[#191d18] mb-4">
-                    Booking Confirmed!
+                    {selectedEvent ? "Booking Confirmed!" : "Message Sent!"}
                   </h3>
                   <p className="text-[#525A52] mb-6">
-                    Thank you for your booking. We've sent a confirmation to
-                    your email.
+                    {selectedEvent
+                      ? "Thank you for your booking. We've sent a confirmation to your email."
+                      : "Thank you for your inquiry. We'll get back to you soon."}
                   </p>
                   <p className="text-[#525A52]">
                     Our team will contact you shortly to finalize the details.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  id="booking-form"
+                >
                   <div>
                     <label htmlFor="name" className="block text-[#191d18] mb-2">
                       Full Name
@@ -261,49 +374,56 @@ export default function BookingPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="date" className="block text-[#191d18] mb-2">
-                      Preferred Date
-                    </label>
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      value={formData.date}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
-                    />
-                  </div>
+                  {selectedEvent && (
+                    <>
+                      <div>
+                        <label
+                          htmlFor="date"
+                          className="block text-[#191d18] mb-2"
+                        >
+                          Preferred Date
+                        </label>
+                        <input
+                          type="date"
+                          id="date"
+                          name="date"
+                          value={formData.date}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                        />
+                      </div>
 
-                  <div>
-                    <label
-                      htmlFor="participants"
-                      className="block text-[#191d18] mb-2"
-                    >
-                      Number of Participants
-                    </label>
-                    <select
-                      id="participants"
-                      name="participants"
-                      value={formData.participants}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
-                    >
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                        <option key={num} value={num}>
-                          {num} {num === 1 ? "person" : "people"}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                      <div>
+                        <label
+                          htmlFor="participants"
+                          className="block text-[#191d18] mb-2"
+                        >
+                          Number of Participants
+                        </label>
+                        <select
+                          id="participants"
+                          name="participants"
+                          value={formData.participants}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                        >
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                            <option key={num} value={num}>
+                              {num} {num === 1 ? "person" : "people"}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
 
                   <div>
                     <label
                       htmlFor="message"
                       className="block text-[#191d18] mb-2"
                     >
-                      Special Requests
+                      {selectedEvent ? "Special Requests" : "Your Message"}
                     </label>
                     <textarea
                       id="message"
@@ -312,15 +432,24 @@ export default function BookingPage() {
                       onChange={handleChange}
                       rows={4}
                       className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
-                      placeholder="Any special requests or dietary requirements?"
+                      placeholder={
+                        selectedEvent
+                          ? "Any special requests or dietary requirements?"
+                          : "Tell us how we can help you"
+                      }
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-6 py-4 text-sm font-medium transition-colors duration-300"
+                    disabled={!selectedEvent}
+                    className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 ${
+                      selectedEvent
+                        ? "bg-[#68887d] hover:bg-[#5a786d] text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
                   >
-                    Confirm Booking
+                    {selectedEvent ? "Confirm Booking" : "Send Inquiry"}
                   </button>
                 </form>
               )}
@@ -328,6 +457,6 @@ export default function BookingPage() {
           </div>
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 }

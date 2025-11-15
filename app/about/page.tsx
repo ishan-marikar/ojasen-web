@@ -2,32 +2,20 @@
 
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/shared/hero";
 
-function Hero() {
+function AboutHero() {
   return (
-    <div className="w-full flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Our Story
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Discover our holistic journey
-      </h1>
-
-      <div className="mt-8 relative z-10">
-        <Image
-          src="/images/about-hero.jpg"
-          alt="Ojasen Healing Arts"
-          width={500}
-          height={500}
-          className="rounded-4xl shadow-lg"
-        />
-      </div>
-
-      <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
+    <Hero
+      title="Discover our holistic journey"
+      subtitle="Our Story"
+      className=""
+    >
+      <div className=" text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Our journey in the world of yoga and wellness started with a profound
         belief in the transformative power of self-care
       </div>
-    </div>
+    </Hero>
   );
 }
 
@@ -416,10 +404,10 @@ export default function AboutPage() {
     <>
       <Navigation />
       <div className="">
-        <Hero />
+        <AboutHero />
         <OurStory />
         <MissionVision />
-        <Values />
+        {/* <Values /> */}
       </div>
       <Footer />
     </>

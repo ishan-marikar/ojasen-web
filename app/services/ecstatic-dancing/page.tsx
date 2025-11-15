@@ -2,21 +2,19 @@
 
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/shared/hero";
 
-function Hero() {
+function EcstaticDancingHero() {
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Movement Medicine
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Ecstatic Dancing
-      </h1>
-
+    <Hero
+      title="Ecstatic Dancing"
+      subtitle="Movement Medicine"
+      className="bg-[#f7faf6]"
+    >
       <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
         Dance your way to freedom and authentic self-expression
       </div>
-    </div>
+    </Hero>
   );
 }
 
@@ -533,15 +531,13 @@ function Footer() {
   );
 }
 
-export default function EcstaticDancingPage() {
+export default function Page() {
   return (
     <>
       <Navigation />
-      <div className="">
-        <Hero />
-        <ServiceDetails />
-        <SessionTypes />
-      </div>
+      <EcstaticDancingHero />
+      <ServiceDetails />
+      <SessionTypes />
       <Footer />
     </>
   );

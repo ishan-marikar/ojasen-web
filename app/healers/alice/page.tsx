@@ -2,18 +2,12 @@
 
 import Image from "next/image";
 import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/shared/hero";
 
-function Hero() {
+function AliceHero() {
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen py-2 pt-28 relative overflow-hidden bg-[#f7faf6]">
-      <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
-        Meet Our Healer
-      </div>
-      <h1 className="mx-3 text-4xl sm:text-5xl text-[#191d18] pt-4 text-center">
-        Alice
-      </h1>
+    <Hero title="Alice" subtitle="Meet Our Healer" className="bg-[#f7faf6]">
       <div className="text-xl text-[#68887d] mt-2">Yoga Instructor</div>
-
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/alice.png"
@@ -23,7 +17,7 @@ function Hero() {
           className="rounded-full border-4 border-[#68887d]/30 shadow-lg"
         />
       </div>
-    </div>
+    </Hero>
   );
 }
 
@@ -537,15 +531,13 @@ function Footer() {
   );
 }
 
-export default function AlicePage() {
+export default function Page() {
   return (
     <>
       <Navigation />
-      <div className="">
-        <Hero />
-        <HealerDetails />
-        <SessionTypes />
-      </div>
+      <AliceHero />
+      <HealerDetails />
+      <SessionTypes />
       <Footer />
     </>
   );
