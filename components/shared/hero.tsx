@@ -50,7 +50,7 @@ export function Hero({
           </div>
         </div>
       )}
-      <div className=" backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-20 px-4 relative z-10">
+      <div className="backdrop-blur-sm w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4 relative z-10">
         {subtitle && (
           <div className="text-sm uppercase text-[#191d18] font-medium tracking-wider">
             {subtitle}

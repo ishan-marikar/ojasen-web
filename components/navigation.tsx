@@ -43,7 +43,7 @@ export function Navigation() {
           : "bg-[#f7faf6]/90 backdrop-blur-sm py-3 shadow-sm"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="transition-all duration-300">
           <div
@@ -62,7 +62,7 @@ export function Navigation() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-6 lg:space-x-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -85,11 +85,12 @@ export function Navigation() {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden focus:outline-none transition-colors duration-300 ${
+          className={`md:hidden focus:outline-none transition-colors duration-300 p-2 ${
             scrolled || !isHomePage ? "text-[#191d18]" : "text-white"
           }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -103,19 +104,19 @@ export function Navigation() {
           }`}
         >
           <button
-            className="absolute top-6 right-6 text-[#191d18]"
+            className="absolute top-6 right-6 text-[#191d18] p-2"
             onClick={() => setIsOpen(false)}
             aria-label="Close menu"
           >
             <X size={24} />
           </button>
 
-          <nav className="flex flex-col space-y-8 items-center">
+          <nav className="flex flex-col space-y-8 items-center w-full px-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-2xl text-[#191d18] hover:text-[#68887d] transition-colors duration-300 uppercase tracking-wider font-medium"
+                className="text-2xl text-[#191d18] hover:text-[#68887d] transition-colors duration-300 uppercase tracking-wider font-medium py-2 px-4"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

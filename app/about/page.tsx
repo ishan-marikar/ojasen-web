@@ -28,8 +28,10 @@ function OurStory() {
             <span className="text-sm uppercase font-medium tracking-wider text-primary pt-10 pb-4">
               Our Origin
             </span>
-            <h2 className="text-3xl mb-6">The Beginning of Ojasen</h2>
-            <div className="pb-6 text-lg">
+            <h2 className="text-2xl sm:text-3xl mb-6">
+              The Beginning of Ojasen
+            </h2>
+            <div className="pb-6 text-base sm:text-lg">
               <p className="mb-4">
                 Founded in the heart of Sri Lanka, Ojasen Healing Arts emerged
                 from a deep desire to share the ancient wisdom of holistic
@@ -71,16 +73,16 @@ function MissionVision() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
-            <h3 className="text-2xl mb-4">Our Mission</h3>
-            <p className="text-[#525A52] text-lg">
+            <h3 className="text-xl sm:text-2xl mb-4">Our Mission</h3>
+            <p className="text-[#525A52] text-base sm:text-lg">
               To guide individuals on a path to holistic health, happiness, and
               inner peace through personalized wellness programs and
               transformative healing experiences.
             </p>
           </div>
           <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
-            <h3 className="text-2xl mb-4">Our Vision</h3>
-            <p className="text-[#525A52] text-lg">
+            <h3 className="text-xl sm:text-2xl mb-4">Our Vision</h3>
+            <p className="text-[#525A52] text-base sm:text-lg">
               To be a global haven for those seeking balance in their lives,
               serving as a guiding light on the wellness journey and providing a
               sanctuary for self-discovery and healing.
@@ -100,7 +102,9 @@ function Values() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Core Principles
           </span>
-          <h2 className="text-3xl font-light mt-2">Our Guiding Values</h2>
+          <h2 className="text-2xl sm:text-3xl font-light mt-2">
+            Our Guiding Values
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -108,7 +112,7 @@ function Values() {
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">❤️</span>
             </div>
-            <h3 className="text-xl mb-4">Compassion</h3>
+            <h3 className="text-lg sm:text-xl mb-4">Compassion</h3>
             <p className="text-[#525A52]">
               We approach each individual with empathy and understanding,
               recognizing that every wellness journey is unique.
@@ -119,7 +123,7 @@ function Values() {
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🌱</span>
             </div>
-            <h3 className="text-xl mb-4">Growth</h3>
+            <h3 className="text-lg sm:text-xl mb-4">Growth</h3>
             <p className="text-[#525A52]">
               We believe in continuous learning and evolution, both for
               ourselves and our community.
@@ -130,7 +134,7 @@ function Values() {
             <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🧘</span>
             </div>
-            <h3 className="text-xl mb-4">Balance</h3>
+            <h3 className="text-lg sm:text-xl mb-4">Balance</h3>
             <p className="text-[#525A52]">
               We strive to create harmony between traditional wisdom and modern
               practices for optimal wellness.

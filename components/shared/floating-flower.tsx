@@ -14,7 +14,9 @@ export function FloatingFlower({
   delayClass,
 }: FloatingFlowerProps) {
   return (
-    <div className={`absolute ${animationClass} ${delayClass} ${depthLayer}`}>
+    <div
+      className={`absolute ${animationClass} ${delayClass} ${depthLayer} hidden sm:block`}
+    >
       <Image
         src={src}
         alt={alt}

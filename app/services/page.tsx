@@ -13,7 +13,7 @@ function ServicesHero() {
       subtitle="Our Offerings"
       className="bg-[#f7faf6]"
     >
-      <div className="text-[#525A52] text-center mt-8 text-lg tracking-wide max-w-3xl mx-auto px-4">
+      <div className="text-[#525A52] text-center mt-8 text-base sm:text-lg tracking-wide max-w-3xl mx-auto px-4">
         Our comprehensive range of holistic wellness services designed to
         promote balance and well-being for mind, body, and spirit
       </div>
@@ -32,16 +32,16 @@ function ServicesOverview() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Our Offerings
           </span>
-          <h2 className="text-3xl font-light mt-2">
+          <h2 className="text-2xl sm:text-3xl font-light mt-2">
             Holistic healing experiences
           </h2>
-          <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
+          <p className="text-[#525A52] max-w-2xl mx-auto text-base sm:text-lg mt-4">
             Each service is designed to promote balance and well-being for mind,
             body, and spirit through ancient wisdom and modern techniques.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -66,7 +66,7 @@ function WellnessApproach() {
             <span className="text-sm uppercase font-medium tracking-wider text-primary pt-10 pb-4">
               Our Approach
             </span>
-            <h2 className="text-3xl mb-6">Holistic Wellness Philosophy</h2>
+            <h2 className="text-2xl sm:text-3xl mb-6">Holistic Wellness Philosophy</h2>
             <div className="pb-6 text-lg">
               <p className="mb-4">
                 Our holistic approach recognizes that true wellness encompasses

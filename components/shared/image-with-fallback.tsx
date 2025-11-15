@@ -46,6 +46,9 @@ export function ImageWithFallback({
     onLoad?.();
   };
 
+  // Default sizes for responsive images
+  const defaultSizes = sizes || (fill ? "100vw" : undefined);
+
   return (
     <Image
       src={imgSrc}
@@ -54,9 +57,9 @@ export function ImageWithFallback({
       width={width}
       height={height}
       fill={fill}
-      sizes={sizes}
+      sizes={defaultSizes}
       priority={priority}
-      quality={quality}
+      quality={quality || 75}
       onError={handleError}
       onLoad={handleLoad}
       {...props}

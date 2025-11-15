@@ -33,16 +33,16 @@ function UpcomingEvents() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Events Calendar
           </span>
-          <h2 className="text-3xl font-light mt-2">
+          <h2 className="text-2xl sm:text-3xl font-light mt-2">
             Upcoming transformative experiences
           </h2>
-          <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
+          <p className="text-[#525A52] max-w-2xl mx-auto text-base sm:text-lg mt-4">
             Join our community for immersive wellness experiences designed to
             nourish your mind, body, and spirit.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {events.map((event, index) => (
             <EventCard
               key={index}
@@ -122,16 +122,16 @@ function EventCard({
           </div>
         </div>
         <div className="mt-6 flex space-x-3">
-          <button className=" rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-4 py-3 text-primary text-sm transition-colors duration-300">
+          <button className=" rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-4 py-3 text-primary text-sm transition-colors duration-300 min-h-[44px]">
             <CalendarPlus />
           </button>
           <Link href={`/booking?event=${id}`} className="flex-1">
-            <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
+            <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300 min-h-[44px]">
               Book Now
             </button>
           </Link>
           <Link href={`/events/${id}`} className="flex-1">
-            <button className="w-full rounded-lg bg-transparent border border-[#68887d] text-[#68887d] hover:bg-[#68887d] hover:text-white uppercase px-4 py-3 text-sm transition-colors duration-300">
+            <button className="w-full rounded-lg bg-transparent border border-[#68887d] text-[#68887d] hover:bg-[#68887d] hover:text-white uppercase px-4 py-3 text-sm transition-colors duration-300 min-h-[44px]">
               Learn More
             </button>
           </Link>
@@ -176,23 +176,23 @@ function EventTypes() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Event Categories
           </span>
-          <h2 className="text-3xl font-light mt-2">
+          <h2 className="text-2xl sm:text-3xl font-light mt-2">
             Diverse experiences for your wellness journey
           </h2>
-          <p className="text-[#c4c9c4] max-w-2xl mx-auto text-lg mt-4">
+          <p className="text-[#c4c9c4] max-w-2xl mx-auto text-base sm:text-lg mt-4">
             Our events are carefully curated to offer a range of experiences
             that support your holistic well-being.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {eventTypes.map((eventType, index) => (
             <div
               key={index}
               className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30 text-center"
             >
               <div className="text-4xl mb-4">{eventType.icon}</div>
-              <h3 className="text-xl mb-3">{eventType.title}</h3>
+              <h3 className="text-lg sm:text-xl mb-3">{eventType.title}</h3>
               <p className="text-[#c4c9c4]">{eventType.description}</p>
             </div>
           ))}

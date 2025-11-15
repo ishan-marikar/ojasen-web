@@ -30,7 +30,7 @@ export function HealerCard({ name, role, image, link }: Healer) {
           {role}
         </p>
         <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button className="text-xs uppercase tracking-wider text-[#68887d] border border-[#68887d]/40 rounded-full px-4 py-2 hover:bg-[#68887d] hover:text-white transition-colors duration-300">
+          <button className="text-xs uppercase tracking-wider text-[#68887d] border border-[#68887d]/40 rounded-full px-4 py-2 hover:bg-[#68887d] hover:text-white transition-colors duration-300 min-h-[44px]">
             View Profile
           </button>
         </div>

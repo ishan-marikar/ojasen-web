@@ -32,15 +32,15 @@ function HealersSection() {
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Our Healers
           </span>
-          <h2 className="text-3xl font-light mt-2 mb-4 text-[#191d18]">
+          <h2 className="text-2xl sm:text-3xl font-light mt-2 mb-4 text-[#191d18]">
             Experienced wellness practitioners
           </h2>
-          <p className="text-[#525A52] max-w-2xl mx-auto text-lg">
+          <p className="text-[#525A52] max-w-2xl mx-auto text-base sm:text-lg">
             Each of our healers brings unique expertise and a deep commitment to
             your wellness journey.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {healers.map((healer, index) => (
             <HealerCard
               key={index}

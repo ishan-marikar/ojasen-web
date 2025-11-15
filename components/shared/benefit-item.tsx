@@ -5,7 +5,7 @@ import type { BenefitItem } from "@/lib/types";
 export function BenefitItem({ title, description }: BenefitItem) {
   return (
     <div className="flex items-start">
-      <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+      <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0 min-w-[24px]">
         <svg
           className="w-4 h-4 text-white"
           fill="none"
@@ -21,8 +21,8 @@ export function BenefitItem({ title, description }: BenefitItem) {
         </svg>
       </div>
       <div>
-        <h4 className="text-lg font-medium mb-2">{title}</h4>
-        <p className="text-[#525A52]">{description}</p>
+        <h4 className="text-base sm:text-lg font-medium mb-2">{title}</h4>
+        <p className="text-[#525A52] text-sm sm:text-base">{description}</p>
       </div>
     </div>
   );

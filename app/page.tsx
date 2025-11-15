@@ -48,7 +48,7 @@ function Hero() {
           </div>
         </div>
         <div className="absolute inset-0 bg-black/30 "></div>
-        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-20 px-4">
+        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
           <div className="max-w-4xl text-center space-y-6">
             <motion.div className="mx-auto">
               <Image
@@ -68,7 +68,7 @@ function Hero() {
               Awaken the Life Within
             </motion.h1> */}
             <motion.div
-              className="text-lg md:text-xl text-white font-light tracking-wider"
+              className="text-base sm:text-lg md:text-xl text-white font-light tracking-wider"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -77,7 +77,7 @@ function Hero() {
               HEALING | CACAU HEALING CEREMONY
             </motion.div>
             <motion.p
-              className="text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -87,7 +87,7 @@ function Hero() {
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-8 px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#556b62] transition-colors duration-300"
+                className="mt-8 px-6 sm:px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#556b62] transition-colors duration-300 min-h-[44px]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -136,11 +136,11 @@ function Ceremonies() {
         <div className="text-sm uppercase font-medium tracking-wider text-[#CDEDD4] mb-4">
           Sacred Gatherings
         </div>
-        <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-sans text-[#fff] mb-6">
           Sessions & Ceremonies
         </h2>
 
-        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4 mb-10">
+        <div className="text-base sm:text-lg md:text-xl text-[#fff] leading-relaxed space-y-4 mb-10">
           <p>
             Moments crafted with intention, devotion, and soul. Our Sacred
             Events are intimate ceremonial gatherings that guide you deeper into
@@ -162,7 +162,7 @@ function Ceremonies() {
             </button>
           </Link> */}
           <Link href="/booking">
-            <button className="px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+            <button className="px-6 sm:px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 min-h-[44px]">
               Book a Session
             </button>
           </Link>
@@ -208,7 +208,7 @@ function About() {
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.h2
-            className="text-3xl md:text-4xl font-sans text-[white] mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl font-sans text-[white] mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -216,7 +216,7 @@ function About() {
           >
             A Sanctuary to Awaken Your Spirit
           </motion.h2>
-          <div className="text-lg md:text-xl text-[white] leading-relaxed space-y-4">
+          <div className="text-base sm:text-lg md:text-xl text-[white] leading-relaxed space-y-4">
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

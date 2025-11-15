@@ -18,12 +18,14 @@ export function ServiceCard({ title, description, icon, link }: Service) {
             height={60}
             className="rounded-lg mr-4"
           />
-          <h3 className="text-xl font-light text-[#191d18] group-hover:text-[#68887d] transition-colors duration-300">
+          <h3 className="text-lg sm:text-xl font-light text-[#191d18] group-hover:text-[#68887d] transition-colors duration-300">
             {title}
           </h3>
         </div>
-        <p className="text-[#525A52] mb-4">{description}</p>
-        <div className="text-primary font-medium cursor-pointer hover:text-[#2b332d] transition-all duration-300 inline-flex items-center group">
+        <p className="text-[#525A52] text-sm sm:text-base mb-4">
+          {description}
+        </p>
+        <div className="text-primary font-medium cursor-pointer hover:text-[#2b332d] transition-all duration-300 inline-flex items-center group min-h-[44px]">
           Learn More
           <svg
             className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"

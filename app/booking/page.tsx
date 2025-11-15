@@ -174,7 +174,7 @@ export default function BookingPage() {
               <h2 className="text-2xl font-light text-[#191d18] mb-6 text-center">
                 Select an Event
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {EVENTS_DATA.map((event) => (
                   <div
                     key={event.id}
@@ -233,7 +233,7 @@ export default function BookingPage() {
           )}
 
           {/* Booking Form Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             {/* Event Details */}
             {selectedEvent && (
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
@@ -324,8 +324,9 @@ export default function BookingPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                         placeholder="Enter your full name"
+                        autoComplete="name"
                       />
                     </div>
                   </div>
@@ -346,8 +347,9 @@ export default function BookingPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                         placeholder="Enter your email"
+                        autoComplete="email"
                       />
                     </div>
                   </div>
@@ -368,8 +370,9 @@ export default function BookingPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                         placeholder="Enter your phone number"
+                        autoComplete="tel"
                       />
                     </div>
                   </div>
@@ -390,7 +393,7 @@ export default function BookingPage() {
                           value={formData.date}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                          className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                         />
                       </div>
 
@@ -406,7 +409,7 @@ export default function BookingPage() {
                           name="participants"
                           value={formData.participants}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                          className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                         >
                           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                             <option key={num} value={num}>
@@ -431,7 +434,7 @@ export default function BookingPage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-3 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent"
+                      className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
                       placeholder={
                         selectedEvent
                           ? "Any special requests or dietary requirements?"
@@ -443,7 +446,7 @@ export default function BookingPage() {
                   <button
                     type="submit"
                     disabled={!selectedEvent}
-                    className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 ${
+                    className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px] ${
                       selectedEvent
                         ? "bg-[#68887d] hover:bg-[#5a786d] text-white"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
