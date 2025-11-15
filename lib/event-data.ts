@@ -42,7 +42,7 @@ export const EVENTS_DATA: DetailedEvent[] = [
       "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself.",
     fullDescription:
       "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself. Guided by Oshi's intuitive blend of crystal bowls, vocal toning, and frequency work, this session awakens the energy of the heart — the space where compassion, release, and renewal unfold.\n\nYou'll be invited to slow down, breathe deeply, and allow vibrational medicine to move through your system. As sound ripples through your body, it helps dissolve heaviness, calm the nervous system, and create gentle openings where clarity and lightness can return.\n\nThis is not just a sound bath — it is a space to feel, to let go, and to reconnect with the softness you often forget you carry. Anahata Flow is ideal for anyone seeking emotional balance, energetic reset, or a moment of pure presence within the stillness of Ojasen's natural surroundings.",
-    image: "/images/hero-night.JPG",
+    image: "/images/sound-healing.jpg",
     category: "Sound Healing",
     price: "LKR 3,500",
     priceRaw: 3500,
