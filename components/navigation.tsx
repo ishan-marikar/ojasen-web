@@ -68,7 +68,7 @@ export function Navigation() {
         className={`fixed w-full z-50 transition-all duration-300 ${
           isHomePage && !scrolled
             ? "bg-transparent py-4"
-            : "bg-[#5f726b]/90 backdrop-blur-sm py-2 shadow-sm"
+            : "bg-primary/90 backdrop-blur-sm py-2 shadow-sm"
         }`}
       >
         {/* Desktop Navigation */}
@@ -81,14 +81,14 @@ export function Navigation() {
                 href={link.href}
                 className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
                   isHomePage && !scrolled
-                    ? "text-white hover:text-[#d6ddcb]"
-                    : "text-white hover:text-[#d6ddcb]"
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
                 }`}
               >
                 {link.name}
                 <span
                   className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    isHomePage && !scrolled ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
+                    isHomePage && !scrolled ? "bg-accent" : "bg-accent"
                   }`}
                 ></span>
               </Link>
@@ -120,14 +120,14 @@ export function Navigation() {
                 href={link.href}
                 className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
                   isHomePage && !scrolled
-                    ? "text-white hover:text-[#d6ddcb]"
-                    : "text-white hover:text-[#d6ddcb]"
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
                 }`}
               >
                 {link.name}
                 <span
                   className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    isHomePage && !scrolled ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
+                    isHomePage && !scrolled ? "bg-accent" : "bg-accent"
                   }`}
                 ></span>
               </Link>
@@ -174,7 +174,7 @@ export function Navigation() {
       {/* Mobile Navigation Overlay - Moved outside header to fix positioning issue */}
       <div
         id="mobile-menu"
-        className={`fixed inset-0 bg-[#5f726b] z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
+        className={`fixed inset-0 bg-primary z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none"
@@ -196,7 +196,7 @@ export function Navigation() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-xl text-white hover:text-[#d6ddcb] transition-colors duration-300 uppercase tracking-wider font-medium"
+              className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium"
               onClick={() => setIsOpen(false)}
             >
               {link.name}

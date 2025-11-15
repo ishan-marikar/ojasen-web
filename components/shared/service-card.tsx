@@ -7,7 +7,7 @@ export function ServiceCard({ title, description, icon, link }: Service) {
   return (
     <Link
       href={link}
-      className="group bg-white rounded-4xl border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40 overflow-hidden"
+      className="group bg-white rounded-4xl border border-primary/20 transition-all duration-300 hover:shadow-xl hover:border-primary/40 overflow-hidden"
     >
       <div className="p-6">
         <div className="flex items-center mb-4">
@@ -18,7 +18,7 @@ export function ServiceCard({ title, description, icon, link }: Service) {
             height={60}
             className="rounded-lg mr-4"
           />
-          <h3 className="text-lg sm:text-xl font-light text-[#191d18] group-hover:text-[#68887d] transition-colors duration-300">
+          <h3 className="text-lg sm:text-xl font-light text-[#191d18] group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
         </div>

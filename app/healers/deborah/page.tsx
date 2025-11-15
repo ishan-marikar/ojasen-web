@@ -7,14 +7,14 @@ import { Hero } from "@/components/shared/hero";
 function DeborahHero() {
   return (
     <Hero title="Deborah" subtitle="Meet Our Healer" className="bg-[#f7faf6]">
-      <div className="text-xl text-[#68887d] mt-2">Energy Healer</div>
+      <div className="text-xl text-primary mt-2">Energy Healer</div>
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/deborah.png"
           alt="Deborah"
           width={300}
           height={300}
-          className="rounded-full border-4 border-[#68887d]/30 shadow-lg"
+          className="rounded-full border-4 border-primary/30 shadow-lg"
         />
       </div>
     </Hero>
@@ -64,11 +64,11 @@ function HealerDetails() {
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
+        <div className="bg-white p-8 rounded-4xl border border-primary/20 mb-16">
           <h3 className="text-2xl mb-6">Deborah's Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start">
-              <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+              <div className="bg-primary rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -93,7 +93,7 @@ function HealerDetails() {
             </div>
 
             <div className="flex items-start">
-              <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+              <div className="bg-primary rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -118,7 +118,7 @@ function HealerDetails() {
             </div>
 
             <div className="flex items-start">
-              <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+              <div className="bg-primary rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -143,7 +143,7 @@ function HealerDetails() {
             </div>
 
             <div className="flex items-start">
-              <div className="bg-[#68887d] rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+              <div className="bg-primary rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -219,7 +219,7 @@ function SessionTypes() {
           {sessions.map((session, index) => (
             <div
               key={index}
-              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30"
+              className="bg-[#3a423b] p-6 rounded-4xl border border-primary/30"
             >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl">{session.title}</h3>
@@ -232,11 +232,11 @@ function SessionTypes() {
           ))}
         </div>
 
-        {/* <div className="mt-12 text-center">
-          <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
+        <div className="mt-12 text-center">
+          <button className="rounded-lg bg-primary hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
           </button>
-        </div> */}
+        </div>
       </div>
     </div>
   );
@@ -408,7 +408,7 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -432,7 +432,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -450,7 +450,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -472,7 +472,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-8 mt-8">
+        <div className="border-t border-primary/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights

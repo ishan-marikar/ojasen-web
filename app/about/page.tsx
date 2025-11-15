@@ -72,7 +72,7 @@ function MissionVision() {
     <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-16">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20">
             <h3 className="text-xl sm:text-2xl mb-4">Our Mission</h3>
             <p className="text-[#525A52] text-base sm:text-lg">
               To guide individuals on a path to holistic health, happiness, and
@@ -80,7 +80,7 @@ function MissionVision() {
               transformative healing experiences.
             </p>
           </div>
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20">
             <h3 className="text-xl sm:text-2xl mb-4">Our Vision</h3>
             <p className="text-[#525A52] text-base sm:text-lg">
               To be a global haven for those seeking balance in their lives,
@@ -108,8 +108,8 @@ function Values() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">❤️</span>
             </div>
             <h3 className="text-lg sm:text-xl mb-4">Compassion</h3>
@@ -119,8 +119,8 @@ function Values() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🌱</span>
             </div>
             <h3 className="text-lg sm:text-xl mb-4">Growth</h3>
@@ -130,8 +130,8 @@ function Values() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">🧘</span>
             </div>
             <h3 className="text-lg sm:text-xl mb-4">Balance</h3>
@@ -161,7 +161,7 @@ function LocationMap() {
           </p>
         </div>
 
-        <div className="bg-white rounded-4xl overflow-hidden border border-[#68887d]/20">
+        <div className="bg-white rounded-4xl overflow-hidden border border-primary/20">
           <div className="h-96 relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk"
@@ -367,7 +367,7 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -391,7 +391,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -414,7 +414,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -439,7 +439,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-8 mt-8">
+        <div className="border-t border-primary/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights

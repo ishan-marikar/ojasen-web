@@ -97,7 +97,7 @@ function Hero() {
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#68887d]/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
+                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-primary/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -149,7 +149,7 @@ function Ceremonies() {
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
       {/* Floating decorative elements removed for clearer design */}{" "}
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <div className="text-sm uppercase font-medium tracking-wider text-[#CDEDD4] mb-4">
+        <div className="text-sm uppercase font-medium tracking-wider text-secondary mb-4">
           Sacred Gatherings
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-sans text-[#fff] mb-6">
@@ -173,7 +173,7 @@ function Ceremonies() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           {/* <Link href="/events">
-            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+            <button className="px-8 py-3 bg-primary/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
               Explore Ceremonies
             </button>
           </Link> */}
@@ -363,9 +363,9 @@ function Schedule() {
           </motion.div>
 
           {/* Weekly Schedule Grid */}
-          <div className="bg-white rounded-3xl border border-[#68887d]/20 overflow-hidden shadow-lg">
+          <div className="bg-white rounded-3xl border border-primary/20 overflow-hidden shadow-lg">
             {/* Days Header */}
-            <div className="grid grid-cols-8 border-b border-[#68887d]/20">
+            <div className="grid grid-cols-8 border-b border-primary/20">
               <div className="p-4 font-medium text-[#191d18] bg-[#f7faf6]"></div>
               {daysOfWeek.map((day) => (
                 <div
@@ -381,7 +381,7 @@ function Schedule() {
             {healers.map((healer, healerIndex) => (
               <div
                 key={healerIndex}
-                className="grid grid-cols-8 border-b border-[#68887d]/10 last:border-b-0 hover:bg-[#f7faf6]/50 transition-colors duration-200"
+                className="grid grid-cols-8 border-b border-primary/10 last:border-b-0 hover:bg-[#f7faf6]/50 transition-colors duration-200"
               >
                 {/* Healer Info */}
                 <Link
@@ -401,7 +401,7 @@ function Schedule() {
                       <div className="font-medium text-[#191d18] text-sm">
                         {healer.name}
                       </div>
-                      <div className="text-[#68887d] text-xs uppercase tracking-wide">
+                      <div className="text-primary text-xs uppercase tracking-wide">
                         {healer.role}
                       </div>
                     </div>
@@ -412,7 +412,7 @@ function Schedule() {
                 {daysOfWeek.map((day) => {
                   const times = getAvailabilityForDay(healer, day);
                   return (
-                    <div key={day} className="p-4 border-l border-[#68887d]/10">
+                    <div key={day} className="p-4 border-l border-primary/10">
                       {times.length > 0 ? (
                         <div className="space-y-1">
                           {times.map((time, index) => (
@@ -440,7 +440,7 @@ function Schedule() {
           >
             <Link href="/healers">
               <motion.button
-                className="px-8 py-3 bg-[#CDEDD4] text-[#2C332D] font-medium uppercase tracking-wider text-sm hover:bg-[#a8c9b3] transition-colors duration-300 rounded-lg"
+                className="px-8 py-3 bg-secondary text-[#2C332D] font-medium uppercase tracking-wider text-sm hover:bg-[#a8c9b3] transition-colors duration-300 rounded-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -501,7 +501,7 @@ function Footer() {
             </motion.div>
           </div>
           <motion.div
-            className="border-t border-[#68887d]/30 mt-12 pt-8 text-center text-[#c4c9c4]"
+            className="border-t border-primary/30 mt-12 pt-8 text-center text-[#c4c9c4]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -543,7 +543,7 @@ function EventsSection() {
 
           <div className="text-center mt-12">
             <Link href="/events">
-              <button className="px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
+              <button className="px-8 py-3 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
                 View All Events
               </button>
             </Link>
@@ -639,7 +639,7 @@ function AnahataFlowEvent() {
         {/* CTA Button */}
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/anahata-flow">
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20 min-h-[44px]">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-primary/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20 min-h-[44px]">
               Learn More
             </button>
           </Link>
@@ -748,7 +748,7 @@ function PanchaliSaadhanEvent() {
         {/* CTA Button */}
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/panchali-saadhan">
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20 min-h-[44px]">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-primary/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20 min-h-[44px]">
               Learn More
             </button>
           </Link>
@@ -790,7 +790,7 @@ export function LocationMap() {
             </p>
           </motion.div>
 
-          <div className="rounded-3xl overflow-hidden shadow-lg border border-[#68887d]/20">
+          <div className="rounded-3xl overflow-hidden shadow-lg border border-primary/20">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk&&t=h&&layer=c
 "
@@ -811,7 +811,7 @@ export function LocationMap() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="inline-block bg-white rounded-2xl px-6 py-4 border border-[#68887d]/20 shadow-sm">
+            <div className="inline-block bg-white rounded-2xl px-6 py-4 border border-primary/20 shadow-sm">
               <p className="text-[#191d18] font-medium">
                 The Island Ahangama, Sri Lanka
               </p>

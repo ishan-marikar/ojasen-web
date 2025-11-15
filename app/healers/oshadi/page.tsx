@@ -10,14 +10,14 @@ import { getDataService } from "@/lib/data-service";
 function OshadiHero() {
   return (
     <Hero title="Oshadi" subtitle="Meet Our Healer" className="bg-[#f7faf6]">
-      <div className="text-xl text-[#68887d] mt-2">Sound Healer</div>
+      <div className="text-xl text-primary mt-2">Sound Healer</div>
       <div className="mt-8 relative z-10">
         <Image
           src="/images/healers/oshadi.png"
           alt="Oshadi"
           width={300}
           height={300}
-          className="rounded-full border-4 border-[#68887d]/30 shadow-lg"
+          className="rounded-full border-4 border-primary/30 shadow-lg"
         />
       </div>
     </Hero>
@@ -70,7 +70,7 @@ function HealerDetails() {
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
+        <div className="bg-white p-8 rounded-4xl border border-primary/20 mb-16">
           <h3 className="text-2xl mb-6">Oshadi's Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {expertise.map((item, index) => (
@@ -116,11 +116,11 @@ function SessionTypes() {
           ))}
         </div>
 
-        {/* <div className="mt-12 text-center">
-          <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
+        <div className="mt-12 text-center">
+          <button className="rounded-lg bg-primary hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
           </button>
-        </div> */}
+        </div>
       </div>
     </div>
   );

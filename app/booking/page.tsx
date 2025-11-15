@@ -140,7 +140,7 @@ export default function BookingPage() {
                 {EVENTS_DATA.map((event) => (
                   <div
                     key={event.id}
-                    className="bg-white rounded-3xl overflow-hidden shadow-lg border border-[#68887d]/20 cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/20 cursor-pointer hover:shadow-xl transition-shadow duration-300"
                     onClick={() => handleEventSelect(event)}
                   >
                     <div className="aspect-video bg-gray-200 relative">
@@ -150,7 +150,7 @@ export default function BookingPage() {
                         className="w-full h-full object-cover"
                       />
                       {event.price && (
-                        <div className="absolute top-4 right-4 bg-[#68887d] text-white px-3 py-1 rounded-lg text-sm font-medium">
+                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-medium">
                           {event.price}
                         </div>
                       )}
@@ -164,20 +164,20 @@ export default function BookingPage() {
                       </p>
                       <div className="space-y-2 mb-4">
                         <div className="flex items-center text-[#191d18] text-sm">
-                          <Calendar className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <Calendar className="h-4 w-4 mr-2 text-primary" />
                           <span>{event.date}</span>
                         </div>
                         <div className="flex items-center text-[#191d18] text-sm">
-                          <Clock className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <Clock className="h-4 w-4 mr-2 text-primary" />
                           <span>{event.time}</span>
                         </div>
                         <div className="flex items-center text-[#191d18] text-sm">
-                          <MapPin className="h-4 w-4 mr-2 text-[#68887d]" />
+                          <MapPin className="h-4 w-4 mr-2 text-primary" />
                           <span>{event.location}</span>
                         </div>
                       </div>
                       <button
-                        className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm font-medium transition-colors duration-300"
+                        className="w-full rounded-lg bg-primary hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm font-medium transition-colors duration-300"
                         onClick={() => handleEventSelect(event)}
                       >
                         Select Event
@@ -187,7 +187,7 @@ export default function BookingPage() {
                 ))}
               </div>
               <div className="text-center mt-8">
-                <Link href="/events" className="text-[#68887d] hover:underline">
+                <Link href="/events" className="text-primary hover:underline">
                   View all events →
                 </Link>
               </div>
@@ -198,14 +198,14 @@ export default function BookingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             {/* Event Details */}
             {selectedEvent && (
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
+              <div className="bg-white rounded-3xl p-8 shadow-lg border border-primary/20">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-2xl font-light text-[#191d18]">
                     Event Details
                   </h2>
                   <button
                     onClick={() => setSelectedEvent(null)}
-                    className="text-sm text-[#68887d] hover:underline"
+                    className="text-sm text-primary hover:underline"
                   >
                     Change Event
                   </button>
@@ -225,15 +225,15 @@ export default function BookingPage() {
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center text-[#191d18]">
-                    <Calendar className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <Calendar className="h-5 w-5 mr-3 text-primary" />
                     <span>{selectedEvent.date}</span>
                   </div>
                   <div className="flex items-center text-[#191d18]">
-                    <Clock className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <Clock className="h-5 w-5 mr-3 text-primary" />
                     <span>{selectedEvent.time}</span>
                   </div>
                   <div className="flex items-center text-[#191d18]">
-                    <MapPin className="h-5 w-5 mr-3 text-[#68887d]" />
+                    <MapPin className="h-5 w-5 mr-3 text-primary" />
                     <span>{selectedEvent.location}</span>
                   </div>
                   {selectedEvent.price && (
@@ -248,13 +248,13 @@ export default function BookingPage() {
             )}
 
             {/* Booking Form */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#68887d]/20">
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-primary/20">
               <h2 className="text-2xl font-light text-[#191d18] mb-6">
                 {selectedEvent ? "Booking Information" : "General Inquiry"}
               </h2>
 
               {isSubmitted ? (
-                <div className="bg-[#CDEDD4] rounded-2xl p-8 text-center">
+                <div className="bg-secondary rounded-2xl p-8 text-center">
                   <h3 className="text-2xl font-light text-[#191d18] mb-4">
                     {selectedEvent ? "Booking Confirmed!" : "Message Sent!"}
                   </h3>
@@ -326,7 +326,7 @@ export default function BookingPage() {
                             /\s+/g,
                             "_"
                           )}.ics`}
-                          className="px-4 py-2 bg-[#68887d] text-white rounded-lg text-sm hover:bg-[#5a786d] transition-colors"
+                          className="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-[#5a786d] transition-colors"
                         >
                           Download iCal
                         </a>
@@ -345,7 +345,7 @@ export default function BookingPage() {
                       Full Name
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#68887d]" />
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-primary" />
                       <input
                         type="text"
                         id="name"
@@ -353,7 +353,7 @@ export default function BookingPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                         placeholder="Enter your full name"
                         autoComplete="name"
                       />
@@ -368,7 +368,7 @@ export default function BookingPage() {
                       Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#68887d]" />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-primary" />
                       <input
                         type="email"
                         id="email"
@@ -376,7 +376,7 @@ export default function BookingPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                         placeholder="Enter your email"
                         autoComplete="email"
                       />
@@ -391,7 +391,7 @@ export default function BookingPage() {
                       Phone Number
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#68887d]" />
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-primary" />
                       <input
                         type="tel"
                         id="phone"
@@ -399,7 +399,7 @@ export default function BookingPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
+                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                         placeholder="Enter your phone number"
                         autoComplete="tel"
                       />
@@ -420,7 +420,7 @@ export default function BookingPage() {
                           name="participants"
                           value={formData.participants}
                           onChange={handleChange}
-                          className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
+                          className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                         >
                           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                             <option key={num} value={num}>
@@ -445,7 +445,7 @@ export default function BookingPage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-4 rounded-lg border border-[#68887d]/30 focus:outline-none focus:ring-2 focus:ring-[#68887d]/50 focus:border-transparent text-lg"
+                      className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                       placeholder={
                         selectedEvent
                           ? "Any special requests or dietary requirements?"
@@ -459,7 +459,7 @@ export default function BookingPage() {
                     disabled={!selectedEvent || isSubmitting}
                     className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px] ${
                       selectedEvent
-                        ? "bg-[#68887d] hover:bg-[#5a786d] text-white"
+                        ? "bg-primary hover:bg-[#5a786d] text-white"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                   >

@@ -29,6 +29,9 @@ function EventsHero() {
         Experience the power of community and transformation through our curated
         wellness events
       </div>
+      <button className="px-8 py-3 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
+        View All Events
+      </button>
     </Hero>
   );
 }
@@ -112,7 +115,7 @@ function EventCard({
   }, [showCalendarDropdown, id]);
 
   return (
-    <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40">
+    <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-primary/20 transition-all duration-300 hover:shadow-xl hover:border-primary/40">
       <Link href={`/events/${id}`}>
         <div className="relative aspect-[4/3] w-full cursor-pointer">
           <Image
@@ -136,7 +139,7 @@ function EventCard({
               {description}
             </p>
           </div>
-          <div className="bg-[#68887d] min-w-[45px] sm:min-w-[50px] h-[45px] sm:h-[50px] rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+          <div className="bg-primary min-w-[45px] sm:min-w-[50px] h-[45px] sm:h-[50px] rounded-lg flex flex-col items-center justify-center flex-shrink-0">
             <span className="text-white text-base sm:text-lg font-medium">
               {date}
             </span>
@@ -162,7 +165,7 @@ function EventCard({
                 e.preventDefault();
                 setShowCalendarDropdown(!showCalendarDropdown);
               }}
-              className="rounded-lg bg-[#CDEDD4] hover:bg-[#b8d8c0] text-[#2C332D] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] w-full sm:w-auto flex items-center justify-center font-medium border border-[#68887d]/30"
+              className="rounded-lg bg-secondary hover:bg-[#b8d8c0] text-[#2C332D] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] w-full sm:w-auto flex items-center justify-center font-medium border border-primary/30"
               aria-label="Add to calendar"
             >
               <CalendarPlus className="h-5 w-5" />
@@ -232,13 +235,13 @@ function EventCard({
           </div>
           <div className="flex flex-col xs:flex-row gap-3 flex-1">
             <Link href={`/booking?event=${id}`} className="flex-1">
-              <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
+              <button className="w-full rounded-lg bg-primary hover:bg-[#5a786d] text-white px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
                 <CalendarCheck className="h-5 w-5" />
                 <span>Book Now</span>
               </button>
             </Link>
             <Link href={`/events/${id}`} className="flex-1">
-              <button className="w-full rounded-lg bg-white border border-[#68887d] text-[#68887d] hover:bg-[#f7faf6] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
+              <button className="w-full rounded-lg bg-white border border-primary text-primary hover:bg-[#f7faf6] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
                 <Info className="h-5 w-5" />
                 <span>View Details</span>
               </button>
@@ -298,7 +301,7 @@ function EventTypes() {
           {eventTypes.map((eventType, index) => (
             <div
               key={index}
-              className="bg-[#3a423b] p-5 sm:p-6 rounded-4xl border border-[#68887d]/30 text-center transition-all duration-300 hover:border-[#68887d]/50 hover:bg-[#3a423b]/80"
+              className="bg-[#3a423b] p-5 sm:p-6 rounded-4xl border border-primary/30 text-center transition-all duration-300 hover:border-primary/50 hover:bg-[#3a423b]/80"
             >
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">
                 {eventType.icon}
@@ -493,7 +496,7 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0 mt-0.5"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-primary mr-3 flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -517,7 +520,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -535,7 +538,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -557,7 +560,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-6 sm:pt-8 mt-8">
+        <div className="border-t border-primary/30 pt-6 sm:pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[#c4c9c4] text-base sm:text-lg text-center md:text-left">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights

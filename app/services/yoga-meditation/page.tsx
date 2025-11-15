@@ -65,7 +65,7 @@ function ServiceDetails() {
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 mb-16">
+        <div className="bg-white p-8 rounded-4xl border border-primary/20 mb-16">
           <h3 className="text-2xl mb-6">Benefits of Yoga and Meditation</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {benefits.map((benefit, index) => (
@@ -112,7 +112,7 @@ function SessionTypes() {
         </div>
 
         <div className="mt-12 text-center">
-          <button className="rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
+          <button className="rounded-lg bg-primary hover:bg-[#7a9a8d] text-white uppercase px-8 py-4 text-sm font-medium transition-colors duration-300">
             Book a Session
           </button>
         </div>

@@ -37,8 +37,8 @@ function ContactInfo() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
                 className="h-8 w-8 text-white"
                 fill="none"
@@ -69,8 +69,8 @@ function ContactInfo() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
                 className="h-8 w-8 text-white"
                 fill="none"
@@ -89,15 +89,15 @@ function ContactInfo() {
             <p className="text-[#525A52]">
               <a
                 href="tel:+94762777482"
-                className="hover:text-[#68887d] transition-colors duration-300"
+                className="hover:text-primary transition-colors duration-300"
               >
                 +94 076 277 7482
               </a>
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-4xl border border-[#68887d]/20 text-center">
-            <div className="w-16 h-16 bg-[#68887d] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white p-8 rounded-4xl border border-primary/20 text-center">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <svg
                 className="h-8 w-8 text-white"
                 fill="none"
@@ -116,7 +116,7 @@ function ContactInfo() {
             <p className="text-[#525A52]">
               <a
                 href="mailto:info@ojasenhealingarts.com"
-                className="hover:text-[#68887d] transition-colors duration-300"
+                className="hover:text-primary transition-colors duration-300"
               >
                 info@ojasenhealingarts.com
               </a>
@@ -190,9 +190,9 @@ function ContactForm() {
           </h2>
         </div>
 
-        <div className="bg-[#3a423b] rounded-4xl p-8 border border-[#68887d]/30">
+        <div className="bg-[#3a423b] rounded-4xl p-8 border border-primary/30">
           {isSubmitted ? (
-            <div className="bg-[#CDEDD4] rounded-2xl p-8 text-center text-[#191d18]">
+            <div className="bg-secondary rounded-2xl p-8 text-center text-[#191d18]">
               <h3 className="text-2xl font-light mb-4">Message Sent!</h3>
               <p className="mb-6">
                 Thank you for your inquiry. We'll get back to you soon.
@@ -216,7 +216,7 @@ function ContactForm() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#2b332d] border border-[#68887d]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#68887d] text-[#dbeade]"
+                    className="w-full px-4 py-3 bg-[#2b332d] border border-primary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-[#dbeade]"
                     placeholder="Your name"
                   />
                 </div>
@@ -234,7 +234,7 @@ function ContactForm() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#2b332d] border border-[#68887d]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#68887d] text-[#dbeade]"
+                    className="w-full px-4 py-3 bg-[#2b332d] border border-primary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-[#dbeade]"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -254,7 +254,7 @@ function ContactForm() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-[#2b332d] border border-[#68887d]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#68887d] text-[#dbeade]"
+                  className="w-full px-4 py-3 bg-[#2b332d] border border-primary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-[#dbeade]"
                   placeholder="How can we help you?"
                 />
               </div>
@@ -273,7 +273,7 @@ function ContactForm() {
                   onChange={handleChange}
                   rows={5}
                   required
-                  className="w-full px-4 py-3 bg-[#2b332d] border border-[#68887d]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#68887d] text-[#dbeade]"
+                  className="w-full px-4 py-3 bg-[#2b332d] border border-primary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-[#dbeade]"
                   placeholder="Tell us more about your inquiry..."
                 ></textarea>
               </div>
@@ -282,7 +282,7 @@ function ContactForm() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-lg bg-[#68887d] hover:bg-[#7a9a8d] text-white uppercase px-6 py-4 text-sm font-medium transition-colors duration-300"
+                  className="w-full rounded-lg bg-primary hover:bg-[#7a9a8d] text-white uppercase px-6 py-4 text-sm font-medium transition-colors duration-300"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
@@ -310,7 +310,7 @@ function LocationMap() {
           </p>
         </div>
 
-        <div className="bg-white rounded-4xl overflow-hidden border border-[#68887d]/20">
+        <div className="bg-white rounded-4xl overflow-hidden border border-primary/20">
           <div className="h-96 relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk"
@@ -516,7 +516,7 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -540,7 +540,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -563,7 +563,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -588,7 +588,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-8 mt-8">
+        <div className="border-t border-primary/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-lg">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights

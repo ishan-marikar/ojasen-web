@@ -198,7 +198,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -222,7 +222,7 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -240,7 +240,7 @@ export function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -262,7 +262,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-8 mt-8">
+        <div className="border-t border-primary/30 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-[#c4c9c4] text-base sm:text-lg">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights

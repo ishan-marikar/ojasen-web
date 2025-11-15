@@ -36,7 +36,7 @@ export default function EventDetailPage() {
               The event you're looking for doesn't exist or has been removed.
             </p>
             <Link href="/events">
-              <button className="px-8 py-3 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
+              <button className="px-8 py-3 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
                 View All Events
               </button>
             </Link>
@@ -58,7 +58,7 @@ export default function EventDetailPage() {
       <Navigation />
       <div className="min-h-screen bg-[#f7faf6] pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-6 mt-8">
-          <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-[#68887d]/20">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/20">
             {/* Event Hero Image */}
             <div className="relative h-96 w-full">
               <Image
@@ -71,7 +71,7 @@ export default function EventDetailPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 text-white">
                 {event.category && (
-                  <span className="inline-block px-3 py-1 bg-[#68887d] text-xs uppercase tracking-wider rounded-full mb-3">
+                  <span className="inline-block px-3 py-1 bg-primary text-xs uppercase tracking-wider rounded-full mb-3">
                     {event.category}
                   </span>
                 )}
@@ -119,25 +119,25 @@ export default function EventDetailPage() {
 
               {/* Event Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-[#68887d]/20">
+                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-primary/20">
                   <div className="flex items-center mb-3">
-                    <Calendar className="h-6 w-6 text-[#68887d] mr-3" />
+                    <Calendar className="h-6 w-6 text-primary mr-3" />
                     <h3 className="text-lg font-medium text-[#191d18]">Date</h3>
                   </div>
                   <p className="text-[#525A52]">{event.date}</p>
                 </div>
 
-                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-[#68887d]/20">
+                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-primary/20">
                   <div className="flex items-center mb-3">
-                    <Clock className="h-6 w-6 text-[#68887d] mr-3" />
+                    <Clock className="h-6 w-6 text-primary mr-3" />
                     <h3 className="text-lg font-medium text-[#191d18]">Time</h3>
                   </div>
                   <p className="text-[#525A52]">{event.time}</p>
                 </div>
 
-                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-[#68887d]/20">
+                <div className="bg-[#f7faf6] rounded-2xl p-6 border border-primary/20">
                   <div className="flex items-center mb-3">
-                    <MapPin className="h-6 w-6 text-[#68887d] mr-3" />
+                    <MapPin className="h-6 w-6 text-primary mr-3" />
                     <h3 className="text-lg font-medium text-[#191d18]">
                       Location
                     </h3>
@@ -154,7 +154,7 @@ export default function EventDetailPage() {
                       Reserve Your Spot
                     </h3>
                     {event.price && (
-                      <p className="text-3xl font-light text-[#CDEDD4]">
+                      <p className="text-3xl font-light text-secondary">
                         {event.price}
                       </p>
                     )}
@@ -164,7 +164,7 @@ export default function EventDetailPage() {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link href={`/booking?event=${event.id}`}>
-                      <button className="px-8 py-4 bg-[#68887d] text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg whitespace-nowrap">
+                      <button className="px-8 py-4 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg whitespace-nowrap">
                         Book Now
                       </button>
                     </Link>
