@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigation } from "@/components/navigation";
 import { MapPin, Clock, Calendar, User, Mail, Phone } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 export default function BookingPage() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,6 +17,17 @@ export default function BookingPage() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Get event data from query parameters or use default
+  const eventTitle = searchParams.get("event") || "Zen & Balance Retreat";
+  const eventDate = searchParams.get("date") || "November 29, 2025";
+  const eventTime = searchParams.get("time") || "7:00 AM - 9:00 AM";
+  const eventLocation = searchParams.get("location") || "The Island - Ahangama";
+  const eventPrice = searchParams.get("price") || "LKR 15,000";
+  const eventImage = searchParams.get("image") || "/images/events/event-01.jpg";
+  const eventDescription =
+    searchParams.get("description") ||
+    "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices.";
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -45,18 +58,6 @@ export default function BookingPage() {
     }, 3000);
   };
 
-  // Sample event data - in a real app this would come from props or API
-  const event = {
-    title: "Zen & Balance Retreat",
-    date: "November 29, 2025",
-    time: "7:00 AM - 9:00 AM",
-    location: "The Island - Ahangama",
-    price: "LKR 15,000",
-    image: "/images/events/event-01.jpg",
-    description:
-      "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices.",
-  };
-
   return (
     <>
       <Navigation />
@@ -80,33 +81,33 @@ export default function BookingPage() {
 
               <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden">
                 <img
-                  src={event.image}
-                  alt={event.title}
+                  src={eventImage}
+                  alt={eventTitle}
                   className="w-full h-full object-cover"
                 />
               </div>
 
               <h3 className="text-xl font-light text-[#191d18] mb-4">
-                {event.title}
+                {eventTitle}
               </h3>
-              <p className="text-[#525A52] mb-6">{event.description}</p>
+              <p className="text-[#525A52] mb-6">{eventDescription}</p>
 
               <div className="space-y-4">
                 <div className="flex items-center text-[#191d18]">
                   <Calendar className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{event.date}</span>
+                  <span>{eventDate}</span>
                 </div>
                 <div className="flex items-center text-[#191d18]">
                   <Clock className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{event.time}</span>
+                  <span>{eventTime}</span>
                 </div>
                 <div className="flex items-center text-[#191d18]">
                   <MapPin className="h-5 w-5 mr-3 text-[#68887d]" />
-                  <span>{event.location}</span>
+                  <span>{eventLocation}</span>
                 </div>
                 <div className="flex items-center text-[#191d18]">
                   <span className="font-medium text-lg">
-                    Price: {event.price}
+                    Price: {eventPrice}
                   </span>
                 </div>
               </div>

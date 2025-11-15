@@ -409,7 +409,10 @@ function Schedule() {
                 className="grid grid-cols-8 border-b border-[#68887d]/10 last:border-b-0 hover:bg-[#f7faf6]/50 transition-colors duration-200"
               >
                 {/* Healer Info */}
-                <div className="p-4 flex items-center">
+                <Link
+                  href={healer.link}
+                  className="p-4 flex items-center hover:bg-[#f7faf6]/30 transition-colors duration-200"
+                >
                   <div className="flex items-center">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden mr-3">
                       <img
@@ -427,7 +430,7 @@ function Schedule() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Availability for each day */}
                 {daysOfWeek.map((day) => {
@@ -703,7 +706,7 @@ function AnahataFlowEvent() {
               Learn More
             </button>
           </Link>
-          <Link href="/booking">
+          <Link href="/booking?event=Anahata+Flow&date=November+22,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-night.jpg&description=A+heart-centered+sound+healing+journey+crafted+to+soften+your+emotional+body+and+bring+you+back+into+harmony+with+yourself.">
             <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Reserve Your Spot
             </button>
@@ -851,7 +854,7 @@ function PanchaliSaadhanEvent() {
               Learn More
             </button>
           </Link>
-          <Link href="/booking">
+          <Link href="/booking?event=Panchali+Sādhanā&date=November+29,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-fantasy.png&description=A+sacred+WOMEN'S+gathering+inspired+by+the+strength+and+grace+of+Panchali.">
             <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Reserve Your Spot
             </button>
