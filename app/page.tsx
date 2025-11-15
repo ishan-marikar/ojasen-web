@@ -561,7 +561,7 @@ function AnahataFlowEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-night.JPG"
+            src="/images/sound-healing.JPG"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"
@@ -571,7 +571,7 @@ function AnahataFlowEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-night-mobile.jpg"
+            src="/images/sound-healing.jpg"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"

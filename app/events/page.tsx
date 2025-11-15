@@ -1,10 +1,9 @@
 "use client";
 
 import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
-import { MapPin, Clock } from "lucide-react";
+import { MapPin, Clock, CalendarPlus, CalendarCheck, Info } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
-import { CalendarPlus } from "lucide-react";
 import { Hero } from "@/components/shared/hero";
 import {
   generateGoogleCalendarLink,
@@ -38,7 +37,7 @@ function UpcomingEvents() {
   const events = EVENT_CARDS_DATA;
 
   return (
-    <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-20 pb-20 rounded-t-4xl">
+    <div className="bg-[#f7faf6] px-4 sm:px-6 text-[#191d18] pt-16 pb-20 rounded-t-4xl">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {events.map((event, index) => (
@@ -88,17 +87,29 @@ function EventCard({
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      if (showCalendarDropdown) {
-        setShowCalendarDropdown(false);
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (showCalendarDropdown && e.target instanceof Node) {
+        const dropdown = document.getElementById(`calendar-dropdown-${id}`);
+        const button = document.getElementById(`calendar-button-${id}`);
+
+        if (
+          dropdown &&
+          button &&
+          !dropdown.contains(e.target) &&
+          !button.contains(e.target)
+        ) {
+          setShowCalendarDropdown(false);
+        }
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [showCalendarDropdown]);
+  }, [showCalendarDropdown, id]);
 
   return (
     <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-[#68887d]/20 transition-all duration-300 hover:shadow-xl hover:border-[#68887d]/40">
@@ -108,16 +119,16 @@ function EventCard({
             src={image}
             alt={title}
             fill
-            className="object-cover rounded-l-4xl rounded-r-1xl"
+            className="object-cover rounded-t-4xl"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </Link>
-      <div className="p-6">
+      <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between">
-          <div>
+          <div className="flex-1 pr-3">
             <Link href={`/events/${id}`}>
-              <h3 className="text-2xl font-light text-[#191d18] cursor-pointer hover:underline">
+              <h3 className="text-xl sm:text-2xl font-light text-[#191d18] cursor-pointer hover:underline">
                 {title}
               </h3>
             </Link>
@@ -125,40 +136,41 @@ function EventCard({
               {description}
             </p>
           </div>
-          <div className="bg-[#68887d] min-w-[50px] h-[50px] rounded-lg flex flex-col items-center justify-center">
-            <span className="text-white text-lg font-medium">{date}</span>
+          <div className="bg-[#68887d] min-w-[45px] sm:min-w-[50px] h-[45px] sm:h-[50px] rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+            <span className="text-white text-base sm:text-lg font-medium">
+              {date}
+            </span>
             <span className="text-white text-xs uppercase">{month}</span>
           </div>
         </div>
-        <div className="mt-6 space-y-2">
+        <div className="mt-5 space-y-2">
           <div className="flex items-center text-[#191d18] text-sm">
             <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
-            <span>{location}</span>
+            <span className="truncate">{location}</span>
           </div>
           <div className="flex items-center text-[#191d18] text-sm">
             <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
             <span>{time}</span>
           </div>
         </div>
-        <div className="mt-6 flex space-x-3">
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <div className="relative">
             <button
+              id={`calendar-button-${id}`}
               onClick={(e) => {
                 e.stopPropagation();
-                e.nativeEvent.stopImmediatePropagation();
+                e.preventDefault();
                 setShowCalendarDropdown(!showCalendarDropdown);
               }}
-              className="rounded-lg bg-[#CDEDD4] hover:bg-[#CDEDD4] uppercase px-4 py-3 text-primary text-sm transition-colors duration-300 min-h-[44px]"
+              className="rounded-lg bg-[#CDEDD4] hover:bg-[#b8d8c0] text-[#2C332D] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] w-full sm:w-auto flex items-center justify-center font-medium border border-[#68887d]/30"
+              aria-label="Add to calendar"
             >
-              <CalendarPlus />
+              <CalendarPlus className="h-5 w-5" />
             </button>
             {showCalendarDropdown && fullEvent && (
               <div
+                id={`calendar-dropdown-${id}`}
                 className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.nativeEvent.stopImmediatePropagation();
-                }}
               >
                 <a
                   href={generateGoogleCalendarLink(
@@ -218,16 +230,20 @@ function EventCard({
               </div>
             )}
           </div>
-          <Link href={`/booking?event=${id}`} className="flex-1">
-            <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm transition-colors duration-300 min-h-[44px]">
-              Book Now
-            </button>
-          </Link>
-          <Link href={`/events/${id}`} className="flex-1">
-            <button className="w-full rounded-lg bg-white border border-[#68887d] text-[#68887d] hover:bg-[#f7faf6] uppercase px-4 py-3 text-sm transition-colors duration-300 min-h-[44px]">
-              View Details
-            </button>
-          </Link>
+          <div className="flex flex-col xs:flex-row gap-3 flex-1">
+            <Link href={`/booking?event=${id}`} className="flex-1">
+              <button className="w-full rounded-lg bg-[#68887d] hover:bg-[#5a786d] text-white px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
+                <CalendarCheck className="h-5 w-5" />
+                <span>Book Now</span>
+              </button>
+            </Link>
+            <Link href={`/events/${id}`} className="flex-1">
+              <button className="w-full rounded-lg bg-white border border-[#68887d] text-[#68887d] hover:bg-[#f7faf6] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
+                <Info className="h-5 w-5" />
+                <span>View Details</span>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -263,9 +279,9 @@ function EventTypes() {
   ];
 
   return (
-    <div className="bg-[#2b332d] px-6 text-[#dbeade] pt-20 pb-16">
+    <div className="bg-[#2b332d] px-4 sm:px-6 text-[#dbeade] pt-16 pb-16">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="text-sm uppercase font-medium tracking-wider text-primary">
             Event Categories
           </span>
@@ -278,15 +294,21 @@ function EventTypes() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {eventTypes.map((eventType, index) => (
             <div
               key={index}
-              className="bg-[#3a423b] p-6 rounded-4xl border border-[#68887d]/30 text-center"
+              className="bg-[#3a423b] p-5 sm:p-6 rounded-4xl border border-[#68887d]/30 text-center transition-all duration-300 hover:border-[#68887d]/50 hover:bg-[#3a423b]/80"
             >
-              <div className="text-4xl mb-4">{eventType.icon}</div>
-              <h3 className="text-lg sm:text-xl mb-3">{eventType.title}</h3>
-              <p className="text-[#c4c9c4]">{eventType.description}</p>
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">
+                {eventType.icon}
+              </div>
+              <h3 className="text-lg sm:text-xl font-medium mb-3">
+                {eventType.title}
+              </h3>
+              <p className="text-[#c4c9c4] text-sm sm:text-base">
+                {eventType.description}
+              </p>
             </div>
           ))}
         </div>
@@ -297,13 +319,15 @@ function EventTypes() {
 
 function Footer() {
   return (
-    <div className="bg-[#2b332d] text-[#dbeade] pt-16 pb-8 px-6">
+    <div className="bg-[#2b332d] text-[#dbeade] pt-12 sm:pt-16 pb-6 sm:pb-8 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 sm:mb-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-sans">Ojasen Healing Arts</h3>
-            <p className="text-[#c4c9c4] text-lg leading-relaxed">
+            <h3 className="text-xl sm:text-2xl font-sans">
+              Ojasen Healing Arts
+            </h3>
+            <p className="text-[#c4c9c4] text-base sm:text-lg leading-relaxed">
               Your sanctuary for holistic wellness and transformative healing
               experiences.
             </p>
@@ -311,10 +335,10 @@ function Footer() {
               <a
                 href="#"
                 className="text-[#c4c9c4] hover:text-white transition-colors duration-300"
+                aria-label="Facebook"
               >
-                <span className="sr-only">Facebook</span>
                 <svg
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -329,10 +353,10 @@ function Footer() {
               <a
                 href="#"
                 className="text-[#c4c9c4] hover:text-white transition-colors duration-300"
+                aria-label="Instagram"
               >
-                <span className="sr-only">Instagram</span>
                 <svg
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -347,10 +371,10 @@ function Footer() {
               <a
                 href="#"
                 className="text-[#c4c9c4] hover:text-white transition-colors duration-300"
+                aria-label="Twitter"
               >
-                <span className="sr-only">Twitter</span>
                 <svg
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -363,12 +387,12 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-xl font-sans">Quick Links</h4>
+            <h4 className="text-lg sm:text-xl font-sans">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <a
                   href="/"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Home
                 </a>
@@ -376,7 +400,7 @@ function Footer() {
               <li>
                 <a
                   href="/about"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   About Us
                 </a>
@@ -384,7 +408,7 @@ function Footer() {
               <li>
                 <a
                   href="/services"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Services
                 </a>
@@ -392,7 +416,7 @@ function Footer() {
               <li>
                 <a
                   href="/events"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Events
                 </a>
@@ -400,7 +424,7 @@ function Footer() {
               <li>
                 <a
                   href="/booking"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Booking
                 </a>
@@ -408,7 +432,7 @@ function Footer() {
               <li>
                 <a
                   href="/contact"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Contact
                 </a>
@@ -418,12 +442,12 @@ function Footer() {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-xl font-sans">Services</h4>
+            <h4 className="text-lg sm:text-xl font-sans">Services</h4>
             <ul className="space-y-2">
               <li>
                 <a
                   href="/services/yoga-meditation"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Yoga & Meditation
                 </a>
@@ -431,7 +455,7 @@ function Footer() {
               <li>
                 <a
                   href="/services/sound-healing"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Sound Healing
                 </a>
@@ -439,7 +463,7 @@ function Footer() {
               <li>
                 <a
                   href="/services/energy-healing"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Energy Healing
                 </a>
@@ -447,7 +471,7 @@ function Footer() {
               <li>
                 <a
                   href="/services/breathwork"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Breathwork
                 </a>
@@ -455,7 +479,7 @@ function Footer() {
               <li>
                 <a
                   href="/services/wellness-retreats"
-                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                  className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
                 >
                   Wellness Retreats
                 </a>
@@ -465,11 +489,11 @@ function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-xl font-sans">Contact Us</h4>
+            <h4 className="text-lg sm:text-xl font-sans">Contact Us</h4>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -487,13 +511,13 @@ function Footer() {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span className="text-[#c4c9c4] text-lg">
+                <span className="text-[#c4c9c4] text-base sm:text-lg">
                   The Island, Palliyagoda, Ahangama, 80650
                 </span>
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -505,13 +529,13 @@ function Footer() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span className="text-[#c4c9c4] text-lg">
+                <span className="text-[#c4c9c4] text-base sm:text-lg">
                   <a href="tel:+94762777482">+94 076 277 7482</a>
                 </span>
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-[#68887d] mr-3 flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#68887d] mr-3 flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -523,7 +547,7 @@ function Footer() {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span className="text-[#c4c9c4] text-lg">
+                <span className="text-[#c4c9c4] text-base sm:text-lg">
                   <a href="mailto:info@ojasenhealingarts.com">
                     info@ojasenhealingarts.com
                   </a>
@@ -533,22 +557,22 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#68887d]/30 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-[#c4c9c4] text-lg">
+        <div className="border-t border-[#68887d]/30 pt-6 sm:pt-8 mt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-[#c4c9c4] text-base sm:text-lg text-center md:text-left">
               &copy; {new Date().getFullYear()} Ojasen Healing Arts. All rights
               reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex space-x-6">
               <a
                 href="#"
-                className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
               >
                 Privacy Policy
               </a>
               <a
                 href="#"
-                className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-lg"
+                className="text-[#c4c9c4] hover:text-white transition-colors duration-300 text-base sm:text-lg"
               >
                 Terms of Service
               </a>
