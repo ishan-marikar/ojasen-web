@@ -69,12 +69,6 @@ export const healersData: Healer[] = [
     link: "/healers/oshadi",
   },
   {
-    name: "Alice",
-    role: "Yoga Instructor",
-    image: "/images/healers/alice.png",
-    link: "/healers/alice",
-  },
-  {
     name: "Deborah",
     role: "Energy Healer",
     image: "/images/healers/deborah.png",
