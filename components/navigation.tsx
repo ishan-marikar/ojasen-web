@@ -63,115 +63,115 @@ export function Navigation() {
   ];
 
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isHomePage
-          ? scrolled
-            ? "bg-[#5f726b]/90 backdrop-blur-sm py-2 shadow-sm"
-            : "bg-transparent py-4"
-          : "bg-[#5f726b]/90 backdrop-blur-sm py-2 shadow-sm"
-      }`}
-    >
-      {/* Desktop Navigation */}
-      <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-between">
-        {/* Left Navigation Links */}
-        <nav className="flex space-x-6">
-          {navLinks.slice(0, 3).map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
-                scrolled || !isHomePage
-                  ? "text-white hover:text-[#d6ddcb]"
-                  : "text-white hover:text-[#d6ddcb]"
+    <>
+      <header
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          isHomePage && !scrolled
+            ? "bg-transparent py-4"
+            : "bg-[#5f726b]/90 backdrop-blur-sm py-2 shadow-sm"
+        }`}
+      >
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-between">
+          {/* Left Navigation Links */}
+          <nav className="flex space-x-6">
+            {navLinks.slice(0, 3).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-[#d6ddcb]"
+                    : "text-white hover:text-[#d6ddcb]"
+                }`}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                    isHomePage && !scrolled ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
+                  }`}
+                ></span>
+              </Link>
+            ))}
+          </nav>
+
+          {/* Centered Logo */}
+          <Link href="/" className="transition-all duration-300">
+            <div
+              className={`transition-all duration-300 flex items-center ${
+                scrolled ? "h-8" : "h-12"
               }`}
             >
-              {link.name}
-              <span
-                className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                  scrolled || !isHomePage ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
-                }`}
-              ></span>
-            </Link>
-          ))}
-        </nav>
+              <Image
+                src="/images/logo-text.png"
+                alt="Ojasen Healing Arts"
+                width={scrolled ? 160 : 180}
+                height={scrolled ? 32 : 48}
+                className="object-contain"
+              />
+            </div>
+          </Link>
 
-        {/* Centered Logo */}
-        <Link href="/" className="transition-all duration-300">
-          <div
-            className={`transition-all duration-300 flex items-center ${
-              scrolled ? "h-8" : "h-12"
+          {/* Right Navigation Links */}
+          <nav className="flex space-x-6">
+            {navLinks.slice(3).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-[#d6ddcb]"
+                    : "text-white hover:text-[#d6ddcb]"
+                }`}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                    isHomePage && !scrolled ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
+                  }`}
+                ></span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Mobile & Tablet Navigation */}
+        <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          {/* Hamburger Menu Button */}
+          <button
+            id="menu-button"
+            className={`focus:outline-none transition-colors duration-300 p-2 ${
+              isHomePage && !scrolled ? "text-white" : "text-white"
             }`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
-            <Image
-              src="/images/logo-text.png"
-              alt="Ojasen Healing Arts"
-              width={scrolled ? 160 : 180}
-              height={scrolled ? 32 : 48}
-              className="object-contain"
-            />
-          </div>
-        </Link>
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
 
-        {/* Right Navigation Links */}
-        <nav className="flex space-x-6">
-          {navLinks.slice(3).map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
-                scrolled || !isHomePage
-                  ? "text-white hover:text-[#d6ddcb]"
-                  : "text-white hover:text-[#d6ddcb]"
-              }`}
-            >
-              {link.name}
-              <span
-                className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                  scrolled || !isHomePage ? "bg-[#d6ddcb]" : "bg-[#d6ddcb]"
-                }`}
-              ></span>
-            </Link>
-          ))}
-        </nav>
-      </div>
+          {/* Centered Logo */}
+          <Link
+            href="/"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
+          >
+            <div className="flex items-center h-8">
+              <Image
+                src="/images/logo-text.png"
+                alt="Ojasen Healing Arts"
+                width={140}
+                height={40}
+                className="object-contain"
+              />
+            </div>
+          </Link>
 
-      {/* Mobile & Tablet Navigation */}
-      <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        {/* Hamburger Menu Button */}
-        <button
-          id="menu-button"
-          className={`focus:outline-none transition-colors duration-300 p-2 ${
-            scrolled || !isHomePage ? "text-white" : "text-white"
-          }`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={isOpen}
-        >
-          {isOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          {/* Placeholder for balance (empty div) */}
+          <div className="w-8"></div>
+        </div>
+      </header>
 
-        {/* Centered Logo */}
-        <Link
-          href="/"
-          className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
-        >
-          <div className="flex items-center h-8">
-            <Image
-              src="/images/logo-text.png"
-              alt="Ojasen Healing Arts"
-              width={140}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-        </Link>
-
-        {/* Placeholder for balance (empty div) */}
-        <div className="w-8"></div>
-      </div>
-
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Navigation Overlay - Moved outside header to fix positioning issue */}
       <div
         id="mobile-menu"
         className={`fixed inset-0 bg-[#5f726b] z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
@@ -204,6 +204,6 @@ export function Navigation() {
           ))}
         </nav>
       </div>
-    </header>
+    </>
   );
 }
