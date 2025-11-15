@@ -47,7 +47,7 @@ function Hero() {
             />
           </div>
         </div>
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black/30 "></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-20 px-4">
           <div className="max-w-4xl text-center space-y-6">
             <motion.img
@@ -702,7 +702,7 @@ function AnahataFlowEvent() {
         {/* CTA Button */}
         <div className="mt-10">
           <Link href="/events/anahata-flow">
-            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20">
               Learn More
             </button>
           </Link>
@@ -743,7 +743,7 @@ function PanchaliSaadhanEvent() {
           />
         </div>
       </div>
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm rounded-3xl"></div>
+      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
       {/* Floating decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Background layer - subtle, more blurred */}
@@ -796,7 +796,7 @@ function PanchaliSaadhanEvent() {
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
+        <div className="bg-black/20  rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
           <div className="flex justify-center space-x-6">
             <div className="text-center">
               <div className="text-white text-sm uppercase tracking-wider mb-1">
@@ -850,7 +850,7 @@ function PanchaliSaadhanEvent() {
         {/* CTA Button */}
         <div className="mt-10">
           <Link href="/events/panchali-saadhan">
-            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg backdrop-blur-sm border border-white/20">
+            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20">
               Learn More
             </button>
           </Link>
