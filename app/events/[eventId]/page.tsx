@@ -18,6 +18,7 @@ interface Event {
   image: string;
   price?: string;
   category: string;
+  priceRaw: number;
 }
 
 // Event data - extending the existing events with more detailed information
@@ -34,6 +35,8 @@ const eventsData: Event[] = [
       "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself. Guided by Oshi's intuitive blend of crystal bowls, vocal toning, and frequency work, this session awakens the energy of the heart — the space where compassion, release, and renewal unfold.\n\nYou'll be invited to slow down, breathe deeply, and allow vibrational medicine to move through your system. As sound ripples through your body, it helps dissolve heaviness, calm the nervous system, and create gentle openings where clarity and lightness can return.\n\nThis is not just a sound bath — it is a space to feel, to let go, and to reconnect with the softness you often forget you carry. Anahata Flow is ideal for anyone seeking emotional balance, energetic reset, or a moment of pure presence within the stillness of Ojasen's natural surroundings.",
     image: "/images/hero-night.jpg",
     category: "Sound Healing",
+    price: "LKR 3,500",
+    priceRaw: 3500,
   },
   {
     id: "panchali-saadhan",
@@ -47,86 +50,8 @@ const eventsData: Event[] = [
       "Panchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention.\n\nThe journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you. You'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness.\n\nPanchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention. The journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you.\n\nYou'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness. Panchali Sadhana is a space to be held, seen, and supported — a return to your inner flame, your truth, and your feminine wisdom. Come as you are. Leave renewed.",
     image: "/images/hero-fantasy.png",
     category: "Ceremonies",
-  },
-  {
-    id: "zen-balance-retreat",
-    title: "Zen & Balance Retreat",
-    date: "November 29, 2025",
-    time: "7:00 AM - 9:00 AM",
-    location: "The Island - Ahangama",
-    description:
-      "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance.",
-    fullDescription:
-      "Join us for a rejuvenating weekend retreat focused on finding inner peace and balance through yoga, meditation, and holistic healing practices. This immersive experience is designed to help you disconnect from the daily chaos and reconnect with your inner wisdom.\n\nThe retreat begins with a sunrise yoga session, followed by guided meditation and mindfulness practices. Throughout the day, you'll participate in workshops on stress management, emotional healing, and energy balancing. Our experienced healers will guide you through sound healing sessions and breathwork exercises.\n\nThe day concludes with a nourishing plant-based meal and a closing circle where you can share your experiences and insights. This retreat is perfect for anyone seeking a reset, whether you're dealing with stress, burnout, or simply craving deeper connection with yourself.",
-    image: "/images/events/event-01.jpg",
-    price: "LKR 15,000",
-    category: "Retreats",
-  },
-  {
-    id: "sound-healing-journey",
-    title: "Sound Healing Journey",
-    date: "December 5, 2025",
-    time: "5:00 PM - 7:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "Experience deep relaxation through the power of sound vibrations and crystal bowls.",
-    fullDescription:
-      "Experience deep relaxation through the power of sound vibrations and crystal bowls. This transformative session will take you on a journey through different sound frequencies, each designed to heal and balance specific energy centers in your body.\n\nOur sound healers will guide you through a carefully curated sequence of sounds using crystal bowls, gongs, and other sacred instruments. The vibrations will help release tension, clear energetic blockages, and promote deep healing on physical, emotional, and spiritual levels.\n\nThis session is particularly beneficial for those dealing with stress, anxiety, or emotional imbalances. Many participants report feeling deeply relaxed, emotionally cleared, and spiritually uplifted after the experience. Come prepared to let go and receive the healing frequencies that resonate with your highest good.",
-    image: "/images/events/event-02.jpg",
-    category: "Sound Healing",
-  },
-  {
-    id: "ecstatic-dance-workshop",
-    title: "Ecstatic Dance Workshop",
-    date: "December 12, 2025",
-    time: "6:00 PM - 8:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "Free your body and soul through movement in our safe and judgment-free space.",
-    fullDescription:
-      "Free your body and soul through movement in our safe and judgment-free space. This workshop is designed to help you break free from mental constraints and connect with your authentic self through the power of dance.\n\nThe session begins with gentle warm-up exercises to prepare your body and mind. We then move into guided movement practices that help you explore different qualities of motion - from flowing like water to sharp and precise movements. The workshop culminates in a free dance segment where you're invited to express whatever is moving through you in the moment.\n\nNo dance experience is necessary - just a willingness to move and be present with yourself. This practice is deeply therapeutic and can help release stored emotions, boost creativity, and increase body awareness. Come as you are and allow yourself to be moved by the music and your inner wisdom.",
-    image: "/images/events/event-03.jpg",
-    category: "Workshops",
-  },
-  {
-    id: "winter-solstice-ceremony",
-    title: "Winter Solstice Ceremony",
-    date: "December 20, 2025",
-    time: "7:00 PM - 9:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "Celebrate the longest night of the year with our sacred solstice ceremony.",
-    fullDescription:
-      "Celebrate the longest night of the year with our sacred solstice ceremony. This ancient tradition honors the return of the light and the cyclical nature of life. Our ceremony is designed to help you release what no longer serves you and set intentions for the coming year.\n\nThe evening begins with a guided meditation to center and ground ourselves. We then participate in a ritual of release where we write down what we wish to let go of and symbolically burn it in our sacred fire. This is followed by a sound healing session with crystal bowls and chimes to align our energies with the cosmic rhythms.\n\nWe conclude with a sharing circle where participants can express their intentions for the coming year. Light refreshments and herbal tea are provided. This ceremony is a beautiful way to honor the natural cycles and connect with the deeper rhythms of life.",
-    image: "/images/events/event-04.jpg",
-    category: "Ceremonies",
-  },
-  {
-    id: "new-year-wellness-workshop",
-    title: "New Year Wellness Workshop",
-    date: "December 28, 2025",
-    time: "10:00 AM - 12:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "Set intentions for the new year with our guided wellness workshop.",
-    fullDescription:
-      "Set intentions for the new year with our guided wellness workshop. This comprehensive session is designed to help you create a strong foundation for health and well-being in the coming year.\n\nThe workshop covers various aspects of holistic wellness including nutrition, movement, mental health, and spiritual practices. Our expert facilitators will guide you through interactive exercises to identify your core values, set meaningful goals, and create actionable plans.\n\nYou'll learn practical tools for stress management, mindfulness techniques you can incorporate into daily life, and simple movement practices to keep your body energized. The session also includes a guided meditation focused on self-compassion and a group intention-setting exercise.\n\nParticipants will leave with a personalized wellness plan and a toolkit of practices they can implement immediately. This workshop is perfect for anyone looking to start the new year with clarity, purpose, and renewed energy.",
-    image: "/images/events/event-05.jpg",
-    category: "Workshops",
-  },
-  {
-    id: "mindfulness-meditation-series",
-    title: "Mindfulness Meditation Series",
-    date: "January 5, 2026",
-    time: "8:00 AM - 10:00 AM",
-    location: "The Island - Ahangama",
-    description:
-      "A 5-day intensive mindfulness meditation program for deep inner transformation.",
-    fullDescription:
-      "A 5-day intensive mindfulness meditation program for deep inner transformation. This immersive series is designed for both beginners and experienced practitioners who wish to deepen their meditation practice.\n\nEach day focuses on a different aspect of mindfulness, starting with basic breath awareness and progressing to more advanced techniques including body scanning, loving-kindness meditation, and mindful movement. Our experienced teachers provide personalized guidance and support throughout the program.\n\nThe series includes morning meditation sessions, dharma talks, group discussions, and silent practice periods. Participants also receive a comprehensive workbook with guided meditations and resources to continue their practice at home.\n\nThis program is particularly beneficial for those dealing with stress, anxiety, chronic pain, or anyone seeking to cultivate greater awareness and presence in daily life. By the end of the series, participants often report increased emotional resilience, improved focus, and a deeper sense of peace and well-being.",
-    image: "/images/events/event-06.jpg",
-    price: "LKR 25,000 (for full series)",
-    category: "Retreats",
+    price: "LKR 4,000",
+    priceRaw: 4000,
   },
 ];
 
