@@ -622,7 +622,7 @@ function AnahataFlowEvent() {
               Learn More
             </button>
           </Link>
-          <Link href="/booking?event=Anahata+Flow&date=November+22,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-night.JPG&description=A+heart-centered+sound+healing+journey+crafted+to+soften+your+emotional+body+and+bring+you+back+into+harmony+with+yourself.">
+          <Link href="/booking?event=anahata-flow">
             <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Reserve Your Spot
             </button>
@@ -727,7 +727,7 @@ function PanchaliSaadhanEvent() {
               Learn More
             </button>
           </Link>
-          <Link href="/booking?event=Panchali+Sādhanā&date=November+29,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-fantasy.png&description=A+sacred+WOMEN'S+gathering+inspired+by+the+strength+and+grace+of+Panchali.">
+          <Link href="/booking?event=panchali-saadhan">
             <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Reserve Your Spot
             </button>
