@@ -12,8 +12,9 @@ export default function () {
       <Hero />
       <About />
       {/* <Schedule /> */}
-      <Ceremonies />
+
       <EventsSection />
+      <Ceremonies />
       <LocationMap />
       <Footer />
     </>
