@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { Healer } from "@/lib/types";
 
 export function HealerCard({ name, role, image, link }: Healer) {

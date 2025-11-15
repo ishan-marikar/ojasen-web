@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import Image from "next/image";
+import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
 import { MapPin, Clock, Calendar } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";

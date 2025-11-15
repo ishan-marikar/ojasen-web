@@ -739,7 +739,7 @@ function PanchaliSaadhanEvent() {
   );
 }
 
-function LocationMap() {
+export function LocationMap() {
   return (
     <>
       <motion.div
