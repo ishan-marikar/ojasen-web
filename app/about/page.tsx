@@ -146,6 +146,61 @@ function Values() {
   );
 }
 
+function LocationMap() {
+  return (
+    <div className="bg-[#f7faf6] px-6 text-[#191d18] pt-16 pb-20">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="text-sm uppercase font-medium tracking-wider text-primary">
+            Find Us
+          </span>
+          <h2 className="text-3xl font-light mt-2">Our Sanctuary Location</h2>
+          <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
+            Nestled in the beautiful coastal town of Ahangama, our healing
+            sanctuary offers a tranquil escape from the everyday.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-4xl overflow-hidden border border-[#68887d]/20">
+          <div className="h-96 relative">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div className="p-8">
+            <h3 className="text-2xl mb-4">Getting Here</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-lg font-medium mb-3">By Air</h4>
+                <p className="text-[#525A52]">
+                  The nearest international airport is Bandaranaike
+                  International Airport (CMB) in Colombo. From there, it's
+                  approximately a 2-hour drive to Ahangama.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-lg font-medium mb-3">By Road</h4>
+                <p className="text-[#525A52]">
+                  Ahangama is easily accessible by road from major cities.
+                  Regular buses and taxis operate to the area from Colombo and
+                  other nearby towns.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <div className="bg-[#2b332d] text-[#dbeade] pt-16 pb-8 px-6">
@@ -349,7 +404,12 @@ function Footer() {
                   />
                 </svg>
                 <span className="text-[#c4c9c4] text-lg">
-                  <a href="tel:+94762777482">+94 076 277 7482</a>
+                  <a
+                    href="tel:+94762777482"
+                    className="hover:text-white transition-colors duration-300"
+                  >
+                    +94 076 277 7482
+                  </a>
                 </span>
               </li>
               <li className="flex items-center">
@@ -367,7 +427,10 @@ function Footer() {
                   />
                 </svg>
                 <span className="text-[#c4c9c4] text-lg">
-                  <a href="mailto:info@ojasenhealingarts.com">
+                  <a
+                    href="mailto:info@ojasenhealingarts.com"
+                    className="hover:text-white transition-colors duration-300"
+                  >
                     info@ojasenhealingarts.com
                   </a>
                 </span>
@@ -411,6 +474,7 @@ export default function AboutPage() {
         <AboutHero />
         <OurStory />
         <MissionVision />
+        <LocationMap />
         {/* <Values /> */}
       </div>
       <Footer />
