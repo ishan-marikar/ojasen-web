@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Marcellus, DM_Sans } from "next/font/google";
+import { Della_Respira, Julius_Sans_One } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/session-provider";
 
@@ -26,6 +27,18 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
 });
 
+const dellaRespira = Della_Respira({
+  variable: "--font-della-respira",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const juliusSansOne = Julius_Sans_One({
+  variable: "--font-julius-sans-one",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Ojasen Healing Arts",
   description: "Wellness and healing services",
@@ -41,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} antialiased`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>

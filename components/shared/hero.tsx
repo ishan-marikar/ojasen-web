@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import { FloatingFlower } from "@/components/shared/floating-flower";
 import Image from "next/image";
 
 interface HeroProps {
@@ -38,7 +37,10 @@ export function Hero({
           </div>
           <div className="md:hidden">
             <Image
-              src={backgroundImage.replace(".JPG", "-mobile.jpg") || backgroundImage.replace(".jpg", "-mobile.jpg")}
+              src={
+                backgroundImage.replace(".JPG", "-mobile.jpg") ||
+                backgroundImage.replace(".jpg", "-mobile.jpg")
+              }
               alt="Hero Background"
               fill
               className="object-cover"
@@ -60,65 +62,6 @@ export function Hero({
           </h1>
         )}
         {children}
-      </div>
-
-      {/* Floating flowers */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Background layer - subtle, more blurred */}
-        <FloatingFlower
-          src="/images/hero/flower02.png"
-          alt="Floating Flower"
-          width={48}
-          height={48}
-          className="opacity-30 blur-[1px]"
-          animationClass="animate-float-slow"
-          depthLayer="depth-layer-1"
-          delayClass="animation-delay-0"
-        />
-        <FloatingFlower
-          src="/images/hero/flower03.png"
-          alt="Floating Flower"
-          width={36}
-          height={36}
-          className="opacity-25 blur-[1.5px]"
-          animationClass="animate-float-reverse"
-          depthLayer="depth-layer-1"
-          delayClass="animation-delay-2000"
-        />
-
-        {/* Middle layer - medium visibility, medium blur */}
-        <FloatingFlower
-          src="/images/hero/flower03.png"
-          alt="Floating Flower"
-          width={52}
-          height={52}
-          className="opacity-50 blur-[0.5px]"
-          animationClass="animate-float"
-          depthLayer="depth-layer-2"
-          delayClass="animation-delay-1000"
-        />
-
-        {/* Foreground layer - clearer, less blurred */}
-        <FloatingFlower
-          src="/images/hero/flower02.png"
-          alt="Floating Flower"
-          width={60}
-          height={60}
-          className="opacity-70"
-          animationClass="animate-float-diagonal"
-          depthLayer="depth-layer-3"
-          delayClass="animation-delay-3000"
-        />
-        <FloatingFlower
-          src="/images/hero/flower03.png"
-          alt="Floating Flower"
-          width={44}
-          height={44}
-          className="opacity-60 blur-[0.25px]"
-          animationClass="animate-float-scale"
-          depthLayer="depth-layer-3"
-          delayClass="animation-delay-4000"
-        />
       </div>
     </div>
   );

@@ -13,60 +13,6 @@ function Hero() {
         Discover our holistic journey
       </h1>
 
-      {/* Floating flowers */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Background layer - subtle, more blurred */}
-        <div className="absolute top-1/3 left-1/6 animate-float-slow animation-delay-0 depth-layer-1">
-          <Image
-            src="/images/hero/flower02.png"
-            alt="Floating Flower"
-            width={48}
-            height={48}
-            className="opacity-30 blur-[1px]"
-          />
-        </div>
-        <div className="absolute top-1/4 right-1/5 animate-float-reverse animation-delay-2000 depth-layer-1">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={36}
-            height={36}
-            className="opacity-25 blur-[1.5px]"
-          />
-        </div>
-
-        {/* Middle layer - medium visibility, medium blur */}
-        <div className="absolute top-2/5 left-4/5 animate-float animation-delay-1000 depth-layer-2">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={52}
-            height={52}
-            className="opacity-50 blur-[0.5px]"
-          />
-        </div>
-
-        {/* Foreground layer - clearer, less blurred */}
-        <div className="absolute top-3/5 left-1/3 animate-float-diagonal animation-delay-3000 depth-layer-3">
-          <Image
-            src="/images/hero/flower02.png"
-            alt="Floating Flower"
-            width={60}
-            height={60}
-            className="opacity-70"
-          />
-        </div>
-        <div className="absolute top-1/6 right-1/4 animate-float-scale animation-delay-4000 depth-layer-3">
-          <Image
-            src="/images/hero/flower03.png"
-            alt="Floating Flower"
-            width={44}
-            height={44}
-            className="opacity-60 blur-[0.25px]"
-          />
-        </div>
-      </div>
-
       <div className="mt-8 relative z-10">
         <Image
           src="/images/about-hero.jpg"
