@@ -11,7 +11,7 @@ export default function () {
       <Navigation />
       <Hero />
       <About />
-      <Schedule />
+      {/* <Schedule /> */}
       <Ceremonies />
       <EventsSection />
       <LocationMap />

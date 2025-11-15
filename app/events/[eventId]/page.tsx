@@ -6,7 +6,12 @@ import { MapPin, Clock, Calendar } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
 import { getEventById } from "@/lib/event-data";
-import { generateGoogleCalendarLink, generateICalLink, generateOutlookCalendarLink, generateYahooCalendarLink } from "@/lib/calendar-utils";
+import {
+  generateGoogleCalendarLink,
+  generateICalLink,
+  generateOutlookCalendarLink,
+  generateYahooCalendarLink,
+} from "@/lib/calendar-utils";
 import { useState } from "react";
 
 export default function EventDetailPage() {
@@ -164,8 +169,10 @@ export default function EventDetailPage() {
                       </button>
                     </Link>
                     <div className="relative">
-                      <button 
-                        onClick={() => setShowCalendarDropdown(!showCalendarDropdown)}
+                      <button
+                        onClick={() =>
+                          setShowCalendarDropdown(!showCalendarDropdown)
+                        }
                         className="px-8 py-4 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 whitespace-nowrap flex items-center"
                       >
                         Add to Calendar
@@ -173,7 +180,7 @@ export default function EventDetailPage() {
                       {/* Dropdown menu for calendar options */}
                       {showCalendarDropdown && (
                         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10">
-                          <a 
+                          <a
                             href={generateGoogleCalendarLink(
                               event.title,
                               event.date,
@@ -187,7 +194,7 @@ export default function EventDetailPage() {
                           >
                             Google Calendar
                           </a>
-                          <a 
+                          <a
                             href={generateOutlookCalendarLink(
                               event.title,
                               event.date,
@@ -201,7 +208,7 @@ export default function EventDetailPage() {
                           >
                             Outlook
                           </a>
-                          <a 
+                          <a
                             href={generateYahooCalendarLink(
                               event.title,
                               event.date,
@@ -215,7 +222,7 @@ export default function EventDetailPage() {
                           >
                             Yahoo Calendar
                           </a>
-                          <a 
+                          <a
                             href={generateICalLink(
                               event.title,
                               event.date,
@@ -223,7 +230,7 @@ export default function EventDetailPage() {
                               event.location,
                               event.description
                             )}
-                            download={`${event.title.replace(/\s+/g, '_')}.ics`}
+                            download={`${event.title.replace(/\s+/g, "_")}.ics`}
                             className="block px-4 py-2 text-[#191d18] hover:bg-[#f7faf6] text-sm"
                           >
                             Download iCal

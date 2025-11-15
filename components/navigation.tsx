@@ -23,12 +23,41 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when clicking outside or when route changes
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuButton = document.getElementById("menu-button");
+
+      if (
+        isOpen &&
+        mobileMenu &&
+        menuButton &&
+        !mobileMenu.contains(event.target as Node) &&
+        !menuButton.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Events", href: "/events" },
-    { name: "Booking", href: "/booking" },
     { name: "Healers", href: "/healers" },
     { name: "Contact", href: "/contact" },
   ];
@@ -85,6 +114,7 @@ export function Navigation() {
 
         {/* Mobile Menu Button */}
         <button
+          id="menu-button"
           className={`md:hidden focus:outline-none transition-colors duration-300 p-2 ${
             scrolled || !isHomePage ? "text-[#191d18]" : "text-white"
           }`}
@@ -97,11 +127,15 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         <div
-          className={`fixed inset-0 bg-[#f7faf6] z-40 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
+          id="mobile-menu"
+          className={`fixed inset-0 bg-[#f7faf6] z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
             isOpen
               ? "opacity-100 translate-y-0"
               : "opacity-0 -translate-y-4 pointer-events-none"
           }`}
+          role="dialog"
+          aria-modal="true"
+          aria-hidden={!isOpen}
         >
           <button
             className="absolute top-6 right-6 text-[#191d18] p-2"
