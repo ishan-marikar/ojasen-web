@@ -477,7 +477,7 @@ function Footer() {
                 A sanctuary for communities, where freedom, mindfulness, and
                 holistic healing come together.
               </p>
-              <p className="text-[#c4c9c4">The Island Ahangama, Sri Lanka</p>
+              <p className="text-[#c4c9c4]">The Island Ahangama, Sri Lanka</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -556,7 +556,7 @@ function EventsSection() {
 
 function AnahataFlowEvent() {
   return (
-    <div className="py-20 px-6 bg-auto bg-no-repeat relative overflow-hidden rounded-3xl">
+    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat relative overflow-hidden rounded-3xl">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
@@ -584,31 +584,35 @@ function AnahataFlowEvent() {
       {/* Floating decorative elements removed for clearer design */}{" "}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <Link href="/events/anahata-flow">
-          <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
             Anahata Flow
           </h2>
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
-          <div className="flex justify-center space-x-6">
+        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto">
+          <div className="flex justify-center space-x-4 sm:space-x-6">
             <div className="text-center">
-              <div className="text-white text-sm uppercase tracking-wider mb-1">
+              <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
                 Date
               </div>
-              <div className="text-white text-xl font-light">NOV 22</div>
+              <div className="text-white text-lg sm:text-xl font-light">
+                NOV 22
+              </div>
             </div>
             <div className="border-l border-white/30"></div>
             <div className="text-center">
-              <div className="text-white text-sm uppercase tracking-wider mb-1">
+              <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
                 Time
               </div>
-              <div className="text-white text-xl font-light">6 P.M.</div>
+              <div className="text-white text-lg sm:text-xl font-light">
+                6 P.M.
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
+        <div className="text-base sm:text-lg md:text-xl text-[#fff] leading-relaxed space-y-3 sm:space-y-4">
           <p>
             A heart-centered sound healing journey crafted to soften your
             emotional body and bring you back into harmony with yourself. Guided
@@ -633,14 +637,14 @@ function AnahataFlowEvent() {
         </div>
 
         {/* CTA Button */}
-        <div className="mt-10">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/anahata-flow">
-            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20 min-h-[44px]">
               Learn More
             </button>
           </Link>
           <Link href="/booking?event=anahata-flow">
-            <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 min-h-[44px]">
               Reserve Your Spot
             </button>
           </Link>
@@ -652,7 +656,7 @@ function AnahataFlowEvent() {
 
 function PanchaliSaadhanEvent() {
   return (
-    <div className="py-20 px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl">
+    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
@@ -680,31 +684,35 @@ function PanchaliSaadhanEvent() {
       {/* Floating decorative elements removed for clearer design */}{" "}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <Link href="/events/panchali-saadhan">
-          <h2 className="text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-sans text-[#fff] mb-6 cursor-pointer hover:underline">
             Panchali Sādhanā{" "}
           </h2>
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20  rounded-2xl p-6 mb-8 border border-white/10 max-w-md mx-auto">
-          <div className="flex justify-center space-x-6">
+        <div className="bg-black/20  rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto">
+          <div className="flex justify-center space-x-4 sm:space-x-6">
             <div className="text-center">
-              <div className="text-white text-sm uppercase tracking-wider mb-1">
+              <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
                 Date
               </div>
-              <div className="text-white text-xl font-light">NOV 29</div>
+              <div className="text-white text-lg sm:text-xl font-light">
+                NOV 29
+              </div>
             </div>
             <div className="border-l border-white/30"></div>
             <div className="text-center">
-              <div className="text-white text-sm uppercase tracking-wider mb-1">
+              <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
                 Time
               </div>
-              <div className="text-white text-xl font-light">6 P.M.</div>
+              <div className="text-white text-lg sm:text-xl font-light">
+                6 P.M.
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="text-lg md:text-xl text-[#fff] leading-relaxed space-y-4">
+        <div className="text-base sm:text-lg md:text-xl text-[#fff] leading-relaxed space-y-3 sm:space-y-4">
           <p>
             Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
             strength and grace of Panchali. This evening is crafted to help you
@@ -738,14 +746,14 @@ function PanchaliSaadhanEvent() {
         </div>
 
         {/* CTA Button */}
-        <div className="mt-10">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/panchali-saadhan">
-            <button className="px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-[#68887d]/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20 min-h-[44px]">
               Learn More
             </button>
           </Link>
           <Link href="/booking?event=panchali-saadhan">
-            <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30 min-h-[44px]">
               Reserve Your Spot
             </button>
           </Link>
