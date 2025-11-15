@@ -545,7 +545,7 @@ function AnahataFlowEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-fantasy.jpg"
+            src="/images/hero-night.JPG"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"
@@ -555,7 +555,7 @@ function AnahataFlowEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-fantasy-mobile.jpg"
+            src="/images/hero-night-mobile.jpg"
             alt="Anahata Flow Background"
             fill
             className="object-cover rounded-3xl"
@@ -623,7 +623,7 @@ function AnahataFlowEvent() {
               Learn More
             </button>
           </Link>
-          <Link href="/booking?event=Anahata+Flow&date=November+22,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-night.jpg&description=A+heart-centered+sound+healing+journey+crafted+to+soften+your+emotional+body+and+bring+you+back+into+harmony+with+yourself.">
+          <Link href="/booking?event=Anahata+Flow&date=November+22,+2025&time=6:00+PM&location=The+Island+-+Ahangama&price=&image=/images/hero-night.JPG&description=A+heart-centered+sound+healing+journey+crafted+to+soften+your+emotional+body+and+bring+you+back+into+harmony+with+yourself.">
             <button className="ml-4 px-8 py-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm hover:bg-white/10 transition-colors duration-300 rounded-lg border border-white/30">
               Reserve Your Spot
             </button>
@@ -641,7 +641,7 @@ function PanchaliSaadhanEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-background.jpg"
+            src="/images/hero-fantasy.png"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover rounded-3xl"
@@ -651,7 +651,7 @@ function PanchaliSaadhanEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-background-mobile.jpg"
+            src="/images/hero-fantasy-mobile.png"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover rounded-3xl"
