@@ -1,6 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { BookingService, FacilitatorService } from "@/lib/booking-service";
+import { auth } from "@/lib/auth";
 
 // Discord webhook URL - should be moved to environment variables in production
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
@@ -36,15 +38,70 @@ export async function submitBookingForm(formData: {
   participants?: string;
   message?: string;
   event?: {
+    id: string;
     title: string;
     date: string;
     time: string;
     location: string;
     description: string;
     price?: string;
+    priceRaw?: number;
   };
 }) {
   try {
+    // Get the current user session
+    const session = await auth.api.getSession({
+      headers: { cookie: "" }, // Empty cookie header for server-side calls
+    });
+    
+    // Create booking in our system
+    if (formData.event) {
+      // Calculate fees based on event price and facilitator
+      const priceRaw = formData.event.priceRaw || 0;
+      const numberOfPeople = parseInt(formData.participants || "1");
+      const totalPrice = priceRaw * numberOfPeople;
+      
+      // For demo purposes, we'll assign the first facilitator
+      // In a real app, this would be based on the event type or user selection
+      let facilitator = null;
+      const facilitatorsResult = await FacilitatorService.getAllFacilitators();
+      if (facilitatorsResult.success && facilitatorsResult.facilitators && facilitatorsResult.facilitators.length > 0) {
+        facilitator = facilitatorsResult.facilitators[0]; // Default to first facilitator
+      }
+      
+      // Calculate fees (in a real app, this would be more complex)
+      const facilitatorFee = facilitator ? totalPrice * facilitator.commission : 0;
+      const ojasenFee = totalPrice - facilitatorFee;
+      
+      // Create booking record with user ID if available
+      const bookingData: any = {
+        eventId: formData.event.id,
+        eventName: formData.event.title,
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        numberOfPeople,
+        specialRequests: formData.message,
+        eventDate: new Date(formData.event.date),
+        totalPrice,
+        ojasenFee,
+        facilitatorFee,
+        facilitatorId: facilitator?.id,
+        facilitatorName: facilitator?.name,
+      };
+      
+      // Add user ID if user is authenticated
+      if (session?.user?.id) {
+        bookingData.userId = session.user.id;
+      }
+      
+      const bookingResult = await BookingService.createBooking(bookingData);
+      
+      if (!bookingResult.success) {
+        console.error("Failed to create booking:", bookingResult.error);
+      }
+    }
+
     // Prepare webhook data
     const webhookData = {
       embeds: [

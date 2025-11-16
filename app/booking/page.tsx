@@ -7,6 +7,7 @@ import Link from "next/link";
 import { EVENTS_DATA } from "@/lib/event-data";
 import { PageLayout } from "@/components/shared/page-layout";
 import { Hero } from "@/components/shared/hero";
+import { useSession, signIn } from "@/lib/auth-client";
 import {
   generateGoogleCalendarLink,
   generateICalLink,
@@ -43,6 +44,7 @@ function BookingHero() {
 
 export default function BookingPage() {
   const searchParams = useSearchParams();
+  const { data: session, isPending } = useSession();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -54,6 +56,36 @@ export default function BookingPage() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Pre-fill form data for authenticated users
+  useEffect(() => {
+    if (session?.user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: session.user.name || "",
+        email: session.user.email || "",
+        phone: prev.phone, // Keep existing phone if already entered
+      }));
+    }
+  }, [session]);
+
+  // Automatically create anonymous session for unauthenticated users
+  useEffect(() => {
+    if (!isPending && !session) {
+      // Create an anonymous session
+      signIn.anonymous(
+        {},
+        {
+          onSuccess: (ctx) => {
+            console.log("Anonymous session created");
+          },
+          onError: (ctx) => {
+            console.error("Failed to create anonymous session", ctx.error);
+          },
+        }
+      );
+    }
+  }, [isPending, session]);
 
   // Check if an event is selected via URL parameters
   useEffect(() => {
@@ -130,6 +162,37 @@ export default function BookingPage() {
       <BookingHero />
       <div className="min-h-screen bg-[#f7faf6] py-16">
         <div className="max-w-6xl mx-auto px-6">
+          {/* Authentication Prompt for Anonymous Users */}
+          {!session?.user?.email && !isPending && (
+            <div className="bg-white rounded-3xl p-6 shadow-lg border border-primary/20 mb-8">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-light text-[#191d18] mb-2">
+                    Create an Account
+                  </h3>
+                  <p className="text-[#525A52]">
+                    Save your information for faster booking and access your
+                    booking history.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/sign-in"
+                    className="px-6 py-3 rounded-lg bg-primary hover:bg-[#5a786d] text-white text-center text-sm font-medium transition-colors duration-300 min-h-[44px] flex items-center justify-center"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    className="px-6 py-3 rounded-lg bg-white border border-primary text-primary hover:bg-[#f0f4f1] text-center text-sm font-medium transition-colors duration-300 min-h-[44px] flex items-center justify-center"
+                  >
+                    Create Account
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Event Selection Section */}
           {!selectedEvent && (
             <div className="mb-12">

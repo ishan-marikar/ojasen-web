@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -20,6 +20,7 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
+  bookings      Booking[]
 
   @@unique([email])
   @@map("user")
@@ -68,4 +69,47 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+// Booking model for tracking customer bookings
+model Booking {
+  id              String       @id
+  eventId         String
+  eventName       String
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  numberOfPeople  Int          @default(1)
+  specialRequests String?
+  bookingDate     DateTime     @default(now())
+  eventDate       DateTime
+  status          String       @default("pending") // pending, confirmed, cancelled
+  totalPrice      Float        @default(0)
+  ojasenFee       Float        @default(0)
+  facilitatorFee  Float        @default(0)
+  facilitatorId   String?
+  facilitatorName String?
+  facilitator     Facilitator? @relation(fields: [facilitatorId], references: [id])
+  userId          String?
+  user            User?        @relation(fields: [userId], references: [id])
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@map("booking")
+}
+
+// Facilitator model for tracking service providers
+model Facilitator {
+  id          String     @id
+  name        String
+  role        String
+  email       String
+  phone       String?
+  baseFee     Float      @default(0)
+  commission  Float      @default(0) // Percentage of service fee
+  bookings    Booking[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("facilitator")
 }

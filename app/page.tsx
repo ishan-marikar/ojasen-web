@@ -50,7 +50,7 @@ function Hero() {
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
           <div className="max-w-4xl text-center space-y-6 sm:space-y-8">
-            <motion.div
+            {/* <motion.div
               className="mx-auto mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ function Hero() {
                 height={83}
                 className="mx-auto drop-shadow-lg"
               />
-            </motion.div>
+            </motion.div> */}
             <motion.div
               className="text-base sm:text-lg md:text-xl text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}

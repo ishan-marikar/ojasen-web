@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { forgetPassword } from "@/lib/auth-client";
+import { AuthLogger } from "@/lib/auth-logger";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -23,15 +24,24 @@ export default function ForgotPasswordPage() {
         },
         {
           onSuccess: () => {
+            AuthLogger.info("Forgot password request successful", { email });
             setMessage("Password reset email sent. Please check your inbox.");
           },
         }
       );
 
       if (res.error) {
+        AuthLogger.warn("Forgot password request error", {
+          email,
+          error: res.error.message,
+        });
         setError(res.error.message || "An error occurred");
       }
     } catch (err) {
+      AuthLogger.error("Forgot password request unexpected error", {
+        email,
+        error: err,
+      });
       setError("An unexpected error occurred");
       console.error(err);
     } finally {

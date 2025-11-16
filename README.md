@@ -27,7 +27,7 @@ This project uses [better-auth](https://www.better-auth.com/) for authentication
 - `BETTER_AUTH_SECRET` - A random string used to sign cookies and JWTs
 - `BETTER_AUTH_URL` - The base URL of your application (e.g., http://localhost:3000)
 - `NEXT_PUBLIC_APP_URL` - The public URL of your application (e.g., http://localhost:3000)
-- `DATABASE_URL` - The URL to your database (e.g., file:./dev.db for SQLite)
+- `DATABASE_URL` - The URL to your PostgreSQL database (e.g., postgresql://user:password@host:port/database)
 
 For development, you can use a `.env.local` file with the following content:
 
@@ -35,8 +35,18 @@ For development, you can use a `.env.local` file with the following content:
 BETTER_AUTH_SECRET=your-secret-key-here
 BETTER_AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-DATABASE_URL=file:./dev.db
+DATABASE_URL=postgresql://neondb_owner:npg_i7sIUaB4LReT@ep-young-bar-a179rbv0-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 ```
+
+## Database Persistence
+
+This project now uses PostgreSQL with Prisma ORM for full database persistence of all business data including:
+
+- User authentication data (users, sessions, accounts)
+- Bookings and booking history
+- Facilitator information and earnings
+
+All data is persisted in the database rather than using in-memory storage, making it suitable for production use.
 
 ## Prisma Setup
 
@@ -44,7 +54,8 @@ This project uses Prisma as the database ORM. To set up the database:
 
 1. Make sure you have the required environment variables set up
 2. Run `npx prisma generate` to generate the Prisma client
-3. Run `npx prisma db push` to create the database and tables
+3. Run `npx prisma migrate dev` to create the database and tables
+4. Run `npx tsx scripts/seed.ts` to populate initial facilitator data
 
 For production, you should use proper migrations instead of `db push`.
 

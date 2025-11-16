@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
+import { AuthLogger } from "@/lib/auth-logger";
 
 export function SignUpForm() {
   const [name, setName] = useState("");
@@ -26,6 +27,7 @@ export function SignUpForm() {
         },
         {
           onSuccess: (ctx) => {
+            AuthLogger.info("Sign up form success", { email, name });
             router.push("/dashboard");
             router.refresh();
           },
@@ -33,9 +35,19 @@ export function SignUpForm() {
       );
 
       if (res.error) {
+        AuthLogger.warn("Sign up form error", {
+          email,
+          name,
+          error: res.error.message,
+        });
         setError(res.error.message || "An error occurred");
       }
     } catch (err) {
+      AuthLogger.error("Sign up form unexpected error", {
+        email,
+        name,
+        error: err,
+      });
       setError("An unexpected error occurred");
       console.error(err);
     } finally {

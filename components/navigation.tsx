@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
+import { Menu, X, User } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   // Check if we're on the home page
   const isHomePage = pathname === "/";
@@ -23,17 +24,17 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside or when route changes
+  // Close menu when clicking outside or when route changes
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const mobileMenu = document.getElementById("mobile-menu");
+      const menu = document.getElementById("menu");
       const menuButton = document.getElementById("menu-button");
 
       if (
         isOpen &&
-        mobileMenu &&
+        menu &&
         menuButton &&
-        !mobileMenu.contains(event.target as Node) &&
+        !menu.contains(event.target as Node) &&
         !menuButton.contains(event.target as Node)
       ) {
         setIsOpen(false);
@@ -48,7 +49,7 @@ export function Navigation() {
     };
   }, [isOpen]);
 
-  // Close mobile menu when route changes
+  // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -62,6 +63,25 @@ export function Navigation() {
     { name: "Contact", href: "/contact" },
   ];
 
+  // Determine which logo to show based on scroll state and page context
+  const getLogoSrc = () => {
+    if (isHomePage && !scrolled) {
+      return "/images/logo-full.png";
+    }
+    return "/images/logo-text.png";
+  };
+
+  // Determine logo dimensions based on scroll state and page context
+  const getLogoDimensions = () => {
+    if (isHomePage && !scrolled) {
+      return { width: 100, height: 12 };
+    }
+    return { width: 160, height: 32 };
+  };
+
+  const logoSrc = getLogoSrc();
+  const { width, height } = getLogoDimensions();
+
   return (
     <>
       <header
@@ -73,69 +93,68 @@ export function Navigation() {
       >
         {/* Desktop Navigation */}
         <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-between">
-          {/* Left Navigation Links */}
-          <nav className="flex space-x-6">
-            {navLinks.slice(0, 3).map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
-                  isHomePage && !scrolled
-                    ? "text-white hover:text-accent"
-                    : "text-white hover:text-accent"
-                }`}
-              >
-                {link.name}
-                <span
-                  className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    isHomePage && !scrolled ? "bg-accent" : "bg-accent"
-                  }`}
-                ></span>
-              </Link>
-            ))}
-          </nav>
+          {/* Hamburger Menu Button */}
+          <button
+            id="menu-button"
+            className={`focus:outline-none transition-colors duration-300 p-2 ${
+              isHomePage && !scrolled ? "text-white" : "text-white"
+            }`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
 
           {/* Centered Logo */}
-          <Link href="/" className="transition-all duration-300">
+          <Link
+            href="/"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
+          >
             <div
               className={`transition-all duration-300 flex items-center ${
-                scrolled ? "h-8" : "h-12"
+                scrolled ? "h-8" : "h-12 mt-3"
               }`}
             >
-              <Image
-                src="/images/logo-text.png"
+              <img
+                src={logoSrc}
                 alt="Ojasen Healing Arts"
-                width={scrolled ? 160 : 180}
-                height={scrolled ? 32 : 48}
+                width={scrolled ? width : 100}
+                height={scrolled ? height : 12}
                 className="object-contain"
               />
             </div>
           </Link>
 
-          {/* Right Navigation Links */}
-          <nav className="flex space-x-6">
-            {navLinks.slice(3).map((link) => (
+          {/* Authentication Icons */}
+          <div className="flex items-center">
+            {session ? (
               <Link
-                key={link.name}
-                href={link.href}
-                className={`transition-colors duration-300 text-sm uppercase tracking-wider font-medium relative group ${
+                href="/dashboard"
+                className={`transition-colors duration-300 p-2 ${
                   isHomePage && !scrolled
                     ? "text-white hover:text-accent"
                     : "text-white hover:text-accent"
                 }`}
               >
-                {link.name}
-                <span
-                  className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    isHomePage && !scrolled ? "bg-accent" : "bg-accent"
-                  }`}
-                ></span>
+                <User size={20} />
               </Link>
-            ))}
-          </nav>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+              >
+                <User size={20} />
+              </Link>
+            )}
+          </div>
         </div>
 
-        {/* Mobile & Tablet Navigation */}
+        {/* Mobile Navigation */}
         <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           {/* Hamburger Menu Button */}
           <button
@@ -156,25 +175,49 @@ export function Navigation() {
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
             <div className="flex items-center h-8">
-              <Image
-                src="/images/logo-text.png"
+              <img
+                src={logoSrc}
                 alt="Ojasen Healing Arts"
-                width={140}
-                height={40}
+                width={width}
+                height={height}
                 className="object-contain"
               />
             </div>
           </Link>
 
-          {/* Placeholder for balance (empty div) */}
-          <div className="w-8"></div>
+          {/* Authentication Icons */}
+          <div className="flex items-center">
+            {session ? (
+              <Link
+                href="/dashboard"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+              >
+                <User size={20} />
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+              >
+                <User size={20} />
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
-      {/* Mobile Navigation Overlay - Moved outside header to fix positioning issue */}
+      {/* Menu Overlay - Same for both mobile and desktop */}
       <div
-        id="mobile-menu"
-        className={`fixed inset-0 bg-primary z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out md:hidden ${
+        id="menu"
+        className={`fixed inset-0 bg-primary z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none"
@@ -202,6 +245,35 @@ export function Navigation() {
               {link.name}
             </Link>
           ))}
+
+          {/* Authentication Links */}
+          {session ? (
+            <Link
+              href="/dashboard"
+              className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium flex items-center mt-4"
+              onClick={() => setIsOpen(false)}
+            >
+              <User size={20} className="mr-2" />
+              Account
+            </Link>
+          ) : (
+            <div className="flex flex-col space-y-4 mt-4">
+              <Link
+                href="/sign-in"
+                className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 border border-white/30 rounded-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/sign-up"
+                className="text-xl  hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 bg-white text-primary rounded-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
     </>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
+import { AuthLogger } from "@/lib/auth-logger";
 
 export function SignInForm() {
   const [email, setEmail] = useState("");
@@ -25,6 +26,7 @@ export function SignInForm() {
         },
         {
           onSuccess: (ctx) => {
+            AuthLogger.info("Sign in form success", { email });
             router.push("/dashboard");
             router.refresh();
           },
@@ -32,9 +34,14 @@ export function SignInForm() {
       );
 
       if (res.error) {
+        AuthLogger.warn("Sign in form error", {
+          email,
+          error: res.error.message,
+        });
         setError(res.error.message || "An error occurred");
       }
     } catch (err) {
+      AuthLogger.error("Sign in form unexpected error", { email, error: err });
       setError("An unexpected error occurred");
       console.error(err);
     } finally {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { resetPassword } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { AuthLogger } from "@/lib/auth-logger";
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState("");
@@ -35,6 +36,9 @@ export default function ResetPasswordPage() {
         },
         {
           onSuccess: () => {
+            AuthLogger.info("Password reset successful", {
+              token: token?.substring(0, 10) + "...",
+            });
             setMessage(
               "Password reset successfully. Redirecting to sign in..."
             );
@@ -46,9 +50,17 @@ export default function ResetPasswordPage() {
       );
 
       if (res.error) {
+        AuthLogger.warn("Password reset error", {
+          token: token?.substring(0, 10) + "...",
+          error: res.error.message,
+        });
         setError(res.error.message || "An error occurred");
       }
     } catch (err) {
+      AuthLogger.error("Password reset unexpected error", {
+        token: token?.substring(0, 10) + "...",
+        error: err,
+      });
       setError("An unexpected error occurred");
       console.error(err);
     } finally {
