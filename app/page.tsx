@@ -27,7 +27,7 @@ function Hero() {
         <div className="absolute inset-0 w-full h-full">
           {/* Hide the default image on mobile and show optimized version */}
           <div className="hidden md:block">
-            <Image
+            <img
               src="/images/hero-background.jpg"
               alt="Ojasen Healing Arts Sanctuary"
               fill
@@ -37,7 +37,7 @@ function Hero() {
             />
           </div>
           <div className="md:hidden">
-            <Image
+            <img
               src="/images/hero-background-mobile.jpg"
               alt="Ojasen Healing Arts Sanctuary"
               fill
