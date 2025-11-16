@@ -30,9 +30,9 @@ function Hero() {
             <img
               src="/images/hero-background.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              fill
+              // fill
               className="object-cover"
-              priority
+              // priority
               sizes="100vw"
             />
           </div>
@@ -40,9 +40,9 @@ function Hero() {
             <img
               src="/images/hero-background-mobile.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              fill
+              // fill
               className="object-cover object-center"
-              priority
+              // priority
               sizes="100vw"
             />
           </div>
