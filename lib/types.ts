@@ -45,16 +45,16 @@ export interface Booking {
   customerEmail: string;
   customerPhone: string;
   numberOfPeople: number;
-  specialRequests?: string;
+  specialRequests?: string | null;
   bookingDate: Date;
   eventDate: Date;
-  status: 'pending' | 'confirmed' | 'cancelled';
+  status: string;
   totalPrice: number;
   ojasenFee: number;
   facilitatorFee: number;
-  facilitatorId?: string;
-  facilitatorName?: string;
-  userId?: string;
+  facilitatorId?: string | null;
+  facilitatorName?: string | null;
+  userId?: string | null;
 }
 
 // Facilitator interface
@@ -63,7 +63,7 @@ export interface Facilitator {
   name: string;
   role: string;
   email: string;
-  phone?: string;
+  phone?: string | null;
   baseFee: number;
   commission: number;
 }
