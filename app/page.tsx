@@ -65,24 +65,24 @@ function Hero() {
               />
             </motion.div> */}
             <motion.div
-              className="text-base sm:text-lg md:text-xl text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-2">
                 <span>YOGA</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>BREATHWORK</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>SOUND HEALING</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>ICE BATH</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>RETREATS</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>ENERGY HEALING</span>
-                <span className="opacity-60">•</span>
+                <span className="opacity-60">|</span>
                 <span>CACAO HEALING CEREMONY</span>
               </div>
             </motion.div>
