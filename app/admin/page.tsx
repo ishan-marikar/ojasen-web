@@ -205,7 +205,7 @@ export default async function AdminPage() {
                         {booking.customerName}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        {booking.eventDate.toLocaleDateString()}
+                        {new Date(booking.eventDate).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                         {booking.numberOfPeople}
@@ -227,12 +227,37 @@ export default async function AdminPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        <button className="text-primary hover:text-primary/80 mr-2">
+                        <button 
+                          className="text-primary hover:text-primary/80 mr-2"
+                          onClick={async () => {
+                            // In a real implementation, you would show a modal or form to edit the booking
+                            console.log("Edit booking", booking.id);
+                          }}
+                        >
                           View
                         </button>
-                        <button className="text-primary hover:text-primary/80">
-                          Edit
-                        </button>
+                        <select 
+                          className="text-primary hover:text-primary/80 bg-transparent border-none"
+                          value={booking.status}
+                          onChange={async (e) => {
+                            const newStatus = e.target.value as 'pending' | 'confirmed' | 'cancelled';
+                            try {
+                              const result = await BookingService.updateBookingStatus(booking.id, newStatus);
+                              if (result.success) {
+                                // Refresh the page to show updated status
+                                window.location.reload();
+                              } else {
+                                console.error("Failed to update booking status:", result.error);
+                              }
+                            } catch (error) {
+                              console.error("Error updating booking status:", error);
+                            }
+                          }}
+                        >
+                          <option value="pending">Pending</option>
+                          <option value="confirmed">Confirmed</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
                       </td>
                     </tr>
                   ))}

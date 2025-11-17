@@ -9,6 +9,13 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || "https://discord.
 
 // Function to send data to Discord webhook
 async function sendToDiscordWebhook(data: any) {
+  // If no webhook URL is configured, log to console and return success
+  if (!DISCORD_WEBHOOK_URL) {
+    console.log("Discord webhook URL not configured. Skipping Discord notification.");
+    console.log("Data that would have been sent to Discord:", JSON.stringify(data, null, 2));
+    return { success: true };
+  }
+
   try {
     const response = await fetch(DISCORD_WEBHOOK_URL, {
       method: "POST",
@@ -25,6 +32,7 @@ async function sendToDiscordWebhook(data: any) {
     return { success: true };
   } catch (error) {
     console.error("Failed to send data to Discord webhook:", error);
+    // In a production environment, you might want to implement a retry mechanism or queue
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -156,6 +164,7 @@ export async function submitBookingForm(formData: {
     if (!result.success) {
       console.error("Failed to send booking data to Discord:", result.error);
       // In a real application, you might want to handle this error more gracefully
+      // For example, you could queue the message for retry or send an email notification
     }
 
     // Redirect to success page or back to form

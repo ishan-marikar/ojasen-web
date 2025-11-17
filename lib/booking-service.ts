@@ -10,6 +10,37 @@ const prisma = new PrismaClient();
 // let bookings: Booking[] = [];
 // let facilitators: Facilitator[] = [ ... ];
 
+// Function to send data to Discord webhook
+async function sendToDiscordWebhook(data: any) {
+  const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+  
+  // If no webhook URL is configured, log to console and return success
+  if (!DISCORD_WEBHOOK_URL) {
+    console.log("Discord webhook URL not configured. Skipping Discord notification.");
+    console.log("Data that would have been sent to Discord:", JSON.stringify(data, null, 2));
+    return { success: true };
+  }
+
+  try {
+    const response = await fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Discord webhook request failed with status ${response.status}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to send data to Discord webhook:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
 export class BookingService {
   // Create a new booking
   static async createBooking(bookingData: Omit<AppBooking, 'id' | 'bookingDate' | 'status'>) {
@@ -78,6 +109,61 @@ export class BookingService {
         where: { id },
         data: { status },
       });
+      
+      // Send Discord notification about status change
+      const webhookData = {
+        embeds: [
+          {
+            title: `Booking Status Updated`,
+            color: status === 'confirmed' ? 0x00ff00 : status === 'cancelled' ? 0xff0000 : 0xffff00,
+            fields: [
+              {
+                name: "Booking ID",
+                value: updatedBooking.id,
+                inline: true,
+              },
+              {
+                name: "Event",
+                value: updatedBooking.eventName,
+                inline: true,
+              },
+              {
+                name: "Customer",
+                value: updatedBooking.customerName,
+                inline: true,
+              },
+              {
+                name: "Email",
+                value: updatedBooking.customerEmail,
+                inline: true,
+              },
+              {
+                name: "New Status",
+                value: status,
+                inline: true,
+              },
+              {
+                name: "Participants",
+                value: updatedBooking.numberOfPeople.toString(),
+                inline: true,
+              },
+              {
+                name: "Total Price",
+                value: `LKR ${updatedBooking.totalPrice.toFixed(2)}`,
+                inline: true,
+              },
+            ],
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+      
+      // Send to Discord webhook
+      const result = await sendToDiscordWebhook(webhookData);
+      
+      if (!result.success) {
+        console.error("Failed to send booking status update to Discord:", result.error);
+      }
       
       return { success: true, booking: updatedBooking };
     } catch (error) {
@@ -209,6 +295,56 @@ export class FacilitatorService {
           commission: facilitatorData.commission,
         },
       });
+      
+      // Send Discord notification about new facilitator
+      const webhookData = {
+        embeds: [
+          {
+            title: "New Facilitator Added",
+            color: 0x68887d, // Brand color
+            fields: [
+              {
+                name: "Name",
+                value: facilitatorData.name,
+                inline: true,
+              },
+              {
+                name: "Role",
+                value: facilitatorData.role,
+                inline: true,
+              },
+              {
+                name: "Email",
+                value: facilitatorData.email,
+                inline: true,
+              },
+              {
+                name: "Phone",
+                value: facilitatorData.phone || "Not provided",
+                inline: true,
+              },
+              {
+                name: "Base Fee",
+                value: `LKR ${facilitatorData.baseFee.toLocaleString()}`,
+                inline: true,
+              },
+              {
+                name: "Commission",
+                value: `${(facilitatorData.commission * 100).toFixed(0)}%`,
+                inline: true,
+              },
+            ],
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+      
+      // Send to Discord webhook
+      const result = await sendToDiscordWebhook(webhookData);
+      
+      if (!result.success) {
+        console.error("Failed to send facilitator creation notification to Discord:", result.error);
+      }
       
       return { success: true, facilitator: newFacilitator };
     } catch (error) {
