@@ -227,7 +227,7 @@ export default async function AdminPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        <button 
+                        <button
                           className="text-primary hover:text-primary/80 mr-2"
                           onClick={async () => {
                             // In a real implementation, you would show a modal or form to edit the booking
@@ -236,21 +236,34 @@ export default async function AdminPage() {
                         >
                           View
                         </button>
-                        <select 
+                        <select
                           className="text-primary hover:text-primary/80 bg-transparent border-none"
                           value={booking.status}
                           onChange={async (e) => {
-                            const newStatus = e.target.value as 'pending' | 'confirmed' | 'cancelled';
+                            const newStatus = e.target.value as
+                              | "pending"
+                              | "confirmed"
+                              | "cancelled";
                             try {
-                              const result = await BookingService.updateBookingStatus(booking.id, newStatus);
+                              const result =
+                                await BookingService.updateBookingStatus(
+                                  booking.id,
+                                  newStatus
+                                );
                               if (result.success) {
                                 // Refresh the page to show updated status
                                 window.location.reload();
                               } else {
-                                console.error("Failed to update booking status:", result.error);
+                                console.error(
+                                  "Failed to update booking status:",
+                                  result.error
+                                );
                               }
                             } catch (error) {
-                              console.error("Error updating booking status:", error);
+                              console.error(
+                                "Error updating booking status:",
+                                error
+                              );
                             }
                           }}
                         >
