@@ -25,16 +25,16 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 This project uses [better-auth](https://www.better-auth.com/) for authentication with Prisma as the database adapter. The following environment variables are required:
 
 - `BETTER_AUTH_SECRET` - A random string used to sign cookies and JWTs
-- `BETTER_AUTH_URL` - The base URL of your application (e.g., http://localhost:3000)
-- `NEXT_PUBLIC_APP_URL` - The public URL of your application (e.g., http://localhost:3000)
+- `BETTER_AUTH_URL` - The base URL of your application (e.g., https://ojasenhealingarts.com)
+- `NEXT_PUBLIC_APP_URL` - The public URL of your application (e.g., https://ojasenhealingarts.com)
 - `DATABASE_URL` - The URL to your PostgreSQL database (e.g., postgresql://user:password@host:port/database)
 
-For development, you can use a `.env.local` file with the following content:
+For production, you can use a `.env` file with the following content:
 
 ```
-BETTER_AUTH_SECRET=your-secret-key-here
-BETTER_AUTH_URL=http://localhost:3000
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your-super-secret-key-change-this-in-production
+BETTER_AUTH_URL=https://ojasenhealingarts.com
+NEXT_PUBLIC_APP_URL=https://ojasenhealingarts.com
 DATABASE_URL=postgresql://neondb_owner:npg_i7sIUaB4LReT@ep-young-bar-a179rbv0-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 ```
 

@@ -19,7 +19,7 @@ The authentication system uses [Better Auth](https://www.better-auth.com/) with 
 
 This file configures the Better Auth instance with:
 
-- Database adapter (Prisma with SQLite)
+- Database adapter (Prisma with PostgreSQL)
 - Email/password settings
 - Session configuration
 - Email verification
@@ -47,13 +47,13 @@ Service for sending authentication emails (currently mocked for development).
 
 ## Environment Variables
 
-The following environment variables are required (see `.env.local`):
+The following environment variables are required (see `.env` or `.env.example`):
 
 ```
 BETTER_AUTH_SECRET=your-super-secret-key-change-this-in-production
-BETTER_AUTH_URL=http://localhost:3000
-DATABASE_URL=file:./dev.db
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+BETTER_AUTH_URL=https://ojasenhealingarts.com
+DATABASE_URL=postgresql://neondb_owner:npg_i7sIUaB4LReT@ep-young-bar-a179rbv0-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+NEXT_PUBLIC_APP_URL=https://ojasenhealingarts.com
 ```
 
 ## Authentication Flow
@@ -80,5 +80,5 @@ Logs are stored in `logs/auth.log` in JSON format.
 To use a real email service in production:
 
 1. Update `lib/email-service.ts` with your email provider's API
-2. Add email configuration to `.env.local`
+2. Add email configuration to `.env`
 3. Update the email sending functions to use the real service

@@ -21,6 +21,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   bookings      Booking[]
+  isAnonymous   Boolean   @default(false) // Added for better-auth anonymous plugin
 
   @@unique([email])
   @@map("user")
