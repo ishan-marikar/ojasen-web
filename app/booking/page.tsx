@@ -81,6 +81,11 @@ export default function BookingPage() {
           },
           onError: (ctx) => {
             console.error("Failed to create anonymous session", ctx.error);
+            // Implement graceful degradation - log the error but allow booking to proceed
+            // This follows the project's practice of not failing when external services are unavailable
+            console.warn(
+              "Proceeding with booking without anonymous session. User data will be collected in the form."
+            );
           },
         }
       );

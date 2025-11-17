@@ -51,6 +51,32 @@ async function seed() {
       }
     }
 
+    // Create admin user
+    const adminEmail = "ishan@ojasenhealingarts.com";
+    const adminName = "Ishan Admin";
+    
+    // Check if admin user already exists
+    const existingAdmin = await prisma.user.findUnique({
+      where: { email: adminEmail },
+    });
+
+    if (!existingAdmin) {
+      // Create the user directly in the database
+      const newUser = await prisma.user.create({
+        data: {
+          id: `user_${Date.now()}`, // Simple ID generation
+          name: adminName,
+          email: adminEmail,
+          emailVerified: true, // Mark as verified for admin
+        },
+      });
+      
+      console.log(`Created admin user with email: ${adminEmail}`);
+      console.log("NOTE: This user has no password set. You'll need to set one through the application interface.");
+    } else {
+      console.log(`Admin user with email ${adminEmail} already exists`);
+    }
+
     console.log("Database seeding completed!");
   } catch (error) {
     console.error("Error seeding database:", error);

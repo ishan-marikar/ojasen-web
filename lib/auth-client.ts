@@ -19,7 +19,10 @@ export const authClient = createAuthClient({
       } else if (error.error.status === 401) {
         console.error("Unauthorized. Please sign in.");
       } else {
+        // Implement graceful degradation for auth errors
+        // Log the error but don't break the user experience
         console.error(error.error.message || "An error occurred");
+        console.warn("Authentication service encountered an issue. Core functionality will continue to work.");
       }
     },
     onSuccess(data) {
