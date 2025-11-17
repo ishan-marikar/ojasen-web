@@ -65,17 +65,21 @@ export function Navigation() {
 
   // Determine which logo to show based on scroll state and page context
   const getLogoSrc = () => {
+    // Only show full logo on home page when not scrolled
     if (isHomePage && !scrolled) {
       return "/images/logo-full.png";
     }
+    // On all other pages or when scrolled, show text logo
     return "/images/logo-text.png";
   };
 
   // Determine logo dimensions based on scroll state and page context
   const getLogoDimensions = () => {
+    // Only use larger dimensions on home page when not scrolled
     if (isHomePage && !scrolled) {
       return { width: 100, height: 12 };
     }
+    // On all other pages or when scrolled, use consistent dimensions
     return { width: 160, height: 32 };
   };
 
@@ -109,21 +113,21 @@ export function Navigation() {
           {/* Centered Logo */}
           <Link
             href="/"
-            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2 mt-3"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
             <div
               className={`transition-all duration-300 flex items-center ${
-                scrolled ? "h-8" : "h-12 mt-6"
+                isHomePage && !scrolled ? "h-12" : "h-8"
               }`}
             >
               <img
                 src={logoSrc}
                 alt="Ojasen Healing Arts"
-                width={scrolled ? width : 100}
-                height={scrolled ? height : 12}
+                width={width}
+                height={height}
                 className="object-contain"
                 style={{
-                  marginTop: scrolled ? "0" : "1.5rem",
+                  marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
                 }}
               />
             </div>
