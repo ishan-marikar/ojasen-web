@@ -122,7 +122,7 @@ function Hero() {
 
 function Ceremonies() {
   return (
-    <div className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden">
+    <div className="py-20 px-6 bg-cover bg-no-repeat bg-top relative overflow-hidden pb-8">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
