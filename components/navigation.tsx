@@ -109,11 +109,11 @@ export function Navigation() {
           {/* Centered Logo */}
           <Link
             href="/"
-            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2 mt-3"
           >
             <div
               className={`transition-all duration-300 flex items-center ${
-                scrolled ? "h-8" : "h-12 mt-3"
+                scrolled ? "h-8" : "h-12 mt-6"
               }`}
             >
               <img
@@ -122,6 +122,9 @@ export function Navigation() {
                 width={scrolled ? width : 100}
                 height={scrolled ? height : 12}
                 className="object-contain"
+                style={{
+                  marginTop: scrolled ? "0" : "1.5rem",
+                }}
               />
             </div>
           </Link>
