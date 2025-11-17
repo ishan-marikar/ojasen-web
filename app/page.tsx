@@ -12,6 +12,7 @@ export default function () {
       <Hero />
       <About />
       <Ceremonies />
+      {/* <Schedule /> */}
       <EventsSection />
 
       <LocationMap />
@@ -25,24 +26,23 @@ function Hero() {
     <>
       <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
         <div className="absolute inset-0 w-full h-full">
-          {/* Hide the default image on mobile and show optimized version */}
           <div className="hidden md:block">
-            <img
+            <Image
               src="/images/hero-background.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              // fill
+              fill
               className="object-cover"
-              // priority
+              priority
               sizes="100vw"
             />
           </div>
           <div className="md:hidden">
-            <img
+            <Image
               src="/images/hero-background-mobile.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              // fill
+              fill
               className="object-cover object-center"
-              // priority
+              priority
               sizes="100vw"
             />
           </div>
