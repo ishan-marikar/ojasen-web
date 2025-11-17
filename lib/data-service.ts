@@ -68,12 +68,12 @@ export const healersData: Healer[] = [
     image: "/images/healers/oshadi.png",
     link: "/healers/oshadi",
   },
-  {
-    name: "Deborah",
-    role: "Energy Healer",
-    image: "/images/healers/deborah.png",
-    link: "/healers/deborah",
-  },
+  // {
+  //   name: "Deborah",
+  //   role: "Energy Healer",
+  //   image: "/images/healers/deborah.png",
+  //   link: "/healers/deborah",
+  // },
 ];
 
 // Yoga and Meditation benefits
