@@ -127,7 +127,8 @@ export function Navigation() {
                 height={height}
                 className="object-contain"
                 style={{
-                  marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
+                  // marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
+                  marginTop: isHomePage && !scrolled ? "90px" : "0",
                 }}
               />
             </div>
@@ -181,13 +182,17 @@ export function Navigation() {
             href="/"
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
-            <div className="flex items-center h-8">
+            <div className="flex items-center h-8 ">
               <img
                 src={logoSrc}
                 alt="Ojasen Healing Arts"
                 width={width}
                 height={height}
                 className="object-contain"
+                style={{
+                  // marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
+                  marginTop: isHomePage && !scrolled ? "40px" : "0",
+                }}
               />
             </div>
           </Link>
