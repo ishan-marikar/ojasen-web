@@ -26,24 +26,18 @@ function Hero() {
     <>
       <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
         <div className="absolute inset-0 w-full h-full">
-          <div className="hidden md:block">
-            <Image
+          <div className="hidden md:block w-full h-full">
+            <img
               src="/images/hero-background.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              fill
-              className="object-cover"
-              priority
-              sizes="100vw"
+              className="object-cover w-full h-full"
             />
           </div>
-          <div className="md:hidden">
-            <Image
+          <div className="md:hidden w-full h-full">
+            <img
               src="/images/hero-background-mobile.jpg"
               alt="Ojasen Healing Arts Sanctuary"
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="100vw"
+              className="object-cover object-center w-full h-full"
             />
           </div>
         </div>
