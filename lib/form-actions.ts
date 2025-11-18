@@ -3,6 +3,10 @@
 import { redirect } from "next/navigation";
 import { BookingService, FacilitatorService } from "@/lib/booking-service";
 import { auth } from "@/lib/auth";
+import { PrismaClient } from "@prisma/client";
+
+// Initialize Prisma Client
+const prisma = new PrismaClient();
 
 // Discord webhook URL - should be moved to environment variables in production
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";
@@ -228,6 +232,92 @@ export async function submitContactForm(formData: {
     return { success: true };
   } catch (error) {
     console.error("Error in submitContactForm:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+// Server action for updating user profile
+export async function updateUserProfile(formData: {
+  name: string;
+  email: string;
+  phone?: string;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
+}) {
+  try {
+    // Get the current user session
+    const session = await auth.api.getSession({
+      headers: { cookie: "" }, // Empty cookie header for server-side calls
+    });
+
+    // Check if user is authenticated
+    if (!session?.user?.id) {
+      return { success: false, error: "User not authenticated" };
+    }
+
+    // Update user in the database with all profile information
+    const updatedUser = await prisma.user.update({
+      where: { id: session.user.id },
+      data: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        emergencyContactName: formData.emergencyContactName,
+        emergencyContactPhone: formData.emergencyContactPhone,
+      },
+    });
+
+    // Prepare webhook data for profile update notification
+    const webhookData = {
+      embeds: [
+        {
+          title: "User Profile Updated",
+          color: 0x68887d, // Using the brand color
+          fields: [
+            {
+              name: "User ID",
+              value: updatedUser.id,
+              inline: true,
+            },
+            {
+              name: "Name",
+              value: updatedUser.name,
+              inline: true,
+            },
+            {
+              name: "Email",
+              value: updatedUser.email,
+              inline: true,
+            },
+            {
+              name: "Phone",
+              value: formData.phone || "Not provided",
+              inline: true,
+            },
+            {
+              name: "Emergency Contact",
+              value: formData.emergencyContactName 
+                ? `${formData.emergencyContactName} (${formData.emergencyContactPhone || "No phone"})` 
+                : "Not provided",
+              inline: false,
+            },
+          ],
+          timestamp: new Date().toISOString(),
+        },
+      ],
+    };
+
+    // Send to Discord webhook
+    const result = await sendToDiscordWebhook(webhookData);
+    
+    if (!result.success) {
+      console.error("Failed to send profile update notification to Discord:", result.error);
+      // In a real application, you might want to handle this error more gracefully
+    }
+
+    return { success: true, user: updatedUser };
+  } catch (error) {
+    console.error("Error in updateUserProfile:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
