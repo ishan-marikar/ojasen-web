@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { motion } from "framer-motion";
 import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
+import { useState } from "react";
 
 export default function () {
   return (
@@ -22,24 +23,35 @@ export default function () {
 }
 
 function Hero() {
+  const [videoError, setVideoError] = useState(false);
+
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
         <div className="absolute inset-0 w-full h-full">
-          <div className="hidden md:block w-full h-full">
+          {!videoError ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="object-cover w-full h-full"
+              onError={() => setVideoError(true)}
+            >
+              <source src="/videos/hero.mp4" type="video/mp4" />
+              <img
+                src="/images/hero-background.jpg"
+                alt="Ojasen Healing Arts Sanctuary"
+                className="object-cover w-full h-full"
+              />
+            </video>
+          ) : (
             <img
               src="/images/hero-background.jpg"
               alt="Ojasen Healing Arts Sanctuary"
               className="object-cover w-full h-full"
             />
-          </div>
-          <div className="md:hidden w-full h-full">
-            <img
-              src="/images/hero-background-mobile.jpg"
-              alt="Ojasen Healing Arts Sanctuary"
-              className="object-cover object-center w-full h-full"
-            />
-          </div>
+          )}
         </div>
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
