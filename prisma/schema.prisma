@@ -22,6 +22,8 @@ model User {
   accounts      Account[]
   bookings      Booking[]
   isAnonymous   Boolean   @default(false) // Added for better-auth anonymous plugin
+  // Add role field with default value
+  role          String    @default("user") // "admin" or "user"
 
   @@unique([email])
   @@map("user")

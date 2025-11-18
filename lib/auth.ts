@@ -78,21 +78,28 @@ export const auth = betterAuth({
       AuthLogger.info("Sign in attempt", { email: data.email });
       return data;
     },
-    afterSignIn: async (data: { user: { id: string; email: string; name: string }; session: { id: string } }) => {
-      AuthLogger.info("Sign in successful", { userId: data.user.id, email: data.user.email });
+    afterSignIn: async (data: { user: { id: string; email: string; name: string; role: string }; session: { id: string } }) => {
+      AuthLogger.info("Sign in successful", { userId: data.user.id, email: data.user.email, role: data.user.role });
       return data;
     },
     beforeSignUp: async (data: { email: string; password: string; name: string }) => {
       AuthLogger.info("Sign up attempt", { email: data.email });
       return data;
     },
-    afterSignUp: async (data: { user: { id: string; email: string; name: string } }) => {
-      AuthLogger.info("Sign up successful", { userId: data.user.id, email: data.user.email });
+    afterSignUp: async (data: { user: { id: string; email: string; name: string; role: string } }) => {
+      AuthLogger.info("Sign up successful", { userId: data.user.id, email: data.user.email, role: data.user.role });
       return data;
     },
     beforeSignOut: async (data: { sessionId: string }) => {
       AuthLogger.info("Sign out attempt", { sessionId: data.sessionId });
       return data;
+    },
+    // Include role in session data
+    transformUserData: async (data: any) => {
+      return {
+        ...data,
+        role: data.role || "user", // Default to "user" if no role is set
+      };
     },
   },
 });

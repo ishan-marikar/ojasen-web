@@ -61,20 +61,30 @@ async function seed() {
     });
 
     if (!existingAdmin) {
-      // Create the user directly in the database
+      // Create the user directly in the database with admin role
       const newUser = await prisma.user.create({
         data: {
           id: `user_${Date.now()}`, // Simple ID generation
           name: adminName,
           email: adminEmail,
           emailVerified: true, // Mark as verified for admin
+          role: "admin", // Set role to admin
         },
       });
       
       console.log(`Created admin user with email: ${adminEmail}`);
       console.log("NOTE: This user has no password set. You'll need to set one through the application interface.");
     } else {
-      console.log(`Admin user with email ${adminEmail} already exists`);
+      // Update existing user to have admin role if not already
+      if (existingAdmin.role !== "admin") {
+        await prisma.user.update({
+          where: { email: adminEmail },
+          data: { role: "admin" },
+        });
+        console.log(`Updated user ${adminEmail} to admin role`);
+      } else {
+        console.log(`Admin user with email ${adminEmail} already exists`);
+      }
     }
 
     console.log("Database seeding completed!");
