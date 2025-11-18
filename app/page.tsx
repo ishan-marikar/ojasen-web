@@ -773,7 +773,7 @@ export function LocationMap() {
   return (
     <>
       <motion.div
-        className="w-full py-16 px-6 bg-[#f7faf6]"
+        className="bg-[#f7faf6] px-6 text-[#191d18] pt-16 pb-20"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -781,49 +781,57 @@ export function LocationMap() {
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-sans text-[#191d18] mb-4">
+            <span className="text-sm uppercase font-medium tracking-wider text-primary">
               Find Us
-            </h2>
-            <p className="text-lg text-[#525A52] max-w-2xl mx-auto">
-              Located in the heart of Ahangama, Sri Lanka. Come experience our
-              sanctuary surrounded by nature.
+            </span>
+            <h2 className="text-3xl font-light mt-2">Our Sanctuary Location</h2>
+            <p className="text-[#525A52] max-w-2xl mx-auto text-lg mt-4">
+              Nestled in the beautiful coastal town of Ahangama, our healing
+              sanctuary offers a tranquil escape from the everyday.
             </p>
           </motion.div>
 
-          <div className="rounded-3xl overflow-hidden shadow-lg border border-primary/20">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk&&t=h&&layer=c
-"
-              width="100%"
-              height="450"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
-            ></iframe>
-          </div>
-
-          <motion.div
-            className="mt-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-block bg-white rounded-2xl px-6 py-4 border border-primary/20 shadow-sm">
-              <p className="text-[#191d18] font-medium">
-                The Island Ahangama, Sri Lanka
-              </p>
-              <p className="text-[#525A52] mt-1">📞 +94 76 277 7482</p>
+          <div className="bg-white rounded-4xl overflow-hidden border border-primary/20">
+            <div className="h-96 relative">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.8771573654867!2d80.34803657498867!3d6.01160059397367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16d7d5dc86e37%3A0x13292a854c15ebff!2sThe%20Island%20Ahangama!5e0!3m2!1sen!2slk!4v1763119034083!5m2!1sen!2slk"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
-          </motion.div>
+
+            <div className="p-8">
+              <h3 className="text-2xl mb-4">Getting Here</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-lg font-medium mb-3">By Air</h4>
+                  <p className="text-[#525A52]">
+                    The nearest international airport is Bandaranaike
+                    International Airport (CMB) in Colombo. From there, it's
+                    approximately a 2-hour drive to Ahangama.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium mb-3">By Road</h4>
+                  <p className="text-[#525A52]">
+                    Ahangama is easily accessible by road from major cities.
+                    Regular buses and taxis operate to the area from Colombo and
+                    other nearby towns.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </>
