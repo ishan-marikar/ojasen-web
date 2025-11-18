@@ -19,7 +19,7 @@ interface ImageWithFallbackProps {
 export function ImageWithFallback({
   src,
   alt,
-  fallbackSrc = "/images/hero-background.jpg",
+  fallbackSrc = "/images/hero-backgrounds.jpg",
   className = "",
   width,
   height,

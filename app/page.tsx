@@ -40,14 +40,14 @@ function Hero() {
             >
               <source src="/videos/hero.mp4" type="video/mp4" />
               <img
-                src="/images/hero-background.jpg"
+                src="/images/hero-backgrounds.jpg"
                 alt="Ojasen Healing Arts Sanctuary"
                 className="object-cover w-full h-full"
               />
             </video>
           ) : (
             <img
-              src="/images/hero-background.jpg"
+              src="/images/hero-backgrounds.jpg"
               alt="Ojasen Healing Arts Sanctuary"
               className="object-cover w-full h-full"
             />
