@@ -62,9 +62,9 @@ export default function BookingPage() {
     if (session?.user) {
       setFormData((prev) => ({
         ...prev,
-        name: session.user.name || "",
-        email: session.user.email || "",
-        phone: prev.phone, // Keep existing phone if already entered
+        // name: session.user.name || "",
+        // email: session.user.email || "",
+        // phone: prev.phone, // Keep existing phone if already entered
       }));
     }
   }, [session]);
