@@ -128,7 +128,7 @@ export function Navigation() {
                 className="object-contain"
                 style={{
                   // marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
-                  marginTop: isHomePage && !scrolled ? "90px" : "0",
+                  marginTop: isHomePage && !scrolled ? "60px" : "0",
                 }}
               />
             </div>
