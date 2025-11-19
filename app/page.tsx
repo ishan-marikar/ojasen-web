@@ -667,7 +667,7 @@ function PanchaliSaadhanEvent() {
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
           <Image
-            src="/images/hero-fantasy.png"
+            src="/images/panchali.jpeg"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover"
@@ -677,7 +677,7 @@ function PanchaliSaadhanEvent() {
         </div>
         <div className="md:hidden">
           <Image
-            src="/images/hero-fantasy-mobile.png"
+            src="/images/panchali.jpeg"
             alt="Panchali Saadhan Background"
             fill
             className="object-cover"
