@@ -482,8 +482,8 @@ export default function BookingPage() {
                     >
                       Phone Number
                     </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-primary" />
+                    <div className="relative flex items-center">
+                      <Phone className="absolute left-3 h-5 w-5 text-primary" />
                       <input
                         type="tel"
                         id="phone"
@@ -495,13 +495,13 @@ export default function BookingPage() {
                         placeholder="Enter your phone number"
                         autoComplete="tel"
                       />
-                      {isNonAnonymousUser && (
-                        <p className="mt-2 text-sm text-gray-500">
-                          To update your phone number, please visit your profile
-                          settings.
-                        </p>
-                      )}
                     </div>
+                    {isNonAnonymousUser && (
+                      <p className="mt-2 text-sm text-gray-500">
+                        To update your phone number, please visit your profile
+                        settings.
+                      </p>
+                    )}
                   </div>
 
                   {selectedEvent && (
