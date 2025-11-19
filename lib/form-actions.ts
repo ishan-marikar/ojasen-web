@@ -209,7 +209,10 @@ export async function submitBookingForm(formData: {
       // For example, you could queue the message for retry or send an email notification
     }
 
-    // Redirect to success page or back to form
+    // Redirect to customer dashboard after successful booking
+    redirect('/dashboard');
+    
+    // This line will never be reached due to redirect
     return { success: true };
   } catch (error) {
     console.error("Error in submitBookingForm:", error);
@@ -266,7 +269,10 @@ export async function submitContactForm(formData: {
       // In a real application, you might want to handle this error more gracefully
     }
 
-    // Redirect to success page or back to form
+    // Redirect to customer dashboard after successful contact form submission
+    redirect('/dashboard');
+    
+    // This line will never be reached due to redirect
     return { success: true };
   } catch (error) {
     console.error("Error in submitContactForm:", error);
@@ -355,6 +361,10 @@ export async function updateUserProfile(formData: {
       // In a real application, you might want to handle this error more gracefully
     }
 
+    // Redirect to customer dashboard after successful profile update
+    redirect('/dashboard');
+    
+    // This line will never be reached due to redirect
     return { success: true, user: updatedUser };
   } catch (error) {
     console.error("Error in updateUserProfile:", error);
