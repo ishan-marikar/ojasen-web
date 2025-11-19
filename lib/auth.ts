@@ -20,8 +20,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8,
+    resetPasswordPath: "/reset-password",
     sendResetPassword: async ({ user, url, token }) => {
-      AuthLogger.info("Password reset requested", { userId: user.id, email: user.email });
+      AuthLogger.info("Password reset requested", { userId: user.id, email: user.email, resetUrl: url });
+      console.log("Reset URL being sent:", url); // Log the reset URL for debugging
       try {
         await EmailService.sendPasswordResetEmail(user.email, url);
         AuthLogger.info("Password reset email sent successfully", { userId: user.id, email: user.email });

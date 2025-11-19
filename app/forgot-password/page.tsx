@@ -21,6 +21,7 @@ export default function ForgotPasswordPage() {
       const res = await forgetPassword(
         {
           email,
+          redirectTo: "/reset-password", // Use redirectTo instead of callbackURL
         },
         {
           onSuccess: () => {

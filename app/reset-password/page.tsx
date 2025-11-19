@@ -15,6 +15,7 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+  const callbackURL = searchParams.get("callbackURL"); // Get callbackURL parameter
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

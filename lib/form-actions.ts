@@ -134,10 +134,21 @@ export async function submitBookingForm(formData: {
           // For anonymous users or when email doesn't match, update the email
           // This handles the case where an anonymous user provides a new email
           if (session.user.email !== formData.email) {
-            updateData.email = formData.email;
-            // Also mark as non-anonymous if they provided a real email
-            if (session.user.isAnonymous) {
-              updateData.isAnonymous = false;
+            // Check if the email already exists
+            const existingUser = await prisma.user.findUnique({
+              where: { email: formData.email }
+            });
+            
+            if (existingUser && existingUser.id !== session.user.id) {
+              // If email exists for a different user, don't update the email
+              console.warn("Email already exists for another user, skipping email update");
+            } else {
+              // If email is unique or belongs to the same user, update it
+              updateData.email = formData.email;
+              // Also mark as non-anonymous if they provided a real email
+              if (session.user.isAnonymous) {
+                updateData.isAnonymous = false;
+              }
             }
           }
           
@@ -301,16 +312,32 @@ export async function updateUserProfile(formData: {
       return { success: false, error: "User not authenticated" };
     }
 
+    // Check if the email is being changed and if the new email already exists
+    let updateData: any = {
+      name: formData.name,
+      phone: formData.phone,
+      emergencyContactName: formData.emergencyContactName,
+      emergencyContactPhone: formData.emergencyContactPhone,
+    };
+
+    // Only check for email uniqueness if the email is being changed
+    if (formData.email !== session.user.email) {
+      const existingUser = await prisma.user.findUnique({
+        where: { email: formData.email }
+      });
+
+      if (existingUser) {
+        return { success: false, error: "Email already exists. Please use a different email." };
+      }
+      
+      // If email is unique, add it to update data
+      updateData.email = formData.email;
+    }
+
     // Update user in the database with all profile information
     const updatedUser = await prisma.user.update({
       where: { id: session.user.id },
-      data: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        emergencyContactName: formData.emergencyContactName,
-        emergencyContactPhone: formData.emergencyContactPhone,
-      },
+      data: updateData,
     });
 
     // Prepare webhook data for profile update notification
@@ -337,13 +364,13 @@ export async function updateUserProfile(formData: {
             },
             {
               name: "Phone",
-              value: formData.phone || "Not provided",
+              value: updatedUser.phone || "Not provided",
               inline: true,
             },
             {
               name: "Emergency Contact",
-              value: formData.emergencyContactName 
-                ? `${formData.emergencyContactName} (${formData.emergencyContactPhone || "No phone"})` 
+              value: updatedUser.emergencyContactName 
+                ? `${updatedUser.emergencyContactName} (${updatedUser.emergencyContactPhone || "No phone"})` 
                 : "Not provided",
               inline: false,
             },
