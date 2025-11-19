@@ -65,21 +65,13 @@ export function Navigation() {
 
   // Determine which logo to show based on scroll state and page context
   const getLogoSrc = () => {
-    // Only show full logo on home page when not scrolled
-    if (isHomePage && !scrolled) {
-      return "/images/logo-full.png";
-    }
-    // On all other pages or when scrolled, show text logo
+    // Always use the text logo for consistency
     return "/images/logo-text.png";
   };
 
-  // Determine logo dimensions based on scroll state and page context
+  // Determine logo dimensions - now consistent across all states
   const getLogoDimensions = () => {
-    // Only use larger dimensions on home page when not scrolled
-    if (isHomePage && !scrolled) {
-      return { width: 100, height: 12 };
-    }
-    // On all other pages or when scrolled, use consistent dimensions
+    // Use consistent dimensions for all pages and states
     return { width: 160, height: 32 };
   };
 
@@ -116,9 +108,7 @@ export function Navigation() {
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
             <div
-              className={`transition-all duration-300 flex items-center ${
-                isHomePage && !scrolled ? "h-12" : "h-8"
-              }`}
+              className={`transition-all duration-300 flex items-center h-8`}
             >
               <img
                 src={logoSrc}
@@ -126,10 +116,6 @@ export function Navigation() {
                 width={width}
                 height={height}
                 className="object-contain"
-                style={{
-                  // marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
-                  marginTop: isHomePage && !scrolled ? "60px" : "0",
-                }}
               />
             </div>
           </Link>
@@ -189,10 +175,6 @@ export function Navigation() {
                 width={width}
                 height={height}
                 className="object-contain"
-                style={{
-                  // marginTop: isHomePage && !scrolled ? "1.5rem" : "0",
-                  marginTop: isHomePage && !scrolled ? "40px" : "0",
-                }}
               />
             </div>
           </Link>
