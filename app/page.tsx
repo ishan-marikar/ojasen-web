@@ -400,7 +400,7 @@ function Schedule() {
                         src={healer.image}
                         alt={healer.name}
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
                       />
                     </div>
                     <div>

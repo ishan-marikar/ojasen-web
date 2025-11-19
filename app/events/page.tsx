@@ -122,7 +122,7 @@ function EventCard({
             src={image}
             alt={title}
             fill
-            className="object-cover rounded-t-4xl"
+            className="object-cover object-top rounded-t-4xl"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>

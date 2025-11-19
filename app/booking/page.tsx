@@ -304,7 +304,7 @@ export default function BookingPage() {
                   <img
                     src={selectedEvent.image}
                     alt={selectedEvent.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
                 <h3 className="text-xl font-light text-[#191d18] mb-4">

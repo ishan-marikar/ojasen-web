@@ -65,7 +65,7 @@ export default function EventDetailPage() {
                 src={event.image}
                 alt={event.title}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
