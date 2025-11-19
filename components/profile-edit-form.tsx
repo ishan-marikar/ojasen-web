@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { updateUserProfile } from "@/lib/form-actions";
 import Link from "next/link";
+import { forgetPassword } from "@/lib/auth-client"; // Import forgetPassword for password reset
 
 interface User {
   id: string;
@@ -10,6 +11,7 @@ interface User {
   email: string;
   // Make role optional since it might not be in the session user object
   role?: string;
+  isAnonymous?: boolean | null; // Add isAnonymous property
 }
 
 interface FormData {
@@ -31,6 +33,7 @@ export function ProfileEditForm({
   initialEmergencyContactName?: string;
   initialEmergencyContactPhone?: string;
 }) {
+  console.log("ProfileEditForm received user:", user);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: user.name || "",
@@ -43,6 +46,10 @@ export function ProfileEditForm({
     type: "success" | "error";
     message: string;
   } | null>(null);
+  // State for password reset functionality
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [resetMessage, setResetMessage] = useState<string | null>(null);
+  const [resetError, setResetError] = useState<string | null>(null);
 
   // Update form data when initial values change
   useEffect(() => {
@@ -108,6 +115,63 @@ export function ProfileEditForm({
     }
   };
 
+  // Handle password reset for anonymous users
+  const handlePasswordReset = async () => {
+    console.log("Attempting password reset for user:", user);
+
+    if (!user.email) {
+      setResetError("Email is required to reset password");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+      setResetError("You need to set your email first.");
+      return;
+    }
+
+    setIsResettingPassword(true);
+    setResetMessage(null);
+    setResetError(null);
+
+    try {
+      console.log("Calling forgetPassword with email:", user.email);
+      const res = await forgetPassword(
+        {
+          email: user.email,
+          redirectTo: "/reset-password",
+        },
+        {
+          onSuccess: () => {
+            setResetMessage(
+              "Password reset email sent. Please check your inbox."
+            );
+          },
+        }
+      );
+      console.log("forgetPassword response:", res);
+
+      if (res.error) {
+        console.error("forgetPassword error:", res.error);
+        setResetError(
+          res.error.message || "Failed to send password reset email"
+        );
+      }
+    } catch (err: any) {
+      console.error("forgetPassword exception:", err);
+      // Check if this is a redirect error from Next.js
+      if (err?.digest?.includes("NEXT_REDIRECT")) {
+        // This is expected behavior - the redirect was successful
+        setResetMessage("Password reset email sent. Please check your inbox.");
+      } else {
+        setResetError("An unexpected error occurred. Please try again.");
+      }
+    } finally {
+      setIsResettingPassword(false);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
       {/* Feedback Message */}
@@ -134,6 +198,37 @@ export function ProfileEditForm({
           {isEditing ? "Cancel" : "Edit Profile"}
         </button>
       </div>
+
+      {/* Password Reset Alert for Anonymous Users */}
+      {user.isAnonymous && (
+        <div className="mb-6 p-4 rounded-md bg-yellow-50 text-yellow-800">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h3 className="font-medium">Set a Password for Your Account</h3>
+              <p className="text-sm mt-1">
+                As an anonymous user, you haven't set a password yet. To secure
+                your account, please set a password by clicking the button
+                below.
+              </p>
+            </div>
+            <div className="mt-2 md:mt-0">
+              <button
+                onClick={handlePasswordReset}
+                disabled={isResettingPassword}
+                className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
+              >
+                {isResettingPassword ? "Sending..." : "Set Password"}
+              </button>
+            </div>
+          </div>
+          {resetMessage && (
+            <div className="mt-3 text-sm text-green-700">{resetMessage}</div>
+          )}
+          {resetError && (
+            <div className="mt-3 text-sm text-red-700">{resetError}</div>
+          )}
+        </div>
+      )}
 
       {isEditing ? (
         <form onSubmit={handleSubmit} className="space-y-6">
