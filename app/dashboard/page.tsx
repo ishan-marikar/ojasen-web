@@ -635,8 +635,8 @@ export default async function DashboardPage() {
                       {pastBookings.map((booking) => (
                         <tr key={booking.id}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                            <Link 
-                              href={`/bookings/${booking.id}`} 
+                            <Link
+                              href={`/bookings/${booking.id}`}
                               className="text-primary hover:underline"
                             >
                               {booking.eventName}
@@ -668,7 +668,8 @@ export default async function DashboardPage() {
               )}
               <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
                 <p className="text-blue-800 dark:text-blue-200 text-sm">
-                  <strong>Tip:</strong> Click on any booking name in the tables above to view detailed booking information.
+                  <strong>Tip:</strong> Click on any booking name in the tables
+                  above to view detailed booking information.
                 </p>
               </div>
             </div>

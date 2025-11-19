@@ -5,10 +5,19 @@ import { BookingService } from "@/lib/booking-service";
 import { getEventById } from "@/lib/event-data";
 import { Booking } from "@/lib/types";
 import Link from "next/link";
-import { Calendar, Clock, MapPin, User, Phone, Mail, Users, CreditCard } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  User,
+  Phone,
+  Mail,
+  Users,
+  CreditCard,
+} from "lucide-react";
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
 };
@@ -17,10 +26,14 @@ interface BookingWithEvent extends Booking {
   event?: ReturnType<typeof getEventById>;
 }
 
-export default async function BookingDetailsPage({ params }: { params: Promise<{ bookingId: string }> }) {
+export default async function BookingDetailsPage({
+  params,
+}: {
+  params: Promise<{ bookingId: string }>;
+}) {
   // Unwrap the params Promise
   const { bookingId } = await params;
-  
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -31,17 +44,20 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
 
   // Fetch booking details
   const bookingResult = await BookingService.getBookingById(bookingId);
-  
+
   if (!bookingResult.success || !bookingResult.booking) {
     return (
       <div className="min-h-screen bg-background font-body flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Booking Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Booking Not Found
+          </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            The booking you're looking for doesn't exist or you don't have permission to view it.
+            The booking you're looking for doesn't exist or you don't have
+            permission to view it.
           </p>
-          <Link 
-            href="/dashboard" 
+          <Link
+            href="/dashboard"
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
           >
             Back to Dashboard
@@ -52,18 +68,23 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
   }
 
   const booking = bookingResult.booking as BookingWithEvent;
-  
+
   // Verify that the booking belongs to the current user
-  if (booking.userId !== session.user.id && booking.customerEmail !== session.user.email) {
+  if (
+    booking.userId !== session.user.id &&
+    booking.customerEmail !== session.user.email
+  ) {
     return (
       <div className="min-h-screen bg-background font-body flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Access Denied</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Access Denied
+          </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             You don't have permission to view this booking.
           </p>
-          <Link 
-            href="/dashboard" 
+          <Link
+            href="/dashboard"
             className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
           >
             Back to Dashboard
@@ -128,8 +149,13 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
                   Booking ID: {booking.id}
                 </p>
               </div>
-              <span className={`mt-4 md:mt-0 px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full ${getStatusColor(booking.status)}`}>
-                {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+              <span
+                className={`mt-4 md:mt-0 px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full ${getStatusColor(
+                  booking.status
+                )}`}
+              >
+                {booking.status.charAt(0).toUpperCase() +
+                  booking.status.slice(1)}
               </span>
             </div>
 
@@ -140,58 +166,71 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                     Event Information
                   </h3>
-                  
+
                   {booking.event ? (
                     <div className="space-y-4">
                       <div className="flex items-start">
                         <Calendar className="h-5 w-5 text-primary mt-1 mr-3" />
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Date</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Date
+                          </p>
                           <p className="font-medium text-gray-900 dark:text-white">
-                            {new Date(booking.eventDate).toLocaleDateString('en-US', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
+                            {new Date(booking.eventDate).toLocaleDateString(
+                              "en-US",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start">
                         <Clock className="h-5 w-5 text-primary mt-1 mr-3" />
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Time</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Time
+                          </p>
                           <p className="font-medium text-gray-900 dark:text-white">
                             {booking.event.time}
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start">
                         <MapPin className="h-5 w-5 text-primary mt-1 mr-3" />
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Location
+                          </p>
                           <p className="font-medium text-gray-900 dark:text-white">
                             {booking.event.location}
                           </p>
                         </div>
                       </div>
-                      
+
                       {booking.event.price && (
                         <div className="flex items-start">
                           <CreditCard className="h-5 w-5 text-primary mt-1 mr-3" />
                           <div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">Price</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                              Price
+                            </p>
                             <p className="font-medium text-gray-900 dark:text-white">
                               {booking.event.price}
                             </p>
                           </div>
                         </div>
                       )}
-                      
+
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Description</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                          Description
+                        </p>
                         <p className="text-gray-900 dark:text-white">
                           {booking.event.description}
                         </p>
@@ -202,14 +241,19 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
                       <div className="flex items-start">
                         <Calendar className="h-5 w-5 text-primary mt-1 mr-3" />
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Date</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Date
+                          </p>
                           <p className="font-medium text-gray-900 dark:text-white">
-                            {new Date(booking.eventDate).toLocaleDateString('en-US', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
+                            {new Date(booking.eventDate).toLocaleDateString(
+                              "en-US",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
                           </p>
                         </div>
                       </div>
@@ -217,60 +261,70 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
                   )}
                 </div>
               </div>
-              
+
               {/* Booking Details */}
               <div>
                 <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                     Booking Information
                   </h3>
-                  
+
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <User className="h-5 w-5 text-primary mt-1 mr-3" />
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Name</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Name
+                        </p>
                         <p className="font-medium text-gray-900 dark:text-white">
                           {booking.customerName}
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start">
                       <Mail className="h-5 w-5 text-primary mt-1 mr-3" />
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Email
+                        </p>
                         <p className="font-medium text-gray-900 dark:text-white">
                           {booking.customerEmail}
                         </p>
                       </div>
                     </div>
-                    
+
                     {booking.customerPhone && (
                       <div className="flex items-start">
                         <Phone className="h-5 w-5 text-primary mt-1 mr-3" />
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Phone
+                          </p>
                           <p className="font-medium text-gray-900 dark:text-white">
                             {booking.customerPhone}
                           </p>
                         </div>
                       </div>
                     )}
-                    
+
                     <div className="flex items-start">
                       <Users className="h-5 w-5 text-primary mt-1 mr-3" />
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Participants</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Participants
+                        </p>
                         <p className="font-medium text-gray-900 dark:text-white">
                           {booking.numberOfPeople}
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
                       <div className="flex justify-between">
-                        <p className="text-gray-600 dark:text-gray-400">Total</p>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Total
+                        </p>
                         <p className="font-bold text-lg text-gray-900 dark:text-white">
                           LKR {booking.totalPrice.toLocaleString()}
                         </p>
@@ -278,7 +332,7 @@ export default async function BookingDetailsPage({ params }: { params: Promise<{
                     </div>
                   </div>
                 </div>
-                
+
                 {booking.specialRequests && (
                   <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mt-6">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
