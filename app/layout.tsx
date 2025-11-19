@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} antialiased bg-[#f7faf6]`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>
