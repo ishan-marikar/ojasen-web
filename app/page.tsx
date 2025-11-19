@@ -696,7 +696,7 @@ function PanchaliSaadhanEvent() {
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20 backdrop-blur-sm p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto ">
+        <div className="bg-black/20 backdrop-blur-sm p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto rounded-2xl">
           <div className="flex justify-center space-x-4 sm:space-x-6">
             <div className="text-center">
               <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
