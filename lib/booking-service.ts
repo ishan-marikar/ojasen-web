@@ -12,6 +12,13 @@ const prisma = new PrismaClient();
 
 // Function to send data to Discord webhook
 async function sendToDiscordWebhook(data: any) {
+  // Disable Discord notifications in development mode
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Discord notifications are disabled in development mode.");
+    console.log("Data that would have been sent to Discord:", JSON.stringify(data, null, 2));
+    return { success: true };
+  }
+
   const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
   
   // If no webhook URL is configured, log to console and return success
@@ -45,6 +52,23 @@ export class BookingService {
   // Create a new booking
   static async createBooking(bookingData: Omit<AppBooking, 'id' | 'bookingDate' | 'status'>) {
     try {
+      // Validate required fields
+      if (!bookingData.eventId || !bookingData.customerName || !bookingData.customerEmail) {
+        throw new Error("Missing required booking information");
+      }
+      
+      // Log booking data for debugging (excluding sensitive information)
+      console.log("Creating booking with data:", {
+        eventId: bookingData.eventId,
+        eventName: bookingData.eventName,
+        customerName: bookingData.customerName,
+        customerEmail: bookingData.customerEmail,
+        hasUserId: !!bookingData.userId,
+        userId: bookingData.userId ? "[REDACTED]" : null, // Don't log actual user IDs for security
+        numberOfPeople: bookingData.numberOfPeople,
+        totalPrice: bookingData.totalPrice
+      });
+      
       const newBooking = await prisma.booking.create({
         data: {
           id: `booking_${Date.now()}`,
@@ -64,6 +88,17 @@ export class BookingService {
           facilitatorName: bookingData.facilitatorName,
           userId: bookingData.userId,
         },
+      });
+      
+      // Log for debugging
+      console.log("Created booking:", {
+        id: newBooking.id,
+        eventId: newBooking.eventId,
+        customerName: newBooking.customerName,
+        customerEmail: newBooking.customerEmail,
+        hasUserId: !!newBooking.userId,
+        userId: newBooking.userId ? "[REDACTED]" : null, // Don't log actual user IDs for security
+        bookingDate: newBooking.bookingDate
       });
       
       return { success: true, booking: newBooking };
@@ -183,6 +218,21 @@ export class BookingService {
       return { success: true, bookings };
     } catch (error) {
       console.error("Error fetching customer bookings:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    }
+  }
+
+  // Get bookings by user ID
+  static async getBookingsByUserId(userId: string) {
+    try {
+      const bookings = await prisma.booking.findMany({
+        where: { userId: userId },
+        orderBy: { bookingDate: 'desc' },
+      });
+      
+      return { success: true, bookings };
+    } catch (error) {
+      console.error("Error fetching user bookings by ID:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }

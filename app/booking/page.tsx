@@ -57,14 +57,28 @@ export default function BookingPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Pre-fill form data for authenticated users
+  // Determine if user is anonymous
+  const isAnonymousUser = session?.user?.isAnonymous ?? true;
+  const isNonAnonymousUser = session?.user && !session.user.isAnonymous;
+
+  // Debug logging
   useEffect(() => {
     if (session?.user) {
+      console.log("User session data:", session.user);
+      console.log("isAnonymousUser:", isAnonymousUser);
+      console.log("isNonAnonymousUser:", isNonAnonymousUser);
+    }
+  }, [session, isAnonymousUser, isNonAnonymousUser]);
+
+  // Pre-fill form data for authenticated users
+  useEffect(() => {
+    if (session?.user && !session.user.isAnonymous) {
       setFormData((prev) => ({
         ...prev,
-        // name: session.user.name || "",
-        // email: session.user.email || "",
-        // phone: prev.phone, // Keep existing phone if already entered
+        name: session.user.name || prev.name,
+        email: session.user.email || prev.email,
+        // Keep existing phone if already entered, otherwise use user's phone if available
+        phone: prev.phone || "", // We'll get phone from user profile in a separate call if needed
       }));
     }
   }, [session]);
@@ -123,8 +137,8 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // If no event selected, don't submit
-    if (!selectedEvent) return;
+    // NOTE: We no longer prevent submission when no event is selected
+    // This allows for general inquiries to be submitted
 
     setIsSubmitting(true);
 
@@ -132,7 +146,7 @@ export default function BookingPage() {
       // Submit form data using server action
       const result = await submitBookingForm({
         ...formData,
-        event: selectedEvent,
+        event: selectedEvent || undefined, // Pass undefined if no event selected
       });
 
       if (result.success) {
@@ -421,7 +435,12 @@ export default function BookingPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
+                        disabled={isNonAnonymousUser}
+                        className={`w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg ${
+                          isNonAnonymousUser
+                            ? "bg-gray-100 text-gray-500 cursor-not-allowed"
+                            : "bg-white"
+                        }`}
                         placeholder="Enter your full name"
                         autoComplete="name"
                       />
@@ -444,7 +463,12 @@ export default function BookingPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
+                        disabled={isNonAnonymousUser}
+                        className={`w-full pl-10 pr-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg ${
+                          isNonAnonymousUser
+                            ? "bg-gray-100 text-gray-500 cursor-not-allowed"
+                            : "bg-white"
+                        }`}
                         placeholder="Enter your email"
                         autoComplete="email"
                       />
@@ -471,6 +495,12 @@ export default function BookingPage() {
                         placeholder="Enter your phone number"
                         autoComplete="tel"
                       />
+                      {isNonAnonymousUser && (
+                        <p className="mt-2 text-sm text-gray-500">
+                          To update your phone number, please visit your profile
+                          settings.
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -524,11 +554,11 @@ export default function BookingPage() {
 
                   <button
                     type="submit"
-                    disabled={!selectedEvent || isSubmitting}
+                    disabled={isSubmitting}
                     className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px] ${
                       selectedEvent
                         ? "bg-primary hover:bg-[#5a786d] text-white"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-gray-300 text-gray-500"
                     }`}
                   >
                     {isSubmitting

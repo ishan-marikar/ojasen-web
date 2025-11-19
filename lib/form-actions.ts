@@ -61,10 +61,14 @@ export async function submitBookingForm(formData: {
   };
 }) {
   try {
-    // Get the current user session
+    // Get the current user session - FIXED VERSION
+    // The previous approach with empty cookie header doesn't work in form actions
+    // We need to get the session from the request context
     const session = await auth.api.getSession({
-      headers: { cookie: "" }, // Empty cookie header for server-side calls
+      headers: await (await import('next/headers')).headers(),
     });
+    
+    console.log("Session data retrieved:", session);
     
     // Create booking in our system
     if (formData.event) {
@@ -111,6 +115,40 @@ export async function submitBookingForm(formData: {
       
       if (!bookingResult.success) {
         console.error("Failed to create booking:", bookingResult.error);
+      }
+      
+      // Update user profile with phone number when a booking is made
+      if (session?.user?.id) {
+        try {
+          // Update user profile with information from booking form
+          // We update name, phone, and email for both regular and anonymous users
+          const updateData: any = {
+            phone: formData.phone || undefined,
+          };
+          
+          // Only update name if it's different from the current name and not empty
+          if (formData.name && formData.name !== session.user.name) {
+            updateData.name = formData.name;
+          }
+          
+          // For anonymous users or when email doesn't match, update the email
+          // This handles the case where an anonymous user provides a new email
+          if (session.user.email !== formData.email) {
+            updateData.email = formData.email;
+            // Also mark as non-anonymous if they provided a real email
+            if (session.user.isAnonymous) {
+              updateData.isAnonymous = false;
+            }
+          }
+          
+          await prisma.user.update({
+            where: { id: session.user.id },
+            data: updateData,
+          });
+        } catch (profileError) {
+          console.error("Failed to update user profile with booking information:", profileError);
+          // Don't fail the booking if profile update fails
+        }
       }
     }
 
@@ -245,9 +283,11 @@ export async function updateUserProfile(formData: {
   emergencyContactPhone?: string;
 }) {
   try {
-    // Get the current user session
+    // Get the current user session - FIXED VERSION
+    // The previous approach with empty cookie header doesn't work in form actions
+    // We need to get the session from the request context
     const session = await auth.api.getSession({
-      headers: { cookie: "" }, // Empty cookie header for server-side calls
+      headers: await (await import('next/headers')).headers(),
     });
 
     // Check if user is authenticated

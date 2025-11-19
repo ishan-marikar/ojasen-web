@@ -297,16 +297,91 @@ export default async function DashboardPage() {
     // Regular user profile page - ENHANCED VERSION
     AuthLogger.info("User profile accessed", { userId: session.user.id });
 
+    // Log user session data for debugging
+    console.log("User session data:", session.user);
+
     // Get user bookings
     let userBookings: Booking[] = [];
     try {
+      // Log the user information for debugging
+      console.log("Fetching bookings for user:", {
+        id: session.user.id,
+        email: session.user.email,
+        isAnonymous: session.user.isAnonymous,
+      });
+
       // Get bookings by user email
       const bookingsResult = await BookingService.getBookingsByCustomerEmail(
         session.user.email
       );
       if (bookingsResult.success) {
         userBookings = bookingsResult.bookings || [];
+        console.log(
+          "Found",
+          userBookings.length,
+          "bookings by email for user",
+          session.user.email
+        );
       }
+
+      // If no bookings found by email and user has an ID, try by user ID as fallback
+      if (userBookings.length === 0 && session.user.id) {
+        console.log(
+          "No bookings found by email, trying by user ID:",
+          session.user.id
+        );
+        const bookingsByIdResult = await BookingService.getBookingsByUserId(
+          session.user.id
+        );
+        if (bookingsByIdResult.success) {
+          userBookings = bookingsByIdResult.bookings || [];
+          console.log("Found", userBookings.length, "bookings by user ID");
+
+          // Log details of bookings found by user ID for debugging
+          if (userBookings.length > 0) {
+            console.log(
+              "Bookings found by user ID:",
+              userBookings.map((b) => ({
+                id: b.id,
+                eventId: b.eventId,
+                customerEmail: b.customerEmail,
+                userId: b.userId,
+              }))
+            );
+          }
+        }
+      }
+
+      // Additional verification: if we have a user ID, also fetch by user ID and merge results
+      // This ensures we don't miss any bookings that might be associated with the user ID but not email
+      if (session.user.id) {
+        const bookingsByIdResult = await BookingService.getBookingsByUserId(
+          session.user.id
+        );
+        if (bookingsByIdResult.success && bookingsByIdResult.bookings) {
+          // Merge bookings, avoiding duplicates
+          const existingBookingIds = new Set(userBookings.map((b) => b.id));
+          const additionalBookings = bookingsByIdResult.bookings.filter(
+            (booking) => !existingBookingIds.has(booking.id)
+          );
+
+          if (additionalBookings.length > 0) {
+            console.log(
+              "Found",
+              additionalBookings.length,
+              "additional bookings by user ID"
+            );
+            userBookings = [...userBookings, ...additionalBookings];
+          }
+        }
+      }
+
+      // Log for debugging purposes
+      console.log(
+        "Final fetched bookings for user:",
+        session.user.email,
+        userBookings.length
+      );
     } catch (error) {
       console.error("Error fetching user bookings:", error);
     }
@@ -372,9 +447,11 @@ export default async function DashboardPage() {
       <div className="min-h-screen bg-background font-body">
         <header className="bg-white dark:bg-black shadow">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <h1 className="text-3xl font-semibold leading-10 tracking-tight text-primary">
-              My Wellness Profile
-            </h1>
+            <Link href="/">
+              <h1 className="text-3xl font-semibold leading-10 tracking-tight text-primary">
+                My Wellness Profile
+              </h1>
+            </Link>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
               <div className="flex items-center space-x-4">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">

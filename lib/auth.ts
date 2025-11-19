@@ -99,6 +99,7 @@ export const auth = betterAuth({
       return {
         ...data,
         role: data.role || "user", // Default to "user" if no role is set
+        isAnonymous: data.isAnonymous || false, // Include isAnonymous flag in session data
       };
     },
   },

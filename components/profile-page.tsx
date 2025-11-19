@@ -92,7 +92,7 @@ export function ProfilePage({ user, userBookings }: ProfilePageProps) {
             ) : bookings.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-gray-600 dark:text-gray-400">
-                  You haven't made any bookings yet.
+                  You don't have any past bookings.
                 </p>
               </div>
             ) : (
