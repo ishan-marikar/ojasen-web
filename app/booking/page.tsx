@@ -172,8 +172,8 @@ export default function BookingPage() {
       // Check if this is a redirect error from Next.js server actions
       if (error?.digest?.includes("NEXT_REDIRECT")) {
         // This is expected behavior - the redirect was successful
-        // The page will automatically navigate to the dashboard
-        setIsSubmitted(true);
+        // Use hard redirect to dashboard
+        window.location.href = "/dashboard";
         return;
       }
 

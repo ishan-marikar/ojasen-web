@@ -158,7 +158,7 @@ function EventCard({
         </div>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <div className="relative">
-            <button
+            {/* <button
               id={`calendar-button-${id}`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -169,7 +169,7 @@ function EventCard({
               aria-label="Add to calendar"
             >
               <CalendarPlus className="h-5 w-5" />
-            </button>
+            </button> */}
             {showCalendarDropdown && fullEvent && (
               <div
                 id={`calendar-dropdown-${id}`}
