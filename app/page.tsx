@@ -527,8 +527,8 @@ function Footer() {
 function EventsSection() {
   return (
     <>
-      <div className="py-20 px-6 bg-[#f7faf6]">
-        <div className="max-w-6xl mx-auto">
+      <div className="">
+        <div className=" mx-auto">
           {/* <div className="text-center mb-16">
             <span className="text-sm uppercase font-medium tracking-wider text-primary">
               Upcoming Events
@@ -542,7 +542,7 @@ function EventsSection() {
             </p>
           </div> */}
 
-          <div className="space-y-12">
+          <div className="">
             <AnahataFlowEvent />
             <PanchaliSaadhanEvent />
           </div>
@@ -562,7 +562,7 @@ function EventsSection() {
 
 function AnahataFlowEvent() {
   return (
-    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat relative overflow-hidden rounded-3xl">
+    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat relative overflow-hidden">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
@@ -570,7 +570,7 @@ function AnahataFlowEvent() {
             src="/images/sound-healing.jpg"
             alt="Anahata Flow Background"
             fill
-            className="object-cover rounded-3xl"
+            className="object-cover"
             priority
             sizes="100vw"
           />
@@ -580,13 +580,13 @@ function AnahataFlowEvent() {
             src="/images/sound-healing.jpg"
             alt="Anahata Flow Background"
             fill
-            className="object-cover rounded-3xl"
+            className="object-cover"
             priority
             sizes="100vw"
           />
         </div>
       </div>
-      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
       {/* Floating decorative elements removed for clearer design */}{" "}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <Link href="/events/anahata-flow">
@@ -596,7 +596,7 @@ function AnahataFlowEvent() {
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto">
+        <div className="bg-black/20 backdrop-blur-sm p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto rounded-2xl">
           <div className="flex justify-center space-x-4 sm:space-x-6">
             <div className="text-center">
               <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
@@ -662,7 +662,7 @@ function AnahataFlowEvent() {
 
 function PanchaliSaadhanEvent() {
   return (
-    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden rounded-3xl">
+    <div className="py-16 px-4 sm:py-20 sm:px-6 bg-auto bg-no-repeat bg-center relative overflow-hidden">
       {/* Replace CSS background with Next.js Image component */}
       <div className="absolute inset-0 w-full h-full">
         <div className="hidden md:block">
@@ -670,7 +670,7 @@ function PanchaliSaadhanEvent() {
             src="/images/hero-fantasy.png"
             alt="Panchali Saadhan Background"
             fill
-            className="object-cover rounded-3xl"
+            className="object-cover"
             priority
             sizes="100vw"
           />
@@ -680,13 +680,13 @@ function PanchaliSaadhanEvent() {
             src="/images/hero-fantasy-mobile.png"
             alt="Panchali Saadhan Background"
             fill
-            className="object-cover rounded-3xl"
+            className="object-cover"
             priority
             sizes="100vw"
           />
         </div>
       </div>
-      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
       {/* Floating decorative elements removed for clearer design */}{" "}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <Link href="/events/panchali-saadhan">
@@ -696,7 +696,7 @@ function PanchaliSaadhanEvent() {
         </Link>
 
         {/* Event details card */}
-        <div className="bg-black/20  rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto">
+        <div className="bg-black/20 backdrop-blur-sm p-4 sm:p-6 mb-6 sm:mb-8 border border-white/10 max-w-md mx-auto ">
           <div className="flex justify-center space-x-4 sm:space-x-6">
             <div className="text-center">
               <div className="text-white text-xs sm:text-sm uppercase tracking-wider mb-1">
