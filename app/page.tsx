@@ -543,7 +543,7 @@ function EventsSection() {
           </div> */}
 
           <div className="">
-            <AnahataFlowEvent />
+            {/* <AnahataFlowEvent /> */}
             <PanchaliSaadhanEvent />
           </div>
 
