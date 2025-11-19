@@ -88,7 +88,19 @@ export function ProfileEditForm({
             result.error || "Failed to update profile. Please try again.",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
+      // Check if this is a redirect error from Next.js server actions
+      if (error?.digest?.includes("NEXT_REDIRECT")) {
+        // This is expected behavior - the redirect was successful
+        // The page will automatically navigate to the dashboard
+        setFeedback({
+          type: "success",
+          message: "Profile updated successfully!",
+        });
+        setIsEditing(false);
+        return;
+      }
+
       setFeedback({
         type: "error",
         message: "Failed to update profile. Please try again.",

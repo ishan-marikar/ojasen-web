@@ -168,7 +168,15 @@ export default function BookingPage() {
         console.error("Form submission failed:", result.error);
         // Handle error - maybe show a message to the user
       }
-    } catch (error) {
+    } catch (error: any) {
+      // Check if this is a redirect error from Next.js server actions
+      if (error?.digest?.includes("NEXT_REDIRECT")) {
+        // This is expected behavior - the redirect was successful
+        // The page will automatically navigate to the dashboard
+        setIsSubmitted(true);
+        return;
+      }
+
       console.error("Form submission error:", error);
       // Handle error - maybe show a message to the user
     } finally {
@@ -555,11 +563,7 @@ export default function BookingPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full rounded-lg uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px] ${
-                      selectedEvent
-                        ? "bg-primary hover:bg-[#5a786d] text-white"
-                        : "bg-gray-300 text-gray-500"
-                    }`}
+                    className="w-full rounded-lg bg-primary hover:bg-[#5a786d] text-white uppercase px-6 py-4 text-sm font-medium transition-colors duration-300 min-h-[44px]"
                   >
                     {isSubmitting
                       ? "Submitting..."
