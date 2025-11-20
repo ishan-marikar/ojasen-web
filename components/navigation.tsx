@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
+import { trackNavigation } from "@/lib/analytics";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -130,6 +131,7 @@ export function Navigation() {
                     ? "text-white hover:text-accent"
                     : "text-white hover:text-accent"
                 }`}
+                onClick={() => trackNavigation("Account")}
               >
                 <User size={20} />
               </Link>
@@ -141,6 +143,7 @@ export function Navigation() {
                     ? "text-white hover:text-accent"
                     : "text-white hover:text-accent"
                 }`}
+                onClick={() => trackNavigation("Sign In")}
               >
                 <User size={20} />
               </Link>
@@ -234,7 +237,10 @@ export function Navigation() {
               key={link.name}
               href={link.href}
               className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                trackNavigation(link.name);
+              }}
             >
               {link.name}
             </Link>
@@ -245,7 +251,10 @@ export function Navigation() {
             <Link
               href="/dashboard"
               className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium flex items-center mt-4"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                trackNavigation("Account");
+              }}
             >
               <User size={20} className="mr-2" />
               Account
@@ -255,14 +264,20 @@ export function Navigation() {
               <Link
                 href="/sign-in"
                 className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 border border-white/30 rounded-lg"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  trackNavigation("Sign In");
+                }}
               >
                 Sign In
               </Link>
               <Link
                 href="/sign-up"
                 className="text-xl  hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 bg-white text-primary rounded-lg"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  trackNavigation("Sign Up");
+                }}
               >
                 Sign Up
               </Link>

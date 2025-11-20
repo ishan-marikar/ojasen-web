@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
 import { AuthLogger } from "@/lib/auth-logger";
+import { trackAuthEvent } from "@/lib/analytics";
 
 export function SignInForm() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,7 @@ export function SignInForm() {
         {
           onSuccess: (ctx) => {
             AuthLogger.info("Sign in form success", { email });
+            trackAuthEvent("sign_in_success", "email");
             router.push("/dashboard");
             router.refresh();
           },

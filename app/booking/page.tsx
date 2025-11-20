@@ -15,6 +15,7 @@ import {
   generateYahooCalendarLink,
 } from "@/lib/calendar-utils";
 import { submitBookingForm } from "@/lib/form-actions";
+import { trackBookingEvent } from "@/lib/analytics";
 
 // Event data structure
 interface Event {
@@ -119,6 +120,7 @@ export default function BookingPage() {
 
   const handleEventSelect = (event: Event) => {
     setSelectedEvent(event);
+    trackBookingEvent("event_selected", event.title);
     // Scroll to booking form
     document
       .getElementById("booking-form")
@@ -151,6 +153,13 @@ export default function BookingPage() {
 
       if (result.success) {
         setIsSubmitted(true);
+
+        // Track booking event
+        if (selectedEvent) {
+          trackBookingEvent("booking_completed", selectedEvent.title);
+        } else {
+          trackBookingEvent("inquiry_submitted", "general");
+        }
 
         // Reset form after 3 seconds
         setTimeout(() => {

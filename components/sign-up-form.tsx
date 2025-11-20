@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
 import { AuthLogger } from "@/lib/auth-logger";
+import { trackAuthEvent } from "@/lib/analytics";
 
 export function SignUpForm() {
   const [name, setName] = useState("");
@@ -28,6 +29,7 @@ export function SignUpForm() {
         {
           onSuccess: (ctx) => {
             AuthLogger.info("Sign up form success", { email, name });
+            trackAuthEvent("sign_up_success", "email");
             router.push("/dashboard");
             router.refresh();
           },

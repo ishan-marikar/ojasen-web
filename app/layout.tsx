@@ -4,6 +4,7 @@ import { Marcellus, DM_Sans } from "next/font/google";
 import { Della_Respira, Julius_Sans_One } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/session-provider";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} antialiased bg-[#f7faf6]`}
       >

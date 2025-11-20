@@ -729,25 +729,17 @@ function PanchaliSaadhanEvent() {
             The journey weaves together a trauma-safe release ritual, an
             intention and manifest circle, sound healing with Oshi, lunar yoga
             and breathwork, energy clearing, and a symbolic fire offering to let
-            go of what no longer serves you. You'll be guided through gentle
-            New-Moon journaling, followed by a sisterhood sharing circle and a
-            grounding tea ritual to close the night with softness.
-          </p>
-          <p>
-            Panchali Sadhana is a sacred WOMEN'S gathering inspired by the
-            strength and grace of Panchali. This evening is crafted to help you
-            release emotional weight, reconnect with your heart, and step into a
-            new cycle with clarity and intention. The journey weaves together a
-            trauma-safe release ritual, an intention and manifest circle, sound
-            healing with Oshi, lunar yoga and breathwork, energy clearing, and a
-            symbolic fire offering to let go of what no longer serves you.
+            go of what no longer serves you.
           </p>
           <p>
             You'll be guided through gentle New-Moon journaling, followed by a
             sisterhood sharing circle and a grounding tea ritual to close the
-            night with softness. Panchali Sadhana is a space to be held, seen,
-            and supported — a return to your inner flame, your truth, and your
-            feminine wisdom. Come as you are. Leave renewed.
+            night with softness.
+          </p>
+          <p>
+            Panchali Sadhana is a space to be held, seen, and supported — a
+            return to your inner flame, your truth, and your feminine wisdom.
+            Come as you are. Leave renewed.
           </p>
         </div>
 

@@ -48,6 +48,10 @@ This project now uses PostgreSQL with Prisma ORM for full database persistence o
 
 All data is persisted in the database rather than using in-memory storage, making it suitable for production use.
 
+## Analytics
+
+This project includes Google Analytics tracking for page views, user interactions, and business events. See [GOOGLE_ANALYTICS.md](GOOGLE_ANALYTICS.md) for setup and implementation details.
+
 ## Prisma Setup
 
 This project uses Prisma as the database ORM. To set up the database:

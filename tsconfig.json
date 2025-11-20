@@ -1,4 +1,5 @@
 {
+  // TypeScript configuration for Next.js app
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
