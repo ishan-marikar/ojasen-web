@@ -5,6 +5,7 @@ import { Della_Respira, Julius_Sans_One } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/session-provider";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics />
+      <Analytics />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} antialiased bg-[#f7faf6]`}
       >
