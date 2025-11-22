@@ -1,76 +1,766 @@
 // app/admin/page.tsx
+"use client";
+
 import { AdminRoute } from "@/components/admin-route";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { AuthLogger } from "@/lib/auth-logger";
-import { BookingService, FacilitatorService } from "@/lib/booking-service";
-import { Facilitator, Booking } from "@/lib/types";
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { 
+  ChartContainer, 
+  ChartTooltip, 
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent
+} from "@/components/ui/chart";
+import { Bar, BarChart, Pie, PieChart, XAxis, YAxis, CartesianGrid, Cell, ResponsiveContainer, Line, LineChart } from "recharts";
 
-export default async function AdminPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+// Format currency
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('en-LK', {
+    style: 'currency',
+    currency: 'LKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
 
-  // Only allow admin users to access this page
-  if (!session || (session.user as any).role !== "admin") {
-    AuthLogger.warn("Unauthorized admin access attempt");
-    redirect("/sign-in");
-  }
+// Format percentage
+const formatPercentage = (value: number) => {
+  return `${value.toFixed(1)}%`;
+};
 
-  // Get all bookings and facilitators with proper error handling
-  let bookings: Booking[] = [];
-  let facilitators: Facilitator[] = [];
+export default function AdminPage() {
+  const [adminMetrics, setAdminMetrics] = useState<any>(null);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [facilitators, setFacilitators] = useState<any[]>([]);
 
-  try {
-    const bookingsResult = await BookingService.getAllBookings();
-    if (bookingsResult.success) {
-      bookings = bookingsResult.bookings || [];
-    }
+  // Simulate data fetching
+  useEffect(() => {
+    // In a real implementation, this would fetch from your API
+    setAdminMetrics({
+      totalRevenue: 550000,
+      totalFacilitatorCosts: 325000,
+      grossProfit: 225000,
+      outstandingInvoices: 25,
+      seasonBreakdown: {
+        "2025-Spring": { totalRevenue: 125000, facilitatorCosts: 75000, bookingCount: 32 },
+        "2025-Summer": { totalRevenue: 185000, facilitatorCosts: 110000, bookingCount: 48 },
+        "2025-Autumn": { totalRevenue: 95000, facilitatorCosts: 55000, bookingCount: 24 },
+        "2025-Winter": { totalRevenue: 145000, facilitatorCosts: 85000, bookingCount: 38 },
+      },
+      customerLifetimeValue: {
+        totalCustomers: 124,
+        avgCustomerLifetimeValue: 4435,
+        totalCustomerValue: 550000,
+      },
+      facilitatorLifetimeCost: {
+        totalFacilitators: 8,
+        avgFacilitatorLifetimeCost: 40625,
+        totalFacilitatorCost: 325000,
+      },
+      campaignPerformance: {
+        totalBookings: 142,
+        confirmedBookings: 102,
+        pendingBookings: 25,
+        cancellationRate: 10.6,
+      },
+      // Additional data based on NOTES.md
+      customerHistory: {
+        returningCustomers: 42,
+        newCustomers: 82,
+        customerRetentionRate: 33.9,
+      },
+      loyaltyProgram: {
+        activeVouchers: 15,
+        redeemedVouchers: 28,
+        campaignEngagement: 65.2,
+      },
+      revenueOverTime: [
+        { month: "Jan", revenue: 35000, profit: 15000 },
+        { month: "Feb", revenue: 42000, profit: 18000 },
+        { month: "Mar", revenue: 38000, profit: 16000 },
+        { month: "Apr", revenue: 45000, profit: 20000 },
+        { month: "May", revenue: 52000, profit: 24000 },
+        { month: "Jun", revenue: 48000, profit: 21000 },
+      ],
+    });
 
-    const facilitatorsResult = await FacilitatorService.getAllFacilitators();
-    if (facilitatorsResult.success) {
-      facilitators = facilitatorsResult.facilitators || [];
-    }
-  } catch (error) {
-    console.error("Error fetching admin data:", error);
-  }
+    setBookings([
+      {
+        id: "1",
+        eventName: "Panchali Sadhana",
+        customerName: "John Doe",
+        eventDate: new Date("2025-11-29"),
+        numberOfPeople: 2,
+        totalPrice: 8000,
+        status: "confirmed",
+        facilitator: "Oshadi",
+      },
+      {
+        id: "2",
+        eventName: "Anahata Flow",
+        customerName: "Jane Smith",
+        eventDate: new Date("2025-11-22"),
+        numberOfPeople: 1,
+        totalPrice: 3500,
+        status: "pending",
+        facilitator: "Alice",
+      },
+      {
+        id: "3",
+        eventName: "Sound Healing",
+        customerName: "Robert Johnson",
+        eventDate: new Date("2025-12-15"),
+        numberOfPeople: 3,
+        totalPrice: 10500,
+        status: "confirmed",
+        facilitator: "Deborah",
+      },
+    ]);
+
+    setFacilitators([
+      {
+        id: "1",
+        name: "Oshadi",
+        role: "Sound Healer",
+        email: "oshadi@ojasen.com",
+        baseFee: 2500,
+        commission: 0.15,
+        assignedBookings: 24,
+      },
+      {
+        id: "2",
+        name: "Alice",
+        role: "Yoga Instructor",
+        email: "alice@ojasen.com",
+        baseFee: 3000,
+        commission: 0.2,
+        assignedBookings: 18,
+      },
+      {
+        id: "3",
+        name: "Deborah",
+        role: "Energy Healer",
+        email: "deborah@ojasen.com",
+        baseFee: 2800,
+        commission: 0.18,
+        assignedBookings: 22,
+      },
+    ]);
+  }, []);
+
+  // Prepare data for charts
+  const seasonChartData = adminMetrics ? Object.entries(adminMetrics.seasonBreakdown).map(([season, data]: [string, any]) => ({
+    season,
+    revenue: data.totalRevenue,
+    costs: data.facilitatorCosts,
+  })) : [];
+
+  const performanceChartData = adminMetrics ? [
+    { name: "Confirmed", value: adminMetrics.campaignPerformance.confirmedBookings },
+    { name: "Pending", value: adminMetrics.campaignPerformance.pendingBookings },
+    { name: "Cancelled", value: Math.round(adminMetrics.campaignPerformance.totalBookings * adminMetrics.campaignPerformance.cancellationRate / 100) },
+  ] : [];
+
+  const revenueOverTimeData = adminMetrics ? adminMetrics.revenueOverTime : [];
+
+  // Define colors directly as they are defined in CSS
+  // Light mode colors from globals.css
+  const chartColors = {
+    chart1: "oklch(0.646 0.222 41.116)",   // Warm color
+    chart2: "oklch(0.6 0.118 184.704)",    // Cool blue-green
+    chart3: "oklch(0.398 0.07 227.392)",   // Deeper blue
+    chart4: "oklch(0.828 0.189 84.429)",   // Bright green
+    chart5: "oklch(0.769 0.188 70.08)",    // Yellow-green
+  };
 
   return (
     <AdminRoute>
-      <div className="min-h-screen bg-background font-body">
-        <header className="bg-white dark:bg-black shadow">
-          <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 className="text-3xl font-semibold leading-10 tracking-tight">
-              Ojasen Healing Arts - Admin
-            </h1>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Admin Panel
-              </span>
+      <div className="min-h-screen bg-background">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-6">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Ojasen Healing Arts
+                </h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Admin Dashboard
+                </p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Badge variant="secondary" className="px-3 py-1">
+                  Admin
+                </Badge>
+              </div>
             </div>
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div className="px-4 py-6 sm:px-0">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Administration
-            </h2>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h2>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
+              Key metrics and performance indicators
+            </p>
+          </div>
 
-            {/* Facilitators Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                  Facilitators
-                </h3>
-                <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+          {/* Key Metrics Cards */}
+          {adminMetrics && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Total Revenue
+                  </CardTitle>
+                  <div className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                    {formatCurrency(adminMetrics.totalRevenue)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    +20.1% from last period
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Facilitator Costs
+                  </CardTitle>
+                  <div className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                    {formatCurrency(adminMetrics.totalFacilitatorCosts)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    +18.1% from last period
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Gross Profit
+                  </CardTitle>
+                  <div className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                    {formatCurrency(adminMetrics.grossProfit)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    +25.3% from last period
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-sm hover:shadow-md transition-shadow">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Pending Bookings
+                  </CardTitle>
+                  <div className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                    {adminMetrics.outstandingInvoices}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Requires attention
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Charts Section */}
+          {adminMetrics && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              {/* Revenue by Season Chart */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Revenue by Season</CardTitle>
+                  <CardDescription>Seasonal breakdown of revenue and costs</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer 
+                    config={{
+                      revenue: {
+                        label: "Revenue",
+                        color: chartColors.chart1,
+                      },
+                      costs: {
+                        label: "Costs",
+                        color: chartColors.chart2,
+                      },
+                    }} 
+                    className="h-[300px] w-full"
+                  >
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        data={seasonChartData}
+                        margin={{
+                          top: 20,
+                          right: 30,
+                          left: 20,
+                          bottom: 50,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+                        <XAxis 
+                          dataKey="season" 
+                          angle={-45} 
+                          textAnchor="end" 
+                          height={60}
+                          className="text-xs"
+                        />
+                        <YAxis 
+                          tickFormatter={(value) => `LKR ${value/1000}k`}
+                          className="text-xs"
+                        />
+                        <ChartTooltip 
+                          cursor={false} 
+                          content={<ChartTooltipContent />} 
+                        />
+                        <ChartLegend content={<ChartLegendContent />} />
+                        <Bar 
+                          dataKey="revenue" 
+                          name="Revenue" 
+                          fill={chartColors.chart1} 
+                          radius={[4, 4, 0, 0]} 
+                        />
+                        <Bar 
+                          dataKey="costs" 
+                          name="Costs" 
+                          fill={chartColors.chart2} 
+                          radius={[4, 4, 0, 0]} 
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              {/* Booking Performance Chart */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Booking Performance</CardTitle>
+                  <CardDescription>Overview of booking statuses</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer 
+                    config={{
+                      confirmed: {
+                        label: "Confirmed",
+                        color: chartColors.chart1,
+                      },
+                      pending: {
+                        label: "Pending",
+                        color: chartColors.chart2,
+                      },
+                      cancelled: {
+                        label: "Cancelled",
+                        color: chartColors.chart3,
+                      },
+                    }} 
+                    className="h-[300px] w-full"
+                  >
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <ChartTooltip 
+                          cursor={false} 
+                          content={<ChartTooltipContent hideLabel />} 
+                        />
+                        <Pie
+                          data={performanceChartData}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={true}
+                          outerRadius={80}
+                          dataKey="value"
+                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        >
+                          {performanceChartData.map((entry, index) => (
+                            <Cell 
+                              key={`cell-${index}`} 
+                              fill={
+                                index === 0 ? chartColors.chart1 : 
+                                index === 1 ? chartColors.chart2 : 
+                                chartColors.chart3
+                              } 
+                            />
+                          ))}
+                        </Pie>
+                        <ChartLegend content={<ChartLegendContent />} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Revenue Over Time Chart */}
+          {adminMetrics && (
+            <Card className="mb-8 shadow-sm">
+              <CardHeader>
+                <CardTitle>Revenue & Profit Over Time</CardTitle>
+                <CardDescription>Monthly revenue and profit trends</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer 
+                  config={{
+                    revenue: {
+                      label: "Revenue",
+                      color: chartColors.chart1,
+                    },
+                    profit: {
+                      label: "Profit",
+                      color: chartColors.chart2,
+                    },
+                  }} 
+                  className="h-[300px] w-full"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={revenueOverTimeData}
+                      margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 20,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+                      <XAxis 
+                        dataKey="month" 
+                        className="text-xs"
+                      />
+                      <YAxis 
+                        tickFormatter={(value) => `LKR ${value/1000}k`}
+                        className="text-xs"
+                      />
+                      <ChartTooltip 
+                        cursor={false} 
+                        content={<ChartTooltipContent />} 
+                      />
+                      <ChartLegend content={<ChartLegendContent />} />
+                      <Line 
+                        type="monotone" 
+                        dataKey="revenue" 
+                        name="Revenue" 
+                        stroke={chartColors.chart1} 
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        activeDot={{ r: 6 }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="profit" 
+                        name="Profit" 
+                        stroke={chartColors.chart2} 
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+          )}
+
+          <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
+
+          {/* Customer & Loyalty Insights */}
+          {adminMetrics && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              {/* Customer History */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Customer Insights</CardTitle>
+                  <CardDescription>Customer history and retention metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Returning Customers</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Customers with multiple bookings</p>
+                      </div>
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {adminMetrics.customerHistory.returningCustomers}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">New Customers</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">First-time customers</p>
+                      </div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {adminMetrics.customerHistory.newCustomers}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Retention Rate</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Percentage of returning customers</p>
+                      </div>
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                        {formatPercentage(adminMetrics.customerHistory.customerRetentionRate)}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Loyalty Program */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Loyalty Program</CardTitle>
+                  <CardDescription>Voucher and campaign performance</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Active Vouchers</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Currently available vouchers</p>
+                      </div>
+                      <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                        {adminMetrics.loyaltyProgram.activeVouchers}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Redeemed Vouchers</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Vouchers used by customers</p>
+                      </div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {adminMetrics.loyaltyProgram.redeemedVouchers}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Campaign Engagement</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Customer participation rate</p>
+                      </div>
+                      <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">
+                        {formatPercentage(adminMetrics.loyaltyProgram.campaignEngagement)}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
+
+          {/* Detailed Metrics Section */}
+          {adminMetrics && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              {/* Customer Insights */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Customer Value Metrics</CardTitle>
+                  <CardDescription>Customer lifetime value analysis</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Total Customers</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Active customer base</p>
+                      </div>
+                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {adminMetrics.customerLifetimeValue.totalCustomers}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Avg. Customer Value</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Lifetime value per customer</p>
+                      </div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {formatCurrency(adminMetrics.customerLifetimeValue.avgCustomerLifetimeValue)}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Total Customer Value</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Cumulative customer value</p>
+                      </div>
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {formatCurrency(adminMetrics.customerLifetimeValue.totalCustomerValue)}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Facilitator Insights */}
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle>Facilitator Performance</CardTitle>
+                  <CardDescription>Facilitator cost and assignment metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Total Facilitators</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Active facilitators</p>
+                      </div>
+                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {adminMetrics.facilitatorLifetimeCost.totalFacilitators}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Avg. Facilitator Cost</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Lifetime cost per facilitator</p>
+                      </div>
+                      <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                        {formatCurrency(adminMetrics.facilitatorLifetimeCost.avgFacilitatorLifetimeCost)}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-white">Total Facilitator Cost</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Cumulative facilitator costs</p>
+                      </div>
+                      <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                        {formatCurrency(adminMetrics.facilitatorLifetimeCost.totalFacilitatorCost)}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Business Performance */}
+          {adminMetrics && (
+            <Card className="mb-8 shadow-sm">
+              <CardHeader>
+                <CardTitle>Business Performance</CardTitle>
+                <CardDescription>Key performance indicators</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {adminMetrics.campaignPerformance.totalBookings}
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Total Bookings
+                    </div>
+                  </div>
+                  <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      {adminMetrics.campaignPerformance.confirmedBookings}
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Confirmed
+                    </div>
+                  </div>
+                  <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                      {adminMetrics.campaignPerformance.pendingBookings}
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Pending
+                    </div>
+                  </div>
+                  <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                      {formatPercentage(adminMetrics.campaignPerformance.cancellationRate)}
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Cancellation Rate
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
+
+          {/* Season Breakdown */}
+          {adminMetrics && Object.keys(adminMetrics.seasonBreakdown).length > 0 && (
+            <Card className="mb-8 shadow-sm">
+              <CardHeader>
+                <CardTitle>Seasonal Breakdown</CardTitle>
+                <CardDescription>Detailed revenue and cost analysis by season</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {Object.entries(adminMetrics.seasonBreakdown).map(([season, data]: [string, any]) => (
+                    <div 
+                      key={season} 
+                      className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                    >
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{season}</h4>
+                      <div className="mt-3 space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-500 dark:text-gray-400">Revenue</span>
+                          <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                            {formatCurrency(data.totalRevenue)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-500 dark:text-gray-400">Costs</span>
+                          <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                            {formatCurrency(data.facilitatorCosts)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-500 dark:text-gray-400">Bookings</span>
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            {data.bookingCount}
+                          </span>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">Profit</span>
+                          <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                            {formatCurrency(data.totalRevenue - data.facilitatorCosts)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
+
+          {/* Facilitators Section */}
+          <Card className="mb-8 shadow-sm">
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle>Facilitators</CardTitle>
+                  <CardDescription>Manage facilitators and their details</CardDescription>
+                </div>
+                <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                   Add Facilitator
                 </button>
               </div>
+            </CardHeader>
+            <CardContent>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
                       <th
                         scope="col"
@@ -106,13 +796,19 @@ export default async function AdminPage() {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                       >
+                        Assigned Bookings
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                      >
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     {facilitators.map((facilitator) => (
-                      <tr key={facilitator.id}>
+                      <tr key={facilitator.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           {facilitator.name}
                         </td>
@@ -123,13 +819,16 @@ export default async function AdminPage() {
                           {facilitator.email}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          LKR {facilitator.baseFee.toLocaleString()}
+                          {formatCurrency(facilitator.baseFee)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          {(facilitator.commission * 100).toFixed(0)}%
+                          <Badge variant="secondary">{(facilitator.commission * 100).toFixed(0)}%</Badge>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          <button className="text-primary hover:text-primary/80 mr-2">
+                          {facilitator.assignedBookings}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                          <button className="text-primary hover:text-primary/80 mr-3">
                             Edit
                           </button>
                           <button className="text-red-500 hover:text-red-700">
@@ -141,16 +840,19 @@ export default async function AdminPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            {/* Bookings Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-4">
-                Bookings
-              </h3>
+          {/* Bookings Section */}
+          <Card className="shadow-sm">
+            <CardHeader>
+              <CardTitle>Recent Bookings</CardTitle>
+              <CardDescription>Latest bookings and their status</CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
                       <th
                         scope="col"
@@ -186,6 +888,12 @@ export default async function AdminPage() {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                       >
+                        Facilitator
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                      >
                         Status
                       </th>
                       <th
@@ -196,9 +904,9 @@ export default async function AdminPage() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     {bookings.map((booking) => (
-                      <tr key={booking.id}>
+                      <tr key={booking.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           {booking.eventName}
                         </td>
@@ -206,80 +914,42 @@ export default async function AdminPage() {
                           {booking.customerName}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          {new Date(booking.eventDate).toLocaleDateString()}
+                          {booking.eventDate.toLocaleDateString()}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                           {booking.numberOfPeople}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          LKR {booking.totalPrice.toLocaleString()}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <span
-                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                              booking.status === "confirmed"
-                                ? "bg-green-100 text-green-800"
-                                : booking.status === "pending"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-red-100 text-red-800"
-                            }`}
-                          >
-                            {booking.status}
-                          </span>
+                          {formatCurrency(booking.totalPrice)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          <button
-                            className="text-primary hover:text-primary/80 mr-2"
-                            onClick={async () => {
-                              // In a real implementation, you would show a modal or form to edit the booking
-                              console.log("Edit booking", booking.id);
-                            }}
+                          {booking.facilitator}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <Badge 
+                            variant={
+                              booking.status === "confirmed" 
+                                ? "default" 
+                                : booking.status === "pending" 
+                                  ? "secondary" 
+                                  : "destructive"
+                            }
                           >
+                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                          </Badge>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                          <button className="text-primary hover:text-primary/80">
                             View
                           </button>
-                          <select
-                            className="text-primary hover:text-primary/80 bg-transparent border-none"
-                            value={booking.status}
-                            onChange={async (e) => {
-                              const newStatus = e.target.value as
-                                | "pending"
-                                | "confirmed"
-                                | "cancelled";
-                              try {
-                                const result =
-                                  await BookingService.updateBookingStatus(
-                                    booking.id,
-                                    newStatus
-                                  );
-                                if (result.success) {
-                                  // Refresh the page to show updated status
-                                  window.location.reload();
-                                } else {
-                                  console.error(
-                                    "Failed to update booking status:",
-                                    result.error
-                                  );
-                                }
-                              } catch (error) {
-                                console.error(
-                                  "Error updating booking status:",
-                                  error
-                                );
-                              }
-                            }}
-                          >
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="cancelled">Cancelled</option>
-                          </select>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </main>
       </div>
     </AdminRoute>

@@ -328,6 +328,162 @@ export class BookingService {
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
+
+  // Get financial metrics for admin dashboard
+  static async getAdminFinancialMetrics() {
+    try {
+      // Get all bookings
+      const allBookings = await prisma.booking.findMany();
+      
+      // Filter confirmed bookings for revenue calculations
+      const confirmedBookings = allBookings.filter(booking => booking.status === 'confirmed');
+      
+      // 1. Total revenue from customers
+      const totalRevenue = confirmedBookings.reduce((sum, booking) => sum + booking.totalPrice, 0);
+      
+      // 2. Total facilitator costs
+      const totalFacilitatorCosts = confirmedBookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0);
+      
+      // 3. Gross profit (total revenue - facilitator costs)
+      const grossProfit = totalRevenue - totalFacilitatorCosts;
+      
+      // 4. Per-season breakdown
+      const seasonBreakdown = this.calculateSeasonBreakdown(allBookings);
+      
+      // 5. Per-customer lifetime value
+      const customerLifetimeValue = this.calculateCustomerLifetimeValue(confirmedBookings);
+      
+      // 6. Per-facilitator lifetime cost
+      const facilitatorLifetimeCost = this.calculateFacilitatorLifetimeCost(confirmedBookings);
+      
+      // 7. Outstanding invoices / unpaid sessions (pending bookings)
+      const outstandingInvoices = allBookings.filter(booking => booking.status === 'pending');
+      
+      // 8. Campaign performance / loyalty usage (placeholder for now)
+      const campaignPerformance = {
+        totalBookings: allBookings.length,
+        confirmedBookings: confirmedBookings.length,
+        pendingBookings: outstandingInvoices.length,
+        cancellationRate: (allBookings.filter(b => b.status === 'cancelled').length / Math.max(allBookings.length, 1)) * 100
+      };
+      
+      return {
+        success: true,
+        metrics: {
+          totalRevenue,
+          totalFacilitatorCosts,
+          grossProfit,
+          seasonBreakdown,
+          customerLifetimeValue,
+          facilitatorLifetimeCost,
+          outstandingInvoices: outstandingInvoices.length,
+          campaignPerformance
+        }
+      };
+    } catch (error) {
+      console.error("Error calculating admin financial metrics:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    }
+  }
+
+  // Helper function to calculate season breakdown
+  static calculateSeasonBreakdown(bookings: any[]) {
+    const seasons: Record<string, any> = {};
+    
+    bookings.forEach(booking => {
+      if (booking.status !== 'confirmed') return;
+      
+      const date = new Date(booking.eventDate);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; // 1-12
+      
+      // Simple season calculation (can be enhanced based on actual business logic)
+      let season = '';
+      if (month >= 3 && month <= 5) {
+        season = 'Q1';
+      } else if (month >= 6 && month <= 8) {
+        season = 'Q2';
+      } else if (month >= 9 && month <= 11) {
+        season = 'Q3';
+      } else {
+        season = 'Q4';
+      }
+      
+      const seasonKey = `${year}-${season}`;
+      
+      if (!seasons[seasonKey]) {
+        seasons[seasonKey] = {
+          totalRevenue: 0,
+          facilitatorCosts: 0,
+          bookingCount: 0
+        };
+      }
+      
+      seasons[seasonKey].totalRevenue += booking.totalPrice;
+      seasons[seasonKey].facilitatorCosts += booking.facilitatorFee;
+      seasons[seasonKey].bookingCount += 1;
+    });
+    
+    return seasons;
+  }
+
+  // Helper function to calculate customer lifetime value
+  static calculateCustomerLifetimeValue(bookings: any[]) {
+    const customerBookings: Record<string, any[]> = {};
+    
+    // Group bookings by customer email
+    bookings.forEach(booking => {
+      const email = booking.customerEmail;
+      if (!customerBookings[email]) {
+        customerBookings[email] = [];
+      }
+      customerBookings[email].push(booking);
+    });
+    
+    // Calculate average value per customer
+    const customerValues = Object.values(customerBookings).map(bookings => 
+      bookings.reduce((sum, booking) => sum + booking.totalPrice, 0)
+    );
+    
+    const totalValue = customerValues.reduce((sum, value) => sum + value, 0);
+    const avgCustomerLifetimeValue = customerValues.length > 0 ? totalValue / customerValues.length : 0;
+    
+    return {
+      totalCustomers: customerValues.length,
+      avgCustomerLifetimeValue,
+      totalCustomerValue: totalValue
+    };
+  }
+
+  // Helper function to calculate facilitator lifetime cost
+  static calculateFacilitatorLifetimeCost(bookings: any[]) {
+    const facilitatorBookings: Record<string, any[]> = {};
+    
+    // Group bookings by facilitator ID
+    bookings.forEach(booking => {
+      if (!booking.facilitatorId) return;
+      
+      const facilitatorId = booking.facilitatorId;
+      if (!facilitatorBookings[facilitatorId]) {
+        facilitatorBookings[facilitatorId] = [];
+      }
+      facilitatorBookings[facilitatorId].push(booking);
+    });
+    
+    // Calculate average cost per facilitator
+    const facilitatorCosts = Object.values(facilitatorBookings).map(bookings => 
+      bookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0)
+    );
+    
+    const totalCost = facilitatorCosts.reduce((sum, cost) => sum + cost, 0);
+    const avgFacilitatorLifetimeCost = facilitatorCosts.length > 0 ? totalCost / facilitatorCosts.length : 0;
+    
+    return {
+      totalFacilitators: facilitatorCosts.length,
+      avgFacilitatorLifetimeCost,
+      totalFacilitatorCost: totalCost
+    };
+  }
 }
 
 export class FacilitatorService {
