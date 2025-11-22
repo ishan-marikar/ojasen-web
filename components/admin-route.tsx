@@ -17,7 +17,7 @@ export function AdminRoute({ children }: { children: React.ReactNode }) {
         setIsAdmin(false);
         return;
       }
-      
+
       try {
         const response = await fetch("/api/check-admin");
         const data = await response.json();
@@ -27,7 +27,7 @@ export function AdminRoute({ children }: { children: React.ReactNode }) {
         setIsAdmin(false);
       }
     };
-    
+
     if (!isPending) {
       checkAdminStatus();
     }

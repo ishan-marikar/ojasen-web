@@ -1,10 +1,7 @@
 // lib/booking-service.ts
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { EVENTS_DATA } from "@/lib/event-data";
 import { Booking as AppBooking, Facilitator as AppFacilitator } from "@/lib/types";
-
-// Initialize Prisma Client
-const prisma = new PrismaClient();
 
 // Remove in-memory storage since we're now using the database
 // let bookings: Booking[] = [];
@@ -217,7 +214,7 @@ export class BookingService {
       
       return { success: true, bookings };
     } catch (error) {
-      console.error("Error fetching customer bookings:", error);
+      console.error("Error fetching bookings by customer email:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
@@ -226,13 +223,13 @@ export class BookingService {
   static async getBookingsByUserId(userId: string) {
     try {
       const bookings = await prisma.booking.findMany({
-        where: { userId: userId },
+        where: { userId },
         orderBy: { bookingDate: 'desc' },
       });
       
       return { success: true, bookings };
     } catch (error) {
-      console.error("Error fetching user bookings by ID:", error);
+      console.error("Error fetching bookings by user ID:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
@@ -247,48 +244,51 @@ export class BookingService {
       
       return { success: true, bookings };
     } catch (error) {
-      console.error("Error fetching facilitator bookings:", error);
+      console.error("Error fetching bookings by facilitator:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 
-  // Calculate total revenue
+  // Get total revenue
   static async getTotalRevenue() {
     try {
+      // Get all confirmed bookings
       const confirmedBookings = await prisma.booking.findMany({
         where: { status: 'confirmed' },
       });
       
+      // Calculate total revenue (sum of all booking prices)
       const totalRevenue = confirmedBookings.reduce((sum, booking) => sum + booking.totalPrice, 0);
+      
+      // Calculate Ojasen revenue (sum of ojasen fees)
       const ojasenRevenue = confirmedBookings.reduce((sum, booking) => sum + booking.ojasenFee, 0);
+      
+      // Calculate facilitator revenue (sum of facilitator fees)
       const facilitatorRevenue = confirmedBookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0);
       
       return { 
         success: true, 
-        totalRevenue,
-        ojasenRevenue,
-        facilitatorRevenue,
+        totalRevenue, 
+        ojasenRevenue, 
+        facilitatorRevenue 
       };
     } catch (error) {
-      console.error("Error calculating revenue:", error);
+      console.error("Error calculating total revenue:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 
-  // Get bookings count by status
+  // Get booking statistics
   static async getBookingStats() {
     try {
+      // Get all bookings grouped by status
       const allBookings = await prisma.booking.findMany();
       
-      const stats: Record<string, number> = {
-        pending: 0,
-        confirmed: 0,
-        cancelled: 0,
+      const stats = {
+        pending: allBookings.filter(booking => booking.status === 'pending').length,
+        confirmed: allBookings.filter(booking => booking.status === 'confirmed').length,
+        cancelled: allBookings.filter(booking => booking.status === 'cancelled').length,
       };
-      
-      allBookings.forEach(booking => {
-        stats[booking.status] = (stats[booking.status] || 0) + 1;
-      });
       
       return { success: true, stats };
     } catch (error) {
@@ -297,48 +297,64 @@ export class BookingService {
     }
   }
 
-  // Get upcoming events with booking information
+  // Get upcoming events with bookings
   static async getUpcomingEventsWithBookings() {
     try {
-      const now = new Date();
-      const upcomingEvents = EVENTS_DATA.filter(event => {
-        const eventDate = new Date(event.date);
-        return eventDate >= now;
+      const today = new Date();
+      
+      // Get upcoming confirmed bookings
+      const upcomingBookings = await prisma.booking.findMany({
+        where: { 
+          status: 'confirmed',
+          eventDate: {
+            gte: today,
+          },
+        },
+        orderBy: { eventDate: 'asc' },
       });
       
-      // Get all bookings
-      const allBookings = await prisma.booking.findMany();
+      // Group bookings by event
+      const eventsMap = new Map();
       
-      // Add booking count to each event
-      const eventsWithBookings = upcomingEvents.map(event => {
-        const eventBookings = allBookings.filter(b => b.eventId === event.id);
-        const confirmedBookings = eventBookings.filter(b => b.status === 'confirmed');
+      upcomingBookings.forEach(booking => {
+        const eventKey = `${booking.eventId}-${booking.eventDate.toISOString().split('T')[0]}`;
         
-        return {
-          ...event,
-          totalBookings: eventBookings.length,
-          confirmedBookings: confirmedBookings.length,
-          totalParticipants: confirmedBookings.reduce((sum, booking) => sum + booking.numberOfPeople, 0),
-        };
+        if (eventsMap.has(eventKey)) {
+          const existingEvent = eventsMap.get(eventKey);
+          existingEvent.bookings.push(booking);
+          existingEvent.totalParticipants += booking.numberOfPeople;
+        } else {
+          eventsMap.set(eventKey, {
+            eventId: booking.eventId,
+            eventName: booking.eventName,
+            eventDate: booking.eventDate,
+            facilitatorName: booking.facilitatorName,
+            bookings: [booking],
+            totalParticipants: booking.numberOfPeople,
+          });
+        }
       });
       
-      return { success: true, events: eventsWithBookings };
+      // Convert map to array and sort by date
+      const events = Array.from(eventsMap.values()).sort(
+        (a, b) => a.eventDate.getTime() - b.eventDate.getTime()
+      );
+      
+      return { success: true, events };
     } catch (error) {
-      console.error("Error fetching events with bookings:", error);
+      console.error("Error fetching upcoming events:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 
-  // Get financial metrics for admin dashboard
+  // Get admin financial metrics
   static async getAdminFinancialMetrics() {
     try {
       // Get all bookings
       const allBookings = await prisma.booking.findMany();
       
-      // Filter confirmed bookings for revenue calculations
+      // 1. Total revenue from confirmed bookings
       const confirmedBookings = allBookings.filter(booking => booking.status === 'confirmed');
-      
-      // 1. Total revenue from customers
       const totalRevenue = confirmedBookings.reduce((sum, booking) => sum + booking.totalPrice, 0);
       
       // 2. Total facilitator costs
@@ -377,45 +393,33 @@ export class BookingService {
           customerLifetimeValue,
           facilitatorLifetimeCost,
           outstandingInvoices: outstandingInvoices.length,
-          campaignPerformance
+          campaignPerformance,
         }
       };
     } catch (error) {
-      console.error("Error calculating admin financial metrics:", error);
+      console.error("Error fetching admin financial metrics:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
 
-  // Helper function to calculate season breakdown
-  static calculateSeasonBreakdown(bookings: any[]) {
-    const seasons: Record<string, any> = {};
+  // Helper method to calculate season breakdown
+  private static calculateSeasonBreakdown(bookings: any[]) {
+    const seasons: Record<string, { totalRevenue: number; facilitatorCosts: number; bookingCount: number }> = {};
     
     bookings.forEach(booking => {
       if (booking.status !== 'confirmed') return;
       
+      // Group by year and quarter
       const date = new Date(booking.eventDate);
       const year = date.getFullYear();
-      const month = date.getMonth() + 1; // 1-12
-      
-      // Simple season calculation (can be enhanced based on actual business logic)
-      let season = '';
-      if (month >= 3 && month <= 5) {
-        season = 'Q1';
-      } else if (month >= 6 && month <= 8) {
-        season = 'Q2';
-      } else if (month >= 9 && month <= 11) {
-        season = 'Q3';
-      } else {
-        season = 'Q4';
-      }
-      
-      const seasonKey = `${year}-${season}`;
+      const quarter = Math.floor(date.getMonth() / 3) + 1;
+      const seasonKey = `${year}-Q${quarter}`;
       
       if (!seasons[seasonKey]) {
         seasons[seasonKey] = {
           totalRevenue: 0,
           facilitatorCosts: 0,
-          bookingCount: 0
+          bookingCount: 0,
         };
       }
       
@@ -427,72 +431,77 @@ export class BookingService {
     return seasons;
   }
 
-  // Helper function to calculate customer lifetime value
-  static calculateCustomerLifetimeValue(bookings: any[]) {
-    const customerBookings: Record<string, any[]> = {};
+  // Helper method to calculate customer lifetime value
+  private static calculateCustomerLifetimeValue(bookings: any[]) {
+    const customerMap = new Map();
     
-    // Group bookings by customer email
     bookings.forEach(booking => {
-      const email = booking.customerEmail;
-      if (!customerBookings[email]) {
-        customerBookings[email] = [];
+      const customerKey = booking.customerEmail;
+      
+      if (!customerMap.has(customerKey)) {
+        customerMap.set(customerKey, {
+          totalSpent: 0,
+          bookingCount: 0,
+        });
       }
-      customerBookings[email].push(booking);
+      
+      const customer = customerMap.get(customerKey);
+      customer.totalSpent += booking.totalPrice;
+      customer.bookingCount += 1;
     });
     
-    // Calculate average value per customer
-    const customerValues = Object.values(customerBookings).map(bookings => 
-      bookings.reduce((sum, booking) => sum + booking.totalPrice, 0)
-    );
-    
-    const totalValue = customerValues.reduce((sum, value) => sum + value, 0);
-    const avgCustomerLifetimeValue = customerValues.length > 0 ? totalValue / customerValues.length : 0;
+    const totalCustomers = customerMap.size;
+    const totalCustomerValue = Array.from(customerMap.values()).reduce((sum, customer) => sum + customer.totalSpent, 0);
+    const avgCustomerLifetimeValue = totalCustomers > 0 ? totalCustomerValue / totalCustomers : 0;
     
     return {
-      totalCustomers: customerValues.length,
+      totalCustomers,
       avgCustomerLifetimeValue,
-      totalCustomerValue: totalValue
+      totalCustomerValue,
     };
   }
 
-  // Helper function to calculate facilitator lifetime cost
-  static calculateFacilitatorLifetimeCost(bookings: any[]) {
-    const facilitatorBookings: Record<string, any[]> = {};
+  // Helper method to calculate facilitator lifetime cost
+  private static calculateFacilitatorLifetimeCost(bookings: any[]) {
+    const facilitatorMap = new Map();
     
-    // Group bookings by facilitator ID
     bookings.forEach(booking => {
       if (!booking.facilitatorId) return;
       
-      const facilitatorId = booking.facilitatorId;
-      if (!facilitatorBookings[facilitatorId]) {
-        facilitatorBookings[facilitatorId] = [];
+      const facilitatorKey = booking.facilitatorId;
+      
+      if (!facilitatorMap.has(facilitatorKey)) {
+        facilitatorMap.set(facilitatorKey, {
+          totalCost: 0,
+          bookingCount: 0,
+        });
       }
-      facilitatorBookings[facilitatorId].push(booking);
+      
+      const facilitator = facilitatorMap.get(facilitatorKey);
+      facilitator.totalCost += booking.facilitatorFee;
+      facilitator.bookingCount += 1;
     });
     
-    // Calculate average cost per facilitator
-    const facilitatorCosts = Object.values(facilitatorBookings).map(bookings => 
-      bookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0)
-    );
-    
-    const totalCost = facilitatorCosts.reduce((sum, cost) => sum + cost, 0);
-    const avgFacilitatorLifetimeCost = facilitatorCosts.length > 0 ? totalCost / facilitatorCosts.length : 0;
+    const totalFacilitators = facilitatorMap.size;
+    const totalFacilitatorCost = Array.from(facilitatorMap.values()).reduce((sum, facilitator) => sum + facilitator.totalCost, 0);
+    const avgFacilitatorLifetimeCost = totalFacilitators > 0 ? totalFacilitatorCost / totalFacilitators : 0;
     
     return {
-      totalFacilitators: facilitatorCosts.length,
+      totalFacilitators,
       avgFacilitatorLifetimeCost,
-      totalFacilitatorCost: totalCost
+      totalFacilitatorCost,
     };
   }
 }
 
+// Facilitator Service
 export class FacilitatorService {
   // Create a new facilitator
   static async createFacilitator(facilitatorData: Omit<AppFacilitator, 'id'>) {
     try {
       const newFacilitator = await prisma.facilitator.create({
         data: {
-          id: `fac_${Date.now()}`,
+          id: `facilitator_${Date.now()}`,
           name: facilitatorData.name,
           role: facilitatorData.role,
           email: facilitatorData.email,
@@ -501,56 +510,6 @@ export class FacilitatorService {
           commission: facilitatorData.commission,
         },
       });
-      
-      // Send Discord notification about new facilitator
-      const webhookData = {
-        embeds: [
-          {
-            title: "New Facilitator Added",
-            color: 0x68887d, // Brand color
-            fields: [
-              {
-                name: "Name",
-                value: facilitatorData.name,
-                inline: true,
-              },
-              {
-                name: "Role",
-                value: facilitatorData.role,
-                inline: true,
-              },
-              {
-                name: "Email",
-                value: facilitatorData.email,
-                inline: true,
-              },
-              {
-                name: "Phone",
-                value: facilitatorData.phone || "Not provided",
-                inline: true,
-              },
-              {
-                name: "Base Fee",
-                value: `LKR ${facilitatorData.baseFee.toLocaleString()}`,
-                inline: true,
-              },
-              {
-                name: "Commission",
-                value: `${(facilitatorData.commission * 100).toFixed(0)}%`,
-                inline: true,
-              },
-            ],
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      };
-      
-      // Send to Discord webhook
-      const result = await sendToDiscordWebhook(webhookData);
-      
-      if (!result.success) {
-        console.error("Failed to send facilitator creation notification to Discord:", result.error);
-      }
       
       return { success: true, facilitator: newFacilitator };
     } catch (error) {
@@ -562,7 +521,12 @@ export class FacilitatorService {
   // Get all facilitators
   static async getAllFacilitators() {
     try {
-      const facilitators = await prisma.facilitator.findMany();
+      const facilitators = await prisma.facilitator.findMany({
+        orderBy: {
+          name: 'asc',
+        },
+      });
+      
       return { success: true, facilitators };
     } catch (error) {
       console.error("Error fetching facilitators:", error);
@@ -588,14 +552,7 @@ export class FacilitatorService {
     try {
       const updatedFacilitator = await prisma.facilitator.update({
         where: { id },
-        data: {
-          name: facilitatorData.name,
-          role: facilitatorData.role,
-          email: facilitatorData.email,
-          phone: facilitatorData.phone,
-          baseFee: facilitatorData.baseFee,
-          commission: facilitatorData.commission,
-        },
+        data: facilitatorData,
       });
       
       return { success: true, facilitator: updatedFacilitator };
@@ -608,28 +565,21 @@ export class FacilitatorService {
   // Get facilitator earnings
   static async getFacilitatorEarnings(facilitatorId: string) {
     try {
-      const facilitator = await prisma.facilitator.findUnique({
-        where: { id: facilitatorId },
-      });
-      
-      if (!facilitator) {
-        return { success: false, error: "Facilitator not found" };
-      }
-      
-      const facilitatorBookings = await prisma.booking.findMany({
+      // Get all confirmed bookings for this facilitator
+      const bookings = await prisma.booking.findMany({
         where: { 
           facilitatorId,
-          status: 'confirmed'
+          status: 'confirmed',
         },
       });
       
-      const totalEarnings = facilitatorBookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0);
+      // Calculate total earnings (sum of facilitator fees)
+      const totalEarnings = bookings.reduce((sum, booking) => sum + booking.facilitatorFee, 0);
       
       return { 
         success: true, 
-        facilitator,
         totalEarnings,
-        totalBookings: facilitatorBookings.length,
+        totalBookings: bookings.length,
       };
     } catch (error) {
       console.error("Error calculating facilitator earnings:", error);

@@ -24,6 +24,7 @@ model User {
   sessions              Session[]
   accounts              Account[]
   bookings              Booking[]
+  invoices              Invoice[]
   isAnonymous           Boolean   @default(false) // Added for better-auth anonymous plugin
   // Add role field with default value
   role                  String    @default("user") // "admin" or "user"
@@ -98,6 +99,8 @@ model Booking {
   facilitator     Facilitator? @relation(fields: [facilitatorId], references: [id])
   userId          String?
   user            User?        @relation(fields: [userId], references: [id])
+  invoice         Invoice?     @relation(fields: [invoiceId], references: [id])
+  invoiceId       String?
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 
@@ -114,8 +117,83 @@ model Facilitator {
   baseFee     Float      @default(0)
   commission  Float      @default(0) // Percentage of service fee
   bookings    Booking[]
+  purchaseOrders PurchaseOrder[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   @@map("facilitator")
+}
+
+// Invoice model for tracking customer invoices
+model Invoice {
+  id              String    @id
+  invoiceNumber   String    @unique
+  customerId      String?
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  billingAddress  String?
+  issueDate       DateTime  @default(now())
+  dueDate         DateTime
+  status          String    @default("draft") // draft, sent, paid, overdue, cancelled
+  subtotal        Float
+  taxAmount       Float     @default(0)
+  totalAmount     Float
+  amountPaid      Float     @default(0)
+  amountDue       Float
+  currency        String    @default("LKR")
+  notes           String?
+  terms           String?
+  user            User?     @relation(fields: [customerId], references: [id])
+  bookings        Booking[]
+  payments        Payment[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("invoice")
+}
+
+// Purchase Order model for tracking payments to facilitators
+model PurchaseOrder {
+  id              String        @id
+  poNumber        String        @unique
+  facilitatorId   String
+  facilitator     Facilitator   @relation(fields: [facilitatorId], references: [id])
+  issueDate       DateTime      @default(now())
+  dueDate         DateTime
+  status          String        @default("draft") // draft, sent, paid, overdue, cancelled
+  subtotal        Float
+  taxAmount       Float         @default(0)
+  totalAmount     Float
+  amountPaid      Float         @default(0)
+  amountDue       Float
+  currency        String        @default("LKR")
+  notes           String?
+  terms           String?
+  payments        Payment[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("purchase_order")
+}
+
+// Payment model for tracking payments (both incoming and outgoing)
+model Payment {
+  id              String      @id
+  paymentNumber   String      @unique
+  invoiceId       String?
+  invoice         Invoice?    @relation(fields: [invoiceId], references: [id])
+  purchaseOrderId String?
+  purchaseOrder   PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
+  amount          Float
+  currency        String      @default("LKR")
+  paymentDate     DateTime    @default(now())
+  paymentMethod   String      // cash, bank_transfer, credit_card, etc.
+  status          String      @default("completed") // pending, completed, failed, refunded
+  referenceNumber String?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("payment")
 }

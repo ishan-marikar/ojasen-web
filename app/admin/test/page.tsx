@@ -19,12 +19,15 @@ export default async function AdminTestPage() {
       user = await prisma.user.findUnique({
         where: { id: session.user.id },
       });
-      
+
       if (user?.role === "admin") {
         hasAdminRole = true;
       }
     } catch (error) {
-      console.error("AdminTestPage: Error checking user role in database", error);
+      console.error(
+        "AdminTestPage: Error checking user role in database",
+        error
+      );
     }
   }
 
@@ -38,11 +41,21 @@ export default async function AdminTestPage() {
       <h1 className="text-3xl font-bold mb-6">Admin Test Page</h1>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold mb-4">User Information</h2>
-        <p><strong>User ID:</strong> {user?.id}</p>
-        <p><strong>Email:</strong> {user?.email}</p>
-        <p><strong>Name:</strong> {user?.name}</p>
-        <p><strong>Role:</strong> {user?.role}</p>
-        <p><strong>Has Admin Role:</strong> {hasAdminRole ? "Yes" : "No"}</p>
+        <p>
+          <strong>User ID:</strong> {user?.id}
+        </p>
+        <p>
+          <strong>Email:</strong> {user?.email}
+        </p>
+        <p>
+          <strong>Name:</strong> {user?.name}
+        </p>
+        <p>
+          <strong>Role:</strong> {user?.role}
+        </p>
+        <p>
+          <strong>Has Admin Role:</strong> {hasAdminRole ? "Yes" : "No"}
+        </p>
       </div>
     </div>
   );
