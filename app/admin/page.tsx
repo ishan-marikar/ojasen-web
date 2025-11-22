@@ -3,23 +3,41 @@
 
 import { AdminRoute } from "@/components/admin-route";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  ChartContainer, 
-  ChartTooltip, 
+import {
+  ChartContainer,
+  ChartTooltip,
   ChartTooltipContent,
   ChartLegend,
-  ChartLegendContent
+  ChartLegendContent,
 } from "@/components/ui/chart";
-import { Bar, BarChart, Pie, PieChart, XAxis, YAxis, CartesianGrid, Cell, ResponsiveContainer, Line, LineChart } from "recharts";
+import {
+  Bar,
+  BarChart,
+  Pie,
+  PieChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Line,
+  LineChart,
+} from "recharts";
 
 // Format currency
 const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-LK', {
-    style: 'currency',
-    currency: 'LKR',
+  return new Intl.NumberFormat("en-LK", {
+    style: "currency",
+    currency: "LKR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
@@ -44,10 +62,26 @@ export default function AdminPage() {
       grossProfit: 225000,
       outstandingInvoices: 25,
       seasonBreakdown: {
-        "2025-Spring": { totalRevenue: 125000, facilitatorCosts: 75000, bookingCount: 32 },
-        "2025-Summer": { totalRevenue: 185000, facilitatorCosts: 110000, bookingCount: 48 },
-        "2025-Autumn": { totalRevenue: 95000, facilitatorCosts: 55000, bookingCount: 24 },
-        "2025-Winter": { totalRevenue: 145000, facilitatorCosts: 85000, bookingCount: 38 },
+        "2025-Q1": {
+          totalRevenue: 125000,
+          facilitatorCosts: 75000,
+          bookingCount: 32,
+        },
+        "2025-Q2": {
+          totalRevenue: 185000,
+          facilitatorCosts: 110000,
+          bookingCount: 48,
+        },
+        "2025-Q3": {
+          totalRevenue: 95000,
+          facilitatorCosts: 55000,
+          bookingCount: 24,
+        },
+        "2025-Q4": {
+          totalRevenue: 145000,
+          facilitatorCosts: 85000,
+          bookingCount: 38,
+        },
       },
       customerLifetimeValue: {
         totalCustomers: 124,
@@ -151,28 +185,47 @@ export default function AdminPage() {
   }, []);
 
   // Prepare data for charts
-  const seasonChartData = adminMetrics ? Object.entries(adminMetrics.seasonBreakdown).map(([season, data]: [string, any]) => ({
-    season,
-    revenue: data.totalRevenue,
-    costs: data.facilitatorCosts,
-  })) : [];
+  const seasonChartData = adminMetrics
+    ? Object.entries(adminMetrics.seasonBreakdown).map(
+        ([season, data]: [string, any]) => ({
+          season,
+          revenue: data.totalRevenue,
+          costs: data.facilitatorCosts,
+        })
+      )
+    : [];
 
-  const performanceChartData = adminMetrics ? [
-    { name: "Confirmed", value: adminMetrics.campaignPerformance.confirmedBookings },
-    { name: "Pending", value: adminMetrics.campaignPerformance.pendingBookings },
-    { name: "Cancelled", value: Math.round(adminMetrics.campaignPerformance.totalBookings * adminMetrics.campaignPerformance.cancellationRate / 100) },
-  ] : [];
+  const performanceChartData = adminMetrics
+    ? [
+        {
+          name: "Confirmed",
+          value: adminMetrics.campaignPerformance.confirmedBookings,
+        },
+        {
+          name: "Pending",
+          value: adminMetrics.campaignPerformance.pendingBookings,
+        },
+        {
+          name: "Cancelled",
+          value: Math.round(
+            (adminMetrics.campaignPerformance.totalBookings *
+              adminMetrics.campaignPerformance.cancellationRate) /
+              100
+          ),
+        },
+      ]
+    : [];
 
   const revenueOverTimeData = adminMetrics ? adminMetrics.revenueOverTime : [];
 
   // Define colors directly as they are defined in CSS
   // Light mode colors from globals.css
   const chartColors = {
-    chart1: "oklch(0.646 0.222 41.116)",   // Warm color
-    chart2: "oklch(0.6 0.118 184.704)",    // Cool blue-green
-    chart3: "oklch(0.398 0.07 227.392)",   // Deeper blue
-    chart4: "oklch(0.828 0.189 84.429)",   // Bright green
-    chart5: "oklch(0.769 0.188 70.08)",    // Yellow-green
+    chart1: "oklch(0.646 0.222 41.116)", // Warm color
+    chart2: "oklch(0.6 0.118 184.704)", // Cool blue-green
+    chart3: "oklch(0.398 0.07 227.392)", // Deeper blue
+    chart4: "oklch(0.828 0.189 84.429)", // Bright green
+    chart5: "oklch(0.769 0.188 70.08)", // Yellow-green
   };
 
   return (
@@ -200,7 +253,9 @@ export default function AdminPage() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Dashboard Overview
+            </h2>
             <p className="text-gray-500 dark:text-gray-400 mt-1">
               Key metrics and performance indicators
             </p>
@@ -286,10 +341,12 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Revenue by Season</CardTitle>
-                  <CardDescription>Seasonal breakdown of revenue and costs</CardDescription>
+                  <CardDescription>
+                    Seasonal breakdown of revenue and costs
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer 
+                  <ChartContainer
                     config={{
                       revenue: {
                         label: "Revenue",
@@ -299,7 +356,7 @@ export default function AdminPage() {
                         label: "Costs",
                         color: chartColors.chart2,
                       },
-                    }} 
+                    }}
                     className="h-[300px] w-full"
                   >
                     <ResponsiveContainer width="100%" height="100%">
@@ -312,34 +369,37 @@ export default function AdminPage() {
                           bottom: 50,
                         }}
                       >
-                        <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-                        <XAxis 
-                          dataKey="season" 
-                          angle={-45} 
-                          textAnchor="end" 
+                        <CartesianGrid
+                          strokeDasharray="3 3"
+                          className="stroke-gray-200 dark:stroke-gray-700"
+                        />
+                        <XAxis
+                          dataKey="season"
+                          angle={-45}
+                          textAnchor="end"
                           height={60}
                           className="text-xs"
                         />
-                        <YAxis 
-                          tickFormatter={(value) => `LKR ${value/1000}k`}
+                        <YAxis
+                          tickFormatter={(value) => `LKR ${value / 1000}k`}
                           className="text-xs"
                         />
-                        <ChartTooltip 
-                          cursor={false} 
-                          content={<ChartTooltipContent />} 
+                        <ChartTooltip
+                          cursor={false}
+                          content={<ChartTooltipContent />}
                         />
                         <ChartLegend content={<ChartLegendContent />} />
-                        <Bar 
-                          dataKey="revenue" 
-                          name="Revenue" 
-                          fill={chartColors.chart1} 
-                          radius={[4, 4, 0, 0]} 
+                        <Bar
+                          dataKey="revenue"
+                          name="Revenue"
+                          fill={chartColors.chart1}
+                          radius={[4, 4, 0, 0]}
                         />
-                        <Bar 
-                          dataKey="costs" 
-                          name="Costs" 
-                          fill={chartColors.chart2} 
-                          radius={[4, 4, 0, 0]} 
+                        <Bar
+                          dataKey="costs"
+                          name="Costs"
+                          fill={chartColors.chart2}
+                          radius={[4, 4, 0, 0]}
                         />
                       </BarChart>
                     </ResponsiveContainer>
@@ -351,10 +411,12 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Booking Performance</CardTitle>
-                  <CardDescription>Overview of booking statuses</CardDescription>
+                  <CardDescription>
+                    Overview of booking statuses
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer 
+                  <ChartContainer
                     config={{
                       confirmed: {
                         label: "Confirmed",
@@ -368,14 +430,14 @@ export default function AdminPage() {
                         label: "Cancelled",
                         color: chartColors.chart3,
                       },
-                    }} 
+                    }}
                     className="h-[300px] w-full"
                   >
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
-                        <ChartTooltip 
-                          cursor={false} 
-                          content={<ChartTooltipContent hideLabel />} 
+                        <ChartTooltip
+                          cursor={false}
+                          content={<ChartTooltipContent hideLabel />}
                         />
                         <Pie
                           data={performanceChartData}
@@ -384,16 +446,20 @@ export default function AdminPage() {
                           labelLine={true}
                           outerRadius={80}
                           dataKey="value"
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          label={({ name, percent }) =>
+                            `${name} ${(percent * 100).toFixed(0)}%`
+                          }
                         >
                           {performanceChartData.map((entry, index) => (
-                            <Cell 
-                              key={`cell-${index}`} 
+                            <Cell
+                              key={`cell-${index}`}
                               fill={
-                                index === 0 ? chartColors.chart1 : 
-                                index === 1 ? chartColors.chart2 : 
-                                chartColors.chart3
-                              } 
+                                index === 0
+                                  ? chartColors.chart1
+                                  : index === 1
+                                  ? chartColors.chart2
+                                  : chartColors.chart3
+                              }
                             />
                           ))}
                         </Pie>
@@ -411,10 +477,12 @@ export default function AdminPage() {
             <Card className="mb-8 shadow-sm">
               <CardHeader>
                 <CardTitle>Revenue & Profit Over Time</CardTitle>
-                <CardDescription>Monthly revenue and profit trends</CardDescription>
+                <CardDescription>
+                  Monthly revenue and profit trends
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChartContainer 
+                <ChartContainer
                   config={{
                     revenue: {
                       label: "Revenue",
@@ -424,7 +492,7 @@ export default function AdminPage() {
                       label: "Profit",
                       color: chartColors.chart2,
                     },
-                  }} 
+                  }}
                   className="h-[300px] w-full"
                 >
                   <ResponsiveContainer width="100%" height="100%">
@@ -437,34 +505,34 @@ export default function AdminPage() {
                         bottom: 20,
                       }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-                      <XAxis 
-                        dataKey="month" 
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        className="stroke-gray-200 dark:stroke-gray-700"
+                      />
+                      <XAxis dataKey="month" className="text-xs" />
+                      <YAxis
+                        tickFormatter={(value) => `LKR ${value / 1000}k`}
                         className="text-xs"
                       />
-                      <YAxis 
-                        tickFormatter={(value) => `LKR ${value/1000}k`}
-                        className="text-xs"
-                      />
-                      <ChartTooltip 
-                        cursor={false} 
-                        content={<ChartTooltipContent />} 
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent />}
                       />
                       <ChartLegend content={<ChartLegendContent />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="revenue" 
-                        name="Revenue" 
-                        stroke={chartColors.chart1} 
+                      <Line
+                        type="monotone"
+                        dataKey="revenue"
+                        name="Revenue"
+                        stroke={chartColors.chart1}
                         strokeWidth={2}
                         dot={{ r: 4 }}
                         activeDot={{ r: 6 }}
                       />
-                      <Line 
-                        type="monotone" 
-                        dataKey="profit" 
-                        name="Profit" 
-                        stroke={chartColors.chart2} 
+                      <Line
+                        type="monotone"
+                        dataKey="profit"
+                        name="Profit"
+                        stroke={chartColors.chart2}
                         strokeWidth={2}
                         dot={{ r: 4 }}
                         activeDot={{ r: 6 }}
@@ -485,14 +553,20 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Customer Insights</CardTitle>
-                  <CardDescription>Customer history and retention metrics</CardDescription>
+                  <CardDescription>
+                    Customer history and retention metrics
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Returning Customers</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Customers with multiple bookings</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Returning Customers
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Customers with multiple bookings
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                         {adminMetrics.customerHistory.returningCustomers}
@@ -500,8 +574,12 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">New Customers</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">First-time customers</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          New Customers
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          First-time customers
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                         {adminMetrics.customerHistory.newCustomers}
@@ -509,11 +587,17 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Retention Rate</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Percentage of returning customers</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Retention Rate
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Percentage of returning customers
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                        {formatPercentage(adminMetrics.customerHistory.customerRetentionRate)}
+                        {formatPercentage(
+                          adminMetrics.customerHistory.customerRetentionRate
+                        )}
                       </div>
                     </div>
                   </div>
@@ -524,14 +608,20 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Loyalty Program</CardTitle>
-                  <CardDescription>Voucher and campaign performance</CardDescription>
+                  <CardDescription>
+                    Voucher and campaign performance
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Active Vouchers</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Currently available vouchers</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Active Vouchers
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Currently available vouchers
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                         {adminMetrics.loyaltyProgram.activeVouchers}
@@ -539,8 +629,12 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Redeemed Vouchers</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Vouchers used by customers</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Redeemed Vouchers
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Vouchers used by customers
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                         {adminMetrics.loyaltyProgram.redeemedVouchers}
@@ -548,11 +642,17 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Campaign Engagement</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Customer participation rate</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Campaign Engagement
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Customer participation rate
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">
-                        {formatPercentage(adminMetrics.loyaltyProgram.campaignEngagement)}
+                        {formatPercentage(
+                          adminMetrics.loyaltyProgram.campaignEngagement
+                        )}
                       </div>
                     </div>
                   </div>
@@ -570,14 +670,20 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Customer Value Metrics</CardTitle>
-                  <CardDescription>Customer lifetime value analysis</CardDescription>
+                  <CardDescription>
+                    Customer lifetime value analysis
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Total Customers</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Active customer base</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Total Customers
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Active customer base
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {adminMetrics.customerLifetimeValue.totalCustomers}
@@ -585,20 +691,33 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Avg. Customer Value</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Lifetime value per customer</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Avg. Customer Value
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Lifetime value per customer
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                        {formatCurrency(adminMetrics.customerLifetimeValue.avgCustomerLifetimeValue)}
+                        {formatCurrency(
+                          adminMetrics.customerLifetimeValue
+                            .avgCustomerLifetimeValue
+                        )}
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Total Customer Value</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Cumulative customer value</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Total Customer Value
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Cumulative customer value
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {formatCurrency(adminMetrics.customerLifetimeValue.totalCustomerValue)}
+                        {formatCurrency(
+                          adminMetrics.customerLifetimeValue.totalCustomerValue
+                        )}
                       </div>
                     </div>
                   </div>
@@ -609,14 +728,20 @@ export default function AdminPage() {
               <Card className="shadow-sm">
                 <CardHeader>
                   <CardTitle>Facilitator Performance</CardTitle>
-                  <CardDescription>Facilitator cost and assignment metrics</CardDescription>
+                  <CardDescription>
+                    Facilitator cost and assignment metrics
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Total Facilitators</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Active facilitators</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Total Facilitators
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Active facilitators
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {adminMetrics.facilitatorLifetimeCost.totalFacilitators}
@@ -624,20 +749,34 @@ export default function AdminPage() {
                     </div>
                     <div className="flex justify-between items-center pb-3 border-b border-gray-100 dark:border-gray-800">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Avg. Facilitator Cost</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Lifetime cost per facilitator</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Avg. Facilitator Cost
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Lifetime cost per facilitator
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                        {formatCurrency(adminMetrics.facilitatorLifetimeCost.avgFacilitatorLifetimeCost)}
+                        {formatCurrency(
+                          adminMetrics.facilitatorLifetimeCost
+                            .avgFacilitatorLifetimeCost
+                        )}
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Total Facilitator Cost</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Cumulative facilitator costs</p>
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          Total Facilitator Cost
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Cumulative facilitator costs
+                        </p>
                       </div>
                       <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                        {formatCurrency(adminMetrics.facilitatorLifetimeCost.totalFacilitatorCost)}
+                        {formatCurrency(
+                          adminMetrics.facilitatorLifetimeCost
+                            .totalFacilitatorCost
+                        )}
                       </div>
                     </div>
                   </div>
@@ -681,7 +820,9 @@ export default function AdminPage() {
                   </div>
                   <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 text-center">
                     <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                      {formatPercentage(adminMetrics.campaignPerformance.cancellationRate)}
+                      {formatPercentage(
+                        adminMetrics.campaignPerformance.cancellationRate
+                      )}
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       Cancellation Rate
@@ -695,52 +836,69 @@ export default function AdminPage() {
           <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
 
           {/* Season Breakdown */}
-          {adminMetrics && Object.keys(adminMetrics.seasonBreakdown).length > 0 && (
-            <Card className="mb-8 shadow-sm">
-              <CardHeader>
-                <CardTitle>Seasonal Breakdown</CardTitle>
-                <CardDescription>Detailed revenue and cost analysis by season</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {Object.entries(adminMetrics.seasonBreakdown).map(([season, data]: [string, any]) => (
-                    <div 
-                      key={season} 
-                      className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
-                    >
-                      <h4 className="font-semibold text-gray-900 dark:text-white">{season}</h4>
-                      <div className="mt-3 space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400">Revenue</span>
-                          <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                            {formatCurrency(data.totalRevenue)}
-                          </span>
+          {adminMetrics &&
+            Object.keys(adminMetrics.seasonBreakdown).length > 0 && (
+              <Card className="mb-8 shadow-sm">
+                <CardHeader>
+                  <CardTitle>Seasonal Breakdown</CardTitle>
+                  <CardDescription>
+                    Detailed revenue and cost analysis by season
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {Object.entries(adminMetrics.seasonBreakdown).map(
+                      ([season, data]: [string, any]) => (
+                        <div
+                          key={season}
+                          className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                        >
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                            {season}
+                          </h4>
+                          <div className="mt-3 space-y-2">
+                            <div className="flex justify-between">
+                              <span className="text-sm text-gray-500 dark:text-gray-400">
+                                Revenue
+                              </span>
+                              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                                {formatCurrency(data.totalRevenue)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-sm text-gray-500 dark:text-gray-400">
+                                Costs
+                              </span>
+                              <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                                {formatCurrency(data.facilitatorCosts)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-sm text-gray-500 dark:text-gray-400">
+                                Bookings
+                              </span>
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                {data.bookingCount}
+                              </span>
+                            </div>
+                            <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                Profit
+                              </span>
+                              <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                                {formatCurrency(
+                                  data.totalRevenue - data.facilitatorCosts
+                                )}
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400">Costs</span>
-                          <span className="text-sm font-medium text-red-600 dark:text-red-400">
-                            {formatCurrency(data.facilitatorCosts)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400">Bookings</span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
-                            {data.bookingCount}
-                          </span>
-                        </div>
-                        <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">Profit</span>
-                          <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                            {formatCurrency(data.totalRevenue - data.facilitatorCosts)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                      )
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
           <Separator className="my-8 bg-gray-200 dark:bg-gray-800" />
 
@@ -750,7 +908,9 @@ export default function AdminPage() {
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle>Facilitators</CardTitle>
-                  <CardDescription>Manage facilitators and their details</CardDescription>
+                  <CardDescription>
+                    Manage facilitators and their details
+                  </CardDescription>
                 </div>
                 <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                   Add Facilitator
@@ -808,7 +968,10 @@ export default function AdminPage() {
                   </thead>
                   <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     {facilitators.map((facilitator) => (
-                      <tr key={facilitator.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                      <tr
+                        key={facilitator.id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           {facilitator.name}
                         </td>
@@ -822,7 +985,9 @@ export default function AdminPage() {
                           {formatCurrency(facilitator.baseFee)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          <Badge variant="secondary">{(facilitator.commission * 100).toFixed(0)}%</Badge>
+                          <Badge variant="secondary">
+                            {(facilitator.commission * 100).toFixed(0)}%
+                          </Badge>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                           {facilitator.assignedBookings}
@@ -847,7 +1012,9 @@ export default function AdminPage() {
           <Card className="shadow-sm">
             <CardHeader>
               <CardTitle>Recent Bookings</CardTitle>
-              <CardDescription>Latest bookings and their status</CardDescription>
+              <CardDescription>
+                Latest bookings and their status
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -906,7 +1073,10 @@ export default function AdminPage() {
                   </thead>
                   <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     {bookings.map((booking) => (
-                      <tr key={booking.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                      <tr
+                        key={booking.id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           {booking.eventName}
                         </td>
@@ -926,16 +1096,17 @@ export default function AdminPage() {
                           {booking.facilitator}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <Badge 
+                          <Badge
                             variant={
-                              booking.status === "confirmed" 
-                                ? "default" 
-                                : booking.status === "pending" 
-                                  ? "secondary" 
-                                  : "destructive"
+                              booking.status === "confirmed"
+                                ? "default"
+                                : booking.status === "pending"
+                                ? "secondary"
+                                : "destructive"
                             }
                           >
-                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                            {booking.status.charAt(0).toUpperCase() +
+                              booking.status.slice(1)}
                           </Badge>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
