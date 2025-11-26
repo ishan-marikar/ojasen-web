@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,74 +44,57 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-// Mock data for bookings
-const mockBookings = [
-  {
-    id: "1",
-    eventName: "Panchali Sadhana",
-    customerName: "John Doe",
-    eventDate: new Date("2025-11-29"),
-    numberOfPeople: 2,
-    totalPrice: 8000,
-    status: "confirmed",
-    facilitator: "Oshadi",
-  },
-  {
-    id: "2",
-    eventName: "Anahata Flow",
-    customerName: "Jane Smith",
-    eventDate: new Date("2025-11-22"),
-    numberOfPeople: 1,
-    totalPrice: 3500,
-    status: "pending",
-    facilitator: "Alice",
-  },
-  {
-    id: "3",
-    eventName: "Sound Healing",
-    customerName: "Robert Johnson",
-    eventDate: new Date("2025-12-15"),
-    numberOfPeople: 3,
-    totalPrice: 10500,
-    status: "confirmed",
-    facilitator: "Deborah",
-  },
-  {
-    id: "4",
-    eventName: "Ice Bath & Breathwork",
-    customerName: "Emily Wilson",
-    eventDate: new Date("2025-12-05"),
-    numberOfPeople: 1,
-    totalPrice: 4200,
-    status: "cancelled",
-    facilitator: "Oshadi",
-  },
-  {
-    id: "5",
-    eventName: "Energy Healing Session",
-    customerName: "Michael Brown",
-    eventDate: new Date("2025-11-30"),
-    numberOfPeople: 2,
-    totalPrice: 7000,
-    status: "confirmed",
-    facilitator: "Deborah",
-  },
-];
-
-// Mock facilitators data
-const mockFacilitators = [
-  { id: "1", name: "Oshadi" },
-  { id: "2", name: "Alice" },
-  { id: "3", name: "Deborah" },
-];
-
 export default function BookingsManagementPage() {
-  const [bookings, setBookings] = useState(mockBookings);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [facilitators, setFacilitators] = useState<any[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingBooking, setEditingBooking] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch bookings
+        const bookingsResponse = await fetch("/api/admin/bookings");
+        const bookingsData = await bookingsResponse.json();
+
+        if (bookingsData.success) {
+          setBookings(bookingsData.bookings);
+        } else {
+          throw new Error(bookingsData.error || "Failed to fetch bookings");
+        }
+
+        // Fetch facilitators
+        const facilitatorsResponse = await fetch("/api/admin/facilitators");
+        const facilitatorsData = await facilitatorsResponse.json();
+
+        if (facilitatorsData.success) {
+          setFacilitators(facilitatorsData.facilitators);
+        } else {
+          throw new Error(
+            facilitatorsData.error || "Failed to fetch facilitators"
+          );
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Filter bookings based on search term and status
   const filteredBookings = bookings.filter((booking) => {
@@ -127,35 +110,146 @@ export default function BookingsManagementPage() {
   });
 
   // Handle adding a new booking
-  const handleAddBooking = (newBooking: any) => {
-    const booking = {
-      ...newBooking,
-      id: (bookings.length + 1).toString(),
-      totalPrice:
-        parseInt(newBooking.pricePerPerson) *
-        parseInt(newBooking.numberOfPeople),
-    };
-    setBookings([booking, ...bookings]);
-    setIsAddModalOpen(false);
+  const handleAddBooking = async (newBooking: any) => {
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newBooking,
+          eventDate: new Date(newBooking.eventDate),
+          numberOfPeople: parseInt(newBooking.numberOfPeople),
+          totalPrice:
+            parseInt(newBooking.pricePerPerson) *
+            parseInt(newBooking.numberOfPeople),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch bookings to get the updated list
+        const bookingsResponse = await fetch("/api/admin/bookings");
+        const bookingsData = await bookingsResponse.json();
+
+        if (bookingsData.success) {
+          setBookings(bookingsData.bookings);
+        }
+
+        setIsAddModalOpen(false);
+      } else {
+        console.error("Failed to create booking:", result.error);
+      }
+    } catch (error) {
+      console.error("Error creating booking:", error);
+    }
   };
 
   // Handle editing a booking
-  const handleEditBooking = (updatedBooking: any) => {
-    setBookings(
-      bookings.map((booking) =>
-        booking.id === updatedBooking.id
-          ? { ...booking, ...updatedBooking }
-          : booking
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingBooking(null);
+  const handleEditBooking = async (updatedBooking: any) => {
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedBooking),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch bookings to get the updated list
+        const bookingsResponse = await fetch("/api/admin/bookings");
+        const bookingsData = await bookingsResponse.json();
+
+        if (bookingsData.success) {
+          setBookings(bookingsData.bookings);
+        }
+
+        setIsEditModalOpen(false);
+        setEditingBooking(null);
+      } else {
+        console.error("Failed to update booking:", result.error);
+      }
+    } catch (error) {
+      console.error("Error updating booking:", error);
+    }
   };
 
   // Handle deleting a booking
-  const handleDeleteBooking = (id: string) => {
-    setBookings(bookings.filter((booking) => booking.id !== id));
+  const handleDeleteBooking = async (id: string) => {
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch bookings to get the updated list
+        const bookingsResponse = await fetch("/api/admin/bookings");
+        const bookingsData = await bookingsResponse.json();
+
+        if (bookingsData.success) {
+          setBookings(bookingsData.bookings);
+        }
+      } else {
+        console.error("Failed to delete booking:", result.error);
+      }
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            Loading bookings...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6 flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="text-red-500 mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-16 w-16 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Error Loading Data
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
+          <Button onClick={() => window.location.reload()}>Retry</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -205,10 +299,25 @@ export default function BookingsManagementPage() {
               </CredenzaTrigger>
               <CredenzaContent>
                 <AddBookingForm
-                  facilitators={mockFacilitators}
+                  facilitators={facilitators}
                   onSubmit={handleAddBooking}
                   onCancel={() => setIsAddModalOpen(false)}
                 />
+              </CredenzaContent>
+            </Credenza>
+            <Credenza open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+              <CredenzaContent>
+                {editingBooking && (
+                  <EditBookingForm
+                    facilitators={facilitators}
+                    booking={editingBooking}
+                    onSubmit={handleEditBooking}
+                    onCancel={() => {
+                      setIsEditModalOpen(false);
+                      setEditingBooking(null);
+                    }}
+                  />
+                )}
               </CredenzaContent>
             </Credenza>
           </div>
@@ -292,6 +401,167 @@ export default function BookingsManagementPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+// Edit Booking Form Component
+function EditBookingForm({
+  facilitators,
+  booking,
+  onSubmit,
+  onCancel,
+}: {
+  facilitators: any[];
+  booking: any;
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
+  const [formData, setFormData] = useState({
+    id: booking.id,
+    eventName: booking.eventName || "",
+    customerName: booking.customerName || "",
+    eventDate: booking.eventDate
+      ? new Date(booking.eventDate).toISOString().split("T")[0]
+      : "",
+    numberOfPeople: booking.numberOfPeople?.toString() || "1",
+    pricePerPerson:
+      Math.floor(booking.totalPrice / booking.numberOfPeople).toString() || "",
+    facilitator: booking.facilitatorName || "",
+    status: booking.status || "pending",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <>
+      <CredenzaHeader>
+        <CredenzaTitle>Edit Booking</CredenzaTitle>
+        <CredenzaDescription>Update booking details</CredenzaDescription>
+      </CredenzaHeader>
+      <CredenzaBody>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="eventName">Event Name</Label>
+            <Input
+              id="eventName"
+              value={formData.eventName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, eventName: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="customerName">Customer Name</Label>
+            <Input
+              id="customerName"
+              value={formData.customerName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, customerName: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="eventDate">Event Date</Label>
+              <Input
+                id="eventDate"
+                type="date"
+                value={formData.eventDate}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, eventDate: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="numberOfPeople">Number of People</Label>
+              <Input
+                id="numberOfPeople"
+                type="number"
+                min="1"
+                value={formData.numberOfPeople}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, numberOfPeople: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="pricePerPerson">Price per Person (LKR)</Label>
+            <Input
+              id="pricePerPerson"
+              type="number"
+              min="0"
+              value={formData.pricePerPerson}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, pricePerPerson: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="facilitator">Facilitator</Label>
+            <Select
+              value={formData.facilitator}
+              onValueChange={(value) =>
+                setFormData({ ...formData, facilitator: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select facilitator" />
+              </SelectTrigger>
+              <SelectContent>
+                {facilitators.map((facilitator) => (
+                  <SelectItem key={facilitator.id} value={facilitator.name}>
+                    {facilitator.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="status">Status</Label>
+            <Select
+              value={formData.status}
+              onValueChange={(value) =>
+                setFormData({ ...formData, status: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="confirmed">Confirmed</SelectItem>
+                <SelectItem value="cancelled">Cancelled</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </form>
+      </CredenzaBody>
+      <CredenzaFooter>
+        <CredenzaClose asChild>
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+        </CredenzaClose>
+        <Button type="submit" onClick={handleSubmit}>
+          Update Booking
+        </Button>
+      </CredenzaFooter>
+    </>
   );
 }
 

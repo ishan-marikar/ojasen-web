@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -41,91 +41,41 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Search, Plus, Edit, Eye, Trash2, Key } from "lucide-react";
 
-// Mock data for users
-const mockUsers = [
-  {
-    id: "1",
-    name: "Yatesh",
-    email: "yatesh@ojasenhealingarts.com",
-    role: "admin",
-    status: "active",
-    lastLogin: new Date("2025-11-22"),
-    permissions: {
-      bookings: true,
-      facilitators: true,
-      customers: true,
-      financial: true,
-      campaigns: true,
-      permissions: true,
-    },
-  },
-  {
-    id: "2",
-    name: "Oshadi",
-    email: "oshadi@ojasenhealingarts.com",
-    role: "facilitator",
-    status: "active",
-    lastLogin: new Date("2025-11-21"),
-    permissions: {
-      bookings: true,
-      facilitators: false,
-      customers: true,
-      financial: false,
-      campaigns: false,
-      permissions: false,
-    },
-  },
-  {
-    id: "3",
-    name: "Alice",
-    email: "alice@ojasenhealingarts.com",
-    role: "facilitator",
-    status: "active",
-    lastLogin: new Date("2025-11-20"),
-    permissions: {
-      bookings: true,
-      facilitators: false,
-      customers: true,
-      financial: false,
-      campaigns: false,
-      permissions: false,
-    },
-  },
-  {
-    id: "4",
-    name: "Deborah",
-    email: "deborah@ojasenhealingarts.com",
-    role: "facilitator",
-    status: "inactive",
-    lastLogin: new Date("2025-11-15"),
-    permissions: {
-      bookings: false,
-      facilitators: false,
-      customers: false,
-      financial: false,
-      campaigns: false,
-      permissions: false,
-    },
-  },
-];
-
-// Permission categories
-const permissionCategories = [
-  { id: "bookings", name: "Bookings Management" },
-  { id: "facilitators", name: "Facilitators Management" },
-  { id: "customers", name: "Customer Management" },
-  { id: "financial", name: "Financial Reports" },
-  { id: "campaigns", name: "Campaign Management" },
-  { id: "permissions", name: "User Permissions" },
-];
-
 export default function UserPermissionsPage() {
-  const [users, setUsers] = useState(mockUsers);
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
+
+  // Fetch users data
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch('/api/admin/permissions');
+        const data = await response.json();
+        
+        if (data.success) {
+          setUsers(data.users);
+        } else {
+          throw new Error(data.error || 'Failed to fetch users');
+        }
+      } catch (err) {
+        console.error('Error fetching users:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   // Filter users based on search term and role
   const filteredUsers = users.filter((user) => {
@@ -139,71 +89,103 @@ export default function UserPermissionsPage() {
   });
 
   // Handle adding a new user
-  const handleAddUser = (newUser: any) => {
-    const user = {
-      ...newUser,
-      id: (users.length + 1).toString(),
-      lastLogin: new Date(),
-      permissions: {
-        bookings: false,
-        facilitators: false,
-        customers: false,
-        financial: false,
-        campaigns: false,
-        permissions: false,
-      },
-    };
-    setUsers([user, ...users]);
-    setIsAddModalOpen(false);
+  const handleAddUser = async (newUser: any) => {
+    try {
+      // For now, we'll just show an alert since user creation is not part of the current API
+      alert("User creation is not implemented in this version. Please use the authentication system to create new users.");
+      setIsAddModalOpen(false);
+    } catch (err) {
+      console.error('Error adding user:', err);
+    }
   };
 
   // Handle editing a user
-  const handleEditUser = (updatedUser: any) => {
-    setUsers(
-      users.map((user) =>
-        user.id === updatedUser.id ? { ...user, ...updatedUser } : user
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingUser(null);
+  const handleEditUser = async (updatedUser: any) => {
+    try {
+      const response = await fetch('/api/admin/permissions', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the user list
+        const refreshResponse = await fetch('/api/admin/permissions');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setUsers(refreshData.users);
+        }
+        
+        setIsEditModalOpen(false);
+        setEditingUser(null);
+      } else {
+        console.error('Failed to update user:', data.error);
+      }
+    } catch (err) {
+      console.error('Error updating user:', err);
+    }
   };
 
   // Handle deleting a user
-  const handleDeleteUser = (id: string) => {
-    setUsers(users.filter((user) => user.id !== id));
-  };
-
-  // Toggle user status
-  const toggleUserStatus = (id: string, currentStatus: string) => {
-    const newStatus = currentStatus === "active" ? "inactive" : "active";
-    setUsers(
-      users.map((user) =>
-        user.id === id ? { ...user, status: newStatus } : user
-      )
-    );
-  };
-
-  // Update user permissions
-  const updateUserPermissions = (
-    userId: string,
-    permissionId: string,
-    value: boolean
-  ) => {
-    setUsers(
-      users.map((user) => {
-        if (user.id === userId) {
-          return {
-            ...user,
-            permissions: {
-              ...user.permissions,
-              [permissionId]: value,
-            },
-          };
+  const handleDeleteUser = async (id: string) => {
+    try {
+      const response = await fetch('/api/admin/permissions', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the user list
+        const refreshResponse = await fetch('/api/admin/permissions');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setUsers(refreshData.users);
         }
-        return user;
-      })
-    );
+      } else {
+        alert(data.error || 'Failed to delete user');
+      }
+    } catch (err) {
+      console.error('Error deleting user:', err);
+      alert('An error occurred while deleting the user');
+    }
   };
+
+  // Toggle user status (activate/deactivate)
+  const toggleUserStatus = async (id: string, currentStatus: string) => {
+    // This would require a separate API endpoint to update user status
+    alert("User status toggling is not implemented in this version.");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg">Loading users...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-red-500">Error: {error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -235,18 +217,18 @@ export default function UserPermissionsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600 dark:text-green-400">
-              {users.filter((u) => u.status === "active").length}
+              {users.filter((u) => u.status !== "inactive").length}
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Admin Users</CardTitle>
+            <CardTitle>Facilitator Users</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-              {users.filter((u) => u.role === "admin").length}
+              {users.filter((u) => u.role === "facilitator").length}
             </div>
           </CardContent>
         </Card>
@@ -276,6 +258,7 @@ export default function UserPermissionsPage() {
                   <SelectItem value="all">All Roles</SelectItem>
                   <SelectItem value="admin">Admin</SelectItem>
                   <SelectItem value="facilitator">Facilitator</SelectItem>
+                  <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -310,8 +293,7 @@ export default function UserPermissionsPage() {
                 <TableHead>User</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Last Login</TableHead>
-                <TableHead>Permissions</TableHead>
+                <TableHead>Created</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -336,29 +318,13 @@ export default function UserPermissionsPage() {
                   <TableCell>
                     <Badge
                       variant={
-                        user.status === "active" ? "default" : "secondary"
+                        user.status !== "inactive" ? "default" : "secondary"
                       }
                     >
-                      {user.status.charAt(0).toUpperCase() +
-                        user.status.slice(1)}
+                      {user.status || "active"}
                     </Badge>
                   </TableCell>
-                  <TableCell>{user.lastLogin.toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
-                      {Object.entries(user.permissions)
-                        .filter(([key, value]) => value)
-                        .map(([key, value]) => (
-                          <Badge
-                            key={key}
-                            variant="outline"
-                            className="text-xs"
-                          >
-                            {key}
-                          </Badge>
-                        ))}
-                    </div>
-                  </TableCell>
+                  <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
@@ -366,7 +332,7 @@ export default function UserPermissionsPage() {
                         size="sm"
                         onClick={() => toggleUserStatus(user.id, user.status)}
                       >
-                        {user.status === "active" ? "Deactivate" : "Activate"}
+                        {user.status !== "inactive" ? "Deactivate" : "Activate"}
                       </Button>
                       <Button
                         variant="ghost"
@@ -376,7 +342,7 @@ export default function UserPermissionsPage() {
                           setIsEditModalOpen(true);
                         }}
                       >
-                        <Key className="h-4 w-4" />
+                        <Edit className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="ghost"
@@ -394,15 +360,14 @@ export default function UserPermissionsPage() {
         </CardContent>
       </Card>
 
-      {/* Edit Permissions Modal */}
+      {/* Edit User Modal */}
       <Credenza open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
         <CredenzaContent>
           {editingUser && (
-            <EditPermissionsForm
+            <EditUserForm
               user={editingUser}
               onUpdate={handleEditUser}
               onCancel={() => setIsEditModalOpen(false)}
-              onUpdatePermissions={updateUserPermissions}
             />
           )}
         </CredenzaContent>
@@ -482,6 +447,7 @@ function AddUserForm({
               <SelectContent>
                 <SelectItem value="admin">Admin</SelectItem>
                 <SelectItem value="facilitator">Facilitator</SelectItem>
+                <SelectItem value="user">User</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -501,94 +467,92 @@ function AddUserForm({
   );
 }
 
-// Edit Permissions Form Component
-function EditPermissionsForm({
+// Edit User Form Component
+function EditUserForm({
   user,
   onUpdate,
   onCancel,
-  onUpdatePermissions,
 }: {
   user: any;
   onUpdate: (data: any) => void;
   onCancel: () => void;
-  onUpdatePermissions: (
-    userId: string,
-    permissionId: string,
-    value: boolean
-  ) => void;
 }) {
-  const [editedUser, setEditedUser] = useState(user);
+  const [formData, setFormData] = useState({
+    id: user.id,
+    name: user.name || "",
+    email: user.email || "",
+    role: user.role || "user",
+  });
 
-  const handlePermissionChange = (permissionId: string, value: boolean) => {
-    onUpdatePermissions(user.id, permissionId, value);
-    setEditedUser({
-      ...editedUser,
-      permissions: {
-        ...editedUser.permissions,
-        [permissionId]: value,
-      },
-    });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onUpdate(formData);
   };
 
   return (
     <>
       <CredenzaHeader>
-        <CredenzaTitle>Edit Permissions</CredenzaTitle>
+        <CredenzaTitle>Edit User</CredenzaTitle>
         <CredenzaDescription>
-          Manage permissions for {user.name}
+          Update user details
         </CredenzaDescription>
       </CredenzaHeader>
       <CredenzaBody>
-        <div className="space-y-4">
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h3 className="font-medium text-gray-900 dark:text-white">
-              {user.name}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {user.email}
-            </p>
-            <Badge className="mt-2">
-              {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-            </Badge>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="edit-name">Full Name</Label>
+            <Input
+              id="edit-name"
+              value={formData.name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
           </div>
 
-          <div className="space-y-3">
-            <h4 className="font-medium text-gray-900 dark:text-white">
-              Permissions
-            </h4>
-            {permissionCategories.map((category) => (
-              <div
-                key={category.id}
-                className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg"
-              >
-                <Label
-                  htmlFor={`permission-${category.id}`}
-                  className="font-normal"
-                >
-                  {category.name}
-                </Label>
-                <Switch
-                  id={`permission-${category.id}`}
-                  checked={
-                    editedUser.permissions[
-                      category.id as keyof typeof editedUser.permissions
-                    ]
-                  }
-                  onCheckedChange={(value) =>
-                    handlePermissionChange(category.id, value)
-                  }
-                />
-              </div>
-            ))}
+          <div className="space-y-2">
+            <Label htmlFor="edit-email">Email</Label>
+            <Input
+              id="edit-email"
+              type="email"
+              value={formData.email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+            />
           </div>
-        </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-role">Role</Label>
+            <Select
+              value={formData.role}
+              onValueChange={(value) =>
+                setFormData({ ...formData, role: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="admin">Admin</SelectItem>
+                <SelectItem value="facilitator">Facilitator</SelectItem>
+                <SelectItem value="user">User</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </form>
       </CredenzaBody>
       <CredenzaFooter>
         <CredenzaClose asChild>
           <Button variant="outline" onClick={onCancel}>
-            Close
+            Cancel
           </Button>
         </CredenzaClose>
+        <Button type="submit" onClick={handleSubmit}>
+          Save Changes
+        </Button>
       </CredenzaFooter>
     </>
   );

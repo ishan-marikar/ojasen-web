@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -82,66 +82,6 @@ const formatPercentage = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
 
-// Mock data for campaigns
-const mockCampaigns = [
-  {
-    id: "1",
-    name: "Summer Wellness Special",
-    type: "discount",
-    status: "active",
-    startDate: new Date("2025-06-01"),
-    endDate: new Date("2025-08-31"),
-    discount: 15,
-    usageCount: 42,
-    revenueGenerated: 84000,
-    targetAudience: "Returning Customers",
-  },
-  {
-    id: "2",
-    name: "New Year Yoga Package",
-    type: "bundle",
-    status: "scheduled",
-    startDate: new Date("2026-01-01"),
-    endDate: new Date("2026-01-31"),
-    discount: 20,
-    usageCount: 0,
-    revenueGenerated: 0,
-    targetAudience: "All Customers",
-  },
-  {
-    id: "3",
-    name: "Referral Program",
-    type: "referral",
-    status: "active",
-    startDate: new Date("2025-01-01"),
-    endDate: new Date("2025-12-31"),
-    discount: 10,
-    usageCount: 18,
-    revenueGenerated: 36000,
-    targetAudience: "All Customers",
-  },
-  {
-    id: "4",
-    name: "Loyalty Points Boost",
-    type: "loyalty",
-    status: "paused",
-    startDate: new Date("2025-03-01"),
-    endDate: new Date("2025-05-31"),
-    discount: 0,
-    usageCount: 27,
-    revenueGenerated: 54000,
-    targetAudience: "Loyalty Members",
-  },
-];
-
-// Mock data for campaign performance
-const mockCampaignPerformance = [
-  { name: "Summer Wellness", revenue: 84000, usage: 42 },
-  { name: "New Year Yoga", revenue: 0, usage: 0 },
-  { name: "Referral Program", revenue: 36000, usage: 18 },
-  { name: "Loyalty Points", revenue: 54000, usage: 27 },
-];
-
 // Define colors directly as they are defined in CSS
 const chartColors = {
   chart1: "oklch(0.646 0.222 41.116)", // Warm color
@@ -152,12 +92,40 @@ const chartColors = {
 };
 
 export default function CampaignsManagementPage() {
-  const [campaigns, setCampaigns] = useState(mockCampaigns);
+  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+
+  // Fetch campaigns data
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch('/api/admin/campaigns');
+        const data = await response.json();
+        
+        if (data.success) {
+          setCampaigns(data.campaigns);
+        } else {
+          throw new Error(data.error || 'Failed to fetch campaigns');
+        }
+      } catch (err) {
+        console.error('Error fetching campaigns:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCampaigns();
+  }, []);
 
   // Filter campaigns based on search term and status
   const filteredCampaigns = campaigns.filter((campaign) => {
@@ -172,48 +140,155 @@ export default function CampaignsManagementPage() {
     return matchesSearch && matchesStatus;
   });
 
+  // Prepare data for campaign performance chart
+  const campaignPerformanceData = campaigns.map(campaign => ({
+    name: campaign.name.length > 20 ? campaign.name.substring(0, 17) + "..." : campaign.name,
+    revenue: campaign.revenueGenerated,
+    usage: campaign.usageCount,
+  }));
+
   // Handle adding a new campaign
-  const handleAddCampaign = (newCampaign: any) => {
-    const campaign = {
-      ...newCampaign,
-      id: (campaigns.length + 1).toString(),
-      startDate: new Date(newCampaign.startDate),
-      endDate: new Date(newCampaign.endDate),
-      discount: parseInt(newCampaign.discount),
-      usageCount: 0,
-      revenueGenerated: 0,
-    };
-    setCampaigns([campaign, ...campaigns]);
-    setIsAddModalOpen(false);
+  const handleAddCampaign = async (newCampaign: any) => {
+    try {
+      const response = await fetch('/api/admin/campaigns', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCampaign),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the campaign list
+        const refreshResponse = await fetch('/api/admin/campaigns');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCampaigns(refreshData.campaigns);
+        }
+        
+        setIsAddModalOpen(false);
+      } else {
+        console.error('Failed to add campaign:', data.error);
+      }
+    } catch (err) {
+      console.error('Error adding campaign:', err);
+    }
   };
 
   // Handle editing a campaign
-  const handleEditCampaign = (updatedCampaign: any) => {
-    setCampaigns(
-      campaigns.map((campaign) =>
-        campaign.id === updatedCampaign.id
-          ? { ...campaign, ...updatedCampaign }
-          : campaign
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingCampaign(null);
+  const handleEditCampaign = async (updatedCampaign: any) => {
+    try {
+      const response = await fetch('/api/admin/campaigns', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCampaign),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the campaign list
+        const refreshResponse = await fetch('/api/admin/campaigns');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCampaigns(refreshData.campaigns);
+        }
+        
+        setIsEditModalOpen(false);
+        setEditingCampaign(null);
+      } else {
+        console.error('Failed to update campaign:', data.error);
+      }
+    } catch (err) {
+      console.error('Error updating campaign:', err);
+    }
   };
 
   // Handle deleting a campaign
-  const handleDeleteCampaign = (id: string) => {
-    setCampaigns(campaigns.filter((campaign) => campaign.id !== id));
+  const handleDeleteCampaign = async (id: string) => {
+    try {
+      const response = await fetch('/api/admin/campaigns', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the campaign list
+        const refreshResponse = await fetch('/api/admin/campaigns');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCampaigns(refreshData.campaigns);
+        }
+      } else {
+        console.error('Failed to delete campaign:', data.error);
+      }
+    } catch (err) {
+      console.error('Error deleting campaign:', err);
+    }
   };
 
   // Toggle campaign status
-  const toggleCampaignStatus = (id: string, currentStatus: string) => {
+  const toggleCampaignStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === "active" ? "paused" : "active";
-    setCampaigns(
-      campaigns.map((campaign) =>
-        campaign.id === id ? { ...campaign, status: newStatus } : campaign
-      )
-    );
+    
+    try {
+      const response = await fetch('/api/admin/campaigns', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the campaign list
+        const refreshResponse = await fetch('/api/admin/campaigns');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCampaigns(refreshData.campaigns);
+        }
+      } else {
+        console.error('Failed to update campaign status:', data.error);
+      }
+    } catch (err) {
+      console.error('Error updating campaign status:', err);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg">Loading campaigns...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-red-500">Error: {error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -250,7 +325,7 @@ export default function CampaignsManagementPage() {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={mockCampaignPerformance}
+                data={campaignPerformanceData}
                 margin={{
                   top: 20,
                   right: 30,
@@ -329,6 +404,8 @@ export default function CampaignsManagementPage() {
                   <SelectItem value="active">Active</SelectItem>
                   <SelectItem value="scheduled">Scheduled</SelectItem>
                   <SelectItem value="paused">Paused</SelectItem>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -353,7 +430,7 @@ export default function CampaignsManagementPage() {
       {/* Campaigns Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Campaigns</CardTitle>
+          <CardTitle>Campaigns ({campaigns.length})</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -386,7 +463,9 @@ export default function CampaignsManagementPage() {
                           ? "default"
                           : campaign.status === "scheduled"
                           ? "secondary"
-                          : "outline"
+                          : campaign.status === "paused"
+                          ? "outline"
+                          : "default"
                       }
                     >
                       {campaign.status.charAt(0).toUpperCase() +
@@ -394,8 +473,8 @@ export default function CampaignsManagementPage() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {campaign.startDate.toLocaleDateString()} -{" "}
-                    {campaign.endDate.toLocaleDateString()}
+                    {new Date(campaign.startDate).toLocaleDateString()} -{" "}
+                    {new Date(campaign.endDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     {campaign.discount > 0 ? `${campaign.discount}%` : "N/A"}
@@ -447,6 +526,19 @@ export default function CampaignsManagementPage() {
           </Table>
         </CardContent>
       </Card>
+      
+      {/* Edit Campaign Modal */}
+      <Credenza open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <CredenzaContent>
+          {editingCampaign && (
+            <EditCampaignForm
+              campaign={editingCampaign}
+              onSubmit={handleEditCampaign}
+              onCancel={() => setIsEditModalOpen(false)}
+            />
+          )}
+        </CredenzaContent>
+      </Credenza>
     </div>
   );
 }
@@ -462,8 +554,8 @@ function AddCampaignForm({
   const [formData, setFormData] = useState({
     name: "",
     type: "discount",
-    startDate: "",
-    endDate: "",
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     discount: "",
     targetAudience: "All Customers",
   });
@@ -474,8 +566,8 @@ function AddCampaignForm({
     setFormData({
       name: "",
       type: "discount",
-      startDate: "",
-      endDate: "",
+      startDate: new Date().toISOString().split('T')[0],
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       discount: "",
       targetAudience: "All Customers",
     });
@@ -603,6 +695,215 @@ function AddCampaignForm({
         </CredenzaClose>
         <Button type="submit" onClick={handleSubmit}>
           Add Campaign
+        </Button>
+      </CredenzaFooter>
+    </>
+  );
+}
+
+// Edit Campaign Form Component
+function EditCampaignForm({
+  campaign,
+  onSubmit,
+  onCancel,
+}: {
+  campaign: any;
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
+  const [formData, setFormData] = useState({
+    id: campaign.id,
+    name: campaign.name || "",
+    type: campaign.type || "discount",
+    status: campaign.status || "draft",
+    startDate: campaign.startDate ? new Date(campaign.startDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+    endDate: campaign.endDate ? new Date(campaign.endDate).toISOString().split('T')[0] : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    discount: campaign.discount?.toString() || "",
+    usageCount: campaign.usageCount?.toString() || "0",
+    revenueGenerated: campaign.revenueGenerated?.toString() || "0",
+    targetAudience: campaign.targetAudience || "All Customers",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({
+      ...formData,
+      discount: parseFloat(formData.discount) || 0,
+      usageCount: parseInt(formData.usageCount) || 0,
+      revenueGenerated: parseFloat(formData.revenueGenerated) || 0,
+    });
+  };
+
+  return (
+    <>
+      <CredenzaHeader>
+        <CredenzaTitle>Edit Campaign</CredenzaTitle>
+        <CredenzaDescription>
+          Update campaign details
+        </CredenzaDescription>
+      </CredenzaHeader>
+      <CredenzaBody>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="edit-name">Campaign Name</Label>
+            <Input
+              id="edit-name"
+              value={formData.name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-type">Campaign Type</Label>
+              <Select
+                value={formData.type}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, type: value })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="discount">Discount</SelectItem>
+                  <SelectItem value="bundle">Bundle</SelectItem>
+                  <SelectItem value="referral">Referral</SelectItem>
+                  <SelectItem value="loyalty">Loyalty</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-status">Status</Label>
+              <Select
+                value={formData.status}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, status: value })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="scheduled">Scheduled</SelectItem>
+                  <SelectItem value="paused">Paused</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-startDate">Start Date</Label>
+              <Input
+                id="edit-startDate"
+                type="date"
+                value={formData.startDate}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, startDate: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-endDate">End Date</Label>
+              <Input
+                id="edit-endDate"
+                type="date"
+                value={formData.endDate}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, endDate: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-discount">Discount Percentage (%)</Label>
+              <Input
+                id="edit-discount"
+                type="number"
+                min="0"
+                max="100"
+                value={formData.discount}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, discount: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-targetAudience">Target Audience</Label>
+              <Select
+                value={formData.targetAudience}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, targetAudience: value })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All Customers">All Customers</SelectItem>
+                  <SelectItem value="Returning Customers">
+                    Returning Customers
+                  </SelectItem>
+                  <SelectItem value="New Customers">New Customers</SelectItem>
+                  <SelectItem value="Loyalty Members">
+                    Loyalty Members
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-usageCount">Usage Count</Label>
+              <Input
+                id="edit-usageCount"
+                type="number"
+                min="0"
+                value={formData.usageCount}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, usageCount: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="edit-revenueGenerated">Revenue Generated (LKR)</Label>
+              <Input
+                id="edit-revenueGenerated"
+                type="number"
+                min="0"
+                value={formData.revenueGenerated}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, revenueGenerated: e.target.value })
+                }
+              />
+            </div>
+          </div>
+        </form>
+      </CredenzaBody>
+      <CredenzaFooter>
+        <CredenzaClose asChild>
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+        </CredenzaClose>
+        <Button type="submit" onClick={handleSubmit}>
+          Save Changes
         </Button>
       </CredenzaFooter>
     </>

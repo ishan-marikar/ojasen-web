@@ -197,3 +197,21 @@ model Payment {
 
   @@map("payment")
 }
+
+// Campaign model for tracking marketing campaigns
+model Campaign {
+  id              String     @id
+  name            String
+  type            String     // discount, bundle, referral, loyalty
+  status          String     @default("draft") // draft, active, scheduled, paused, completed
+  startDate       DateTime
+  endDate         DateTime
+  discount        Float      @default(0) // Percentage discount
+  usageCount      Int        @default(0)
+  revenueGenerated Float     @default(0)
+  targetAudience  String     // All Customers, Returning Customers, New Customers, Loyalty Members
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("campaign")
+}

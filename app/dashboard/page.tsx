@@ -7,9 +7,7 @@ import { BookingService, FacilitatorService } from "@/lib/booking-service";
 import { Facilitator, Booking } from "@/lib/types";
 import Link from "next/link";
 import { ProfileEditForm } from "@/components/profile-edit-form";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 // Extend the User type to include role
 interface UserWithRole {

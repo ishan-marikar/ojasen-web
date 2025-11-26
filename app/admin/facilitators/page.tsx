@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,47 +44,46 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-// Mock data for facilitators
-const mockFacilitators = [
-  {
-    id: "1",
-    name: "Oshadi",
-    role: "Sound Healer",
-    email: "oshadi@ojasen.com",
-    baseFee: 2500,
-    commission: 0.15,
-    assignedBookings: 24,
-    status: "active",
-  },
-  {
-    id: "2",
-    name: "Alice",
-    role: "Yoga Instructor",
-    email: "alice@ojasen.com",
-    baseFee: 3000,
-    commission: 0.2,
-    assignedBookings: 18,
-    status: "active",
-  },
-  {
-    id: "3",
-    name: "Deborah",
-    role: "Energy Healer",
-    email: "deborah@ojasen.com",
-    baseFee: 2800,
-    commission: 0.18,
-    assignedBookings: 22,
-    status: "inactive",
-  },
-];
-
 export default function FacilitatorsManagementPage() {
-  const [facilitators, setFacilitators] = useState(mockFacilitators);
+  const [facilitators, setFacilitators] = useState<any[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingFacilitator, setEditingFacilitator] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch facilitators
+        const facilitatorsResponse = await fetch("/api/admin/facilitators");
+        const facilitatorsData = await facilitatorsResponse.json();
+
+        if (facilitatorsData.success) {
+          setFacilitators(facilitatorsData.facilitators);
+        } else {
+          throw new Error(
+            facilitatorsData.error || "Failed to fetch facilitators"
+          );
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Filter facilitators based on search term and status
   const filteredFacilitators = facilitators.filter((facilitator) => {
@@ -100,37 +99,143 @@ export default function FacilitatorsManagementPage() {
   });
 
   // Handle adding a new facilitator
-  const handleAddFacilitator = (newFacilitator: any) => {
-    const facilitator = {
-      ...newFacilitator,
-      id: (facilitators.length + 1).toString(),
-      assignedBookings: 0,
-      baseFee: parseInt(newFacilitator.baseFee),
-      commission: parseFloat(newFacilitator.commission),
-    };
-    setFacilitators([facilitator, ...facilitators]);
-    setIsAddModalOpen(false);
+  const handleAddFacilitator = async (newFacilitator: any) => {
+    try {
+      const response = await fetch("/api/admin/facilitators", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newFacilitator,
+          baseFee: parseFloat(newFacilitator.baseFee),
+          commission: parseFloat(newFacilitator.commission),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch facilitators to get the updated list
+        const facilitatorsResponse = await fetch("/api/admin/facilitators");
+        const facilitatorsData = await facilitatorsResponse.json();
+
+        if (facilitatorsData.success) {
+          setFacilitators(facilitatorsData.facilitators);
+        }
+
+        setIsAddModalOpen(false);
+      } else {
+        console.error("Failed to create facilitator:", result.error);
+      }
+    } catch (error) {
+      console.error("Error creating facilitator:", error);
+    }
   };
 
   // Handle editing a facilitator
-  const handleEditFacilitator = (updatedFacilitator: any) => {
-    setFacilitators(
-      facilitators.map((facilitator) =>
-        facilitator.id === updatedFacilitator.id
-          ? { ...facilitator, ...updatedFacilitator }
-          : facilitator
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingFacilitator(null);
+  const handleEditFacilitator = async (updatedFacilitator: any) => {
+    try {
+      const response = await fetch("/api/admin/facilitators", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFacilitator),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch facilitators to get the updated list
+        const facilitatorsResponse = await fetch("/api/admin/facilitators");
+        const facilitatorsData = await facilitatorsResponse.json();
+
+        if (facilitatorsData.success) {
+          setFacilitators(facilitatorsData.facilitators);
+        }
+
+        setIsEditModalOpen(false);
+        setEditingFacilitator(null);
+      } else {
+        console.error("Failed to update facilitator:", result.error);
+      }
+    } catch (error) {
+      console.error("Error updating facilitator:", error);
+    }
   };
 
   // Handle deleting a facilitator
-  const handleDeleteFacilitator = (id: string) => {
-    setFacilitators(
-      facilitators.filter((facilitator) => facilitator.id !== id)
-    );
+  const handleDeleteFacilitator = async (id: string) => {
+    try {
+      const response = await fetch("/api/admin/facilitators", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Refetch facilitators to get the updated list
+        const facilitatorsResponse = await fetch("/api/admin/facilitators");
+        const facilitatorsData = await facilitatorsResponse.json();
+
+        if (facilitatorsData.success) {
+          setFacilitators(facilitatorsData.facilitators);
+        }
+      } else {
+        console.error("Failed to delete facilitator:", result.error);
+      }
+    } catch (error) {
+      console.error("Error deleting facilitator:", error);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            Loading facilitators...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6 flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="text-red-500 mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-16 w-16 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Error Loading Data
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
+          <Button onClick={() => window.location.reload()}>Retry</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -182,6 +287,20 @@ export default function FacilitatorsManagementPage() {
                   onSubmit={handleAddFacilitator}
                   onCancel={() => setIsAddModalOpen(false)}
                 />
+              </CredenzaContent>
+            </Credenza>
+            <Credenza open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+              <CredenzaContent>
+                {editingFacilitator && (
+                  <EditFacilitatorForm
+                    facilitator={editingFacilitator}
+                    onSubmit={handleEditFacilitator}
+                    onCancel={() => {
+                      setIsEditModalOpen(false);
+                      setEditingFacilitator(null);
+                    }}
+                  />
+                )}
               </CredenzaContent>
             </Credenza>
           </div>
@@ -263,6 +382,145 @@ export default function FacilitatorsManagementPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+// Edit Facilitator Form Component
+function EditFacilitatorForm({
+  facilitator,
+  onSubmit,
+  onCancel,
+}: {
+  facilitator: any;
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
+  const [formData, setFormData] = useState({
+    id: facilitator.id,
+    name: facilitator.name || "",
+    role: facilitator.role || "",
+    email: facilitator.email || "",
+    baseFee: facilitator.baseFee?.toString() || "",
+    commission: (facilitator.commission * 100).toString() || "",
+    status: facilitator.status || "active",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({
+      ...formData,
+      baseFee: parseFloat(formData.baseFee),
+      commission: parseFloat(formData.commission) / 100,
+    });
+  };
+
+  return (
+    <>
+      <CredenzaHeader>
+        <CredenzaTitle>Edit Facilitator</CredenzaTitle>
+        <CredenzaDescription>Update facilitator details</CredenzaDescription>
+      </CredenzaHeader>
+      <CredenzaBody>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Full Name</Label>
+            <Input
+              id="name"
+              value={formData.name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="role">Role</Label>
+            <Input
+              id="role"
+              value={formData.role}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, role: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="baseFee">Base Fee (LKR)</Label>
+              <Input
+                id="baseFee"
+                type="number"
+                min="0"
+                value={formData.baseFee}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, baseFee: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="commission">Commission (%)</Label>
+              <Input
+                id="commission"
+                type="number"
+                min="0"
+                max="100"
+                step="0.1"
+                value={formData.commission}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, commission: e.target.value })
+                }
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="status">Status</Label>
+            <Select
+              value={formData.status}
+              onValueChange={(value) =>
+                setFormData({ ...formData, status: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="active">Active</SelectItem>
+                <SelectItem value="inactive">Inactive</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </form>
+      </CredenzaBody>
+      <CredenzaFooter>
+        <CredenzaClose asChild>
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+        </CredenzaClose>
+        <Button type="submit" onClick={handleSubmit}>
+          Update Facilitator
+        </Button>
+      </CredenzaFooter>
+    </>
   );
 }
 

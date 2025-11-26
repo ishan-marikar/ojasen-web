@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -64,51 +64,6 @@ const formatPercentage = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
 
-// Mock data for financial reports
-const mockFinancialData = {
-  revenue: 550000,
-  facilitatorCosts: 325000,
-  grossProfit: 225000,
-  outstandingInvoices: 25,
-  seasonBreakdown: {
-    "2025-Spring": {
-      totalRevenue: 125000,
-      facilitatorCosts: 75000,
-      bookingCount: 32,
-    },
-    "2025-Summer": {
-      totalRevenue: 185000,
-      facilitatorCosts: 110000,
-      bookingCount: 48,
-    },
-    "2025-Autumn": {
-      totalRevenue: 95000,
-      facilitatorCosts: 55000,
-      bookingCount: 24,
-    },
-    "2025-Winter": {
-      totalRevenue: 145000,
-      facilitatorCosts: 85000,
-      bookingCount: 38,
-    },
-  },
-  revenueOverTime: [
-    { month: "Jan", revenue: 35000, profit: 15000 },
-    { month: "Feb", revenue: 42000, profit: 18000 },
-    { month: "Mar", revenue: 38000, profit: 16000 },
-    { month: "Apr", revenue: 45000, profit: 20000 },
-    { month: "May", revenue: 52000, profit: 24000 },
-    { month: "Jun", revenue: 48000, profit: 21000 },
-  ],
-  topServices: [
-    { service: "Sound Healing", revenue: 185000, bookings: 42 },
-    { service: "Yoga & Meditation", revenue: 142000, bookings: 38 },
-    { service: "Energy Healing", revenue: 115000, bookings: 32 },
-    { service: "Ice Bath & Breathwork", revenue: 78000, bookings: 21 },
-    { service: "Ecstatic Dancing", revenue: 30000, bookings: 9 },
-  ],
-};
-
 // Define colors directly as they are defined in CSS
 const chartColors = {
   chart1: "oklch(0.646 0.222 41.116)", // Warm color
@@ -119,21 +74,70 @@ const chartColors = {
 };
 
 export default function FinancialReportsPage() {
+  const [financialData, setFinancialData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [dateRange, setDateRange] = useState("this-month");
   const [reportType, setReportType] = useState("summary");
 
+  // Fetch financial data
+  useEffect(() => {
+    const fetchFinancialData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch('/api/admin/financial-reports');
+        const data = await response.json();
+        
+        if (data.success) {
+          setFinancialData(data.financialData);
+        } else {
+          throw new Error(data.error || 'Failed to fetch financial data');
+        }
+      } catch (err) {
+        console.error('Error fetching financial data:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFinancialData();
+  }, []);
+
   // Prepare data for charts
-  const seasonChartData = Object.entries(mockFinancialData.seasonBreakdown).map(
+  const seasonChartData = financialData ? Object.entries(financialData.seasonBreakdown).map(
     ([season, data]: [string, any]) => ({
       season,
       revenue: data.totalRevenue,
       costs: data.facilitatorCosts,
     })
-  );
+  ) : [];
 
-  const revenueOverTimeData = mockFinancialData.revenueOverTime;
+  const revenueOverTimeData = financialData ? financialData.revenueOverTime : [];
 
-  const topServicesData = mockFinancialData.topServices;
+  const topServicesData = financialData ? financialData.topServices : [];
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg">Loading financial reports...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-red-500">Error: {error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -200,7 +204,7 @@ export default function FinancialReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-              {formatCurrency(mockFinancialData.revenue)}
+              {formatCurrency(financialData?.revenue || 0)}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
               +20.1% from last period
@@ -217,7 +221,7 @@ export default function FinancialReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-              {formatCurrency(mockFinancialData.facilitatorCosts)}
+              {formatCurrency(financialData?.facilitatorCosts || 0)}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
               +18.1% from last period
@@ -234,7 +238,7 @@ export default function FinancialReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {formatCurrency(mockFinancialData.grossProfit)}
+              {formatCurrency(financialData?.grossProfit || 0)}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
               +25.3% from last period
@@ -251,7 +255,7 @@ export default function FinancialReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-              {mockFinancialData.outstandingInvoices}
+              {financialData?.outstandingInvoices || 0}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
               Requires attention
@@ -469,7 +473,7 @@ export default function FinancialReportsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockFinancialData.topServices.map((service, index) => (
+              {topServicesData.map((service: any, index: number) => (
                 <TableRow key={service.service}>
                   <TableCell className="font-medium">
                     {service.service}

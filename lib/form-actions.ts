@@ -3,10 +3,7 @@
 import { redirect } from "next/navigation";
 import { BookingService, FacilitatorService } from "@/lib/booking-service";
 import { auth } from "@/lib/auth";
-import { PrismaClient } from "@prisma/client";
-
-// Initialize Prisma Client
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 // Discord webhook URL - should be moved to environment variables in production
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || "https://discord.com/api/webhooks/1439098604311810140/Uec_Qe8Wg5I0f5AffLfS1DUjwVT3kbtmP6xBqLhY5h7ZjkT4sF17zE9HftjXLpRobtcb";

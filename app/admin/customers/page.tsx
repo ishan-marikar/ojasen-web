@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,74 +44,48 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-// Mock data for customers
-const mockCustomers = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+94 77 123 4567",
-    totalBookings: 5,
-    totalSpent: 25000,
-    status: "active",
-    joinDate: new Date("2025-01-15"),
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phone: "+94 77 234 5678",
-    totalBookings: 3,
-    totalSpent: 12500,
-    status: "active",
-    joinDate: new Date("2025-03-22"),
-  },
-  {
-    id: "3",
-    name: "Robert Johnson",
-    email: "robert.j@example.com",
-    phone: "+94 77 345 6789",
-    totalBookings: 8,
-    totalSpent: 42000,
-    status: "inactive",
-    joinDate: new Date("2024-11-10"),
-  },
-  {
-    id: "4",
-    name: "Emily Wilson",
-    email: "emily.wilson@example.com",
-    phone: "+94 77 456 7890",
-    totalBookings: 2,
-    totalSpent: 7500,
-    status: "active",
-    joinDate: new Date("2025-05-18"),
-  },
-  {
-    id: "5",
-    name: "Michael Brown",
-    email: "michael.brown@example.com",
-    phone: "+94 77 567 8901",
-    totalBookings: 6,
-    totalSpent: 31000,
-    status: "active",
-    joinDate: new Date("2025-02-05"),
-  },
-];
-
 export default function CustomersManagementPage() {
-  const [customers, setCustomers] = useState(mockCustomers);
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
+  // Fetch customers data
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch('/api/admin/customers');
+        const data = await response.json();
+        
+        if (data.success) {
+          setCustomers(data.customers);
+        } else {
+          throw new Error(data.error || 'Failed to fetch customers');
+        }
+      } catch (err) {
+        console.error('Error fetching customers:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCustomers();
+  }, []);
+
   // Filter customers based on search term and status
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch =
       customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      customer.phone.includes(searchTerm);
+      (customer.phone && customer.phone.includes(searchTerm));
 
     const matchesStatus =
       statusFilter === "all" || customer.status === statusFilter;
@@ -120,35 +94,116 @@ export default function CustomersManagementPage() {
   });
 
   // Handle adding a new customer
-  const handleAddCustomer = (newCustomer: any) => {
-    const customer = {
-      ...newCustomer,
-      id: (customers.length + 1).toString(),
-      totalBookings: 0,
-      totalSpent: 0,
-      joinDate: new Date(),
-    };
-    setCustomers([customer, ...customers]);
-    setIsAddModalOpen(false);
+  const handleAddCustomer = async (newCustomer: any) => {
+    try {
+      const response = await fetch('/api/admin/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCustomer),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the customer list
+        const refreshResponse = await fetch('/api/admin/customers');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCustomers(refreshData.customers);
+        }
+        
+        setIsAddModalOpen(false);
+      } else {
+        console.error('Failed to add customer:', data.error);
+      }
+    } catch (err) {
+      console.error('Error adding customer:', err);
+    }
   };
 
   // Handle editing a customer
-  const handleEditCustomer = (updatedCustomer: any) => {
-    setCustomers(
-      customers.map((customer) =>
-        customer.id === updatedCustomer.id
-          ? { ...customer, ...updatedCustomer }
-          : customer
-      )
-    );
-    setIsEditModalOpen(false);
-    setEditingCustomer(null);
+  const handleEditCustomer = async (updatedCustomer: any) => {
+    try {
+      const response = await fetch('/api/admin/customers', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCustomer),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the customer list
+        const refreshResponse = await fetch('/api/admin/customers');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCustomers(refreshData.customers);
+        }
+        
+        setIsEditModalOpen(false);
+        setEditingCustomer(null);
+      } else {
+        console.error('Failed to update customer:', data.error);
+      }
+    } catch (err) {
+      console.error('Error updating customer:', err);
+    }
   };
 
   // Handle deleting a customer
-  const handleDeleteCustomer = (id: string) => {
-    setCustomers(customers.filter((customer) => customer.id !== id));
+  const handleDeleteCustomer = async (id: string) => {
+    try {
+      const response = await fetch('/api/admin/customers', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Refresh the customer list
+        const refreshResponse = await fetch('/api/admin/customers');
+        const refreshData = await refreshResponse.json();
+        
+        if (refreshData.success) {
+          setCustomers(refreshData.customers);
+        }
+      } else {
+        console.error('Failed to delete customer:', data.error);
+      }
+    } catch (err) {
+      console.error('Error deleting customer:', err);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg">Loading customers...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-red-500">Error: {error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 p-6">
@@ -209,7 +264,7 @@ export default function CustomersManagementPage() {
       {/* Customers Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Customers</CardTitle>
+          <CardTitle>Customers ({customers.length})</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -230,11 +285,11 @@ export default function CustomersManagementPage() {
                 <TableRow key={customer.id}>
                   <TableCell className="font-medium">{customer.name}</TableCell>
                   <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>{customer.totalBookings}</TableCell>
-                  <TableCell>{formatCurrency(customer.totalSpent)}</TableCell>
+                  <TableCell>{customer.phone || '-'}</TableCell>
+                  <TableCell>{customer.totalBookings || 0}</TableCell>
+                  <TableCell>{formatCurrency(customer.totalSpent || 0)}</TableCell>
                   <TableCell>
-                    {customer.joinDate.toLocaleDateString()}
+                    {new Date(customer.joinDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     <Badge
@@ -242,8 +297,8 @@ export default function CustomersManagementPage() {
                         customer.status === "active" ? "default" : "secondary"
                       }
                     >
-                      {customer.status.charAt(0).toUpperCase() +
-                        customer.status.slice(1)}
+                      {customer.status?.charAt(0).toUpperCase() +
+                        (customer.status?.slice(1) || "")}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
@@ -276,6 +331,19 @@ export default function CustomersManagementPage() {
           </Table>
         </CardContent>
       </Card>
+      
+      {/* Edit Customer Modal */}
+      <Credenza open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <CredenzaContent>
+          {editingCustomer && (
+            <EditCustomerForm
+              customer={editingCustomer}
+              onSubmit={handleEditCustomer}
+              onCancel={() => setIsEditModalOpen(false)}
+            />
+          )}
+        </CredenzaContent>
+      </Credenza>
     </div>
   );
 }
@@ -292,7 +360,6 @@ function AddCustomerForm({
     name: "",
     email: "",
     phone: "",
-    status: "active",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -302,7 +369,6 @@ function AddCustomerForm({
       name: "",
       email: "",
       phone: "",
-      status: "active",
     });
   };
 
@@ -347,26 +413,7 @@ function AddCustomerForm({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              required
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="status">Status</Label>
-            <Select
-              value={formData.status}
-              onValueChange={(value) =>
-                setFormData({ ...formData, status: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </form>
       </CredenzaBody>
@@ -378,6 +425,87 @@ function AddCustomerForm({
         </CredenzaClose>
         <Button type="submit" onClick={handleSubmit}>
           Add Customer
+        </Button>
+      </CredenzaFooter>
+    </>
+  );
+}
+
+// Edit Customer Form Component
+function EditCustomerForm({
+  customer,
+  onSubmit,
+  onCancel,
+}: {
+  customer: any;
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
+  const [formData, setFormData] = useState({
+    id: customer.id,
+    name: customer.name || "",
+    email: customer.email || "",
+    phone: customer.phone || "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <>
+      <CredenzaHeader>
+        <CredenzaTitle>Edit Customer</CredenzaTitle>
+        <CredenzaDescription>Update customer profile</CredenzaDescription>
+      </CredenzaHeader>
+      <CredenzaBody>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="edit-name">Full Name</Label>
+            <Input
+              id="edit-name"
+              value={formData.name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-email">Email</Label>
+            <Input
+              id="edit-email"
+              type="email"
+              value={formData.email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-phone">Phone Number</Label>
+            <Input
+              id="edit-phone"
+              value={formData.phone}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
+            />
+          </div>
+        </form>
+      </CredenzaBody>
+      <CredenzaFooter>
+        <CredenzaClose asChild>
+          <Button variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+        </CredenzaClose>
+        <Button type="submit" onClick={handleSubmit}>
+          Save Changes
         </Button>
       </CredenzaFooter>
     </>
