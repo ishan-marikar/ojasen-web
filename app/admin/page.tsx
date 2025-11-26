@@ -104,7 +104,14 @@ export default function AdminPage() {
       }
     };
 
+    // Initial fetch
     fetchData();
+
+    // Set up polling for real-time updates (every 30 seconds)
+    const intervalId = setInterval(fetchData, 30000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   // Prepare data for charts
