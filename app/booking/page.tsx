@@ -335,13 +335,13 @@ export default function BookingPage() {
                     <MapPin className="h-5 w-5 mr-3 text-primary" />
                     <span>{selectedEvent.location}</span>
                   </div>
-                  {selectedEvent.price && (
+                  {/* {selectedEvent.price && (
                     <div className="flex items-center text-[#191d18]">
                       <span className="font-medium text-lg">
                         Price: {selectedEvent.price}
                       </span>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             )}

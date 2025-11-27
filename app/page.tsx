@@ -544,7 +544,7 @@ function EventsSection() {
 
           <div className="">
             {/* <AnahataFlowEvent /> */}
-            <PanchaliSaadhanEvent />
+            {/* <PanchaliSaadhanEvent /> */}
           </div>
 
           <div className="text-center mt-12">

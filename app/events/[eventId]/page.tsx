@@ -153,11 +153,11 @@ export default function EventDetailPage() {
                     <h3 className="text-2xl font-light mb-2">
                       Reserve Your Spot
                     </h3>
-                    {event.price && (
+                    {/* {event.price && (
                       <p className="text-3xl font-light text-secondary">
                         {event.price}
                       </p>
-                    )}
+                    )} */}
                     <p className="text-[#c4c9c4] mt-1">
                       Secure your place in this transformative experience
                     </p>

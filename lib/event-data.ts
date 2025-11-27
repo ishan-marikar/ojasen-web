@@ -31,39 +31,85 @@ export interface EventCardData {
 
 // Complete event data with all details
 export const EVENTS_DATA: DetailedEvent[] = [
-  // Events from events/[eventId]/page.tsx
   // {
-  //   id: "anahata-flow",
-  //   title: "Anahata Flow",
-  //   date: "November 22, 2025",
+  //   id: "panchali-saadhan",
+  //   title: "Panchali Sādhanā",
+  //   date: "November 29, 2025",
   //   time: "6:00 PM",
   //   location: "The Island - Ahangama",
   //   description:
-  //     "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself.",
+  //     "A sacred WOMEN'S gathering inspired by the strength and grace of Panchali.",
   //   fullDescription:
-  //     "A heart-centered sound healing journey crafted to soften your emotional body and bring you back into harmony with yourself. Guided by Oshi's intuitive blend of crystal bowls, vocal toning, and frequency work, this session awakens the energy of the heart — the space where compassion, release, and renewal unfold.\n\nYou'll be invited to slow down, breathe deeply, and allow vibrational medicine to move through your system. As sound ripples through your body, it helps dissolve heaviness, calm the nervous system, and create gentle openings where clarity and lightness can return.\n\nThis is not just a sound bath — it is a space to feel, to let go, and to reconnect with the softness you often forget you carry. Anahata Flow is ideal for anyone seeking emotional balance, energetic reset, or a moment of pure presence within the stillness of Ojasen's natural surroundings.",
-  //   image: "/images/sound-healing.jpg",
-  //   category: "Sound Healing",
-  //   price: "LKR 3,500",
-  //   priceRaw: 3500,
+  //     "Panchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention.\n\nThe journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you. You'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness.\n\nPanchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention. The journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you.\n\nYou'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness. Panchali Sadhana is a space to be held, seen, and supported — a return to your inner flame, your truth, and your feminine wisdom. Come as you are. Leave renewed.",
+  //   image: "/images/panchali.png",
+  //   category: "Ceremonies",
+  //   price: "LKR 4,000",
+  //   priceRaw: 4000,
   // },
+
   {
-    id: "panchali-saadhan",
-    title: "Panchali Sādhanā",
-    date: "November 29, 2025",
+    id: "yin-yoga-dec-8",
+    title: "Yin Yoga",
+    date: "December 8, 2025",
     time: "6:00 PM",
-    location: "The Island - Ahangama",
-    description:
-      "A sacred WOMEN'S gathering inspired by the strength and grace of Panchali.",
+    location: "Ojasen Healing Arts",
+    description: "Slow, still poses that melt tension and quiet the mind.",
     fullDescription:
-      "Panchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention.\n\nThe journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you. You'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness.\n\nPanchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention. The journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you.\n\nYou'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness. Panchali Sadhana is a space to be held, seen, and supported — a return to your inner flame, your truth, and your feminine wisdom. Come as you are. Leave renewed.",
-    image: "/images/panchali.jpeg",
-    category: "Ceremonies",
+      "A grounding Yin Yoga session focused on long-held, gentle poses designed to release deep tension in the body and calm the nervous system. Ideal for restoring balance and cultivating inner quiet.",
+    image: "/images/placeholder.png",
+    category: "Yoga",
+    price: "LKR 3,000",
+    priceRaw: 3000,
+  },
+
+  {
+    id: "reiki-healing-dec-10",
+    title: "Reiki Healing 1:1",
+    date: "December 10, 2025",
+    time: "By Appointment",
+    location: "Ojasen Healing Arts",
+    description: "Restores balance and clears emotional heaviness.",
+    fullDescription:
+      "A one-on-one Reiki healing session designed to cleanse energetic blockages, lighten emotional weight, and help you return to a state of inner equilibrium. Gentle, non-invasive, and deeply restorative.",
+    image: "/images/placeholder.png",
+    category: "Healing",
+    price: "LKR 6,000",
+    priceRaw: 6000,
+  },
+
+  {
+    id: "samatva-flow-dec-12",
+    title: "Samatva Flow",
+    date: "December 12, 2025",
+    time: "6:00 PM",
+    location: "Ojasen Healing Arts",
+    description:
+      "A gentle, balanced flow to reset your energy and find centered stillness.",
+    fullDescription:
+      "A mindful movement practice inspired by the Sanskrit word 'Samatva' — equanimity. This session blends breath and flow to help you return to balance, steadiness, and quiet inner presence.",
+    image: "/images/placeholder.png",
+    category: "Yoga",
+    price: "LKR 3,500",
+    priceRaw: 3500,
+  },
+
+  {
+    id: "anahata-flow-dec-13",
+    title: "Anahata Flow",
+    date: "December 13, 2025",
+    time: "6:00 PM",
+    location: "Ojasen Healing Arts",
+    description:
+      "A soothing sound healing session designed to awaken and expand the heart.",
+    fullDescription:
+      "A heart-centered healing experience combining gentle movement, breath, and therapeutic sound frequencies. Designed to release emotional tightness, open the heart space, and invite softness and connection.",
+    image: "/images/placeholder.png",
+    category: "Sound Healing",
     price: "LKR 4,000",
     priceRaw: 4000,
   },
- 
 ];
+
 
 // Event data formatted for the events page card display
 export const EVENT_CARDS_DATA: EventCardData[] = EVENTS_DATA.map(event => {
