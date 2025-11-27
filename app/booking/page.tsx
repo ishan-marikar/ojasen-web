@@ -54,6 +54,9 @@ export default function BookingPage() {
     date: "",
     participants: "1",
     message: "",
+    nationality: "Local", // Default to Local
+    nic: "",
+    passport: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -139,6 +142,19 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate required fields based on nationality - only for actual bookings
+    if (selectedEvent) {
+      if (formData.nationality === "Local" && !formData.nic.trim()) {
+        alert("NIC number is required for local visitors.");
+        return;
+      }
+
+      if (formData.nationality === "Foreigner" && !formData.passport.trim()) {
+        alert("Passport number is required for foreign visitors.");
+        return;
+      }
+    }
+
     // NOTE: We no longer prevent submission when no event is selected
     // This allows for general inquiries to be submitted
 
@@ -171,6 +187,9 @@ export default function BookingPage() {
             date: "",
             participants: "1",
             message: "",
+            nationality: "Local",
+            nic: "",
+            passport: "",
           });
         }, 3000);
       } else {
@@ -233,7 +252,7 @@ export default function BookingPage() {
           {!selectedEvent && (
             <div className="mb-12">
               <h2 className="text-2xl font-light text-[#191d18] mb-6 text-center">
-                Select an Event
+                Select a Session
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {EVENTS_DATA.map((event) => (
@@ -287,7 +306,7 @@ export default function BookingPage() {
               </div>
               <div className="text-center mt-8">
                 <Link href="/events" className="text-primary hover:underline">
-                  View all events →
+                  View all sessions
                 </Link>
               </div>
             </div>
@@ -300,7 +319,7 @@ export default function BookingPage() {
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-primary/20">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-2xl font-light text-[#191d18]">
-                    Event Details
+                    Session Details
                   </h2>
                   <button
                     onClick={() => setSelectedEvent(null)}
@@ -520,6 +539,74 @@ export default function BookingPage() {
                       </p>
                     )}
                   </div>
+
+                  {/* Nationality Selector - only shown for actual bookings, not general inquiries */}
+                  {selectedEvent && (
+                    <>
+                      <div>
+                        <label
+                          htmlFor="nationality"
+                          className="block text-[#191d18] mb-2"
+                        >
+                          Nationality
+                        </label>
+                        <select
+                          id="nationality"
+                          name="nationality"
+                          value={formData.nationality}
+                          onChange={handleChange}
+                          className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
+                        >
+                          <option value="Local">Local</option>
+                          <option value="Foreigner">Foreigner</option>
+                        </select>
+                      </div>
+
+                      {/* NIC Field - shown when Local is selected */}
+                      {formData.nationality === "Local" && (
+                        <div>
+                          <label
+                            htmlFor="nic"
+                            className="block text-[#191d18] mb-2"
+                          >
+                            NIC Number *
+                          </label>
+                          <input
+                            type="text"
+                            id="nic"
+                            name="nic"
+                            value={formData.nic}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
+                            placeholder="Enter your NIC number"
+                          />
+                        </div>
+                      )}
+
+                      {/* Passport Field - shown when Foreigner is selected */}
+                      {formData.nationality === "Foreigner" && (
+                        <div>
+                          <label
+                            htmlFor="passport"
+                            className="block text-[#191d18] mb-2"
+                          >
+                            Passport Number *
+                          </label>
+                          <input
+                            type="text"
+                            id="passport"
+                            name="passport"
+                            value={formData.passport}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
+                            placeholder="Enter your passport number"
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
 
                   {selectedEvent && (
                     <>

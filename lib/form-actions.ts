@@ -46,6 +46,9 @@ export async function submitBookingForm(formData: {
   date?: string;
   participants?: string;
   message?: string;
+  nationality?: string;
+  nic?: string;
+  passport?: string;
   event?: {
     id: string;
     title: string;
@@ -101,6 +104,9 @@ export async function submitBookingForm(formData: {
         facilitatorFee,
         facilitatorId: facilitator?.id,
         facilitatorName: facilitator?.name,
+        nationality: formData.nationality,
+        nic: formData.nic,
+        passport: formData.passport,
       };
       
       // Add user ID if user is authenticated
@@ -185,6 +191,16 @@ export async function submitBookingForm(formData: {
             {
               name: "Phone",
               value: formData.phone,
+              inline: true,
+            },
+            {
+              name: "Nationality",
+              value: formData.nationality || "Not specified",
+              inline: true,
+            },
+            {
+              name: formData.nationality === "Local" ? "NIC Number" : "Passport Number",
+              value: formData.nationality === "Local" ? (formData.nic || "Not provided") : (formData.passport || "Not provided"),
               inline: true,
             },
             {

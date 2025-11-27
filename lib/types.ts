@@ -55,6 +55,9 @@ export interface Booking {
   facilitatorId?: string | null;
   facilitatorName?: string | null;
   userId?: string | null;
+  nationality?: string | null;
+  nic?: string | null;
+  passport?: string | null;
 }
 
 // Facilitator interface

@@ -84,6 +84,9 @@ export class BookingService {
           facilitatorId: bookingData.facilitatorId,
           facilitatorName: bookingData.facilitatorName,
           userId: bookingData.userId,
+          nationality: bookingData.nationality,
+          nic: bookingData.nic,
+          passport: bookingData.passport,
         },
       });
       

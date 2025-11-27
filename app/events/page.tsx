@@ -30,7 +30,7 @@ function EventsHero() {
         wellness events
       </div>
       <button className="px-8 py-3 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg">
-        View All Events
+        View All Sessions
       </button>
     </Hero>
   );

@@ -51,39 +51,57 @@ async function seed() {
       }
     }
 
-    // Create admin user
-    const adminEmail = "ishan@ojasenhealingarts.com";
-    const adminName = "Ishan Admin";
-    
-    // Check if admin user already exists
-    const existingAdmin = await prisma.user.findUnique({
-      where: { email: adminEmail },
-    });
+    // Create admin users
+    const adminUsers = [
+      {
+        name: "Ishan Marikar",
+        email: "ishan@ojasenhealingarts.com",
+      },
+      {
+        name: "Yatesh",
+        email: "yatesh@ojasenhealingarts.com",
+      },
+      {
+        name: "Omesh",
+        email: "omesh@ojasen.com",
+      },
+      {
+        name: "Joshem",
+        email: "joshem@ojasen.com",
+      }
+    ];
 
-    if (!existingAdmin) {
-      // Create the user directly in the database with admin role
-      const newUser = await prisma.user.create({
-        data: {
-          id: `user_${Date.now()}`, // Simple ID generation
-          name: adminName,
-          email: adminEmail,
-          emailVerified: true, // Mark as verified for admin
-          role: "admin", // Set role to admin
-        },
+    for (const adminUserData of adminUsers) {
+      // Check if admin user already exists
+      const existingAdmin = await prisma.user.findUnique({
+        where: { email: adminUserData.email },
       });
-      
-      console.log(`Created admin user with email: ${adminEmail}`);
-      console.log("NOTE: This user has no password set. You'll need to set one through the application interface.");
-    } else {
-      // Update existing user to have admin role if not already
-      if (existingAdmin.role !== "admin") {
-        await prisma.user.update({
-          where: { email: adminEmail },
-          data: { role: "admin" },
+
+      if (!existingAdmin) {
+        // Create the user directly in the database with admin role
+        const newUser = await prisma.user.create({
+          data: {
+            id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, // Unique ID generation
+            name: adminUserData.name,
+            email: adminUserData.email,
+            emailVerified: true, // Mark as verified for admin
+            role: "admin", // Set role to admin
+          },
         });
-        console.log(`Updated user ${adminEmail} to admin role`);
+        
+        console.log(`Created admin user with email: ${adminUserData.email}`);
+        console.log("NOTE: This user has no password set. You'll need to set one through the application interface or use the forgot password flow.");
       } else {
-        console.log(`Admin user with email ${adminEmail} already exists`);
+        // Update existing user to have admin role if not already
+        if (existingAdmin.role !== "admin") {
+          await prisma.user.update({
+            where: { email: adminUserData.email },
+            data: { role: "admin" },
+          });
+          console.log(`Updated user ${adminUserData.email} to admin role`);
+        } else {
+          console.log(`Admin user with email ${adminUserData.email} already exists`);
+        }
       }
     }
 
