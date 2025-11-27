@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { randomUUID } from "crypto";
 
 export async function GET() {
   try {
@@ -68,6 +69,7 @@ export async function POST(req: Request) {
     // Create new campaign
     const newCampaign = await prisma.campaign.create({
       data: {
+        id: randomUUID(), // Generate a new ID for the campaign
         name: body.name,
         type: body.type,
         status: body.status || "draft",

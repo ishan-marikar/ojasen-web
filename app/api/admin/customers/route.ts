@@ -102,6 +102,7 @@ export async function POST(req: Request) {
     // Create new customer
     const newCustomer = await prisma.user.create({
       data: {
+        id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         name: body.name,
         email: body.email,
         phone: body.phone || null,
