@@ -11,11 +11,12 @@ export default function () {
     <>
       <Navigation />
       <Hero />
+      <FloodRelief />
       <About />
       <Ceremonies />
       {/* <Schedule /> */}
       <EventsSection />
-
+      <FloodRelief />
       <LocationMap />
       <Footer />
     </>
@@ -827,5 +828,180 @@ export function LocationMap() {
         </div>
       </motion.div>
     </>
+  );
+}
+
+function FloodRelief() {
+  return (
+    <motion.div
+      className="py-12 px-4 sm:py-16 sm:px-6 bg-[#f7faf6] relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          className="rounded-2xl overflow-hidden shadow-xl border border-primary/20 bg-white"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <div className="relative w-full">
+            <Image
+              src="/flood-relief.jpeg"
+              alt="Sri Lanka Flood Relief - Ojasen Healing Arts & The Island Ahangama"
+              width={1200}
+              height={1200}
+              className="w-full h-auto"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+              priority
+            />
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+function FloodReliefAlternative() {
+  return (
+    <motion.div
+      className="py-16 px-4 sm:py-20 sm:px-6 bg-[#f7faf6] relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-sm uppercase font-medium tracking-wider text-primary mb-2 block">
+            Community Support
+          </span>
+          <h2 className="text-3xl md:text-4xl font-sans text-[#191d18] mb-4">
+            Sri Lanka Flood Relief
+          </h2>
+          <p className="text-lg text-[#525A52] max-w-2xl mx-auto">
+            Together with The Island Ahangama, we're supporting families
+            affected by floods across Sri Lanka
+          </p>
+        </motion.div>
+
+        {/* Image Section */}
+        <motion.div
+          className="rounded-3xl overflow-hidden shadow-2xl border border-primary/20 mb-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
+            <Image
+              src="/images/flood-relief.jpeg"
+              alt="Sri Lanka Flood Relief - Ojasen Healing Arts & The Island Ahangama"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 1200px"
+              priority
+            />
+          </div>
+        </motion.div>
+
+        {/* Description and CTA */}
+        <motion.div
+          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <div className="text-base md:text-lg text-[#525A52] leading-relaxed space-y-4 mb-8">
+            <p>
+              As floods have affected families across Sri Lanka, many are left
+              without the basics that bring comfort and stability. If you're
+              looking for a safe way to support, we're here to help you reach
+              those who need it most.
+            </p>
+            <p>
+              We're collecting dry rations and key essentials to hand-deliver to
+              families in Matara, Colombo, and Kelaniya impacted by the floods.
+              Anyone who wants to contribute or volunteer is warmly encouraged.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-primary/10">
+            <h3 className="text-xl md:text-2xl font-sans text-[#191d18] mb-6">
+              Collection Points
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <h4 className="font-medium text-[#191d18] mb-2">Colombo</h4>
+                <p className="text-sm text-[#525A52] mb-1">11A1,</p>
+                <p className="text-sm text-[#525A52] mb-1">
+                  Henry Pamunuwa Mw,
+                </p>
+                <p className="text-sm text-[#525A52] mb-3">Maharagama</p>
+                <a
+                  href="tel:+94762777482"
+                  className="text-primary hover:text-[#5a786d] text-sm font-medium"
+                >
+                  +94-762777482
+                </a>
+              </div>
+              <div className="text-center">
+                <h4 className="font-medium text-[#191d18] mb-2">Ahangama</h4>
+                <p className="text-sm text-[#525A52] mb-1">The Island,</p>
+                <p className="text-sm text-[#525A52] mb-1">Palliyagoda,</p>
+                <p className="text-sm text-[#525A52] mb-3">Ahangama</p>
+                <a
+                  href="tel:+94779545413"
+                  className="text-primary hover:text-[#5a786d] text-sm font-medium"
+                >
+                  +94-779545413
+                </a>
+              </div>
+              <div className="text-center">
+                <h4 className="font-medium text-[#191d18] mb-2">Matara</h4>
+                <p className="text-sm text-[#525A52] mb-1">Calm Villa,</p>
+                <p className="text-sm text-[#525A52] mb-1">Borolla Rd,</p>
+                <p className="text-sm text-[#525A52] mb-3">Kamburugamuwa</p>
+                <a
+                  href="tel:+94770357432"
+                  className="text-primary hover:text-[#5a786d] text-sm font-medium"
+                >
+                  +94-770357432
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Link href="/contact">
+              <motion.button
+                className="px-8 py-3 bg-primary text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg shadow-md"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get In Touch
+              </motion.button>
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
