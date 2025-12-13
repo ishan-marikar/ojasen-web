@@ -341,7 +341,7 @@ export default async function DashboardPage() {
               "Bookings found by user ID:",
               userBookings.map((b) => ({
                 id: b.id,
-                eventId: b.eventId,
+                sessionId: b.sessionId, // Changed from eventId
                 customerEmail: b.customerEmail,
                 userId: b.userId,
               }))

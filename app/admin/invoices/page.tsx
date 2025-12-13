@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { 
+import {
   Credenza,
   CredenzaBody,
   CredenzaClose,
@@ -15,7 +15,7 @@ import {
   CredenzaTitle,
   CredenzaTrigger,
 } from "@/components/ui/credenza";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -23,8 +23,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { 
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
   Table,
   TableBody,
   TableCell,
@@ -32,14 +38,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Search, Plus, Edit, Eye, Trash2, FileText, Download, Send } from "lucide-react";
-import { InvoiceService } from "@/lib/invoice-service";
+import {
+  Search,
+  Plus,
+  Edit,
+  Eye,
+  Trash2,
+  FileText,
+  Download,
+  Send,
+} from "lucide-react";
 
 // Format currency
 const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-LK', {
-    style: 'currency',
-    currency: 'LKR',
+  return new Intl.NumberFormat("en-LK", {
+    style: "currency",
+    currency: "LKR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
@@ -69,16 +83,22 @@ export default function InvoiceManagementPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      // Load invoices
-      const invoiceResult = await InvoiceService.getAllInvoices();
-      if (invoiceResult.success) {
-        setInvoices(invoiceResult.data || []);
+      // Load invoices from API
+      const invoiceResponse = await fetch("/api/admin/invoices");
+      if (invoiceResponse.ok) {
+        const invoiceResult = await invoiceResponse.json();
+        if (invoiceResult.success) {
+          setInvoices(invoiceResult.invoices || []);
+        }
       }
 
-      // Load purchase orders
-      const poResult = await InvoiceService.getAllPurchaseOrders();
-      if (poResult.success) {
-        setPurchaseOrders(poResult.data || []);
+      // Load purchase orders from API
+      const poResponse = await fetch("/api/admin/purchase-orders");
+      if (poResponse.ok) {
+        const poResult = await poResponse.json();
+        if (poResult.success) {
+          setPurchaseOrders(poResult.purchaseOrders || []);
+        }
       }
     } catch (error) {
       console.error("Error loading data:", error);
@@ -88,45 +108,57 @@ export default function InvoiceManagementPage() {
   };
 
   // Filter invoices based on search term and status
-  const filteredInvoices = invoices.filter(invoice => {
-    const matchesSearch = 
+  const filteredInvoices = invoices.filter((invoice) => {
+    const matchesSearch =
       invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       invoice.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       invoice.customerEmail.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = statusFilter === "all" || invoice.status === statusFilter;
-    
+
+    const matchesStatus =
+      statusFilter === "all" || invoice.status === statusFilter;
+
     return matchesSearch && matchesStatus;
   });
 
   // Filter purchase orders based on search term and status
-  const filteredPurchaseOrders = purchaseOrders.filter(po => {
-    const matchesSearch = 
+  const filteredPurchaseOrders = purchaseOrders.filter((po) => {
+    const matchesSearch =
       po.poNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (po.facilitator?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (po.facilitator?.email || "").toLowerCase().includes(searchTerm.toLowerCase());
-    
+      (po.facilitator?.name || "")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      (po.facilitator?.email || "")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
     const matchesStatus = statusFilter === "all" || po.status === statusFilter;
-    
+
     return matchesSearch && matchesStatus;
   });
 
   // Handle adding a new invoice
   const handleAddInvoice = async (newInvoice: any) => {
     try {
-      const result = await InvoiceService.createInvoice({
-        customerName: newInvoice.customerName,
-        customerEmail: newInvoice.customerEmail,
-        dueDate: new Date(newInvoice.dueDate),
-        subtotal: parseFloat(newInvoice.totalAmount),
-        totalAmount: parseFloat(newInvoice.totalAmount),
+      const response = await fetch("/api/admin/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: newInvoice.customerName,
+          customerEmail: newInvoice.customerEmail,
+          dueDate: new Date(newInvoice.dueDate),
+          subtotal: parseFloat(newInvoice.totalAmount),
+          totalAmount: parseFloat(newInvoice.totalAmount),
+        }),
       });
-      
-      if (result.success) {
-        setInvoices([result.data, ...invoices]);
-        setIsAddModalOpen(false);
-      } else {
-        console.error("Failed to create invoice:", result.error);
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setInvoices([result.invoice, ...invoices]);
+          setIsAddModalOpen(false);
+        } else {
+          console.error("Failed to create invoice:", result.error);
+        }
       }
     } catch (error) {
       console.error("Error creating invoice:", error);
@@ -139,19 +171,26 @@ export default function InvoiceManagementPage() {
       // For now, we'll use a placeholder facilitator ID
       // In a real implementation, you would select from a list of facilitators
       const facilitatorId = "placeholder-facilitator-id";
-      
-      const result = await InvoiceService.createPurchaseOrder({
-        facilitatorId: facilitatorId,
-        dueDate: new Date(newPO.dueDate),
-        subtotal: parseFloat(newPO.totalAmount),
-        totalAmount: parseFloat(newPO.totalAmount),
+
+      const response = await fetch("/api/admin/purchase-orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          facilitatorId: facilitatorId,
+          dueDate: new Date(newPO.dueDate),
+          subtotal: parseFloat(newPO.totalAmount),
+          totalAmount: parseFloat(newPO.totalAmount),
+        }),
       });
-      
-      if (result.success) {
-        setPurchaseOrders([result.data, ...purchaseOrders]);
-        setIsAddModalOpen(false);
-      } else {
-        console.error("Failed to create purchase order:", result.error);
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setPurchaseOrders([result.purchaseOrder, ...purchaseOrders]);
+          setIsAddModalOpen(false);
+        } else {
+          console.error("Failed to create purchase order:", result.error);
+        }
       }
     } catch (error) {
       console.error("Error creating purchase order:", error);
@@ -162,18 +201,38 @@ export default function InvoiceManagementPage() {
   const handleEditItem = async (updatedItem: any) => {
     try {
       if (activeTab === "invoices") {
-        const result = await InvoiceService.updateInvoiceStatus(updatedItem.id, updatedItem.status);
-        if (result.success) {
-          setInvoices(invoices.map(invoice => 
-            invoice.id === updatedItem.id ? { ...invoice, ...updatedItem } : invoice
-          ));
+        const response = await fetch("/api/admin/invoices", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedItem),
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            setInvoices(
+              invoices.map((invoice) =>
+                invoice.id === updatedItem.id
+                  ? { ...invoice, ...updatedItem }
+                  : invoice
+              )
+            );
+          }
         }
       } else {
-        const result = await InvoiceService.updatePOStatus(updatedItem.id, updatedItem.status);
-        if (result.success) {
-          setPurchaseOrders(purchaseOrders.map(po => 
-            po.id === updatedItem.id ? { ...po, ...updatedItem } : po
-          ));
+        const response = await fetch("/api/admin/purchase-orders", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedItem),
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            setPurchaseOrders(
+              purchaseOrders.map((po) =>
+                po.id === updatedItem.id ? { ...po, ...updatedItem } : po
+              )
+            );
+          }
         }
       }
       setIsEditModalOpen(false);
@@ -186,9 +245,9 @@ export default function InvoiceManagementPage() {
   // Handle deleting an item
   const handleDeleteItem = (id: string) => {
     if (activeTab === "invoices") {
-      setInvoices(invoices.filter(invoice => invoice.id !== id));
+      setInvoices(invoices.filter((invoice) => invoice.id !== id));
     } else {
-      setPurchaseOrders(purchaseOrders.filter(po => po.id !== id));
+      setPurchaseOrders(purchaseOrders.filter((po) => po.id !== id));
     }
   };
 
@@ -196,18 +255,36 @@ export default function InvoiceManagementPage() {
   const updateItemStatus = async (id: string, status: string) => {
     try {
       if (activeTab === "invoices") {
-        const result = await InvoiceService.updateInvoiceStatus(id, status);
-        if (result.success) {
-          setInvoices(invoices.map(invoice => 
-            invoice.id === id ? { ...invoice, status } : invoice
-          ));
+        const response = await fetch("/api/admin/invoices", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, status }),
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            setInvoices(
+              invoices.map((invoice) =>
+                invoice.id === id ? { ...invoice, status } : invoice
+              )
+            );
+          }
         }
       } else {
-        const result = await InvoiceService.updatePOStatus(id, status);
-        if (result.success) {
-          setPurchaseOrders(purchaseOrders.map(po => 
-            po.id === id ? { ...po, status } : po
-          ));
+        const response = await fetch("/api/admin/purchase-orders", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, status }),
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            setPurchaseOrders(
+              purchaseOrders.map((po) =>
+                po.id === id ? { ...po, status } : po
+              )
+            );
+          }
         }
       }
     } catch (error) {
@@ -228,7 +305,9 @@ export default function InvoiceManagementPage() {
   return (
     <div className="flex-1 p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Invoice & Purchase Order Management</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Invoice & Purchase Order Management
+        </h1>
         <p className="text-gray-500 dark:text-gray-400">
           Manage customer invoices and facilitator purchase orders
         </p>
@@ -246,36 +325,41 @@ export default function InvoiceManagementPage() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Paid Invoices</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600 dark:text-green-400">
-              {invoices.filter(i => i.status === "paid").length}
+              {invoices.filter((i) => i.status === "paid").length}
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Outstanding</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
-              {formatCurrency(invoices.reduce((sum, invoice) => sum + (invoice.amountDue || 0), 0))}
+              {formatCurrency(
+                invoices.reduce(
+                  (sum, invoice) => sum + (invoice.amountDue || 0),
+                  0
+                )
+              )}
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Overdue</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-red-600 dark:text-red-400">
-              {invoices.filter(i => i.status === "overdue").length}
+              {invoices.filter((i) => i.status === "overdue").length}
             </div>
           </CardContent>
         </Card>
@@ -283,14 +367,14 @@ export default function InvoiceManagementPage() {
 
       {/* Tabs */}
       <div className="flex space-x-4 mb-6">
-        <Button 
+        <Button
           variant={activeTab === "invoices" ? "default" : "outline"}
           onClick={() => setActiveTab("invoices")}
         >
           <FileText className="mr-2 h-4 w-4" />
           Invoices
         </Button>
-        <Button 
+        <Button
           variant={activeTab === "purchase-orders" ? "default" : "outline"}
           onClick={() => setActiveTab("purchase-orders")}
         >
@@ -307,9 +391,13 @@ export default function InvoiceManagementPage() {
               <div className="relative w-full md:w-64">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder={`Search ${activeTab === "invoices" ? "invoices" : "purchase orders"}...`}
+                  placeholder={`Search ${
+                    activeTab === "invoices" ? "invoices" : "purchase orders"
+                  }...`}
                   value={searchTerm}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setSearchTerm(e.target.value)
+                  }
                   className="pl-10"
                 />
               </div>
@@ -337,14 +425,14 @@ export default function InvoiceManagementPage() {
               </CredenzaTrigger>
               <CredenzaContent>
                 {activeTab === "invoices" ? (
-                  <AddInvoiceForm 
-                    onSubmit={handleAddInvoice} 
-                    onCancel={() => setIsAddModalOpen(false)} 
+                  <AddInvoiceForm
+                    onSubmit={handleAddInvoice}
+                    onCancel={() => setIsAddModalOpen(false)}
                   />
                 ) : (
-                  <AddPurchaseOrderForm 
-                    onSubmit={handleAddPurchaseOrder} 
-                    onCancel={() => setIsAddModalOpen(false)} 
+                  <AddPurchaseOrderForm
+                    onSubmit={handleAddPurchaseOrder}
+                    onCancel={() => setIsAddModalOpen(false)}
                   />
                 )}
               </CredenzaContent>
@@ -378,33 +466,42 @@ export default function InvoiceManagementPage() {
               <TableBody>
                 {filteredInvoices.map((invoice) => (
                   <TableRow key={invoice.id}>
-                    <TableCell className="font-medium">{invoice.invoiceNumber}</TableCell>
+                    <TableCell className="font-medium">
+                      {invoice.invoiceNumber}
+                    </TableCell>
                     <TableCell>
                       <div>
                         <div>{invoice.customerName}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{invoice.customerEmail}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {invoice.customerEmail}
+                        </div>
                       </div>
                     </TableCell>
-                    <TableCell>{new Date(invoice.issueDate).toLocaleDateString()}</TableCell>
-                    <TableCell>{new Date(invoice.dueDate).toLocaleDateString()}</TableCell>
+                    <TableCell>
+                      {new Date(invoice.issueDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(invoice.dueDate).toLocaleDateString()}
+                    </TableCell>
                     <TableCell>{formatCurrency(invoice.totalAmount)}</TableCell>
                     <TableCell>{formatCurrency(invoice.amountPaid)}</TableCell>
                     <TableCell>{formatCurrency(invoice.amountDue)}</TableCell>
                     <TableCell>
-                      <Badge 
+                      <Badge
                         variant={
-                          invoice.status === "paid" 
-                            ? "default" 
-                            : invoice.status === "sent" 
-                              ? "secondary" 
-                              : invoice.status === "partial"
-                                ? "outline"
-                                : invoice.status === "overdue"
-                                  ? "destructive"
-                                  : "secondary"
+                          invoice.status === "paid"
+                            ? "default"
+                            : invoice.status === "sent"
+                            ? "secondary"
+                            : invoice.status === "partial"
+                            ? "outline"
+                            : invoice.status === "overdue"
+                            ? "destructive"
+                            : "secondary"
                         }
                       >
-                        {invoice.status?.charAt(0).toUpperCase() + (invoice.status?.slice(1) || "")}
+                        {invoice.status?.charAt(0).toUpperCase() +
+                          (invoice.status?.slice(1) || "")}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
@@ -412,8 +509,8 @@ export default function InvoiceManagementPage() {
                         <Button variant="ghost" size="sm">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => {
                             setEditingItem(invoice);
@@ -422,8 +519,8 @@ export default function InvoiceManagementPage() {
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => handleDeleteItem(invoice.id)}
                         >
@@ -444,7 +541,9 @@ export default function InvoiceManagementPage() {
         <Card>
           <CardHeader>
             <CardTitle>Purchase Orders</CardTitle>
-            <CardDescription>Manage facilitator purchase orders</CardDescription>
+            <CardDescription>
+              Manage facilitator purchase orders
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
@@ -468,25 +567,32 @@ export default function InvoiceManagementPage() {
                     <TableCell>
                       <div>
                         <div>{po.facilitator?.name || "Unknown"}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{po.facilitator?.email || ""}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {po.facilitator?.email || ""}
+                        </div>
                       </div>
                     </TableCell>
-                    <TableCell>{new Date(po.issueDate).toLocaleDateString()}</TableCell>
-                    <TableCell>{new Date(po.dueDate).toLocaleDateString()}</TableCell>
+                    <TableCell>
+                      {new Date(po.issueDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(po.dueDate).toLocaleDateString()}
+                    </TableCell>
                     <TableCell>{formatCurrency(po.totalAmount)}</TableCell>
                     <TableCell>{formatCurrency(po.amountPaid)}</TableCell>
                     <TableCell>{formatCurrency(po.amountDue)}</TableCell>
                     <TableCell>
-                      <Badge 
+                      <Badge
                         variant={
-                          po.status === "paid" 
-                            ? "default" 
-                            : po.status === "sent" 
-                              ? "secondary" 
-                              : "outline"
+                          po.status === "paid"
+                            ? "default"
+                            : po.status === "sent"
+                            ? "secondary"
+                            : "outline"
                         }
                       >
-                        {po.status?.charAt(0).toUpperCase() + (po.status?.slice(1) || "")}
+                        {po.status?.charAt(0).toUpperCase() +
+                          (po.status?.slice(1) || "")}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
@@ -494,8 +600,8 @@ export default function InvoiceManagementPage() {
                         <Button variant="ghost" size="sm">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => {
                             setEditingItem(po);
@@ -504,8 +610,8 @@ export default function InvoiceManagementPage() {
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => handleDeleteItem(po.id)}
                         >
@@ -525,12 +631,20 @@ export default function InvoiceManagementPage() {
 }
 
 // Add Invoice Form Component
-function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void, onCancel: () => void }) {
+function AddInvoiceForm({
+  onSubmit,
+  onCancel,
+}: {
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
   const [formData, setFormData] = useState({
     customerName: "",
     customerEmail: "",
-    issueDate: new Date().toISOString().split('T')[0],
-    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    issueDate: new Date().toISOString().split("T")[0],
+    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     totalAmount: "",
   });
 
@@ -540,8 +654,10 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
     setFormData({
       customerName: "",
       customerEmail: "",
-      issueDate: new Date().toISOString().split('T')[0],
-      dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      issueDate: new Date().toISOString().split("T")[0],
+      dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
       totalAmount: "",
     });
   };
@@ -550,9 +666,7 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
     <>
       <CredenzaHeader>
         <CredenzaTitle>Add New Invoice</CredenzaTitle>
-        <CredenzaDescription>
-          Create a new customer invoice
-        </CredenzaDescription>
+        <CredenzaDescription>Create a new customer invoice</CredenzaDescription>
       </CredenzaHeader>
       <CredenzaBody>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -561,22 +675,26 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
             <Input
               id="customerName"
               value={formData.customerName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, customerName: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, customerName: e.target.value })
+              }
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="customerEmail">Customer Email</Label>
             <Input
               id="customerEmail"
               type="email"
               value={formData.customerEmail}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, customerEmail: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, customerEmail: e.target.value })
+              }
               required
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="issueDate">Issue Date</Label>
@@ -584,23 +702,27 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
                 id="issueDate"
                 type="date"
                 value={formData.issueDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, issueDate: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, issueDate: e.target.value })
+                }
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="dueDate">Due Date</Label>
               <Input
                 id="dueDate"
                 type="date"
                 value={formData.dueDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, dueDate: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, dueDate: e.target.value })
+                }
                 required
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="totalAmount">Total Amount (LKR)</Label>
             <Input
@@ -608,7 +730,9 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
               type="number"
               min="0"
               value={formData.totalAmount}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, totalAmount: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, totalAmount: e.target.value })
+              }
               required
             />
           </div>
@@ -629,12 +753,20 @@ function AddInvoiceForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void,
 }
 
 // Add Purchase Order Form Component
-function AddPurchaseOrderForm({ onSubmit, onCancel }: { onSubmit: (data: any) => void, onCancel: () => void }) {
+function AddPurchaseOrderForm({
+  onSubmit,
+  onCancel,
+}: {
+  onSubmit: (data: any) => void;
+  onCancel: () => void;
+}) {
   const [formData, setFormData] = useState({
     facilitatorName: "",
     facilitatorEmail: "",
-    issueDate: new Date().toISOString().split('T')[0],
-    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    issueDate: new Date().toISOString().split("T")[0],
+    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     totalAmount: "",
   });
 
@@ -644,8 +776,10 @@ function AddPurchaseOrderForm({ onSubmit, onCancel }: { onSubmit: (data: any) =>
     setFormData({
       facilitatorName: "",
       facilitatorEmail: "",
-      issueDate: new Date().toISOString().split('T')[0],
-      dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      issueDate: new Date().toISOString().split("T")[0],
+      dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
       totalAmount: "",
     });
   };
@@ -665,22 +799,26 @@ function AddPurchaseOrderForm({ onSubmit, onCancel }: { onSubmit: (data: any) =>
             <Input
               id="facilitatorName"
               value={formData.facilitatorName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, facilitatorName: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, facilitatorName: e.target.value })
+              }
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="facilitatorEmail">Facilitator Email</Label>
             <Input
               id="facilitatorEmail"
               type="email"
               value={formData.facilitatorEmail}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, facilitatorEmail: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, facilitatorEmail: e.target.value })
+              }
               required
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="issueDate">Issue Date</Label>
@@ -688,23 +826,27 @@ function AddPurchaseOrderForm({ onSubmit, onCancel }: { onSubmit: (data: any) =>
                 id="issueDate"
                 type="date"
                 value={formData.issueDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, issueDate: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, issueDate: e.target.value })
+                }
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="dueDate">Due Date</Label>
               <Input
                 id="dueDate"
                 type="date"
                 value={formData.dueDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, dueDate: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, dueDate: e.target.value })
+                }
                 required
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="totalAmount">Total Amount (LKR)</Label>
             <Input
@@ -712,7 +854,9 @@ function AddPurchaseOrderForm({ onSubmit, onCancel }: { onSubmit: (data: any) =>
               type="number"
               min="0"
               value={formData.totalAmount}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, totalAmount: e.target.value})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormData({ ...formData, totalAmount: e.target.value })
+              }
               required
             />
           </div>

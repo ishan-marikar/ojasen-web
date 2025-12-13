@@ -13,9 +13,10 @@ import {
 } from "@/lib/calendar-utils";
 import { useState, useEffect } from "react";
 import {
-  EVENT_CARDS_DATA,
   EVENTS_DATA,
   type DetailedEvent,
+  type EventCardData,
+  fetchEventsFromDatabase,
 } from "@/lib/event-data";
 
 function EventsHero() {
@@ -37,7 +38,71 @@ function EventsHero() {
 }
 
 function UpcomingEvents() {
-  const events = EVENT_CARDS_DATA;
+  const [events, setEvents] = useState<EventCardData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadEvents() {
+      try {
+        const dbEvents = await fetchEventsFromDatabase();
+        const allEvents = [...dbEvents, ...EVENTS_DATA];
+
+        // Convert to EventCardData format
+        const eventCards: EventCardData[] = allEvents.map((event) => {
+          const dateObj = new Date(event.date);
+          const date = dateObj.getDate().toString();
+          const month = dateObj.toLocaleString("default", { month: "short" });
+
+          return {
+            id: event.id,
+            date: date.padStart(2, "0"),
+            month: month,
+            title: event.title,
+            description: event.description,
+            location: event.location,
+            time: event.time,
+            image: event.image,
+          };
+        });
+
+        setEvents(eventCards);
+      } catch (error) {
+        console.error("Error loading events:", error);
+        // Fallback to hardcoded events
+        const eventCards: EventCardData[] = EVENTS_DATA.map((event) => {
+          const dateObj = new Date(event.date);
+          const date = dateObj.getDate().toString();
+          const month = dateObj.toLocaleString("default", { month: "short" });
+
+          return {
+            id: event.id,
+            date: date.padStart(2, "0"),
+            month: month,
+            title: event.title,
+            description: event.description,
+            location: event.location,
+            time: event.time,
+            image: event.image,
+          };
+        });
+        setEvents(eventCards);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadEvents();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="bg-[#f7faf6] px-4 sm:px-6 text-[#191d18] pt-16 pb-20 rounded-t-4xl">
+        <div className="max-w-6xl mx-auto text-center py-12">
+          <p className="text-lg">Loading events...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#f7faf6] px-4 sm:px-6 text-[#191d18] pt-16 pb-20 rounded-t-4xl">
@@ -82,11 +147,24 @@ function EventCard({
   image: string;
 }) {
   const [showCalendarDropdown, setShowCalendarDropdown] = useState(false);
+  const [fullEvent, setFullEvent] = useState<DetailedEvent | null>(null);
 
-  // Find the full event data to get all details for calendar integration
-  const fullEvent: DetailedEvent | undefined = EVENTS_DATA.find(
-    (event: DetailedEvent) => event.id === id
-  );
+  // Load event details
+  useEffect(() => {
+    async function loadEventDetails() {
+      try {
+        const dbEvents = await fetchEventsFromDatabase();
+        const allEvents = [...dbEvents, ...EVENTS_DATA];
+        const event = allEvents.find((e) => e.id === id);
+        setFullEvent(event || null);
+      } catch (error) {
+        console.error("Error loading event details:", error);
+        const event = EVENTS_DATA.find((e) => e.id === id);
+        setFullEvent(event || null);
+      }
+    }
+    loadEventDetails();
+  }, [id]);
 
   // Close dropdown when clicking outside
   useEffect(() => {

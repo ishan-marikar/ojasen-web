@@ -4,34 +4,18 @@ const prisma = new PrismaClient();
 
 async function createTestBooking() {
   try {
-    // Create a test booking with a unique ID
-    const bookingId = `booking_test_${Date.now()}`;
+    // NOTE: This script is outdated. Bookings now require a sessionId.
+    // You need to create an event and session first via the admin panel.
+    // Then use that sessionId to create a booking.
     
-    const testBooking = await prisma.booking.create({
-      data: {
-        id: bookingId,
-        eventId: "anahata-flow",
-        eventName: "Anahata Flow",
-        customerName: "Test User",
-        customerEmail: "test@example.com",
-        customerPhone: "+1234567890",
-        numberOfPeople: 2,
-        specialRequests: "Please provide extra blankets",
-        eventDate: new Date("2025-11-22T18:00:00"),
-        status: "confirmed",
-        totalPrice: 7000,
-        ojasenFee: 5000,
-        facilitatorFee: 2000,
-        facilitatorId: null,
-        facilitatorName: null,
-        userId: null,
-      },
-    });
-
-    console.log("Test booking created:", testBooking);
-    console.log(`You can now access the booking details at: http://localhost:3000/bookings/${bookingId}`);
+    console.log("⚠️  This script is outdated. Please use the admin panel to:");
+    console.log("1. Create an Event");
+    console.log("2. Create a Session for that Event");
+    console.log("3. Book that Session via the booking page");
+    console.log("\nOr update this script to create a session first.");
+    
   } catch (error) {
-    console.error("Error creating test booking:", error);
+    console.error("Error:", error);
   } finally {
     await prisma.$disconnect();
   }

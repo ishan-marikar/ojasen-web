@@ -1,5 +1,6 @@
 // Centralized event data for the entire application
-// This file contains all event information to avoid duplication across components
+// This file now supports both hardcoded events (for backwards compatibility)
+// and dynamic events from the database
 
 export interface BaseEvent {
   id: string;
@@ -29,24 +30,9 @@ export interface EventCardData {
   image: string;
 }
 
-// Complete event data with all details
-export const EVENTS_DATA: DetailedEvent[] = [
-  // {
-  //   id: "panchali-saadhan",
-  //   title: "Panchali Sādhanā",
-  //   date: "November 29, 2025",
-  //   time: "6:00 PM",
-  //   location: "The Island - Ahangama",
-  //   description:
-  //     "A sacred WOMEN'S gathering inspired by the strength and grace of Panchali.",
-  //   fullDescription:
-  //     "Panchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention.\n\nThe journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you. You'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness.\n\nPanchali Sadhana is a sacred WOMEN'S gathering inspired by the strength and grace of Panchali. This evening is crafted to help you release emotional weight, reconnect with your heart, and step into a new cycle with clarity and intention. The journey weaves together a trauma-safe release ritual, an intention and manifest circle, sound healing with Oshi, lunar yoga and breathwork, energy clearing, and a symbolic fire offering to let go of what no longer serves you.\n\nYou'll be guided through gentle New-Moon journaling, followed by a sisterhood sharing circle and a grounding tea ritual to close the night with softness. Panchali Sadhana is a space to be held, seen, and supported — a return to your inner flame, your truth, and your feminine wisdom. Come as you are. Leave renewed.",
-  //   image: "/images/panchali.png",
-  //   category: "Ceremonies",
-  //   price: "LKR 4,000",
-  //   priceRaw: 4000,
-  // },
-
+// Hardcoded event data (kept for backwards compatibility or fallback)
+// These will be merged with database events
+export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
   {
     id: "yin-yoga-dec-8",
     title: "Yin Yoga",
@@ -61,7 +47,6 @@ export const EVENTS_DATA: DetailedEvent[] = [
     price: "LKR 3,000",
     priceRaw: 3000,
   },
-
   {
     id: "reiki-healing-dec-10",
     title: "Reiki Healing 1:1",
@@ -76,7 +61,6 @@ export const EVENTS_DATA: DetailedEvent[] = [
     price: "LKR 6,000",
     priceRaw: 6000,
   },
-
   {
     id: "samatva-flow-dec-12",
     title: "Samatva Flow",
@@ -92,7 +76,6 @@ export const EVENTS_DATA: DetailedEvent[] = [
     price: "LKR 3,500",
     priceRaw: 3500,
   },
-
   {
     id: "anahata-flow-dec-13",
     title: "Anahata Flow",
@@ -109,6 +92,58 @@ export const EVENTS_DATA: DetailedEvent[] = [
     priceRaw: 4000,
   },
 ];
+
+// Function to fetch events from database and convert to DetailedEvent format
+export async function fetchEventsFromDatabase(): Promise<DetailedEvent[]> {
+  try {
+    const response = await fetch('/api/events', { cache: 'no-store' });
+    const data = await response.json();
+    
+    if (!data.success || !data.events) {
+      console.error('Failed to fetch events from database');
+      return [];
+    }
+
+    // Convert database events and sessions to DetailedEvent format
+    const detailedEvents: DetailedEvent[] = [];
+    
+    for (const event of data.events) {
+      if (event.sessions && event.sessions.length > 0) {
+        // Create a DetailedEvent for each session
+        for (const session of event.sessions) {
+          const sessionDate = new Date(session.date);
+          const formattedDate = sessionDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+          
+          detailedEvents.push({
+            id: session.id,
+            title: session.title || event.title,
+            date: formattedDate,
+            time: session.time,
+            location: session.location,
+            description: event.description,
+            fullDescription: session.description || event.fullDescription,
+            image: event.image || '/images/placeholder.png',
+            category: event.category,
+            price: `LKR ${session.price.toLocaleString()}`,
+            priceRaw: session.price,
+          });
+        }
+      }
+    }
+    
+    return detailedEvents;
+  } catch (error) {
+    console.error('Error fetching events from database:', error);
+    return [];
+  }
+}
+
+// Main events data - uses hardcoded for now, will be replaced with dynamic data
+export const EVENTS_DATA: DetailedEvent[] = HARDCODED_EVENTS_DATA;
 
 
 // Event data formatted for the events page card display

@@ -83,141 +83,214 @@ model Verification {
 
 // Booking model for tracking customer bookings
 model Booking {
-  id              String       @id
-  eventId         String
-  eventName       String
+  id String @id
+
+  // Core session relationship (REQUIRED)
+  sessionId String
+  session   EventSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  // Denormalized fields for historical record (snapshot at booking time)
+  eventName String // Event name at time of booking
+  eventDate DateTime // Session date at time of booking
+
+  // Customer information
   customerName    String
   customerEmail   String
   customerPhone   String
-  numberOfPeople  Int          @default(1)
+  numberOfPeople  Int     @default(1)
   specialRequests String?
-  bookingDate     DateTime     @default(now())
-  eventDate       DateTime
-  status          String       @default("pending") // pending, confirmed, cancelled
-  totalPrice      Float        @default(0)
-  ojasenFee       Float        @default(0)
-  facilitatorFee  Float        @default(0)
+
+  // Booking metadata
+  bookingDate DateTime @default(now())
+  status      String   @default("pending") // pending, confirmed, cancelled
+
+  // Financial information
+  totalPrice     Float @default(0)
+  ojasenFee      Float @default(0)
+  facilitatorFee Float @default(0)
+
+  // Relationships
   facilitatorId   String?
-  facilitatorName String?
+  facilitatorName String? // Cached for performance
   facilitator     Facilitator? @relation(fields: [facilitatorId], references: [id])
   userId          String?
   user            User?        @relation(fields: [userId], references: [id])
   invoice         Invoice?     @relation(fields: [invoiceId], references: [id])
   invoiceId       String?
-  nationality     String?
-  nic             String?
-  passport        String?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+
+  // Additional customer details
+  nationality String?
+  nic         String?
+  passport    String?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("booking")
 }
 
 // Facilitator model for tracking service providers
 model Facilitator {
-  id          String     @id
-  name        String
-  role        String
-  email       String
-  phone       String?
-  baseFee     Float      @default(0)
-  commission  Float      @default(0) // Percentage of service fee
-  bookings    Booking[]
+  id             String          @id
+  name           String
+  role           String
+  email          String
+  phone          String?
+  baseFee        Float           @default(0)
+  commission     Float           @default(0) // Percentage of service fee
+  bookings       Booking[]
+  sessions       EventSession[] // Sessions assigned to this facilitator
   purchaseOrders PurchaseOrder[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@map("facilitator")
 }
 
 // Invoice model for tracking customer invoices
 model Invoice {
-  id              String    @id
-  invoiceNumber   String    @unique
-  customerId      String?
-  customerName    String
-  customerEmail   String
-  customerPhone   String?
-  billingAddress  String?
-  issueDate       DateTime  @default(now())
-  dueDate         DateTime
-  status          String    @default("draft") // draft, sent, paid, overdue, cancelled
-  subtotal        Float
-  taxAmount       Float     @default(0)
-  totalAmount     Float
-  amountPaid      Float     @default(0)
-  amountDue       Float
-  currency        String    @default("LKR")
-  notes           String?
-  terms           String?
-  user            User?     @relation(fields: [customerId], references: [id])
-  bookings        Booking[]
-  payments        Payment[]
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id             String    @id
+  invoiceNumber  String    @unique
+  customerId     String?
+  customerName   String
+  customerEmail  String
+  customerPhone  String?
+  billingAddress String?
+  issueDate      DateTime  @default(now())
+  dueDate        DateTime
+  status         String    @default("draft") // draft, sent, paid, overdue, cancelled
+  subtotal       Float
+  taxAmount      Float     @default(0)
+  totalAmount    Float
+  amountPaid     Float     @default(0)
+  amountDue      Float
+  currency       String    @default("LKR")
+  notes          String?
+  terms          String?
+  user           User?     @relation(fields: [customerId], references: [id])
+  bookings       Booking[]
+  payments       Payment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   @@map("invoice")
 }
 
 // Purchase Order model for tracking payments to facilitators
 model PurchaseOrder {
-  id              String        @id
-  poNumber        String        @unique
-  facilitatorId   String
-  facilitator     Facilitator   @relation(fields: [facilitatorId], references: [id])
-  issueDate       DateTime      @default(now())
-  dueDate         DateTime
-  status          String        @default("draft") // draft, sent, paid, overdue, cancelled
-  subtotal        Float
-  taxAmount       Float         @default(0)
-  totalAmount     Float
-  amountPaid      Float         @default(0)
-  amountDue       Float
-  currency        String        @default("LKR")
-  notes           String?
-  terms           String?
-  payments        Payment[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id            String      @id
+  poNumber      String      @unique
+  facilitatorId String
+  facilitator   Facilitator @relation(fields: [facilitatorId], references: [id])
+  issueDate     DateTime    @default(now())
+  dueDate       DateTime
+  status        String      @default("draft") // draft, sent, paid, overdue, cancelled
+  subtotal      Float
+  taxAmount     Float       @default(0)
+  totalAmount   Float
+  amountPaid    Float       @default(0)
+  amountDue     Float
+  currency      String      @default("LKR")
+  notes         String?
+  terms         String?
+  payments      Payment[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   @@map("purchase_order")
 }
 
 // Payment model for tracking payments (both incoming and outgoing)
 model Payment {
-  id              String      @id
-  paymentNumber   String      @unique
+  id              String         @id
+  paymentNumber   String         @unique
   invoiceId       String?
-  invoice         Invoice?    @relation(fields: [invoiceId], references: [id])
+  invoice         Invoice?       @relation(fields: [invoiceId], references: [id])
   purchaseOrderId String?
   purchaseOrder   PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
   amount          Float
-  currency        String      @default("LKR")
-  paymentDate     DateTime    @default(now())
-  paymentMethod   String      // cash, bank_transfer, credit_card, etc.
-  status          String      @default("completed") // pending, completed, failed, refunded
+  currency        String         @default("LKR")
+  paymentDate     DateTime       @default(now())
+  paymentMethod   String // cash, bank_transfer, credit_card, etc.
+  status          String         @default("completed") // pending, completed, failed, refunded
   referenceNumber String?
   notes           String?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 
   @@map("payment")
 }
 
 // Campaign model for tracking marketing campaigns
 model Campaign {
-  id              String     @id
-  name            String
-  type            String     // discount, bundle, referral, loyalty
-  status          String     @default("draft") // draft, active, scheduled, paused, completed
-  startDate       DateTime
-  endDate         DateTime
-  discount        Float      @default(0) // Percentage discount
-  usageCount      Int        @default(0)
-  revenueGenerated Float     @default(0)
-  targetAudience  String     // All Customers, Returning Customers, New Customers, Loyalty Members
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  id               String   @id
+  name             String
+  type             String // discount, bundle, referral, loyalty
+  status           String   @default("draft") // draft, active, scheduled, paused, completed
+  startDate        DateTime
+  endDate          DateTime
+  discount         Float    @default(0) // Percentage discount
+  usageCount       Int      @default(0)
+  revenueGenerated Float    @default(0)
+  targetAudience   String // All Customers, Returning Customers, New Customers, Loyalty Members
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@map("campaign")
+}
+
+// Event model for defining event types/templates
+model Event {
+  id              String         @id
+  title           String
+  description     String
+  fullDescription String?
+  category        String? // Yoga, Healing, Sound Healing, Ceremonies, etc.
+  image           String?
+  defaultPrice    Float          @default(0)
+  defaultLocation String?
+  status          String         @default("active") // active, inactive, archived
+  sessions        EventSession[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@map("event")
+}
+
+// EventSession model for specific scheduled instances of events
+model EventSession {
+  id String @id
+
+  // Parent event relationship
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  // Scheduling details
+  date     DateTime
+  time     String
+  location String // Can override event defaultLocation
+  price    Float // Can override event defaultPrice
+
+  // Capacity management
+  capacity Int       @default(20)
+  bookings Booking[] // One session → many bookings
+
+  // Optional overrides
+  title       String? // Override event title if needed
+  description String? // Additional session-specific details
+
+  // Facilitator assignment
+  facilitatorId   String?
+  facilitatorName String? // Cached for performance
+  facilitator     Facilitator? @relation(fields: [facilitatorId], references: [id])
+
+  // Status tracking
+  status String @default("active") // active, cancelled, completed, full
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("event_session")
 }

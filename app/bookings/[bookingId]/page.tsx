@@ -2,7 +2,6 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BookingService } from "@/lib/booking-service";
-import { getEventById } from "@/lib/event-data";
 import { Booking } from "@/lib/types";
 import Link from "next/link";
 import {
@@ -21,10 +20,6 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
 };
-
-interface BookingWithEvent extends Booking {
-  event?: ReturnType<typeof getEventById>;
-}
 
 export default async function BookingDetailsPage({
   params,
@@ -67,7 +62,7 @@ export default async function BookingDetailsPage({
     );
   }
 
-  const booking = bookingResult.booking as BookingWithEvent;
+  const booking = bookingResult.booking;
 
   // Verify that the booking belongs to the current user
   if (
@@ -94,8 +89,8 @@ export default async function BookingDetailsPage({
     );
   }
 
-  // Get event details
-  booking.event = getEventById(booking.eventId);
+  // Booking already has denormalized event data (eventName, eventDate)
+  // No need to fetch session or event separately
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -164,101 +159,30 @@ export default async function BookingDetailsPage({
               <div className="lg:col-span-2">
                 <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                    Event Information
+                    Session Information
                   </h3>
 
-                  {booking.event ? (
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <Calendar className="h-5 w-5 text-primary mt-1 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Date
-                          </p>
-                          <p className="font-medium text-gray-900 dark:text-white">
-                            {new Date(booking.eventDate).toLocaleDateString(
-                              "en-US",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start">
-                        <Clock className="h-5 w-5 text-primary mt-1 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Time
-                          </p>
-                          <p className="font-medium text-gray-900 dark:text-white">
-                            {booking.event.time}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start">
-                        <MapPin className="h-5 w-5 text-primary mt-1 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Location
-                          </p>
-                          <p className="font-medium text-gray-900 dark:text-white">
-                            {booking.event.location}
-                          </p>
-                        </div>
-                      </div>
-
-                      {booking.event.price && (
-                        <div className="flex items-start">
-                          <CreditCard className="h-5 w-5 text-primary mt-1 mr-3" />
-                          <div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                              Price
-                            </p>
-                            <p className="font-medium text-gray-900 dark:text-white">
-                              {booking.event.price}
-                            </p>
-                          </div>
-                        </div>
-                      )}
-
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <Calendar className="h-5 w-5 text-primary mt-1 mr-3" />
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                          Description
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Date
                         </p>
-                        <p className="text-gray-900 dark:text-white">
-                          {booking.event.description}
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {new Date(booking.eventDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
                         </p>
                       </div>
                     </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <Calendar className="h-5 w-5 text-primary mt-1 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Date
-                          </p>
-                          <p className="font-medium text-gray-900 dark:text-white">
-                            {new Date(booking.eventDate).toLocaleDateString(
-                              "en-US",
-                              {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
 

@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 
 const adminNavItems = [
   { name: "Dashboard", href: "/admin" },
+  { name: "Events", href: "/admin/events" },
+  { name: "Sessions", href: "/admin/sessions" },
   { name: "Bookings", href: "/admin/bookings" },
   { name: "Facilitators", href: "/admin/facilitators" },
   { name: "Customers", href: "/admin/customers" },

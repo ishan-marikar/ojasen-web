@@ -347,8 +347,8 @@ export default function FacilitatorsManagementPage() {
                           : "secondary"
                       }
                     >
-                      {facilitator.status.charAt(0).toUpperCase() +
-                        facilitator.status.slice(1)}
+                      {facilitator!.status!.charAt(0).toUpperCase() +
+                        facilitator!.status!.slice(1)}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">

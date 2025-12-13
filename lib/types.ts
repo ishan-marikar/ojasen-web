@@ -36,18 +36,18 @@ export interface BenefitItem {
   description: string;
 }
 
-// Booking interface
+// Booking interface (refactored to use sessionId)
 export interface Booking {
   id: string;
-  eventId: string;
-  eventName: string;
+  sessionId: string;        // Now references EventSession, not Event
+  eventName: string;        // Denormalized for historical record
+  eventDate: Date;          // Denormalized snapshot at booking time
   customerName: string;
   customerEmail: string;
   customerPhone: string;
   numberOfPeople: number;
   specialRequests?: string | null;
   bookingDate: Date;
-  eventDate: Date;
   status: string;
   totalPrice: number;
   ojasenFee: number;

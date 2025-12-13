@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { MapPin, Clock, Calendar, User, Mail, Phone } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { EVENTS_DATA } from "@/lib/event-data";
 import { PageLayout } from "@/components/shared/page-layout";
 import { Hero } from "@/components/shared/hero";
 import { useSession, signIn } from "@/lib/auth-client";
@@ -17,16 +16,26 @@ import {
 import { submitBookingForm } from "@/lib/form-actions";
 import { trackBookingEvent } from "@/lib/analytics";
 
-// Event data structure
-interface Event {
+// Session data structure (sessions are instances of events)
+interface Session {
   id: string;
-  title: string;
-  date: string;
+  eventId: string;
+  title?: string; // Optional custom title
+  date: Date;
   time: string;
   location: string;
-  description: string;
-  image: string;
-  price?: string;
+  description?: string;
+  price: number;
+  capacity: number;
+  status: string;
+  event: {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    category?: string;
+  };
+  _count?: { bookings: number };
 }
 
 function BookingHero() {
@@ -46,7 +55,9 @@ function BookingHero() {
 export default function BookingPage() {
   const searchParams = useSearchParams();
   const { data: session, isPending } = useSession();
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -60,6 +71,28 @@ export default function BookingPage() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load sessions from database
+  useEffect(() => {
+    async function loadSessions() {
+      try {
+        const response = await fetch("/api/sessions");
+        const data = await response.json();
+
+        if (data.success) {
+          setSessions(data.sessions);
+        } else {
+          console.error("Failed to fetch sessions:", data.error);
+        }
+      } catch (error) {
+        console.error("Error loading sessions:", error);
+      } finally {
+        setLoadingSessions(false);
+      }
+    }
+
+    loadSessions();
+  }, []);
 
   // Determine if user is anonymous
   const isAnonymousUser = session?.user?.isAnonymous ?? true;
@@ -110,20 +143,20 @@ export default function BookingPage() {
     }
   }, [isPending, session]);
 
-  // Check if an event is selected via URL parameters
+  // Check if a session is selected via URL parameters
   useEffect(() => {
-    const eventId = searchParams.get("event");
-    if (eventId) {
-      const event = EVENTS_DATA.find((e) => e.id === eventId);
-      if (event) {
-        setSelectedEvent(event);
+    const sessionId = searchParams.get("session") || searchParams.get("event"); // Support both for backward compat
+    if (sessionId && sessions.length > 0) {
+      const session = sessions.find((s) => s.id === sessionId);
+      if (session) {
+        setSelectedSession(session);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, sessions]);
 
-  const handleEventSelect = (event: Event) => {
-    setSelectedEvent(event);
-    trackBookingEvent("event_selected", event.title);
+  const handleSessionSelect = (session: Session) => {
+    setSelectedSession(session);
+    trackBookingEvent("session_selected", session.title || session.event.title);
     // Scroll to booking form
     document
       .getElementById("booking-form")
@@ -143,7 +176,7 @@ export default function BookingPage() {
     e.preventDefault();
 
     // Validate required fields based on nationality - only for actual bookings
-    if (selectedEvent) {
+    if (selectedSession) {
       if (formData.nationality === "Local" && !formData.nic.trim()) {
         alert("NIC number is required for local visitors.");
         return;
@@ -164,15 +197,32 @@ export default function BookingPage() {
       // Submit form data using server action
       const result = await submitBookingForm({
         ...formData,
-        event: selectedEvent || undefined, // Pass undefined if no event selected
+        session: selectedSession
+          ? {
+              id: selectedSession.id,
+              title: selectedSession.title || selectedSession.event.title,
+              date: new Date(selectedSession.date).toISOString(),
+              time: selectedSession.time,
+              location: selectedSession.location,
+              description:
+                selectedSession.description ||
+                selectedSession.event.description,
+              price: `LKR ${selectedSession.price.toLocaleString()}`,
+              priceRaw: selectedSession.price,
+              eventName: selectedSession.event.title, // Include parent event name
+            }
+          : undefined,
       });
 
       if (result.success) {
         setIsSubmitted(true);
 
         // Track booking event
-        if (selectedEvent) {
-          trackBookingEvent("booking_completed", selectedEvent.title);
+        if (selectedSession) {
+          trackBookingEvent(
+            "booking_completed",
+            selectedSession.title || selectedSession.event.title
+          );
         } else {
           trackBookingEvent("inquiry_submitted", "general");
         }
@@ -248,62 +298,89 @@ export default function BookingPage() {
             </div>
           )}
 
-          {/* Event Selection Section */}
-          {!selectedEvent && (
+          {/* Session Selection Section */}
+          {!selectedSession && (
             <div className="mb-12">
               <h2 className="text-2xl font-light text-[#191d18] mb-6 text-center">
                 Select a Session
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {EVENTS_DATA.map((event) => (
-                  <div
-                    key={event.id}
-                    className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/20 cursor-pointer hover:shadow-xl transition-shadow duration-300"
-                    onClick={() => handleEventSelect(event)}
-                  >
-                    <div className="aspect-video bg-gray-200 relative">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                      {event.price && (
-                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-medium">
-                          {event.price}
+              {loadingSessions ? (
+                <div className="text-center py-12">
+                  <p className="text-lg text-[#525A52]">Loading sessions...</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {sessions.map((session) => {
+                    const displayTitle = session.title || session.event.title;
+                    const displayDescription =
+                      session.description || session.event.description;
+                    const bookedCount = session._count?.bookings || 0;
+                    const availableSpots = session.capacity - bookedCount;
+
+                    return (
+                      <div
+                        key={session.id}
+                        className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/20 cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                        onClick={() => handleSessionSelect(session)}
+                      >
+                        <div className="aspect-video bg-gray-200 relative">
+                          <img
+                            src={session.event.image}
+                            alt={displayTitle}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-medium">
+                            LKR {session.price.toLocaleString()}
+                          </div>
+                          {availableSpots <= 3 && availableSpots > 0 && (
+                            <div className="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-lg text-sm font-medium">
+                              Only {availableSpots} spots left!
+                            </div>
+                          )}
+                          {session.status === "full" && (
+                            <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-medium">
+                              FULL
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-light text-[#191d18] mb-2">
-                        {event.title}
-                      </h3>
-                      <p className="text-[#525A52] text-sm mb-4 line-clamp-2">
-                        {event.description}
-                      </p>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex items-center text-[#191d18] text-sm">
-                          <Calendar className="h-4 w-4 mr-2 text-primary" />
-                          <span>{event.date}</span>
-                        </div>
-                        <div className="flex items-center text-[#191d18] text-sm">
-                          <Clock className="h-4 w-4 mr-2 text-primary" />
-                          <span>{event.time}</span>
-                        </div>
-                        <div className="flex items-center text-[#191d18] text-sm">
-                          <MapPin className="h-4 w-4 mr-2 text-primary" />
-                          <span>{event.location}</span>
+                        <div className="p-6">
+                          <h3 className="text-xl font-light text-[#191d18] mb-2">
+                            {displayTitle}
+                          </h3>
+                          <p className="text-[#525A52] text-sm mb-4 line-clamp-2">
+                            {displayDescription}
+                          </p>
+                          <div className="space-y-2 mb-4">
+                            <div className="flex items-center text-[#191d18] text-sm">
+                              <Calendar className="h-4 w-4 mr-2 text-primary" />
+                              <span>
+                                {new Date(session.date).toLocaleDateString()}
+                              </span>
+                            </div>
+                            <div className="flex items-center text-[#191d18] text-sm">
+                              <Clock className="h-4 w-4 mr-2 text-primary" />
+                              <span>{session.time}</span>
+                            </div>
+                            <div className="flex items-center text-[#191d18] text-sm">
+                              <MapPin className="h-4 w-4 mr-2 text-primary" />
+                              <span>{session.location}</span>
+                            </div>
+                          </div>
+                          <button
+                            className="w-full rounded-lg bg-primary hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm font-medium transition-colors duration-300"
+                            onClick={() => handleSessionSelect(session)}
+                            disabled={session.status === "full"}
+                          >
+                            {session.status === "full"
+                              ? "Session Full"
+                              : "Select Session"}
+                          </button>
                         </div>
                       </div>
-                      <button
-                        className="w-full rounded-lg bg-primary hover:bg-[#5a786d] text-white uppercase px-4 py-3 text-sm font-medium transition-colors duration-300"
-                        onClick={() => handleEventSelect(event)}
-                      >
-                        Select Event
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
               <div className="text-center mt-8">
                 <Link href="/events" className="text-primary hover:underline">
                   View all sessions
@@ -314,53 +391,54 @@ export default function BookingPage() {
 
           {/* Booking Form Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Event Details */}
-            {selectedEvent && (
+            {/* Session Details */}
+            {selectedSession && (
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-primary/20">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-2xl font-light text-[#191d18]">
                     Session Details
                   </h2>
                   <button
-                    onClick={() => setSelectedEvent(null)}
+                    onClick={() => setSelectedSession(null)}
                     className="text-sm text-primary hover:underline"
                   >
-                    Change Event
+                    Change Session
                   </button>
                 </div>
                 <div className="aspect-video bg-gray-200 rounded-2xl mb-6 overflow-hidden bg-top">
                   <img
-                    src={selectedEvent.image}
-                    alt={selectedEvent.title}
+                    src={selectedSession.event.image}
+                    alt={selectedSession.title || selectedSession.event.title}
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
                 <h3 className="text-xl font-light text-[#191d18] mb-4">
-                  {selectedEvent.title}
+                  {selectedSession.title || selectedSession.event.title}
                 </h3>
                 <p className="text-[#525A52] mb-6">
-                  {selectedEvent.description}
+                  {selectedSession.description ||
+                    selectedSession.event.description}
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center text-[#191d18]">
                     <Calendar className="h-5 w-5 mr-3 text-primary" />
-                    <span>{selectedEvent.date}</span>
+                    <span>
+                      {new Date(selectedSession.date).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center text-[#191d18]">
                     <Clock className="h-5 w-5 mr-3 text-primary" />
-                    <span>{selectedEvent.time}</span>
+                    <span>{selectedSession.time}</span>
                   </div>
                   <div className="flex items-center text-[#191d18]">
                     <MapPin className="h-5 w-5 mr-3 text-primary" />
-                    <span>{selectedEvent.location}</span>
+                    <span>{selectedSession.location}</span>
                   </div>
-                  {/* {selectedEvent.price && (
-                    <div className="flex items-center text-[#191d18]">
-                      <span className="font-medium text-lg">
-                        Price: {selectedEvent.price}
-                      </span>
-                    </div>
-                  )} */}
+                  <div className="flex items-center text-[#191d18]">
+                    <span className="font-medium text-lg">
+                      Price: LKR {selectedSession.price.toLocaleString()}
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -368,23 +446,23 @@ export default function BookingPage() {
             {/* Booking Form */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-primary/20">
               <h2 className="text-2xl font-light text-[#191d18] mb-6">
-                {selectedEvent ? "Booking Information" : "General Inquiry"}
+                {selectedSession ? "Booking Information" : "General Inquiry"}
               </h2>
 
               {isSubmitted ? (
                 <div className="bg-secondary rounded-2xl p-8 text-center">
                   <h3 className="text-2xl font-light text-[#191d18] mb-4">
-                    {selectedEvent ? "Booking Confirmed!" : "Message Sent!"}
+                    {selectedSession ? "Booking Confirmed!" : "Message Sent!"}
                   </h3>
                   <p className="text-[#525A52] mb-6">
-                    {selectedEvent
+                    {selectedSession
                       ? "Thank you for your booking. We've sent a confirmation to your email."
                       : "Thank you for your inquiry. We'll get back to you soon."}
                   </p>
                   <p className="text-[#525A52]">
                     Our team will contact you shortly to finalize the details.
                   </p>
-                  {selectedEvent && (
+                  {selectedSession && (
                     <div className="mt-6">
                       <h4 className="text-lg font-medium text-[#191d18] mb-3">
                         Add to Calendar
@@ -392,11 +470,13 @@ export default function BookingPage() {
                       <div className="flex flex-wrap gap-3">
                         <a
                           href={generateGoogleCalendarLink(
-                            selectedEvent.title,
-                            selectedEvent.date,
-                            selectedEvent.time,
-                            selectedEvent.location,
-                            selectedEvent.description
+                            selectedSession.title ||
+                              selectedSession.event.title,
+                            new Date(selectedSession.date).toLocaleDateString(),
+                            selectedSession.time,
+                            selectedSession.location,
+                            selectedSession.description ||
+                              selectedSession.event.description
                           )}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -406,11 +486,13 @@ export default function BookingPage() {
                         </a>
                         <a
                           href={generateOutlookCalendarLink(
-                            selectedEvent.title,
-                            selectedEvent.date,
-                            selectedEvent.time,
-                            selectedEvent.location,
-                            selectedEvent.description
+                            selectedSession.title ||
+                              selectedSession.event.title,
+                            new Date(selectedSession.date).toLocaleDateString(),
+                            selectedSession.time,
+                            selectedSession.location,
+                            selectedSession.description ||
+                              selectedSession.event.description
                           )}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -420,11 +502,13 @@ export default function BookingPage() {
                         </a>
                         <a
                           href={generateYahooCalendarLink(
-                            selectedEvent.title,
-                            selectedEvent.date,
-                            selectedEvent.time,
-                            selectedEvent.location,
-                            selectedEvent.description
+                            selectedSession.title ||
+                              selectedSession.event.title,
+                            new Date(selectedSession.date).toLocaleDateString(),
+                            selectedSession.time,
+                            selectedSession.location,
+                            selectedSession.description ||
+                              selectedSession.event.description
                           )}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -434,16 +518,17 @@ export default function BookingPage() {
                         </a>
                         <a
                           href={generateICalLink(
-                            selectedEvent.title,
-                            selectedEvent.date,
-                            selectedEvent.time,
-                            selectedEvent.location,
-                            selectedEvent.description
+                            selectedSession.title ||
+                              selectedSession.event.title,
+                            new Date(selectedSession.date).toLocaleDateString(),
+                            selectedSession.time,
+                            selectedSession.location,
+                            selectedSession.description ||
+                              selectedSession.event.description
                           )}
-                          download={`${selectedEvent.title.replace(
-                            /\s+/g,
-                            "_"
-                          )}.ics`}
+                          download={`${(
+                            selectedSession.title || selectedSession.event.title
+                          ).replace(/\s+/g, "_")}.ics`}
                           className="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-[#5a786d] transition-colors"
                         >
                           Download iCal
@@ -541,7 +626,7 @@ export default function BookingPage() {
                   </div>
 
                   {/* Nationality Selector - only shown for actual bookings, not general inquiries */}
-                  {selectedEvent && (
+                  {selectedSession && (
                     <>
                       <div>
                         <label
@@ -608,7 +693,7 @@ export default function BookingPage() {
                     </>
                   )}
 
-                  {selectedEvent && (
+                  {selectedSession && (
                     <>
                       <div>
                         <label
@@ -639,7 +724,7 @@ export default function BookingPage() {
                       htmlFor="message"
                       className="block text-[#191d18] mb-2"
                     >
-                      {selectedEvent ? "Special Requests" : "Your Message"}
+                      {selectedSession ? "Special Requests" : "Your Message"}
                     </label>
                     <textarea
                       id="message"
@@ -649,7 +734,7 @@ export default function BookingPage() {
                       rows={4}
                       className="w-full px-4 py-4 rounded-lg border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-lg"
                       placeholder={
-                        selectedEvent
+                        selectedSession
                           ? "Any special requests or dietary requirements?"
                           : "Tell us how we can help you"
                       }
@@ -663,7 +748,7 @@ export default function BookingPage() {
                   >
                     {isSubmitting
                       ? "Submitting..."
-                      : selectedEvent
+                      : selectedSession
                       ? "Confirm Booking"
                       : "Send Inquiry"}
                   </button>

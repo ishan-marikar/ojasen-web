@@ -43,7 +43,7 @@ Custom logger that writes authentication events to:
 
 ### 5. Email Service (`lib/email-service.ts`)
 
-Service for sending authentication emails (currently mocked for development).
+Service for sending authentication emails with Mailjet integration.
 
 ## Environment Variables
 
@@ -56,29 +56,22 @@ DATABASE_URL=postgresql://neondb_owner:npg_i7sIUaB4LReT@ep-young-bar-a179rbv0-po
 NEXT_PUBLIC_APP_URL=https://ojasenhealingarts.com
 ```
 
-## Authentication Flow
+For email functionality, add Mailjet configuration:
 
-1. **Sign Up**: Users can create an account with email and password
-2. **Email Verification**: New users receive an email verification link
-3. **Sign In**: Verified users can sign in with email and password
-4. **Session Management**: Authenticated users receive a session cookie
-5. **Protected Routes**: Access to protected pages is restricted to authenticated users
-6. **Password Reset**: Users can reset their password via email
+```
+MAILJET_API_KEY=your-mailjet-api-key
+MAILJET_API_SECRET=your-mailjet-api-secret
+MAILJET_SENDER_EMAIL=your-verified-sender@example.com
+```
 
-## Logging
-
-All authentication events are logged with the following levels:
-
-- `info`: Successful operations (sign in, sign up, etc.)
-- `warn`: Client errors (invalid credentials, etc.)
-- `error`: Server errors (database issues, etc.)
-
-Logs are stored in `logs/auth.log` in JSON format.
+See [EMAIL_SETUP.md](EMAIL_SETUP.md) for detailed instructions on setting up transactional emails.
 
 ## Extending the System
 
 To use a real email service in production:
 
-1. Update `lib/email-service.ts` with your email provider's API
+1. Update `lib/email-service.ts` with your email provider's API (already implemented with Mailjet)
 2. Add email configuration to `.env`
-3. Update the email sending functions to use the real service
+3. The email sending functions are already configured to use the real service
+
+For more details on email setup, see [EMAIL_SETUP.md](EMAIL_SETUP.md).

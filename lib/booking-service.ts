@@ -46,22 +46,38 @@ async function sendToDiscordWebhook(data: any) {
 }
 
 export class BookingService {
-  // Create a new booking
+  // Create a new booking (refactored to use sessionId)
   static async createBooking(bookingData: Omit<AppBooking, 'id' | 'bookingDate' | 'status'>) {
     try {
       // Validate required fields
-      if (!bookingData.eventId || !bookingData.customerName || !bookingData.customerEmail) {
+      if (!bookingData.sessionId || !bookingData.customerName || !bookingData.customerEmail) {
         throw new Error("Missing required booking information");
+      }
+      
+      // Get session to validate and get event info
+      const session = await prisma.eventSession.findUnique({
+        where: { id: bookingData.sessionId },
+        include: { event: true, bookings: true }
+      });
+      
+      if (!session) {
+        throw new Error("Session not found");
+      }
+      
+      // Check capacity
+      const totalBooked = session.bookings.reduce((sum, b) => sum + b.numberOfPeople, 0);
+      if (totalBooked + bookingData.numberOfPeople > session.capacity) {
+        throw new Error("Session is full or doesn't have enough capacity");
       }
       
       // Log booking data for debugging (excluding sensitive information)
       console.log("Creating booking with data:", {
-        eventId: bookingData.eventId,
+        sessionId: bookingData.sessionId,
         eventName: bookingData.eventName,
         customerName: bookingData.customerName,
         customerEmail: bookingData.customerEmail,
         hasUserId: !!bookingData.userId,
-        userId: bookingData.userId ? "[REDACTED]" : null, // Don't log actual user IDs for security
+        userId: bookingData.userId ? "[REDACTED]" : null,
         numberOfPeople: bookingData.numberOfPeople,
         totalPrice: bookingData.totalPrice
       });
@@ -69,14 +85,14 @@ export class BookingService {
       const newBooking = await prisma.booking.create({
         data: {
           id: `booking_${Date.now()}`,
-          eventId: bookingData.eventId,
+          sessionId: bookingData.sessionId,
           eventName: bookingData.eventName,
+          eventDate: bookingData.eventDate,
           customerName: bookingData.customerName,
           customerEmail: bookingData.customerEmail,
           customerPhone: bookingData.customerPhone,
           numberOfPeople: bookingData.numberOfPeople,
           specialRequests: bookingData.specialRequests,
-          eventDate: bookingData.eventDate,
           status: 'pending',
           totalPrice: bookingData.totalPrice,
           ojasenFee: bookingData.ojasenFee,
@@ -90,14 +106,23 @@ export class BookingService {
         },
       });
       
+      // Check if session is now full and update status
+      const newTotal = totalBooked + bookingData.numberOfPeople;
+      if (newTotal >= session.capacity) {
+        await prisma.eventSession.update({
+          where: { id: bookingData.sessionId },
+          data: { status: 'full' }
+        });
+      }
+      
       // Log for debugging
       console.log("Created booking:", {
         id: newBooking.id,
-        eventId: newBooking.eventId,
+        sessionId: newBooking.sessionId,
         customerName: newBooking.customerName,
         customerEmail: newBooking.customerEmail,
         hasUserId: !!newBooking.userId,
-        userId: newBooking.userId ? "[REDACTED]" : null, // Don't log actual user IDs for security
+        userId: newBooking.userId ? "[REDACTED]" : null,
         bookingDate: newBooking.bookingDate
       });
       
@@ -300,12 +325,12 @@ export class BookingService {
     }
   }
 
-  // Get upcoming events with bookings
-  static async getUpcomingEventsWithBookings() {
+  // Get upcoming sessions with bookings (refactored)
+  static async getUpcomingSessionsWithBookings() {
     try {
       const today = new Date();
       
-      // Get upcoming confirmed bookings
+      // Get upcoming confirmed bookings with session info
       const upcomingBookings = await prisma.booking.findMany({
         where: { 
           status: 'confirmed',
@@ -313,22 +338,30 @@ export class BookingService {
             gte: today,
           },
         },
+        include: {
+          session: {
+            include: {
+              event: true
+            }
+          }
+        },
         orderBy: { eventDate: 'asc' },
       });
       
-      // Group bookings by event
-      const eventsMap = new Map();
+      // Group bookings by session
+      const sessionsMap = new Map();
       
       upcomingBookings.forEach(booking => {
-        const eventKey = `${booking.eventId}-${booking.eventDate.toISOString().split('T')[0]}`;
+        const sessionKey = booking.sessionId;
         
-        if (eventsMap.has(eventKey)) {
-          const existingEvent = eventsMap.get(eventKey);
-          existingEvent.bookings.push(booking);
-          existingEvent.totalParticipants += booking.numberOfPeople;
+        if (sessionsMap.has(sessionKey)) {
+          const existingSession = sessionsMap.get(sessionKey);
+          existingSession.bookings.push(booking);
+          existingSession.totalParticipants += booking.numberOfPeople;
         } else {
-          eventsMap.set(eventKey, {
-            eventId: booking.eventId,
+          sessionsMap.set(sessionKey, {
+            sessionId: booking.sessionId,
+            session: booking.session,
             eventName: booking.eventName,
             eventDate: booking.eventDate,
             facilitatorName: booking.facilitatorName,
@@ -339,13 +372,13 @@ export class BookingService {
       });
       
       // Convert map to array and sort by date
-      const events = Array.from(eventsMap.values()).sort(
+      const sessions = Array.from(sessionsMap.values()).sort(
         (a, b) => a.eventDate.getTime() - b.eventDate.getTime()
       );
       
-      return { success: true, events };
+      return { success: true, sessions };
     } catch (error) {
-      console.error("Error fetching upcoming events:", error);
+      console.error("Error fetching upcoming sessions:", error);
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }
@@ -386,6 +419,19 @@ export class BookingService {
         cancellationRate: (allBookings.filter(b => b.status === 'cancelled').length / Math.max(allBookings.length, 1)) * 100
       };
       
+      // 9. Customer history metrics
+      const customerHistory = this.calculateCustomerHistory(confirmedBookings);
+      
+      // 10. Loyalty program metrics (placeholder)
+      const loyaltyProgram = {
+        activeVouchers: 0,
+        redeemedVouchers: 0,
+        campaignEngagement: 0
+      };
+      
+      // 11. Revenue over time
+      const revenueOverTime = this.calculateRevenueOverTime(confirmedBookings);
+      
       return {
         success: true,
         metrics: {
@@ -397,6 +443,9 @@ export class BookingService {
           facilitatorLifetimeCost,
           outstandingInvoices: outstandingInvoices.length,
           campaignPerformance,
+          customerHistory,
+          loyaltyProgram,
+          revenueOverTime,
         }
       };
     } catch (error) {
@@ -494,6 +543,59 @@ export class BookingService {
       avgFacilitatorLifetimeCost,
       totalFacilitatorCost,
     };
+  }
+
+  // Helper method to calculate customer history
+  private static calculateCustomerHistory(bookings: any[]) {
+    const customerMap = new Map();
+    
+    bookings.forEach(booking => {
+      const customerKey = booking.customerEmail;
+      
+      if (!customerMap.has(customerKey)) {
+        customerMap.set(customerKey, {
+          bookingCount: 0,
+        });
+      }
+      
+      const customer = customerMap.get(customerKey);
+      customer.bookingCount += 1;
+    });
+    
+    // Count customers with multiple bookings (returning customers)
+    const returningCustomers = Array.from(customerMap.values()).filter(c => c.bookingCount > 1).length;
+    const newCustomers = Array.from(customerMap.values()).filter(c => c.bookingCount === 1).length;
+    const totalCustomers = customerMap.size;
+    const customerRetentionRate = totalCustomers > 0 ? (returningCustomers / totalCustomers) * 100 : 0;
+    
+    return {
+      returningCustomers,
+      newCustomers,
+      customerRetentionRate,
+    };
+  }
+
+  // Helper method to calculate revenue over time
+  private static calculateRevenueOverTime(bookings: any[]) {
+    const monthlyRevenue = new Map();
+    
+    bookings.forEach(booking => {
+      const date = new Date(booking.eventDate);
+      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      
+      if (!monthlyRevenue.has(monthKey)) {
+        monthlyRevenue.set(monthKey, {
+          month: monthKey,
+          revenue: 0,
+        });
+      }
+      
+      const month = monthlyRevenue.get(monthKey);
+      month.revenue += booking.totalPrice;
+    });
+    
+    // Convert to array and sort by month
+    return Array.from(monthlyRevenue.values()).sort((a, b) => a.month.localeCompare(b.month));
   }
 }
 

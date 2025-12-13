@@ -49,8 +49,8 @@ export async function submitBookingForm(formData: {
   nationality?: string;
   nic?: string;
   passport?: string;
-  event?: {
-    id: string;
+  session?: {  // Changed from 'event' to 'session'
+    id: string;  // This is sessionId now
     title: string;
     date: string;
     time: string;
@@ -58,12 +58,11 @@ export async function submitBookingForm(formData: {
     description: string;
     price?: string;
     priceRaw?: number;
+    eventName?: string;  // Added to track parent event name
   };
 }) {
   try {
-    // Get the current user session - FIXED VERSION
-    // The previous approach with empty cookie header doesn't work in form actions
-    // We need to get the session from the request context
+    // Get the current user session
     const session = await auth.api.getSession({
       headers: await (await import('next/headers')).headers(),
     });
@@ -71,34 +70,33 @@ export async function submitBookingForm(formData: {
     console.log("Session data retrieved:", session);
     
     // Create booking in our system
-    if (formData.event) {
-      // Calculate fees based on event price and facilitator
-      const priceRaw = formData.event.priceRaw || 0;
+    if (formData.session) {
+      // Calculate fees based on session price and facilitator
+      const priceRaw = formData.session.priceRaw || 0;
       const numberOfPeople = parseInt(formData.participants || "1");
       const totalPrice = priceRaw * numberOfPeople;
       
       // For demo purposes, we'll assign the first facilitator
-      // In a real app, this would be based on the event type or user selection
       let facilitator = null;
       const facilitatorsResult = await FacilitatorService.getAllFacilitators();
       if (facilitatorsResult.success && facilitatorsResult.facilitators && facilitatorsResult.facilitators.length > 0) {
-        facilitator = facilitatorsResult.facilitators[0]; // Default to first facilitator
+        facilitator = facilitatorsResult.facilitators[0];
       }
       
-      // Calculate fees (in a real app, this would be more complex)
+      // Calculate fees
       const facilitatorFee = facilitator ? totalPrice * facilitator.commission : 0;
       const ojasenFee = totalPrice - facilitatorFee;
       
-      // Create booking record with user ID if available
+      // Create booking record with sessionId (REFACTORED)
       const bookingData: any = {
-        eventId: formData.event.id,
-        eventName: formData.event.title,
+        sessionId: formData.session.id,  // Using sessionId
+        eventName: formData.session.eventName || formData.session.title,
+        eventDate: new Date(formData.session.date),
         customerName: formData.name,
         customerEmail: formData.email,
         customerPhone: formData.phone,
         numberOfPeople,
         specialRequests: formData.message,
-        eventDate: new Date(formData.event.date),
         totalPrice,
         ojasenFee,
         facilitatorFee,
@@ -118,6 +116,7 @@ export async function submitBookingForm(formData: {
       
       if (!bookingResult.success) {
         console.error("Failed to create booking:", bookingResult.error);
+        throw new Error(bookingResult.error || "Failed to create booking");
       }
       
       // Update user profile with phone number when a booking is made
@@ -174,8 +173,8 @@ export async function submitBookingForm(formData: {
           color: 0x68887d, // Using the brand color
           fields: [
             {
-              name: "Event",
-              value: formData.event?.title || "General Inquiry",
+              name: "Session",
+              value: formData.session?.title || "General Inquiry",
               inline: true,
             },
             {
