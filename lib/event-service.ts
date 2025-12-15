@@ -183,13 +183,20 @@ export class EventService {
   // Get active/upcoming sessions (for public display)
   static async getUpcomingSessions() {
     try {
+      // Get start of today (midnight) to include sessions happening later today
+      const startOfToday = new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+      
       const sessions = await prisma.eventSession.findMany({
         where: {
           status: 'active',
-          date: { gte: new Date() }
+          date: { gte: startOfToday }
         },
         include: {
-          event: true
+          event: true,
+          _count: {
+            select: { bookings: true }
+          }
         },
         orderBy: { date: 'asc' }
       });
