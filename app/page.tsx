@@ -1074,6 +1074,19 @@ function NavigationNew({
     { name: "Contact", href: "/contact" },
   ];
 
+  // Split navigation links for desktop layout (matching reference image)
+  const leftNavLinks = [
+    { name: "Home", href: "/" },
+    { name: "Schedule", href: "/events" },
+    { name: "Packages", href: "/services" },
+  ];
+
+  const rightNavLinks = [
+    { name: "Healers", href: "/healers" },
+    { name: "About", href: "/about" },
+    { name: "Contact Us", href: "/contact" },
+  ];
+
   // Determine which logo to show based on scroll state and page context
   const getLogoSrc = () => {
     // Use custom logo if provided, otherwise use default text logo
@@ -1095,7 +1108,7 @@ function NavigationNew({
   return (
     <>
       <header
-        className={`pt-15 fixed w-full z-50 transition-all duration-300 ${
+        className={`font-cinzel pt-15 fixed w-full z-50 transition-all duration-300 ${
           forceTransparent
             ? "bg-transparent py-4"
             : isHomePage && !scrolled
@@ -1103,28 +1116,30 @@ function NavigationNew({
             : "bg-primary/90 backdrop-blur-sm py-2 shadow-sm"
         }`}
       >
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-between">
-          {/* Hamburger Menu Button */}
-          <button
-            id="menu-button"
-            className={`focus:outline-none transition-colors duration-300 p-2 ${
-              isHomePage && !scrolled ? "text-white" : "text-white"
-            }`}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+        {/* Desktop Navigation - Centered layout with logo in middle */}
+        <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-center">
+          {/* Left Navigation Links */}
+          <nav className="flex items-center space-x-8">
+            {leftNavLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-sm uppercase tracking-widest font-medium transition-colors duration-300 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+                onClick={() => trackNavigation(link.name)}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
 
           {/* Centered Logo */}
-          <Link
-            href="/"
-            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
-          >
+          <Link href="/" className="mx-12 transition-all duration-300">
             <div
-              className={`transition-all duration-300 flex items-center h-8 ${
+              className={`transition-all duration-300 flex items-center ${
                 logoClassName || ""
               }`}
             >
@@ -1138,34 +1153,23 @@ function NavigationNew({
             </div>
           </Link>
 
-          {/* Authentication Icons */}
-          <div className="flex items-center">
-            {session ? (
+          {/* Right Navigation Links */}
+          <nav className="flex items-center space-x-8">
+            {rightNavLinks.map((link) => (
               <Link
-                href="/dashboard"
-                className={`transition-colors duration-300 p-2 ${
+                key={link.name}
+                href={link.href}
+                className={`text-sm uppercase tracking-widest font-medium transition-colors duration-300 ${
                   isHomePage && !scrolled
                     ? "text-white hover:text-accent"
                     : "text-white hover:text-accent"
                 }`}
-                onClick={() => trackNavigation("Account")}
+                onClick={() => trackNavigation(link.name)}
               >
-                <User size={20} />
+                {link.name}
               </Link>
-            ) : (
-              <Link
-                href="/sign-in"
-                className={`transition-colors duration-300 p-2 ${
-                  isHomePage && !scrolled
-                    ? "text-white hover:text-accent"
-                    : "text-white hover:text-accent"
-                }`}
-                onClick={() => trackNavigation("Sign In")}
-              >
-                <User size={20} />
-              </Link>
-            )}
-          </div>
+            ))}
+          </nav>
         </div>
 
         {/* Mobile Navigation */}
@@ -1188,7 +1192,7 @@ function NavigationNew({
             href="/"
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
-            <div className={`flex items-center h-8 ${logoClassName || ""}`}>
+            <div className={`flex items-center ${logoClassName || ""}`}>
               <img
                 src={logoSrc}
                 alt="Ojasen Healing Arts"
@@ -1199,34 +1203,31 @@ function NavigationNew({
             </div>
           </Link>
 
-          {/* Authentication Icons */}
-          <div className="flex items-center">
-            {session ? (
-              <Link
-                href="/dashboard"
-                className={`transition-colors duration-300 p-2 ${
-                  isHomePage && !scrolled
-                    ? "text-white hover:text-accent"
-                    : "text-white hover:text-accent"
-                }`}
-              >
-                <User size={20} />
-              </Link>
-            ) : (
-              <Link
-                href="/sign-in"
-                className={`transition-colors duration-300 p-2 ${
-                  isHomePage && !scrolled
-                    ? "text-white hover:text-accent"
-                    : "text-white hover:text-accent"
-                }`}
-              >
-                <User size={20} />
-              </Link>
-            )}
-          </div>
+          {/* Mobile Auth Icon - Hidden, uses fixed bubble */}
+          <div className="w-10"></div>
         </div>
       </header>
+
+      {/* Fixed Authentication Bubble - Top Right Corner */}
+      <div className="fixed top-6 right-6 z-50">
+        {session ? (
+          <Link
+            href="/dashboard"
+            className="flex items-center justify-center w-11 h-11 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:border-white/60 transition-all duration-300 shadow-lg"
+            onClick={() => trackNavigation("Account")}
+          >
+            <User size={18} />
+          </Link>
+        ) : (
+          <Link
+            href="/sign-in"
+            className="flex items-center justify-center w-11 h-11 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:border-white/60 transition-all duration-300 shadow-lg"
+            onClick={() => trackNavigation("Sign In")}
+          >
+            <User size={18} />
+          </Link>
+        )}
+      </div>
 
       {/* Menu Overlay - Same for both mobile and desktop */}
       <div
@@ -1241,7 +1242,7 @@ function NavigationNew({
         aria-hidden={!isOpen}
       >
         <button
-          className="absolute top-6 right-6 text-white p-2"
+          className="absolute top-6 right-6 text-white p-2 z-10"
           onClick={() => setIsOpen(false)}
           aria-label="Close menu"
         >
