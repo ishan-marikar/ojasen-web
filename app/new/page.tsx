@@ -59,7 +59,7 @@ function Hero() {
               />
             </motion.div> */}
             <motion.p
-              className="font-higuen text-sm md:text-5xl text-white max-w-2xl mx-auto leading-relaxed tracking-wide"
+              className="font-higuen text-3xl sm:text-4xl md:text-5xl text-white max-w-2xl mx-auto leading-relaxed tracking-wide mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -67,16 +67,16 @@ function Hero() {
               awaken your spirit
             </motion.p>
             <motion.p
-              className="font-cinzel text-sm md:text-xl text-white max-w-2xl mx-auto leading-relaxed  tracking-wide"
+              className="font-cinzel text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
               A sanctuary for wellness, healing and community.
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="font-cinzel mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-lg hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-full backdrop-blur-sm border border-white/20 shadow-lg"
+                className="font-cinzel mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-sm sm:text-base hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-full backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -88,10 +88,10 @@ function Hero() {
             </Link>
           </div>
           <motion.div
-            className="font-cinzel mt-10 text-sm sm:text-sm md:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+            className="font-cinzel mt-8 sm:mt-10 text-xs sm:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
             <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-2">
               <span>YOGA</span>
