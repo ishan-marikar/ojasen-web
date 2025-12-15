@@ -207,8 +207,8 @@ export function ProfileEditForm({
               <h3 className="font-medium">Set a Password for Your Account</h3>
               <p className="text-sm mt-1">
                 As an anonymous user, you haven't set a password yet. To secure
-                your account, please set a password by clicking the button
-                below.
+                your account, please set a password by clicking the 'Set
+                Password' button.
               </p>
             </div>
             <div className="mt-2 md:mt-0">
