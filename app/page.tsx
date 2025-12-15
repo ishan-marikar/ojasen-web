@@ -1203,13 +1203,39 @@ function NavigationNew({
             </div>
           </Link>
 
-          {/* Mobile Auth Icon - Hidden, uses fixed bubble */}
-          <div className="w-10"></div>
+          {/* Authentication Icons */}
+          <div className="flex items-center">
+            {session ? (
+              <Link
+                href="/dashboard"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+                onClick={() => trackNavigation("Account")}
+              >
+                <User size={20} />
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+                onClick={() => trackNavigation("Sign In")}
+              >
+                <User size={20} />
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
-      {/* Fixed Authentication Bubble - Top Right Corner */}
-      <div className="fixed top-6 right-6 z-50">
+      {/* Fixed Authentication Bubble - Top Right Corner (Desktop Only) */}
+      <div className="hidden md:block fixed top-6 right-6 z-50">
         {session ? (
           <Link
             href="/dashboard"
