@@ -7,7 +7,21 @@ import { usePathname } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { trackNavigation } from "@/lib/analytics";
 
-export function Navigation() {
+interface NavigationProps {
+  forceTransparent?: boolean;
+  logoSrc?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+  logoClassName?: string;
+}
+
+export function Navigation({
+  forceTransparent = false,
+  logoSrc: customLogoSrc,
+  logoWidth: customLogoWidth,
+  logoHeight: customLogoHeight,
+  logoClassName,
+}: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -66,14 +80,17 @@ export function Navigation() {
 
   // Determine which logo to show based on scroll state and page context
   const getLogoSrc = () => {
-    // Always use the text logo for consistency
-    return "/images/logo-text.png";
+    // Use custom logo if provided, otherwise use default text logo
+    return customLogoSrc || "/images/logo-text.png";
   };
 
   // Determine logo dimensions - now consistent across all states
   const getLogoDimensions = () => {
-    // Use consistent dimensions for all pages and states
-    return { width: 160, height: 32 };
+    // Use custom dimensions if provided, otherwise use default dimensions
+    return {
+      width: customLogoWidth || 160,
+      height: customLogoHeight || 32,
+    };
   };
 
   const logoSrc = getLogoSrc();
@@ -83,7 +100,9 @@ export function Navigation() {
     <>
       <header
         className={`fixed w-full z-50 transition-all duration-300 ${
-          isHomePage && !scrolled
+          forceTransparent
+            ? "bg-transparent py-4"
+            : isHomePage && !scrolled
             ? "bg-transparent py-4"
             : "bg-primary/90 backdrop-blur-sm py-2 shadow-sm"
         }`}
@@ -109,7 +128,9 @@ export function Navigation() {
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
             <div
-              className={`transition-all duration-300 flex items-center h-8`}
+              className={`transition-all duration-300 flex items-center h-8 ${
+                logoClassName || ""
+              }`}
             >
               <img
                 src={logoSrc}
@@ -171,7 +192,7 @@ export function Navigation() {
             href="/"
             className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
           >
-            <div className="flex items-center h-8 ">
+            <div className={`flex items-center h-8 ${logoClassName || ""}`}>
               <img
                 src={logoSrc}
                 alt="Ojasen Healing Arts"

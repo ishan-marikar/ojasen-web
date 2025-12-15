@@ -1,61 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { Navigation } from "@/components/navigation";
 import { motion } from "framer-motion";
 import { ImageWithFallback as Image } from "@/components/shared/image-with-fallback";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Menu, X, User } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import { trackNavigation } from "@/lib/analytics";
 
 export default function () {
   return (
     <>
-      <Navigation />
+      <NavigationNew
+        forceTransparent
+        logoSrc="/images/logo-full.png"
+        logoWidth={100}
+        logoHeight={100}
+      />
       <Hero />
-      <FloodRelief />
-      <About />
-      <Ceremonies />
+      {/* <FloodRelief /> */}
+      {/* <About /> */}
+      {/* <Ceremonies /> */}
       {/* <Schedule /> */}
-      <EventsSection />
-      <LocationMap />
-      <Footer />
+      {/* <EventsSection /> */}
+      {/* <LocationMap /> */}
+      {/* <Footer /> */}
     </>
   );
 }
 
 function Hero() {
-  const [videoError, setVideoError] = useState(false);
-
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
         <div className="absolute inset-0 w-full h-full">
-          {!videoError ? (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="object-cover w-full h-full"
-              onError={() => setVideoError(true)}
-            >
-              <source src="/videos/hero.mp4" type="video/mp4" />
-              <img
-                src="/images/hero-backgrounds.jpg"
-                alt="Ojasen Healing Arts Sanctuary"
-                className="object-cover w-full h-full"
-              />
-            </video>
-          ) : (
-            <img
-              src="/images/hero-backgrounds.jpg"
-              alt="Ojasen Healing Arts Sanctuary"
-              className="object-cover w-full h-full"
-            />
-          )}
+          <img
+            src="/images/hero-header.jpg"
+            alt="Ojasen Healing Arts Sanctuary"
+            className="object-cover w-full h-full"
+          />
         </div>
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
-          <div className="max-w-4xl text-center space-y-6 sm:space-y-8">
+          <div className="max-w-4xl text-center">
             {/* <motion.div
               className="mx-auto mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -70,57 +58,62 @@ function Hero() {
                 className="mx-auto drop-shadow-lg"
               />
             </motion.div> */}
-            <motion.div
-              className="text-sm sm:text-sm md:text-lg text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-2">
-                <span>YOGA</span>
-                <span className="opacity-60">|</span>
-                <span>BREATHWORK</span>
-                <span className="opacity-60">|</span>
-                <span>SOUND HEALING</span>
-                <span className="opacity-60">|</span>
-                <span>ICE BATH</span>
-                <span className="opacity-60">|</span>
-                <span>RETREATS</span>
-                <span className="opacity-60">|</span>
-                <span>ENERGY HEALING</span>
-                <span className="opacity-60">|</span>
-                <span>CACAO HEALING CEREMONY</span>
-              </div>
-            </motion.div>
             <motion.p
-              className="text-sm md:text-base text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
+              className="text-sm md:text-4xl text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              A sanctuary for communities, where freedom, mindfulness, and
-              holistic healing come together.
+              Awaken your spirit
+            </motion.p>
+            <motion.p
+              className="text-sm md:text-xl text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              A sanctuary for wellness, healing and community.
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-primary/90 text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
+                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Weekly Schedule & Bookings
+                BOOK NOW
               </motion.button>
             </Link>
           </div>
+          <motion.div
+            className="mt-10 text-sm sm:text-sm md:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-4 gap-y-2">
+              <span>YOGA</span>
+              <span className="opacity-60">|</span>
+              <span>BREATHWORK</span>
+              <span className="opacity-60">|</span>
+              <span>SOUND HEALING</span>
+              <span className="opacity-60">|</span>
+              <span>ICE BATH</span>
+              <span className="opacity-60">|</span>
+              <span>RETREATS</span>
+              <span className="opacity-60">|</span>
+              <span>ENERGY HEALING</span>
+            </div>
+          </motion.div>
         </div>
         {/* Decorative elements for visual enhancement */}
-        <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        {/* <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 sm:w-8 sm:h-12 rounded-full border-2 border-white/50 flex justify-center p-1">
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full mt-1 animate-pulse"></div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -1002,5 +995,308 @@ function FloodReliefAlternative() {
         </motion.div>
       </div>
     </motion.div>
+  );
+}
+
+interface NavigationProps {
+  forceTransparent?: boolean;
+  logoSrc?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+  logoClassName?: string;
+}
+
+function NavigationNew({
+  forceTransparent = false,
+  logoSrc: customLogoSrc,
+  logoWidth: customLogoWidth,
+  logoHeight: customLogoHeight,
+  logoClassName,
+}: NavigationProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const { data: session } = useSession();
+
+  // Check if we're on the home page
+  const isHomePage = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close menu when clicking outside or when route changes
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const menu = document.getElementById("menu");
+      const menuButton = document.getElementById("menu-button");
+
+      if (
+        isOpen &&
+        menu &&
+        menuButton &&
+        !menu.contains(event.target as Node) &&
+        !menuButton.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Events", href: "/events" },
+    { name: "Healers", href: "/healers" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  // Determine which logo to show based on scroll state and page context
+  const getLogoSrc = () => {
+    // Use custom logo if provided, otherwise use default text logo
+    return customLogoSrc || "/images/logo-text.png";
+  };
+
+  // Determine logo dimensions - now consistent across all states
+  const getLogoDimensions = () => {
+    // Use custom dimensions if provided, otherwise use default dimensions
+    return {
+      width: customLogoWidth || 160,
+      height: customLogoHeight || 32,
+    };
+  };
+
+  const logoSrc = getLogoSrc();
+  const { width, height } = getLogoDimensions();
+
+  return (
+    <>
+      <header
+        className={`pt-15 fixed w-full z-50 transition-all duration-300 ${
+          forceTransparent
+            ? "bg-transparent py-4"
+            : isHomePage && !scrolled
+            ? "bg-transparent py-4"
+            : "bg-primary/90 backdrop-blur-sm py-2 shadow-sm"
+        }`}
+      >
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex max-w-6xl mx-auto px-6 py-2 items-center justify-between">
+          {/* Hamburger Menu Button */}
+          <button
+            id="menu-button"
+            className={`focus:outline-none transition-colors duration-300 p-2 ${
+              isHomePage && !scrolled ? "text-white" : "text-white"
+            }`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+          {/* Centered Logo */}
+          <Link
+            href="/"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
+          >
+            <div
+              className={`transition-all duration-300 flex items-center h-8 ${
+                logoClassName || ""
+              }`}
+            >
+              <img
+                src={logoSrc}
+                alt="Ojasen Healing Arts"
+                width={width}
+                height={height}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+
+          {/* Authentication Icons */}
+          <div className="flex items-center">
+            {session ? (
+              <Link
+                href="/dashboard"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+                onClick={() => trackNavigation("Account")}
+              >
+                <User size={20} />
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+                onClick={() => trackNavigation("Sign In")}
+              >
+                <User size={20} />
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className="md:hidden max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          {/* Hamburger Menu Button */}
+          <button
+            id="menu-button"
+            className={`focus:outline-none transition-colors duration-300 p-2 ${
+              isHomePage && !scrolled ? "text-white" : "text-white"
+            }`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+          {/* Centered Logo */}
+          <Link
+            href="/"
+            className="transition-all duration-300 absolute left-1/2 transform -translate-x-1/2"
+          >
+            <div className={`flex items-center h-8 ${logoClassName || ""}`}>
+              <img
+                src={logoSrc}
+                alt="Ojasen Healing Arts"
+                width={width}
+                height={height}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+
+          {/* Authentication Icons */}
+          <div className="flex items-center">
+            {session ? (
+              <Link
+                href="/dashboard"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+              >
+                <User size={20} />
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`transition-colors duration-300 p-2 ${
+                  isHomePage && !scrolled
+                    ? "text-white hover:text-accent"
+                    : "text-white hover:text-accent"
+                }`}
+              >
+                <User size={20} />
+              </Link>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Menu Overlay - Same for both mobile and desktop */}
+      <div
+        id="menu"
+        className={`fixed inset-0 bg-primary z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!isOpen}
+      >
+        <button
+          className="absolute top-6 right-6 text-white p-2"
+          onClick={() => setIsOpen(false)}
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+
+        <nav className="flex flex-col space-y-6 items-center w-full px-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium"
+              onClick={() => {
+                setIsOpen(false);
+                trackNavigation(link.name);
+              }}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          {/* Authentication Links */}
+          {session ? (
+            <Link
+              href="/dashboard"
+              className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium flex items-center mt-4"
+              onClick={() => {
+                setIsOpen(false);
+                trackNavigation("Account");
+              }}
+            >
+              <User size={20} className="mr-2" />
+              Account
+            </Link>
+          ) : (
+            <div className="flex flex-col space-y-4 mt-4">
+              <Link
+                href="/sign-in"
+                className="text-xl text-white hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 border border-white/30 rounded-lg"
+                onClick={() => {
+                  setIsOpen(false);
+                  trackNavigation("Sign In");
+                }}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/sign-up"
+                className="text-xl  hover:text-accent transition-colors duration-300 uppercase tracking-wider font-medium px-6 py-3 bg-white text-primary rounded-lg"
+                onClick={() => {
+                  setIsOpen(false);
+                  trackNavigation("Sign Up");
+                }}
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+        </nav>
+      </div>
+    </>
   );
 }
