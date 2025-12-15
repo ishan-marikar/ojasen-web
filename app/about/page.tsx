@@ -35,7 +35,7 @@ function OurStory() {
               <p className="mb-4">
                 Founded in the heart of Sri Lanka, Ojasen Healing Arts emerged
                 from a deep desire to share the ancient wisdom of holistic
-                wellness with the modern world. Our founder, Oshadi, began her
+                wellness with the modern world. Our founder, Joshem, began her
                 journey with a vision to create a sanctuary where individuals
                 could reconnect with their inner selves.
               </p>
