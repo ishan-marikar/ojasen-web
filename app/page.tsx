@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
-import { trackNavigation } from "@/lib/analytics";
+import { trackNavigation, trackCTA } from "@/lib/analytics";
 
 export default function () {
   return (
@@ -74,7 +74,12 @@ function Hero() {
             >
               A sanctuary for wellness, healing and community.
             </motion.p>
-            <Link href="/booking">
+            <Link
+              href="/booking"
+              onClick={() =>
+                trackCTA("click", "hero_section", "book_now_primary")
+              }
+            >
               <motion.button
                 className="font-cinzel mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-sm sm:text-base hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-full backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}

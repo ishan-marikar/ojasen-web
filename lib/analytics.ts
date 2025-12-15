@@ -76,3 +76,8 @@ export const trackBookingEvent = (action: string, service: string) => {
 export const trackNavigation = (page: string) => {
   trackEvent('page_view', 'Navigation', page);
 };
+
+// Track CTA clicks
+export const trackCTA = (action: string, location: string, label?: string) => {
+  trackEvent(action, 'CTA', label || location);
+};
