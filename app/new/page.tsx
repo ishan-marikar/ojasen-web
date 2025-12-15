@@ -43,7 +43,7 @@ function Hero() {
         </div>
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
-          <div className="max-w-4xl text-center">
+          <div className="max-w-4xl text-center font-cinzel">
             {/* <motion.div
               className="mx-auto mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -59,15 +59,15 @@ function Hero() {
               />
             </motion.div> */}
             <motion.p
-              className="text-sm md:text-4xl text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
+              className="font-higuen text-sm md:text-5xl text-white max-w-2xl mx-auto leading-relaxed tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Awaken your spirit
+              awaken your spirit
             </motion.p>
             <motion.p
-              className="text-sm md:text-xl text-white max-w-2xl mx-auto leading-relaxed font-julius tracking-wide"
+              className="font-cinzel text-sm md:text-xl text-white max-w-2xl mx-auto leading-relaxed  tracking-wide"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -76,7 +76,7 @@ function Hero() {
             </motion.p>
             <Link href="/booking">
               <motion.button
-                className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-sm hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-lg backdrop-blur-sm border border-white/20 shadow-lg"
+                className="font-cinzel mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 bg-[#d2b46e] text-white font-medium uppercase tracking-widest text-lg hover:bg-[#5a786d] transition-all duration-300 min-h-[44px] rounded-full backdrop-blur-sm border border-white/20 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -88,7 +88,7 @@ function Hero() {
             </Link>
           </div>
           <motion.div
-            className="mt-10 text-sm sm:text-sm md:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+            className="font-cinzel mt-10 text-sm sm:text-sm md:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
