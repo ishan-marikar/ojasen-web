@@ -11,6 +11,7 @@
   --font-body: var(--font-dm-sans);
   --font-della: var(--font-della-respira);
   --font-julius: var(--font-julius-sans-one);
+  --font-cinzel: var(--font-cinzel);
   --font-higuen: var(--font-higuen-serif);
   --color-button: #2C332D;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -137,6 +138,14 @@
   
   .font-julius {
     @apply font-julius;
+  }
+  
+  .font-cinzel {
+    @apply font-cinzel;
+  }
+  
+  .font-higuen {
+    @apply font-higuen;
   }
   
   button, [role="button"] {

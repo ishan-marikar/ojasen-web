@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Marcellus, DM_Sans } from "next/font/google";
-import { Della_Respira, Julius_Sans_One } from "next/font/google";
+import { Della_Respira, Julius_Sans_One, Cinzel } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SessionProvider } from "@/components/session-provider";
@@ -40,6 +40,12 @@ const juliusSansOne = Julius_Sans_One({
   variable: "--font-julius-sans-one",
   subsets: ["latin"],
   weight: "400",
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const higuenSerif = localFont({
@@ -86,7 +92,7 @@ export default function RootLayout({
       <GoogleAnalytics />
       <Analytics />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} ${higuenSerif.variable} antialiased bg-[#f7faf6]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${dmSans.variable} ${dellaRespira.variable} ${juliusSansOne.variable} ${cinzel.variable} ${higuenSerif.variable} antialiased bg-[#f7faf6]`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>
