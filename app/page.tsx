@@ -93,7 +93,7 @@ function Hero() {
             </Link>
           </div>
           <motion.div
-            className="font-cinzel mt-8 sm:mt-10 text-xs sm:text-sm text-white font-light tracking-wide font-della max-w-3xl mx-auto leading-relaxed"
+            className="font-cinzel mt-8 sm:mt-10 text-xs sm:text-sm text-white font-light tracking-wide max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
