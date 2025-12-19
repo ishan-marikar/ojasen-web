@@ -243,6 +243,7 @@ model Campaign {
 // Event model for defining event types/templates
 model Event {
   id              String         @id
+  slug            String         @unique
   title           String
   description     String
   fullDescription String?

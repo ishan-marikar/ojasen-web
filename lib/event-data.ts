@@ -4,6 +4,7 @@
 
 export interface BaseEvent {
   id: string;
+  slug?: string;
   title: string;
   date: string;
   time: string;
@@ -35,6 +36,7 @@ export interface EventCardData {
 export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
   {
     id: "yin-yoga-dec-8",
+    slug: "yin-yoga-dec-8",
     title: "Yin Yoga",
     date: "December 8, 2025",
     time: "6:00 PM",
@@ -49,6 +51,7 @@ export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
   },
   {
     id: "reiki-healing-dec-10",
+    slug: "reiki-healing-dec-10",
     title: "Reiki Healing 1:1",
     date: "December 10, 2025",
     time: "By Appointment",
@@ -63,6 +66,7 @@ export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
   },
   {
     id: "samatva-flow-dec-12",
+    slug: "samatva-flow-dec-12",
     title: "Samatva Flow",
     date: "December 12, 2025",
     time: "6:00 PM",
@@ -70,7 +74,7 @@ export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
     description:
       "A gentle, balanced flow to reset your energy and find centered stillness.",
     fullDescription:
-      "A mindful movement practice inspired by the Sanskrit word 'Samatva' — equanimity. This session blends breath and flow to help you return to balance, steadiness, and quiet inner presence.",
+      'A mindful movement practice inspired by the Sanskrit word "Samatva" — equanimity. This session blends breath and flow to help you return to balance, steadiness, and quiet inner presence.',
     image: "/images/placeholder.png",
     category: "Yoga",
     price: "LKR 3,500",
@@ -78,6 +82,7 @@ export const HARDCODED_EVENTS_DATA: DetailedEvent[] = [
   },
   {
     id: "anahata-flow-dec-13",
+    slug: "anahata-flow-dec-13",
     title: "Anahata Flow",
     date: "December 13, 2025",
     time: "6:00 PM",
@@ -168,9 +173,9 @@ export const EVENT_CARDS_DATA: EventCardData[] = EVENTS_DATA.map(event => {
   };
 });
 
-// Helper function to get event by ID
-export function getEventById(id: string): DetailedEvent | undefined {
-  return EVENTS_DATA.find(event => event.id === id);
+// Helper function to get event by ID or slug
+export function getEventById(idOrSlug: string): DetailedEvent | undefined {
+  return EVENTS_DATA.find(event => event.id === idOrSlug || event.slug === idOrSlug);
 }
 
 // Helper function to get event card data by ID

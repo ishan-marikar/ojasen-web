@@ -33,6 +33,7 @@ import { Plus, Pencil, Trash2, Search } from "lucide-react";
 
 interface Event {
   id: string;
+  slug: string;
   title: string;
   description: string;
   fullDescription?: string;
@@ -58,6 +59,7 @@ export default function AdminEventsPage() {
 
   // Form state
   const [formData, setFormData] = useState({
+    slug: "",
     title: "",
     description: "",
     fullDescription: "",
@@ -172,6 +174,7 @@ export default function AdminEventsPage() {
   const openEditModal = (event: Event) => {
     setSelectedEvent(event);
     setFormData({
+      slug: event.slug,
       title: event.title,
       description: event.description,
       fullDescription: event.fullDescription || "",
@@ -186,6 +189,7 @@ export default function AdminEventsPage() {
 
   const resetForm = () => {
     setFormData({
+      slug: "",
       title: "",
       description: "",
       fullDescription: "",
@@ -297,6 +301,7 @@ export default function AdminEventsPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Title</TableHead>
+                  <TableHead>Slug</TableHead>
                   <TableHead>Category</TableHead>
                   <TableHead>Default Price</TableHead>
                   <TableHead>Location</TableHead>
@@ -309,6 +314,11 @@ export default function AdminEventsPage() {
                 {filteredEvents.map((event) => (
                   <TableRow key={event.id}>
                     <TableCell className="font-medium">{event.title}</TableCell>
+                    <TableCell>
+                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                        {event.slug}
+                      </code>
+                    </TableCell>
                     <TableCell>{event.category || "—"}</TableCell>
                     <TableCell>
                       LKR {event.defaultPrice.toLocaleString()}
@@ -371,6 +381,25 @@ export default function AdminEventsPage() {
 }
 
 function EventForm({ formData, setFormData, onSubmit }: any) {
+  // Auto-generate slug from title
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    setFormData({ 
+      ...formData, 
+      title: newTitle,
+      slug: formData.slug || generateSlug(newTitle) // Only auto-generate if slug is empty
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div>
@@ -378,10 +407,21 @@ function EventForm({ formData, setFormData, onSubmit }: any) {
         <Input
           id="title"
           value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          onChange={handleTitleChange}
           placeholder="Event title"
           required
         />
+      </div>
+      <div>
+        <Label htmlFor="slug">Slug *</Label>
+        <Input
+          id="slug"
+          value={formData.slug}
+          onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+          placeholder="event-slug"
+          required
+        />
+        <p className="text-xs text-gray-500 mt-1">URL: /events/{formData.slug || 'event-slug'}</p>
       </div>
       <div>
         <Label htmlFor="description">Description *</Label>

@@ -9,6 +9,7 @@ async function main() {
   const yinYoga = await prisma.event.create({
     data: {
       id: 'event_yin_yoga',
+      slug: 'yin-yoga',
       title: 'Yin Yoga',
       description: 'Slow, still poses that melt tension and quiet the mind.',
       fullDescription: 'A grounding Yin Yoga session focused on long-held, gentle poses designed to release deep tension in the body and calm the nervous system. Ideal for restoring balance and cultivating inner quiet.',
@@ -51,6 +52,7 @@ async function main() {
   const reikiHealing = await prisma.event.create({
     data: {
       id: 'event_reiki_healing',
+      slug: 'reiki-healing-1-1',
       title: 'Reiki Healing 1:1',
       description: 'Restores balance and clears emotional heaviness.',
       fullDescription: 'A one-on-one Reiki healing session designed to cleanse energetic blockages, lighten emotional weight, and help you return to a state of inner equilibrium. Gentle, non-invasive, and deeply restorative.',
@@ -80,6 +82,7 @@ async function main() {
   const samatvaFlow = await prisma.event.create({
     data: {
       id: 'event_samatva_flow',
+      slug: 'samatva-flow',
       title: 'Samatva Flow',
       description: 'A gentle, balanced flow to reset your energy and find centered stillness.',
       fullDescription: 'A mindful movement practice inspired by the Sanskrit word "Samatva" — equanimity. This session blends breath and flow to help you return to balance, steadiness, and quiet inner presence.',
@@ -108,6 +111,7 @@ async function main() {
   const anahataFlow = await prisma.event.create({
     data: {
       id: 'event_anahata_flow',
+      slug: 'anahata-flow',
       title: 'Anahata Flow',
       description: 'A soothing sound healing session designed to awaken and expand the heart.',
       fullDescription: 'A heart-centered healing experience combining gentle movement, breath, and therapeutic sound frequencies. Designed to release emotional tightness, open the heart space, and invite softness and connection.',

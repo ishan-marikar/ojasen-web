@@ -2,6 +2,7 @@ import { prisma } from "./prisma";
 
 export interface EventData {
   id?: string;
+  slug: string;
   title: string;
   description: string;
   fullDescription?: string;
@@ -72,6 +73,29 @@ export class EventService {
     }
   }
 
+  // Get event by slug
+  static async getEventBySlug(slug: string) {
+    try {
+      const event = await prisma.event.findUnique({
+        where: { slug },
+        include: {
+          sessions: {
+            orderBy: { date: 'asc' }
+          }
+        }
+      });
+      
+      if (!event) {
+        return { success: false, error: "Event not found" };
+      }
+      
+      return { success: true, event };
+    } catch (error) {
+      console.error("Error fetching event by slug:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    }
+  }
+
   // Get event by ID
   static async getEventById(id: string) {
     try {
@@ -103,6 +127,7 @@ export class EventService {
       const event = await prisma.event.create({
         data: {
           id: eventId,
+          slug: data.slug,
           title: data.title,
           description: data.description,
           fullDescription: data.fullDescription,
@@ -127,6 +152,7 @@ export class EventService {
       const event = await prisma.event.update({
         where: { id },
         data: {
+          ...(data.slug && { slug: data.slug }),
           ...(data.title && { title: data.title }),
           ...(data.description && { description: data.description }),
           ...(data.fullDescription !== undefined && { fullDescription: data.fullDescription }),
