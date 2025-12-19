@@ -145,11 +145,34 @@ export default function BookingPage() {
 
   // Check if a session is selected via URL parameters
   useEffect(() => {
-    const sessionId = searchParams.get("session") || searchParams.get("event"); // Support both for backward compat
-    if (sessionId && sessions.length > 0) {
-      const session = sessions.find((s) => s.id === sessionId);
-      if (session) {
-        setSelectedSession(session);
+    const eventParam = searchParams.get("session") || searchParams.get("event");
+
+    if (eventParam && sessions.length > 0) {
+      // First, try to find by session ID
+      let foundSession = sessions.find((s) => s.id === eventParam);
+
+      // If not found, try to find by event ID or slug
+      if (!foundSession) {
+        foundSession = sessions.find(
+          (s) => s.eventId === eventParam || s.event.id === eventParam
+        );
+      }
+
+      // If still not found, try to match event slug (check event.slug if it exists)
+      if (!foundSession) {
+        foundSession = sessions.find((s) => {
+          // Fetch event from database to check slug
+          const eventSlug = eventParam.toLowerCase().replace(/[^a-z0-9-]/g, "");
+          const eventTitle = s.event.title
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-");
+          return eventSlug === eventTitle;
+        });
+      }
+
+      if (foundSession) {
+        setSelectedSession(foundSession);
       }
     }
   }, [searchParams, sessions]);

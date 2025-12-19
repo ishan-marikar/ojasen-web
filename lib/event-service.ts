@@ -119,6 +119,42 @@ export class EventService {
     }
   }
 
+  // Get event by ID or slug (checks both)
+  static async getEventByIdOrSlug(idOrSlug: string) {
+    try {
+      // Try to find by ID first
+      let event = await prisma.event.findUnique({
+        where: { id: idOrSlug },
+        include: {
+          sessions: {
+            orderBy: { date: 'asc' }
+          }
+        }
+      });
+      
+      // If not found by ID, try by slug
+      if (!event) {
+        event = await prisma.event.findUnique({
+          where: { slug: idOrSlug },
+          include: {
+            sessions: {
+              orderBy: { date: 'asc' }
+            }
+          }
+        });
+      }
+      
+      if (!event) {
+        return { success: false, error: "Event not found" };
+      }
+      
+      return { success: true, event };
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    }
+  }
+
   // Create new event
   static async createEvent(data: EventData) {
     try {

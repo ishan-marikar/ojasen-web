@@ -22,6 +22,7 @@ export interface DetailedEvent extends BaseEvent {
 
 export interface EventCardData {
   id: string;
+  slug?: string;
   date: string;
   month: string;
   title: string;
@@ -109,34 +110,52 @@ export async function fetchEventsFromDatabase(): Promise<DetailedEvent[]> {
       return [];
     }
 
-    // Convert database events and sessions to DetailedEvent format
+    // Convert database events to DetailedEvent format
+    // For event detail pages, we want the event itself, not individual sessions
     const detailedEvents: DetailedEvent[] = [];
     
     for (const event of data.events) {
-      if (event.sessions && event.sessions.length > 0) {
-        // Create a DetailedEvent for each session
-        for (const session of event.sessions) {
-          const sessionDate = new Date(session.date);
-          const formattedDate = sessionDate.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          });
-          
-          detailedEvents.push({
-            id: session.id,
-            title: session.title || event.title,
-            date: formattedDate,
-            time: session.time,
-            location: session.location,
-            description: event.description,
-            fullDescription: session.description || event.fullDescription,
-            image: event.image || '/images/placeholder.png',
-            category: event.category,
-            price: `LKR ${session.price.toLocaleString()}`,
-            priceRaw: session.price,
-          });
-        }
+      // Get the first session for date/time/price info (or use defaults)
+      const firstSession = event.sessions?.[0];
+      
+      if (firstSession) {
+        const sessionDate = new Date(firstSession.date);
+        const formattedDate = sessionDate.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        
+        detailedEvents.push({
+          id: event.id, // Use event ID, not session ID
+          slug: event.slug, // Include slug for URL routing
+          title: event.title,
+          date: formattedDate,
+          time: firstSession.time,
+          location: firstSession.location || event.defaultLocation || 'TBD',
+          description: event.description,
+          fullDescription: event.fullDescription,
+          image: event.image || '/images/placeholder.png',
+          category: event.category,
+          price: `LKR ${firstSession.price.toLocaleString()}`,
+          priceRaw: firstSession.price,
+        });
+      } else {
+        // Event with no sessions - use defaults
+        detailedEvents.push({
+          id: event.id,
+          slug: event.slug,
+          title: event.title,
+          date: 'TBA',
+          time: 'TBA',
+          location: event.defaultLocation || 'TBD',
+          description: event.description,
+          fullDescription: event.fullDescription,
+          image: event.image || '/images/placeholder.png',
+          category: event.category,
+          price: `LKR ${event.defaultPrice.toLocaleString()}`,
+          priceRaw: event.defaultPrice,
+        });
       }
     }
     
@@ -175,7 +194,29 @@ export const EVENT_CARDS_DATA: EventCardData[] = EVENTS_DATA.map(event => {
 
 // Helper function to get event by ID or slug
 export function getEventById(idOrSlug: string): DetailedEvent | undefined {
-  return EVENTS_DATA.find(event => event.id === idOrSlug || event.slug === idOrSlug);
+  return EVENTS_DATA.find(event => 
+    event.id === idOrSlug || event.slug === idOrSlug
+  );
+}
+
+// Helper function to get event by ID or slug from all sources (database + hardcoded)
+export async function getEventByIdOrSlug(idOrSlug: string): Promise<DetailedEvent | undefined> {
+  try {
+    // Fetch from database
+    const dbEvents = await fetchEventsFromDatabase();
+    
+    // Combine with hardcoded events
+    const allEvents = [...dbEvents, ...EVENTS_DATA];
+    
+    // Find by ID or slug
+    return allEvents.find(event => 
+      event.id === idOrSlug || event.slug === idOrSlug
+    );
+  } catch (error) {
+    console.error('Error fetching event by ID or slug:', error);
+    // Fallback to hardcoded events only
+    return getEventById(idOrSlug);
+  }
 }
 
 // Helper function to get event card data by ID

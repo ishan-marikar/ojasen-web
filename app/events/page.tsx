@@ -55,6 +55,7 @@ function UpcomingEvents() {
 
           return {
             id: event.id,
+            slug: event.slug || event.id, // Use slug if available, fallback to id
             date: date.padStart(2, "0"),
             month: month,
             title: event.title,
@@ -76,6 +77,7 @@ function UpcomingEvents() {
 
           return {
             id: event.id,
+            slug: event.slug || event.id,
             date: date.padStart(2, "0"),
             month: month,
             title: event.title,
@@ -119,6 +121,7 @@ function UpcomingEvents() {
               time={event.time}
               image={event.image}
               id={event.id}
+              slug={event.slug}
             />
           ))}
         </div>
@@ -129,6 +132,7 @@ function UpcomingEvents() {
 
 function EventCard({
   id,
+  slug,
   date,
   month,
   title,
@@ -138,6 +142,7 @@ function EventCard({
   image,
 }: {
   id: string;
+  slug?: string;
   date: string;
   month: string;
   title: string;
@@ -148,6 +153,9 @@ function EventCard({
 }) {
   const [showCalendarDropdown, setShowCalendarDropdown] = useState(false);
   const [fullEvent, setFullEvent] = useState<DetailedEvent | null>(null);
+
+  // Use slug for URL, fallback to id
+  const eventSlug = slug || id;
 
   // Load event details
   useEffect(() => {
@@ -194,7 +202,7 @@ function EventCard({
 
   return (
     <div className="bg-white backdrop-blur-sm rounded-4xl overflow-hidden shadow-lg border border-primary/20 transition-all duration-300 hover:shadow-xl hover:border-primary/40">
-      <Link href={`/events/${id}`}>
+      <Link href={`/events/${eventSlug}`}>
         <div className="relative aspect-[4/3] w-full cursor-pointer">
           <Image
             src={image}
@@ -208,7 +216,7 @@ function EventCard({
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-3">
-            <Link href={`/events/${id}`}>
+            <Link href={`/events/${eventSlug}`}>
               <h3 className="text-xl sm:text-2xl font-light text-[#191d18] cursor-pointer hover:underline">
                 {title}
               </h3>
@@ -318,7 +326,7 @@ function EventCard({
                 <span>Book Now</span>
               </button>
             </Link>
-            <Link href={`/events/${id}`} className="flex-1">
+            <Link href={`/events/${eventSlug}`} className="flex-1">
               <button className="w-full rounded-lg bg-white border border-primary text-primary hover:bg-[#f7faf6] px-4 py-3 text-sm transition-colors duration-300 min-h-[44px] font-medium flex items-center justify-center gap-2">
                 <Info className="h-5 w-5" />
                 <span>View Details</span>

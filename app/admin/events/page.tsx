@@ -30,6 +30,7 @@ import {
   CredenzaTrigger,
 } from "@/components/ui/credenza";
 import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { generateSlug } from "@/lib/utils";
 
 interface Event {
   id: string;
@@ -381,22 +382,12 @@ export default function AdminEventsPage() {
 }
 
 function EventForm({ formData, setFormData, onSubmit }: any) {
-  // Auto-generate slug from title
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
-  };
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
-    setFormData({ 
-      ...formData, 
+    setFormData({
+      ...formData,
       title: newTitle,
-      slug: formData.slug || generateSlug(newTitle) // Only auto-generate if slug is empty
+      slug: formData.slug || generateSlug(newTitle), // Only auto-generate if slug is empty
     });
   };
 
@@ -421,7 +412,9 @@ function EventForm({ formData, setFormData, onSubmit }: any) {
           placeholder="event-slug"
           required
         />
-        <p className="text-xs text-gray-500 mt-1">URL: /events/{formData.slug || 'event-slug'}</p>
+        <p className="text-xs text-gray-500 mt-1">
+          URL: /events/{formData.slug || "event-slug"}
+        </p>
       </div>
       <div>
         <Label htmlFor="description">Description *</Label>

@@ -5,22 +5,53 @@ import { ImageWithFallback as Image } from "@/components/shared/image-with-fallb
 import { MapPin, Clock, Calendar } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import Link from "next/link";
-import { getEventById } from "@/lib/event-data";
+import { getEventByIdOrSlug } from "@/lib/event-data";
 import {
   generateGoogleCalendarLink,
   generateICalLink,
   generateOutlookCalendarLink,
   generateYahooCalendarLink,
 } from "@/lib/calendar-utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { DetailedEvent } from "@/lib/event-data";
 
 export default function EventDetailPage() {
   const params = useParams();
-  const eventId = params.eventId as string;
+  const eventIdOrSlug = params.eventId as string;
   const [showCalendarDropdown, setShowCalendarDropdown] = useState(false);
+  const [event, setEvent] = useState<DetailedEvent | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Find the event based on the ID from the URL
-  const event = getEventById(eventId);
+  // Load event by ID or slug
+  useEffect(() => {
+    async function loadEvent() {
+      try {
+        const foundEvent = await getEventByIdOrSlug(eventIdOrSlug);
+        setEvent(foundEvent || null);
+      } catch (error) {
+        console.error("Error loading event:", error);
+        setEvent(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadEvent();
+  }, [eventIdOrSlug]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <>
+        <Navigation />
+        <div className="min-h-screen bg-[#f7faf6] pt-24 pb-16">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <p className="text-lg text-[#525A52]">Loading event...</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   // If event not found, show a 404-like message
   if (!event) {
