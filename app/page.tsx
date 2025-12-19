@@ -41,7 +41,7 @@ function Hero() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="absolute"></div>
+        <div className="absolute inset-0 "></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
           <div className="max-w-4xl text-center font-cinzel">
             {/* <motion.div

@@ -367,7 +367,7 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -391,7 +391,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -414,7 +414,7 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <svg
-                  className="h-6 w-6 text-primary mr-3 flex-shrink-0"
+                  className="h-6 w-6 text-primary mr-3 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
