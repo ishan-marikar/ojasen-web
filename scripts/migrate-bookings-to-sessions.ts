@@ -2,6 +2,17 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// Import slug utility
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-')          // Replace spaces with hyphens
+    .replace(/-+/g, '-')           // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, '');      // Remove leading/trailing hyphens
+}
+
 /**
  * Data Migration Script
  * 
@@ -69,6 +80,7 @@ async function main() {
       await prisma.event.create({
         data: {
           id: event.id,
+          slug: generateSlug(event.title), // Auto-generate slug from title
           title: event.title,
           description: event.description,
           category: event.category || "General",
