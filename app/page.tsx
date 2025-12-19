@@ -641,6 +641,7 @@ function AnahataFlowEvent() {
         </div>
 
         {/* CTA Button */}
+        {/* Note: These slugs should match actual events in the database */}
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/anahata-flow">
             <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-primary/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg border border-white/20 min-h-[44px]">
@@ -742,6 +743,7 @@ function PanchaliSaadhanEvent() {
         </div>
 
         {/* CTA Button */}
+        {/* Note: These slugs should match actual events in the database */}
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/events/panchali-saadhan">
             <button className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-primary/90 text-white font-medium uppercase tracking-wider text-sm hover:bg-[#5a786d] transition-colors duration-300 rounded-lg  border border-white/20 min-h-[44px]">
