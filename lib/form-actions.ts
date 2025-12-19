@@ -232,11 +232,9 @@ export async function submitBookingForm(formData: {
       // For example, you could queue the message for retry or send an email notification
     }
 
-    // Redirect to customer dashboard after successful booking
-    redirect('/dashboard');
-    
-    // This line will never be reached due to redirect
-    return { success: true };
+    // Return success to allow client to show confirmation message
+    // Client will handle redirect to dashboard after showing confirmation
+    return { success: true, shouldRedirect: !!formData.session };
   } catch (error) {
     console.error("Error in submitBookingForm:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };

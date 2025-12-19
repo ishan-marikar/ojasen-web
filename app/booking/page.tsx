@@ -12,6 +12,7 @@ import {
   generateICalLink,
   generateOutlookCalendarLink,
   generateYahooCalendarLink,
+  formatDateForCalendar,
 } from "@/lib/calendar-utils";
 import { submitBookingForm } from "@/lib/form-actions";
 import { trackBookingEvent } from "@/lib/analytics";
@@ -211,9 +212,6 @@ export default function BookingPage() {
       }
     }
 
-    // NOTE: We no longer prevent submission when no event is selected
-    // This allows for general inquiries to be submitted
-
     setIsSubmitting(true);
 
     try {
@@ -232,14 +230,12 @@ export default function BookingPage() {
                 selectedSession.event.description,
               price: `LKR ${selectedSession.price.toLocaleString()}`,
               priceRaw: selectedSession.price,
-              eventName: selectedSession.event.title, // Include parent event name
+              eventName: selectedSession.event.title,
             }
           : undefined,
       });
 
       if (result.success) {
-        setIsSubmitted(true);
-
         // Track booking event
         if (selectedSession) {
           trackBookingEvent(
@@ -250,36 +246,38 @@ export default function BookingPage() {
           trackBookingEvent("inquiry_submitted", "general");
         }
 
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            date: "",
-            participants: "1",
-            message: "",
-            nationality: "Local",
-            nic: "",
-            passport: "",
-          });
-        }, 3000);
+        // Show confirmation message
+        setIsSubmitted(true);
+
+        // If this was a booking (not inquiry), redirect to dashboard after brief delay
+        if (result.shouldRedirect) {
+          // setTimeout(() => {
+          //   window.location.href = "/dashboard";
+          // }, 4000);
+        } else {
+          // For general inquiries, reset form after showing confirmation
+          setTimeout(() => {
+            setIsSubmitted(false);
+            setFormData({
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              participants: "1",
+              message: "",
+              nationality: "Local",
+              nic: "",
+              passport: "",
+            });
+          }, 3000);
+        }
       } else {
         console.error("Form submission failed:", result.error);
-        // Handle error - maybe show a message to the user
+        alert(result.error || "Failed to submit booking. Please try again.");
       }
     } catch (error: any) {
-      // Check if this is a redirect error from Next.js server actions
-      if (error?.digest?.includes("NEXT_REDIRECT")) {
-        // This is expected behavior - the redirect was successful
-        // Use hard redirect to dashboard
-        window.location.href = "/dashboard";
-        return;
-      }
-
       console.error("Form submission error:", error);
-      // Handle error - maybe show a message to the user
+      alert("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -479,23 +477,31 @@ export default function BookingPage() {
                   </h3>
                   <p className="text-[#525A52] mb-6">
                     {selectedSession
-                      ? "Thank you for your booking. We've sent a confirmation to your email."
+                      ? "Thank you for your booking. We've sent a confirmation to your email and will contact you soon.."
                       : "Thank you for your inquiry. We'll get back to you soon."}
                   </p>
-                  <p className="text-[#525A52]">
-                    Our team will contact you shortly to finalize the details.
-                  </p>
+                  {selectedSession ? (
+                    <p className="text-[#525A52] font-medium">
+                      Our team will contact you shortly.
+                    </p>
+                  ) : (
+                    <p className="text-[#525A52]">
+                      Our team will contact you shortly.
+                    </p>
+                  )}
                   {selectedSession && (
                     <div className="mt-6">
                       <h4 className="text-lg font-medium text-[#191d18] mb-3">
                         Add to Calendar
                       </h4>
-                      <div className="flex flex-wrap gap-3">
+                      <div className="flex flex-wrap gap-3 justify-center">
                         <a
                           href={generateGoogleCalendarLink(
                             selectedSession.title ||
                               selectedSession.event.title,
-                            new Date(selectedSession.date).toLocaleDateString(),
+                            formatDateForCalendar(
+                              new Date(selectedSession.date)
+                            ),
                             selectedSession.time,
                             selectedSession.location,
                             selectedSession.description ||
@@ -511,7 +517,9 @@ export default function BookingPage() {
                           href={generateOutlookCalendarLink(
                             selectedSession.title ||
                               selectedSession.event.title,
-                            new Date(selectedSession.date).toLocaleDateString(),
+                            formatDateForCalendar(
+                              new Date(selectedSession.date)
+                            ),
                             selectedSession.time,
                             selectedSession.location,
                             selectedSession.description ||
@@ -527,7 +535,9 @@ export default function BookingPage() {
                           href={generateYahooCalendarLink(
                             selectedSession.title ||
                               selectedSession.event.title,
-                            new Date(selectedSession.date).toLocaleDateString(),
+                            formatDateForCalendar(
+                              new Date(selectedSession.date)
+                            ),
                             selectedSession.time,
                             selectedSession.location,
                             selectedSession.description ||
@@ -543,7 +553,9 @@ export default function BookingPage() {
                           href={generateICalLink(
                             selectedSession.title ||
                               selectedSession.event.title,
-                            new Date(selectedSession.date).toLocaleDateString(),
+                            formatDateForCalendar(
+                              new Date(selectedSession.date)
+                            ),
                             selectedSession.time,
                             selectedSession.location,
                             selectedSession.description ||

@@ -3,6 +3,20 @@
  */
 
 /**
+ * Format a Date object to a readable string format
+ * @param date - Date object
+ * @returns Formatted date string (e.g., "November 22, 2025")
+ */
+export function formatDateForCalendar(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  return date.toLocaleDateString('en-US', options);
+}
+
+/**
  * Convert a date string to ISO format for calendar integration
  * @param dateString - Date string in format "Month Day, Year" (e.g., "November 22, 2025")
  * @param timeString - Time string in format "H:MM AM/PM" (e.g., "6:00 PM")
@@ -10,13 +24,28 @@
  * @returns Formatted date string for calendar
  */
 export function convertToCalendarFormat(dateString: string, timeString: string, timezone: string = 'Asia/Colombo'): string {
+  // Validate inputs
+  if (!dateString || !timeString) {
+    throw new Error('Date and time strings are required');
+  }
+
   // Parse the date string (e.g., "November 22, 2025")
-  const [monthName, day, year] = dateString.split(' ');
-  const cleanDay = day.replace(',', '');
-  const cleanYear = year;
+  const parts = dateString.split(' ');
+  if (parts.length < 3) {
+    throw new Error(`Invalid date format: ${dateString}. Expected format: "Month Day, Year"`);
+  }
+  
+  const [monthName, day, year] = parts;
+  const cleanDay = day?.replace(',', '') || '';
+  const cleanYear = year || '';
   
   // Create a date object
   const date = new Date(`${monthName} ${cleanDay}, ${cleanYear} ${timeString}`);
+  
+  // Validate the date
+  if (isNaN(date.getTime())) {
+    throw new Error(`Invalid date: ${dateString} ${timeString}`);
+  }
   
   // Format for calendar (YYYYMMDDTHHMMSS)
   const yearStr = date.getFullYear();
