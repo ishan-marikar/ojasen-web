@@ -35,13 +35,21 @@ export default async function DashboardPage() {
     redirect("/sign-in");
   }
 
+  // Check user role directly from database to ensure accuracy
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+
+  const isAdmin = user?.role === "admin";
+
   // Cast session user to include role and contact information
   const userWithRole = session.user as UserWithRole;
 
   // Check user role and redirect accordingly
-  if (userWithRole.role === "admin") {
+  if (false) {
     // Admin dashboard (existing implementation)
-    AuthLogger.info("Admin dashboard accessed", { userId: session.user.id });
+    // AuthLogger.info("Admin dashboard accessed", { userId: session.user.id });
 
     // Initialize default values
     let stats: Record<string, number> = {
@@ -131,7 +139,7 @@ export default async function DashboardPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
               <div className="flex items-center space-x-4">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Welcome, {session.user.name || session.user.email}
+                  Welcome, {session?.user?.name || session?.user?.email}
                 </span>
               </div>
               <div className="flex gap-2">
@@ -283,7 +291,7 @@ export default async function DashboardPage() {
                   this content.
                 </p>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
-                  You are signed in as: {session.user.email}
+                  You are signed in as: {session?.user?.email}
                 </p>
               </div>
             </div>
@@ -457,6 +465,14 @@ export default async function DashboardPage() {
                 </span>
               </div>
               <div className="flex gap-2">
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
                 <Link
                   href="/booking"
                   className="px-4 py-2 text-sm font-medium text-primary bg-white border border-primary rounded-md hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
