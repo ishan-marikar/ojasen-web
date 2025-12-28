@@ -1013,7 +1013,7 @@ interface NavigationProps {
   logoClassName?: string;
 }
 
-function NavigationNew({
+export function NavigationNew({
   forceTransparent = false,
   logoSrc: customLogoSrc,
   logoWidth: customLogoWidth,
@@ -1079,8 +1079,8 @@ function NavigationNew({
   // Split navigation links for desktop layout (matching reference image)
   const leftNavLinks = [
     { name: "Home", href: "/" },
-    { name: "Schedule", href: "/events" },
-    { name: "Packages", href: "/services" },
+    { name: "Schedule", href: "/schedule" },
+    { name: "Packages", href: "/packages" },
   ];
 
   const rightNavLinks = [

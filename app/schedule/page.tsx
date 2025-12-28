@@ -19,27 +19,27 @@ export default function () {
         logoWidth={100}
         logoHeight={100}
       />
-      <About />
+      <Schedule />
 
     </>
   );
 }
 
-function About() {
+function Schedule() {
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center min-h-screen relative">
         <div className="absolute inset-0 w-full h-full">
           <img
-            src="/images/company-profile.jpg"
+            src="/images/hero-schedule.jpg"
             alt="Ojasen Healing Arts Sanctuary"
             className="object-cover w-full h-full"
           />
         </div>
         <div className="absolute inset-0 "></div>
-        {/* <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
+        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
           <img src="/images/schedule-overlay.png" />
-        </div> */}
+        </div>
       </div>
     </>
   );
