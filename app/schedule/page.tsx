@@ -38,7 +38,9 @@ function Schedule() {
         </div>
         <div className="absolute inset-0 "></div>
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center py-16 sm:py-20 px-4">
-          <img src="/images/schedule-overlay.png" />
+          <Link href="/events">
+            <img src="/images/schedule-overlay.png" />
+          </Link>
         </div>
       </div>
     </>
